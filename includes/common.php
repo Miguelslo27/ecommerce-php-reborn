@@ -54,7 +54,8 @@ include('mailer/PHPMailerAutoload.php');
 switch($_SERVER['HTTP_HOST']) {
 	// LOCAL ENV
 	case 'dev.monique.local':
-		$db_dbase  = 'moniquec_dev_db';
+	case 'mnq2.local':
+		$db_dbase  = 'moniquec_db';
 		$dbaseHost = 'localhost';
 		$dbaseUser = 'root';
 		$dbasePass = '';
@@ -153,14 +154,20 @@ function loginUser ($email = NULL, $pass = NULL, $forzarLogin = false) {
 
 	$email = str_replace(" ", "", strtolower($email));
 
-	if (!$email || !$pass) {
+	if ((!$email || !$pass) && !$forzarLogin) {
 		exit;
 		return array('user' => NULL, 'cart' => NULL,  'status' => 'ERROR_EMAIL_OR_PASS');
 	}
 
 	// cargar el usuario por email y pass y retornar los valores
-	$db      = $GLOBALS['db'];
-	$sql     = 'SELECT `id`, `nombre`, `apellido`, `rut`, `email`, `direccion`, `telefono`, `celular`, `departamento`, `ciudad`, `administrador` FROM `usuario` WHERE `email` = "' . $email . '" AND `clave` = "' . md5($pass . $email) . '"';
+	$db = $GLOBALS['db'];
+
+	if ($forzarLogin) {
+		$sql = 'SELECT `id`, `nombre`, `apellido`, `rut`, `email`, `direccion`, `telefono`, `celular`, `departamento`, `ciudad`, `administrador` FROM `usuario` WHERE `email` = "' . $email . '"';
+	} else {
+		$sql = 'SELECT `id`, `nombre`, `apellido`, `rut`, `email`, `direccion`, `telefono`, `celular`, `departamento`, `ciudad`, `administrador` FROM `usuario` WHERE `email` = "' . $email . '" AND `clave` = "' . md5($pass . $email) . '"';
+	}
+
 	$usuario = $db->getObjeto($sql);
 
 	if ($usuario) {
@@ -444,13 +451,11 @@ function saveUser () {
 	$cid = $db->insert($sql);
 
 	if ($cid || isset($_POST['id'])) {
-
 		// cargar el usuario registrado y retornar los valores
 		$res = loginUser($email, $_POST['pass'], true);
 
 		// redirecciono a pedidos
-		header('Location: '.$_SERVER['HTTP_REFERER']);
-		// header('Location: /categorias');
+		header('Location: '.$_SERVER['HTTP_REFERER'], true, 302);
 
 		return $res;
 
