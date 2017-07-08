@@ -1333,11 +1333,14 @@ function obtenerUltimoPedido() {
 	
 	$pedido = $db->getObjeto($sql);
 
+	return $pedido;
+}
+
+function actualizarUltimoPedido() {
+	$db = $GLOBALS['db'];
 	// Update last order with a flag
 	$sql = 'UPDATE `pedido` SET `notificado` = 1';
 	$db->insert($sql);
-
-	return $pedido;
 }
 
 function completarPedido ($idPedido) {
@@ -1352,7 +1355,7 @@ function completarPedido ($idPedido) {
 	$lugar = ($_POST['lugar_compra'] == 'envio_interior' ? 'Interior' : ($_POST['lugar_compra'] == 'envio_montevideo' ? 'Montevideo' : ''));
 	$retira = $_POST['retira_agencia'] == 'true' || $_POST['retira_local'] == 'true' ? 1 : 0;
 
-	$sql = 'UPDATE `pedido` SET `estado`=1, `lugar`="' . $lugar . '", `retira`=' . $retira . ', `agencia_de_envio`="' . $_POST['agencia_entrega']. '", `direccion_de_entrega`="' . $_POST['direccion_entrega']. '", `forma_de_pago`="' . $_POST['forma_pago']. '" WHERE `id`=' . $idPedido;
+	$sql = 'UPDATE `pedido` SET `estado`=1, `lugar`="' . $lugar . '", `retira`=' . $retira . ', `agencia_de_envio`="' . $_POST['agencia_entrega']. '", `direccion_de_entrega`="' . $_POST['direccion_entrega']. '", `forma_de_pago`="' . (isset ($_POST['forma_pago']) ? $_POST['forma_pago'] : ''). '" WHERE `id`=' . $idPedido;
 	// agregar direccion del usuario, agencia de entrega y forma de pago al pedido
 	$db->insert($sql);
 
