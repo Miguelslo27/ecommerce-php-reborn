@@ -107,20 +107,20 @@ $(document).on("ready", function () {
 			if (checkNotification()) {
 				var orden = JSON.parse(event.data);
 
-		  	console.log(orden);
+				if (orden) {
+			  	var options = {
+			      body: 'El usuario ' + orden.nombre + ' ' + orden.apellido + ' ingresó un nuevo pedido.',
+			      icon: '../images/logo.png',
+			      data: orden
+				  };
+				  var n = new Notification('Nuevo pedido: Nº ' + orden.id, options);
 
-		  	var options = {
-		      body: 'El usuario ' + orden.nombre + ' ' + orden.apellido + ' ingresó un nuevo pedido.',
-		      icon: '../images/logo.png',
-		      data: orden
-			  };
-			  var n = new Notification('Nuevo pedido: Nº ' + orden.id, options);
+				  n.onclick = function(e) {
+				  	document.location.href = '/detalle/?id=' + e.explicitOriginalTarget.data.id;
+				  };
 
-			  n.onclick = function(e) {
-			  	document.location.href = '/detalle/?id=' + e.explicitOriginalTarget.data.id;
-			  };
-
-			  setTimeout(n.close.bind(n), 10000);
+				  setTimeout(n.close.bind(n), 10000);
+				}
 			}
 		};
 
