@@ -535,6 +535,56 @@ function obtenerUsuariosPaginados($cantidadPorPagina = 20, $pagina = 1) {
 	return $r;
 }
 
+function obtenerTotalOrdenes($id_usuario = null, $estado = NULL) {
+	$db = $GLOBALS['db'];
+	$sql = 'SELECT COUNT(`id`) as `total` FROM `pedido`';
+
+	if ($id_usuario) {
+		// le agrego el usuario, si se especifico el id
+		$sql .= ' WHERE `usuario_id`=' . $id_usuario;
+	}
+
+	if ($estado) {
+		if (!$id_usuario) {
+			$sql .= ' WHERE';
+		} else {
+			$sql .= ' AND';
+		}
+
+		$sql .= ' `estado`=' . $estado;
+	}
+
+	$r = $db->getObjeto($sql);
+
+	return $r;
+}
+
+function obtenerOrdenesPaginadas ($id_usuario = null, $estado = NULL, $cantidadPorPagina = 20, $pagina = 1) {
+	$db = $GLOBALS['db'];
+	$sql = 'SELECT `pedido`.*, `usuario`.`nombre`, `usuario`.`apellido`, `usuario`.`rut`, `usuario`.`telefono`, `usuario`.`celular`, `usuario`.`email` FROM `pedido` JOIN `usuario` ON `pedido`.`usuario_id`=`usuario`.`id`';
+
+	if ($id_usuario) {
+		// le agrego el usuario, si se especifico el id
+		$sql .= ' WHERE `usuario_id`=' . $id_usuario;
+	}
+
+	if ($estado) {
+		if (!$id_usuario) {
+			$sql .= ' WHERE';
+		} else {
+			$sql .= ' AND';
+		}
+
+		$sql .= ' `estado`=' . $estado;
+	}
+
+	$sql .= ' ORDER BY `fecha` DESC LIMIT '.($cantidadPorPagina*($pagina - 1)).','.$cantidadPorPagina;
+
+	$pedidos = $db->getObjetos($sql);
+	return $pedidos;
+
+}
+
 function obtenerUsuariosExportacion() {
 	$db = $GLOBALS['db'];
 	$sql = 'SELECT * FROM (SELECT usuario.id, usuario.nombre, usuario.apellido, usuario.rut, usuario.email, usuario.direccion, usuario.telefono, usuario.celular, usuario.departamento, usuario.ciudad, SUM(pedido.total) AS total_pedidos FROM pedido RIGHT JOIN usuario ON pedido.usuario_id = usuario.id WHERE pedido.estado = 1 OR pedido.usuario_id IS NULL GROUP BY usuario.id UNION SELECT usuario.id, usuario.nombre, usuario.apellido, usuario.rut, usuario.email, usuario.direccion, usuario.telefono, usuario.celular, usuario.departamento, usuario.ciudad, NULL AS total_pedidos FROM pedido RIGHT JOIN usuario ON pedido.usuario_id = usuario.id WHERE pedido.estado != 1 GROUP BY usuario.id) AS usuarios GROUP BY usuarios.id ORDER BY `usuarios`.`total_pedidos` DESC';
@@ -1277,9 +1327,20 @@ function obtenerPedidos ($id_usuario = null, $estado = NULL) {
 
 }
 
-// TODO MIKE - Completar Pedido - tareas en el email
+function obtenerUltimoPedido() {
+	$db = $GLOBALS['db'];
+	$sql = 'SELECT `pedido`.*, `usuario`.`nombre`, `usuario`.`apellido`, `usuario`.`rut`, `usuario`.`telefono`, `usuario`.`celular`, `usuario`.`email` FROM `pedido` JOIN `usuario` ON `pedido`.`usuario_id`=`usuario`.`id` WHERE `estado` = 1 AND `notificado` != 1 ORDER BY `fecha` DESC';
+	
+	$pedido = $db->getObjeto($sql);
+
+	// Update last order with a flag
+	$sql = 'UPDATE `pedido` SET `notificado` = 1';
+	$db->insert($sql);
+
+	return $pedido;
+}
+
 function completarPedido ($idPedido) {
-	// TODO MIKE - Debug on email for direccion de entrega and forma de pago
 	if(!empty($_GET['test-mode']) && $_GET['test-mode'] == 't') {
 		// $currentUser = loadUser();
 		// var_dump($currentUser);
@@ -1546,6 +1607,17 @@ function posponerPedido ($idPedido) {
 
 	return array('status' => 'STATUS_UPDATED_SUCCESSFUL');	
 
+}
+
+function cerrarPedido ($idPedido) {
+	$db = $GLOBALS['db'];
+
+	// agregar direccion del usuario, agencia de entrega y forma de pago al pedido
+	// $sql = 'UPDATE `dev_pedido` SET `estado`=1 WHERE `id`=' . $idPedido;
+	$sql = 'UPDATE `pedido` SET `estado`=5 WHERE `id`=' . $idPedido;
+	$db->insert($sql);
+
+	return array('status' => 'STATUS_UPDATED_SUCCESSFUL');	
 }
 
 function cambiarPertenenciaDelPedido($pedidoid, $idNuevoUsuario, $idViejoUsuario) {

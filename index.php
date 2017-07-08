@@ -12,6 +12,7 @@ startDocument();
 loadSection("header", $userStats);
 
 ?>
+	
 	<section id="body">
 		<div class="body-inner">
 			<div class="body-content">
