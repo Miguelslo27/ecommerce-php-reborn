@@ -12,7 +12,7 @@ startDocument();
 loadSection("header", $userStats);
 
 ?>
-	<!-- ESTE COMENTARIO ES PARA COMPROBAR QUE NO ESTOY EN EL SITIO EN PRODUCCION -->
+	
 	<section id="body">
 		<div class="body-inner">
 			<div class="body-content">
