@@ -150,6 +150,12 @@ loadSection("header", $userStats);
 							echo 'aún se encuentra abierta';
 						
 							break;
+
+							case 5: // Cerrada
+						
+							echo 'cerrada por el administrador';
+						
+							break;
 						
 						}
 						?>)</a></div>
@@ -165,7 +171,7 @@ loadSection("header", $userStats);
 									case 1: // Pendiente
 						
 									?>
-								<a class="btn btn-small black btn-style aprobar" data-id="<?php echo $orden->id; ?>">Aprobar</a>
+								<a class="btn btn-small purple btn-style aprobar" data-id="<?php echo $orden->id; ?>">Aprobar</a>
 								<a class="btn btn-small grey btn-style cancelar" data-id="<?php echo $orden->id; ?>">Cancelar</a>
 									<?php
 								
@@ -173,6 +179,7 @@ loadSection("header", $userStats);
 									case 2: // Aprobado
 								
 									?>
+								<a class="btn btn-small black btn-style cerrar" data-id="<?php echo $orden->id; ?>">Cerrar</a>
 								<a class="btn btn-small grey btn-style cancelar" data-id="<?php echo $orden->id; ?>">Cancelar</a>
 									<?php
 								

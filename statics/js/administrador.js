@@ -19,6 +19,26 @@ $(document).on("ready", function () {
 
 		});
 
+	$(".orden-acciones .cerrar")
+		.on("click", function (e) {
+			console.log('Cerrar....');
+
+			$this = $(this);
+
+			if ($this.hasClass("grey")) {
+				return;
+			}
+
+			$this.removeClass("purple").addClass("grey").text("...");
+			$.getJSON("/app/pedido/cerrar/index.php?id=" + $this.data("id"), function (e) {
+
+				$this.text("Aprobado");
+				document.location.href = document.location.href;
+
+			});
+
+		});
+
 	$(".orden-acciones .cancelar")
 		.on("click", function (e) {
 
