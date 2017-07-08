@@ -25,13 +25,11 @@ loadSection("header", $userStats);
 			<div class="body-content">
 				<h1>Administración de Pedidos - Orden #<?php echo $_GET['id']; ?></h1>
 				<div class="admin-cmds">
-					<span class="admin-cmd <?php echo !isset($_GET['estado']) ? 'filtro-activo' : ''; ?>"><a href="/administrar-pedidos">Ver Todas</a></span>
-					<span class="admin-cmd <?php echo isset($_GET['estado']) && $_GET['estado'] == 5 ? 'filtro-cerrado-activo' : ''; ?>"><a href="/administrar-pedidos?estado=5">Ver Cerradas</a></span>
-					<span class="admin-cmd <?php echo isset($_GET['estado']) && $_GET['estado'] == 1 ? 'filtro-pendiente-activo' : ''; ?>"><a href="/administrar-pedidos?estado=1">Ver Pendientes</a></span>
+					<span class="admin-cmd <?php echo !isset($_GET['estado']) || $_GET['estado'] == 1 ? 'filtro-pendiente-activo' : ''; ?>"><a href="/administrar-pedidos?estado=1">Ver Pendientes</a></span>
 					<span class="admin-cmd <?php echo isset($_GET['estado']) && $_GET['estado'] == 2 ? 'filtro-aprobado-activo' : ''; ?>"><a href="/administrar-pedidos?estado=2">Ver Aprobadas</a></span>
-					<span class="admin-cmd <?php echo isset($_GET['estado']) && $_GET['estado'] == 3 ? 'filtro-cancelado-activo' : ''; ?>"><a href="/administrar-pedidos?estado=3">Ver Canceladas</a></span>
 					<span class="admin-cmd <?php echo isset($_GET['estado']) && $_GET['estado'] == 4 ? 'filtro-abierto-activo' : ''; ?>"><a href="/administrar-pedidos?estado=4">Ver Abiertas</a></span>
-					<span class="admin-cmd"><a href="javascript:document.location.href=document.location.href;">Actualizar la vista</a></span>
+					<span class="admin-cmd <?php echo isset($_GET['estado']) && $_GET['estado'] == 5 ? 'filtro-cerrado-activo' : ''; ?>"><a href="/administrar-pedidos?estado=5">Ver Cerradas</a></span>
+					<span class="admin-cmd <?php echo isset($_GET['estado']) && $_GET['estado'] == 3 ? 'filtro-cancelado-activo' : ''; ?>"><a href="/administrar-pedidos?estado=3">Ver Canceladas</a></span>
 				</div>
 				<span class="line-h">&nbsp;</span>
 				<div class="administracion-ordenes">

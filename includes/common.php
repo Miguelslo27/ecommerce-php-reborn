@@ -1327,9 +1327,20 @@ function obtenerPedidos ($id_usuario = null, $estado = NULL) {
 
 }
 
-// TODO MIKE - Completar Pedido - tareas en el email
+function obtenerUltimoPedido() {
+	$db = $GLOBALS['db'];
+	$sql = 'SELECT `pedido`.*, `usuario`.`nombre`, `usuario`.`apellido`, `usuario`.`rut`, `usuario`.`telefono`, `usuario`.`celular`, `usuario`.`email` FROM `pedido` JOIN `usuario` ON `pedido`.`usuario_id`=`usuario`.`id` WHERE `estado` = 1 AND `notificado` != 1 ORDER BY `fecha` DESC';
+	
+	$pedido = $db->getObjeto($sql);
+
+	// Update last order with a flag
+	$sql = 'UPDATE `pedido` SET `notificado` = 1';
+	$db->insert($sql);
+
+	return $pedido;
+}
+
 function completarPedido ($idPedido) {
-	// TODO MIKE - Debug on email for direccion de entrega and forma de pago
 	if(!empty($_GET['test-mode']) && $_GET['test-mode'] == 't') {
 		// $currentUser = loadUser();
 		// var_dump($currentUser);
