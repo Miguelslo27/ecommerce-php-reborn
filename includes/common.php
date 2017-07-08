@@ -1598,6 +1598,17 @@ function posponerPedido ($idPedido) {
 
 }
 
+function cerrarPedido ($idPedido) {
+	$db = $GLOBALS['db'];
+
+	// agregar direccion del usuario, agencia de entrega y forma de pago al pedido
+	// $sql = 'UPDATE `dev_pedido` SET `estado`=1 WHERE `id`=' . $idPedido;
+	$sql = 'UPDATE `pedido` SET `estado`=5 WHERE `id`=' . $idPedido;
+	$db->insert($sql);
+
+	return array('status' => 'STATUS_UPDATED_SUCCESSFUL');	
+}
+
 function cambiarPertenenciaDelPedido($pedidoid, $idNuevoUsuario, $idViejoUsuario) {
 	$db = $GLOBALS['db'];
 
