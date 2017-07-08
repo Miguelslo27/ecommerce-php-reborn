@@ -535,6 +535,56 @@ function obtenerUsuariosPaginados($cantidadPorPagina = 20, $pagina = 1) {
 	return $r;
 }
 
+function obtenerTotalOrdenes($id_usuario = null, $estado = NULL) {
+	$db = $GLOBALS['db'];
+	$sql = 'SELECT COUNT(`id`) as `total` FROM `pedido`';
+
+	if ($id_usuario) {
+		// le agrego el usuario, si se especifico el id
+		$sql .= ' WHERE `usuario_id`=' . $id_usuario;
+	}
+
+	if ($estado) {
+		if (!$id_usuario) {
+			$sql .= ' WHERE';
+		} else {
+			$sql .= ' AND';
+		}
+
+		$sql .= ' `estado`=' . $estado;
+	}
+
+	$r = $db->getObjeto($sql);
+
+	return $r;
+}
+
+function obtenerOrdenesPaginadas ($id_usuario = null, $estado = NULL, $cantidadPorPagina = 20, $pagina = 1) {
+	$db = $GLOBALS['db'];
+	$sql = 'SELECT `pedido`.*, `usuario`.`nombre`, `usuario`.`apellido`, `usuario`.`rut`, `usuario`.`telefono`, `usuario`.`celular`, `usuario`.`email` FROM `pedido` JOIN `usuario` ON `pedido`.`usuario_id`=`usuario`.`id`';
+
+	if ($id_usuario) {
+		// le agrego el usuario, si se especifico el id
+		$sql .= ' WHERE `usuario_id`=' . $id_usuario;
+	}
+
+	if ($estado) {
+		if (!$id_usuario) {
+			$sql .= ' WHERE';
+		} else {
+			$sql .= ' AND';
+		}
+
+		$sql .= ' `estado`=' . $estado;
+	}
+
+	$sql .= ' ORDER BY `fecha` DESC LIMIT '.($cantidadPorPagina*($pagina - 1)).','.$cantidadPorPagina;
+
+	$pedidos = $db->getObjetos($sql);
+	return $pedidos;
+
+}
+
 function obtenerUsuariosExportacion() {
 	$db = $GLOBALS['db'];
 	$sql = 'SELECT * FROM (SELECT usuario.id, usuario.nombre, usuario.apellido, usuario.rut, usuario.email, usuario.direccion, usuario.telefono, usuario.celular, usuario.departamento, usuario.ciudad, SUM(pedido.total) AS total_pedidos FROM pedido RIGHT JOIN usuario ON pedido.usuario_id = usuario.id WHERE pedido.estado = 1 OR pedido.usuario_id IS NULL GROUP BY usuario.id UNION SELECT usuario.id, usuario.nombre, usuario.apellido, usuario.rut, usuario.email, usuario.direccion, usuario.telefono, usuario.celular, usuario.departamento, usuario.ciudad, NULL AS total_pedidos FROM pedido RIGHT JOIN usuario ON pedido.usuario_id = usuario.id WHERE pedido.estado != 1 GROUP BY usuario.id) AS usuarios GROUP BY usuarios.id ORDER BY `usuarios`.`total_pedidos` DESC';
