@@ -112,22 +112,23 @@ loadSection("header", $userStats);
 									case 1: // Pendiente
 						
 									?>
-								<a class="btn btn-small black btn-style aprobar" data-id="<?php echo $orden['pedido']->id; ?>">Aprobar</a>
-								<a class="btn btn-small grey btn-style cancelar" data-id="<?php echo $orden['pedido']->id; ?>">Cancelar</a>
+								<a class="btn btn-small purple btn-style aprobar" data-id="<?php echo $orden->id; ?>">Aprobar</a>
+								<a class="btn btn-small grey btn-style cancelar" data-id="<?php echo $orden->id; ?>">Cancelar</a>
 									<?php
 								
 									break;
 									case 2: // Aprobado
 								
 									?>
-								<a class="btn btn-small grey btn-style cancelar" data-id="<?php echo $orden['pedido']->id; ?>">Cancelar</a>
+								<a class="btn btn-small black btn-style cerrar" data-id="<?php echo $orden->id; ?>">Cerrar</a>
+								<a class="btn btn-small grey btn-style cancelar" data-id="<?php echo $orden->id; ?>">Cancelar</a>
 									<?php
 								
 									break;
 									case 3: // Cancelado
 								
 									?>
-								<a class="btn btn-small purple btn-style pendiente" data-id="<?php echo $orden['pedido']->id; ?>">Posponer</a>
+								<a class="btn btn-small purple btn-style pendiente" data-id="<?php echo $orden->id; ?>">Posponer</a>
 									<?php
 								
 									break;

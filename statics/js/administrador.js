@@ -31,7 +31,7 @@ $(document).on("ready", function () {
 			$this.removeClass("purple").addClass("grey").text("...");
 			$.getJSON("/app/pedido/cerrar/index.php?id=" + $this.data("id"), function (e) {
 
-				$this.text("Aprobado");
+				$this.text("Cerrado");
 				document.location.href = document.location.href;
 
 			});
@@ -98,34 +98,36 @@ $(document).on("ready", function () {
 		}
 	}
 
-	if (typeof(Worker) !== "undefined") {
-	  if (typeof(w) == "undefined") {
-	    w = new Worker("../statics/js/check-new-orders-ww.js");
-		}
-
-		w.onmessage = function(event){
-			if (checkNotification()) {
-				var orden = JSON.parse(event.data);
-
-				if (orden) {
-			  	var options = {
-			      body: 'El usuario ' + orden.nombre + ' ' + orden.apellido + ' ingresó un nuevo pedido.',
-			      icon: '../images/logo.png',
-			      data: orden
-				  };
-				  var n = new Notification('Nuevo pedido: Nº ' + orden.id, options);
-
-				  n.onclick = function(e) {
-				  	document.location.href = '/detalle/?id=' + e.explicitOriginalTarget.data.id;
-				  };
-
-				  setTimeout(n.close.bind(n), 10000);
-				}
+	if (checkNotification()) {
+		if (typeof(Worker) !== "undefined") {
+		  if (typeof(w) == "undefined") {
+		    w = new Worker("../statics/js/check-new-orders-ww.js");
 			}
-		};
 
-	} else {
-	  // Sorry! No Web Worker support..
-	  alert('Worker is not supported :\'(');
+			w.onmessage = function(event) {
+					var orden = JSON.parse(event.data);
+
+					console.log('Orden:', orden);
+
+					if (orden) {
+				  	var options = {
+				      body: 'El usuario ' + orden.nombre + ' ' + orden.apellido + ' ingresó un nuevo pedido.',
+				      icon: '../images/logo.png',
+				      data: orden
+					  };
+					  var n = new Notification('Nuevo pedido: Nº ' + orden.id, options);
+
+					  n.onclick = function(e) {
+					  	document.location.href = '/detalle/?id=' + e.explicitOriginalTarget.data.id;
+					  };
+
+					  setTimeout(n.close.bind(n), 6000);
+					}
+			};
+
+		} else {
+		  // Sorry! No Web Worker support..
+		  alert('Worker is not supported :\'(');
+		}
 	}
 });
