@@ -1,6 +1,7 @@
 <?php
 
 ini_set("memory_limit","500M");
+set_time_limit(0);
 
 $relative = '..';
 require '../includes/common.php';
