@@ -22,14 +22,15 @@
       */
 	private $lastResult;
 
+  private $mysqli;
+
     /** Connect to a MySQL database to be able to use the methods below.
       */
 	function __construct($base, $server, $user, $pass){
       $this->mtStart    = $this->getMicroTime();
       $this->nbQueries  = 0;
       $this->lastResult = NULL;
-      mysql_connect($server, $user, $pass) or die('Server connexion not possible.');
-      mysql_select_db($base)               or die('Database connexion not possible.');
+      $this->mysqli = mysqli_connect($server, $user, $pass, $base) or die('Server connexion not possible.');
     }
 	
     /** Query the database.
@@ -45,14 +46,14 @@
 			//return "CHAU";
 	  		return $this->insert($query);
 		}else{
-			$this->lastResult = mysql_query($query) or $this->debugAndDie($query);
+			$this->lastResult = $this->mysqli->query($query) or $this->debugAndDie($query);
 			$this->debug($debug, $query, $this->lastResult);
 			return $this->lastResult;
 		}
     }
 	
 	public function alter($query){
-		if(mysql_query($query)){
+		if($this->mysqli->query($query)){
 			return true;
 		}else{
 			return false;
@@ -70,7 +71,7 @@
       */
 	public function execute($query, $debug = -1){
       $this->nbQueries++;
-      mysql_query($query) or $this->debugAndDie($query);
+      $this->mysqli->query($query) or $this->debugAndDie($query);
 
       $this->debug($debug, $query);
     }
@@ -132,7 +133,7 @@
       $query = "$query LIMIT 1";
 
       $this->nbQueries++;
-      $result = mysql_query($query) or $this->debugAndDie($query);
+      $result = $this->mysqli->query($query) or $this->debugAndDie($query);
 
       $this->debug($debug, $query, $result);
 
@@ -149,7 +150,7 @@
       $query = "$query LIMIT 1";
 
       $this->nbQueries++;
-      $result = mysql_query($query) or $this->debugAndDie($query);
+      $result = $this->mysqli->query($query) or $this->debugAndDie($query);
       $line = mysql_fetch_row($result);
 
       $this->debug($debug, $query, $result);
