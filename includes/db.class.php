@@ -24,7 +24,7 @@
 
     /** Connect to a MySQL database to be able to use the methods below.
       */
-	function DB($base, $server, $user, $pass){
+	function __construct($base, $server, $user, $pass){
       $this->mtStart    = $this->getMicroTime();
       $this->nbQueries  = 0;
       $this->lastResult = NULL;
