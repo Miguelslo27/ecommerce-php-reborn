@@ -137,7 +137,7 @@
 
       $this->debug($debug, $query, $result);
 
-      return mysql_fetch_object($result);
+      return $this->mysqli->fetch_object($result);
     }
     /** Get the result of the query as value. The query should return a unique cell.\n
       * Note: no need to add "LIMIT 1" at the end of your query because
@@ -151,7 +151,7 @@
 
       $this->nbQueries++;
       $result = $this->mysqli->query($query) or $this->debugAndDie($query);
-      $line = mysql_fetch_row($result);
+      $line = $this->mysqli->fetch_row($result);
 
       $this->debug($debug, $query, $result);
 
@@ -205,7 +205,7 @@
 
       $this->debugQuery($query, "Error");
 
-      die("<p style=\"margin: 2px;\">".mysql_error()."</p></div>");
+      die("<p style=\"margin: 2px;\">".$this->mysqli->error()."</p></div>");
 
     }
 
@@ -239,7 +239,7 @@
 
       if ($result == NULL)
 
-        echo "<p style=\"margin: 2px;\">Number of affected rows: ".mysql_affected_rows()."</p></div>";
+        echo "<p style=\"margin: 2px;\">Number of affected rows: ".$this->mysqli->affected_rows()."</p></div>";
 
       else
 
@@ -285,7 +285,7 @@
 
            "<thead style=\"font-size: 80%\">";
 
-      $numFields = mysql_num_fields($result);
+      $numFields = $this->mysqli->field_count($result);
 
       // BEGIN HEADER
 
@@ -299,7 +299,7 @@
 
       $nbFields  = -1;
 
-      while ($column = mysql_fetch_field($result)) {
+      while ($column = $this->mysqli->fetch_field($result)) {
 
         if ($column->table != $lastTable) {
 
@@ -335,7 +335,7 @@
 
       // END HEADER
 
-      while ($row = mysql_fetch_array($result)) {
+      while ($row = $this->mysqli->fetch_array($result)) {
 
         echo "<tr>";
 
@@ -389,9 +389,9 @@
 
 	private function resetFetch($result){
 
-      if (mysql_num_rows($result) > 0)
+      if ($this->mysqli->num_rows($result) > 0)
 
-        mysql_data_seek($result, 0);
+        $this->mysqli->data_seek($result, 0);
 
     }
 
@@ -403,7 +403,7 @@
 
 	private function lastInsertedId(){
 
-      return mysql_insert_id();
+      return $this->mysqli->insert_id();
 
     }
 
