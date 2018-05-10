@@ -137,7 +137,7 @@
 
       $this->debug($debug, $query, $result);
 
-      return $this->mysqli->fetch_object($result);
+      return $result->fetch_object();
     }
     /** Get the result of the query as value. The query should return a unique cell.\n
       * Note: no need to add "LIMIT 1" at the end of your query because
