@@ -100,8 +100,8 @@
 		$result=$this->query($query);
 
     $this->consoleLog(__LINE__, $query);
-    $this->consoleLog(__LINE__, json_encode($result));
-    $this->consoleLog(__LINE__, json_encode($this->lastResult));
+    $this->consoleLog(__LINE__, '"'.json_encode($result).'"');
+    $this->consoleLog(__LINE__, '"'.json_encode($this->lastResult).'"');
 
     if($result==NULL){
       $result = $this->lastResult;
