@@ -52,7 +52,8 @@
 
       $this->consoleLog("[nbQueries]: ".$this->nbQueries);
       // $this->consoleLog("[lastResult]: '".json_encode($this->lastResult)."'");
-      $this->consoleLog(json_encode($this->lastResult).")");
+      // $this->consoleLog(json_encode($this->lastResult).")");
+      echo '<pre>'.json_encode($this->lastResult).'</pre>';
 
 			$this->debug($debug, $query, $this->lastResult);
 			return $this->lastResult;
