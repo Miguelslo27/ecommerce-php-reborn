@@ -92,15 +92,25 @@
 	  */
 	public function getObjetos($query){
 		$result=$this->query($query);
-		if($result==NULL){
-			$result = $this->lastResult;
-		}
-		if($result==NULL){
-			return NULL;
-		}else{
-			if($result->num_rows>0){
-				$array=array();
-				$row=$this->fetchNextObject($result);
+
+    echo '<script>console.log("PHP-->", '.$result.');</script>';
+    echo '<script>console.log("PHP-->", '.$this->lastResult.');</script>';
+
+    if($result==NULL){
+      $result = $this->lastResult;
+    }
+    if($result==NULL){
+      return NULL;
+    }else{
+
+      echo '<script>console.log("PHP-->", '.$result->num_rows.');</script>';
+
+      if($result->num_rows>0){
+        $array=array();
+        $row=$this->fetchNextObject($result);
+
+        echo '<script>console.log("PHP-->", '.$row.');</script>';
+
 				while($row!=NULL){
 					$array[]=$row;
 					$row=$this->fetchNextObject($result);
