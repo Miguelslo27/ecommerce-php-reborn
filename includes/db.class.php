@@ -41,8 +41,8 @@
 	public function query($query, $debug = -1){
     $this->nbQueries++;
 
-    $this->consoleLog($this->nbQueries);
-    $this->consoleLog(strtolower(substr(trim($query),0,6)));
+    $this->consoleLog(__LINE__, $this->nbQueries);
+    $this->consoleLog(__LINE__, strtolower(substr(trim($query),0,6)));
 
     if(strtolower(substr(trim($query),0,6))=="insert"){
       //return "CHAU";
@@ -50,8 +50,8 @@
     }else{
       $this->lastResult = $this->mysqli->query($query) or $this->debugAndDie($query);
 
-      $this->consoleLog("[nbQueries]: ".$this->nbQueries);
-      // $this->consoleLog(json_encode($this->lastResult));
+      $this->consoleLog(__LINE__, "[nbQueries]: ".$this->nbQueries);
+      // $this->consoleLog(__LINE__, json_encode($this->lastResult));
 
 			$this->debug($debug, $query, $this->lastResult);
 			return $this->lastResult;
@@ -99,9 +99,9 @@
 	public function getObjetos($query){
 		$result=$this->query($query);
 
-    $this->consoleLog($query);
-    $this->consoleLog(json_encode($result));
-    $this->consoleLog(json_encode($this->lastResult));
+    $this->consoleLog(__LINE__, $query);
+    $this->consoleLog(__LINE__, json_encode($result));
+    $this->consoleLog(__LINE__, json_encode($this->lastResult));
 
     if($result==NULL){
       $result = $this->lastResult;
@@ -110,13 +110,13 @@
       return NULL;
     }else{
 
-      $this->consoleLog(strval($result->num_rows));
+      $this->consoleLog(__LINE__, strval($result->num_rows));
 
       if($result->num_rows>0){
         $array=array();
         $row=$this->fetchNextObject($result);
 
-        $this->consoleLog(json_encode($row));
+        $this->consoleLog(__LINE__, json_encode($row));
 
 				while($row!=NULL){
 					$array[]=$row;
@@ -452,8 +452,8 @@
 
     }
 
-    private function consoleLog($var) {
-      echo '<script>console.log("PHP-->", "'.$var.'");</script>';
+    private function consoleLog($line, $var) {
+      echo '<script>console.log("PHP#'.$line.'-->", "'.$var.'");</script>';
     }
   } // class DB
 
