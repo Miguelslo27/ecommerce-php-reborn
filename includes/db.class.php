@@ -117,16 +117,20 @@
       if($result->num_rows>0){
         $array=array();
         // $row=$this->fetchNextObject($result);
-        $row=$result->fetch_object;
+        // $row=$result->fetch_object;
 
-        echo '<pre>'.$row.'</pre>';
-        $this->consoleLog(__LINE__, json_encode($row));
+        // echo '<pre>'.$row.'</pre>';
+        // $this->consoleLog(__LINE__, json_encode($row));
 
-				while($row!=NULL){
-					$array[]=$row;
-					// $row=$this->fetchNextObject($result);
-          $row=$result->fetch_object;
-				}
+        // while($row!=NULL){
+        while ($row = $result->fetch_object()) {
+          $array[]=$row;
+          // $row=$this->fetchNextObject($result);
+          // $row = $result->fetch_object;
+        }
+
+        echo '<pre>'.$array.'</pre>';
+
 				return $array;
 			}else{
 				return NULL;
