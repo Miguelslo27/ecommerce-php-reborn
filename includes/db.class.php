@@ -452,10 +452,10 @@
 
     }
 
+    private function consoleLog($var) {
+      echo '<script>console.log("PHP-->", "'.$var.'");</script>';
+    }
   } // class DB
 
-  private function consoleLog($var) {
-    echo '<script>console.log("PHP-->", "'.$var.'");</script>';
-  }
 
 ?>
