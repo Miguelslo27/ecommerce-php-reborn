@@ -39,8 +39,7 @@
       * @return The result of the query, to use with fetchNextObject().
       */
 	public function query($query, $debug = -1){
-      $this->nbQueries++;
-      
+    $this->nbQueries++;
 
 		if(strtolower(substr(trim($query),0,6))=="insert"){
 			//return "CHAU";
@@ -53,7 +52,7 @@
     }
 	
 	public function alter($query){
-		if($this->mysqli->query($query)){
+		if($this->query($query)){
 			return true;
 		}else{
 			return false;
@@ -144,7 +143,7 @@
       $query = "$query LIMIT 1";
 
       $this->nbQueries++;
-      $result = $this->mysqli->query($query) or $this->debugAndDie($query);
+      $result = $this->query($query) or $this->debugAndDie($query);
 
       $this->debug($debug, $query, $result);
 
@@ -161,7 +160,7 @@
       $query = "$query LIMIT 1";
 
       $this->nbQueries++;
-      $result = $this->mysqli->query($query) or $this->debugAndDie($query);
+      $result = $this->query($query) or $this->debugAndDie($query);
       $line = $this->mysqli->fetch_row($result);
 
       $this->debug($debug, $query, $result);
