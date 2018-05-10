@@ -75,7 +75,7 @@
 
       $this->debug($debug, $query);
     }
-    /** Convenient method for mysql_fetch_object().
+    /** Convenient method for $result->fetch_object.
       * @param $result The ressource returned by query(). If NULL, the last result returned by query() will be used.
       * @return An object representing a data row.
       */
@@ -86,7 +86,7 @@
       if ($result == NULL || $result->num_rows < 1)
         return NULL;
       else
-        return mysql_fetch_object($result);
+        return $result->fetch_object;
     }
 	/** Obtiene un array con todos los objetos
 	  */
