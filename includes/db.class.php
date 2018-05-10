@@ -85,18 +85,18 @@
       * @param $result The ressource returned by query(). If NULL, the last result returned by query() will be used.
       * @return An object representing a data row.
       */
-	public function fetchNextObject($result = NULL){
-      if ($result == NULL)
-        $result = $this->lastResult;
+	// public function fetchNextObject($result = NULL){
+ //      if ($result == NULL)
+ //        $result = $this->lastResult;
 
-      $this->consoleLog(__LINE__, $result->num_rows);
-      $this->consoleLog(__LINE__, $result->fetch_object());
+ //      $this->consoleLog(__LINE__, $result->num_rows);
+ //      $this->consoleLog(__LINE__, $result->fetch_object);
 
-      if ($result == NULL || $result->num_rows < 1)
-        return NULL;
-      else
-        return $result->fetch_object;
-    }
+ //      if ($result == NULL || $result->num_rows < 1)
+ //        return NULL;
+ //      else
+ //        return $result->fetch_object;
+ //    }
 	/** Obtiene un array con todos los objetos
 	  */
 	public function getObjetos($query){
@@ -116,13 +116,15 @@
 
       if($result->num_rows>0){
         $array=array();
-        $row=$this->fetchNextObject($result);
+        // $row=$this->fetchNextObject($result);
+        $row=$result->fetch_object;
 
         $this->consoleLog(__LINE__, json_encode($row));
 
 				while($row!=NULL){
 					$array[]=$row;
-					$row=$this->fetchNextObject($result);
+					// $row=$this->fetchNextObject($result);
+          $row=$result->fetch_object;
 				}
 				return $array;
 			}else{
