@@ -93,6 +93,7 @@
 	public function getObjetos($query){
 		$result=$this->query($query);
 
+    echo '<script>console.log("PHP-->", '.$query.');</script>';
     echo '<script>console.log("PHP-->", '.json_encode($result).');</script>';
     echo '<script>console.log("PHP-->", '.json_encode($this->lastResult).');</script>';
 
