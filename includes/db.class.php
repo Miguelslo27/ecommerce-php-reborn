@@ -100,8 +100,6 @@
 		$result=$this->query($query);
 
     $this->consoleLog(__LINE__, $query);
-    $this->consoleLog(__LINE__, "JSON.stringify(".json_encode($result).")");
-    $this->consoleLog(__LINE__, "'".json_encode($this->lastResult)."'");
 
     if($result==NULL){
       $result = $this->lastResult;
@@ -110,6 +108,7 @@
       return NULL;
     }else{
 
+      $this->consoleLog(__LINE__, "RESULT NOT NULL");
       $this->consoleLog(__LINE__, strval($result->num_rows));
 
       if($result->num_rows>0){
