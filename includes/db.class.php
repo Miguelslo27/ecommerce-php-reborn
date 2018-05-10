@@ -118,7 +118,7 @@
       */
 	public function numRows($result = NULL){
       if ($result == NULL)
-        return $result->num_rows>lastResult);
+        return $result->num_rows>lastResult;
       else
         return $result->num_rows;
     }
