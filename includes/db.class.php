@@ -89,6 +89,8 @@
       if ($result == NULL)
         $result = $this->lastResult;
 
+      $this->consoleLog(__LINE__, $result->num_rows);
+
       if ($result == NULL || $result->num_rows < 1)
         return NULL;
       else
