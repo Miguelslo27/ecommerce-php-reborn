@@ -119,6 +119,7 @@
         // $row=$this->fetchNextObject($result);
         $row=$result->fetch_object;
 
+        echo '<pre>'.$row.'</pre>';
         $this->consoleLog(__LINE__, json_encode($row));
 
 				while($row!=NULL){
