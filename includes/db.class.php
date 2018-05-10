@@ -83,7 +83,7 @@
       if ($result == NULL)
         $result = $this->lastResult;
 
-      if ($result == NULL || $result->num_rows($result) < 1)
+      if ($result == NULL || $result->num_rows < 1)
         return NULL;
       else
         return mysql_fetch_object($result);
@@ -98,7 +98,7 @@
 		if($result==NULL){
 			return NULL;
 		}else{
-			if($result->num_rows($result)>0){
+			if($result->num_rows>0){
 				$array=array();
 				$row=$this->fetchNextObject($result);
 				while($row!=NULL){
@@ -118,9 +118,9 @@
       */
 	public function numRows($result = NULL){
       if ($result == NULL)
-        return $result->num_rows($this->lastResult);
+        return $result->num_rows>lastResult);
       else
-        return $result->num_rows($result);
+        return $result->num_rows;
     }
     /** Get the result of the query as an object. The query should return a unique row.\n
       * Note: no need to add "LIMIT 1" at the end of your query because
