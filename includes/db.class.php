@@ -90,6 +90,7 @@
         $result = $this->lastResult;
 
       $this->consoleLog(__LINE__, $result->num_rows);
+      $this->consoleLog(__LINE__, $result->fetch_object);
 
       if ($result == NULL || $result->num_rows < 1)
         return NULL;
