@@ -41,17 +41,11 @@
 	public function query($query, $debug = -1){
     $this->nbQueries++;
 
-    $this->consoleLog(__LINE__, $this->nbQueries);
-    $this->consoleLog(__LINE__, strtolower(substr(trim($query),0,6)));
-
     if(strtolower(substr(trim($query),0,6))=="insert"){
       //return "CHAU";
         return $this->insert($query);
     }else{
       $this->lastResult = $this->mysqli->query($query) or $this->debugAndDie($query);
-
-      $this->consoleLog(__LINE__, "[nbQueries]: ".$this->nbQueries);
-      // $this->consoleLog(__LINE__, json_encode($this->lastResult));
 
 			$this->debug($debug, $query, $this->lastResult);
 			return $this->lastResult;
@@ -102,8 +96,6 @@
 	public function getObjetos($query){
 		$result=$this->query($query);
 
-    $this->consoleLog(__LINE__, $query);
-
     if($result==NULL){
       $result = $this->lastResult;
     }
@@ -111,25 +103,11 @@
       return NULL;
     }else{
 
-      $this->consoleLog(__LINE__, "RESULT NOT NULL");
-      $this->consoleLog(__LINE__, strval($result->num_rows));
-
       if($result->num_rows>0){
         $array=array();
-        // $row=$this->fetchNextObject($result);
-        // $row=$result->fetch_object;
-
-        // echo '<pre>'.$row.'</pre>';
-        // $this->consoleLog(__LINE__, json_encode($row));
-
-        // while($row!=NULL){
         while ($row = $result->fetch_object()) {
           $array[]=$row;
-          // $row=$this->fetchNextObject($result);
-          // $row = $result->fetch_object;
         }
-
-        echo '<pre>'.$array.'</pre>';
 
 				return $array;
 			}else{
