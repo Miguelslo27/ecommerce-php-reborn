@@ -51,7 +51,8 @@
       $this->lastResult = $this->mysqli->query($query) or $this->debugAndDie($query);
 
       $this->consoleLog("[nbQueries]: ".$this->nbQueries);
-      $this->consoleLog("[lastResult]: '".json_encode($this->lastResult)."'");
+      // $this->consoleLog("[lastResult]: '".json_encode($this->lastResult)."'");
+      $this->consoleLog(json_encode($this->lastResult));
 
 			$this->debug($debug, $query, $this->lastResult);
 			return $this->lastResult;
