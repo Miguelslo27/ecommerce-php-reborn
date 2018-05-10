@@ -93,8 +93,8 @@
 	public function getObjetos($query){
 		$result=$this->query($query);
 
-    echo '<script>console.log("PHP-->", '.$result.');</script>';
-    echo '<script>console.log("PHP-->", '.$this->lastResult.');</script>';
+    echo '<script>console.log("PHP-->", '.strval($result).');</script>';
+    echo '<script>console.log("PHP-->", '.strval($this->lastResult).');</script>';
 
     if($result==NULL){
       $result = $this->lastResult;
@@ -103,13 +103,13 @@
       return NULL;
     }else{
 
-      echo '<script>console.log("PHP-->", '.$result->num_rows.');</script>';
+      echo '<script>console.log("PHP-->", '.strval($result->num_rows).');</script>';
 
       if($result->num_rows>0){
         $array=array();
         $row=$this->fetchNextObject($result);
 
-        echo '<script>console.log("PHP-->", '.$row.');</script>';
+        echo '<script>console.log("PHP-->", '.strval($row).');</script>';
 
 				while($row!=NULL){
 					$array[]=$row;
