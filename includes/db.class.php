@@ -129,7 +129,7 @@
 
       if($result->num_rows>0){
         $array=array();
-        
+
         while ($row = $result->fetch_object()) {
           $array[]=$row;
         }
@@ -415,7 +415,7 @@
 
 	private function lastInsertedId(){
 
-      return $this->mysqli->insert_id();
+      return $this->mysqli->insert_id;
 
     }
 

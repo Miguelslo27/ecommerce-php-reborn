@@ -1225,7 +1225,7 @@ function agregarAlPedido ($id, $cantidad, $esPack = 'true', $talle = NULL, $colo
 	$db->insert($sql);
 
 	// TODO WORKING ON
-	return array('userid' => $userid, 'articulo' => $articulo, 'articulo_precio' => $articulo_precio, 'sql_update_pedido' => $sql_update_pedido);
+	// return array('userid' => $userid, 'articulo' => $articulo, 'articulo_precio' => $articulo_precio, 'sql_update_pedido' => $sql_update_pedido);
 
 	// Guardo el articulo relacionado al pedido, en la tabla articulo_pedido
 	$sql = 'INSERT INTO `articulo_pedido` (`pedido_id`, `articulo_id`, `precio_actual`, `surtido`, `talle`, `color`, `cantidad`, `subtotal`) VALUES (' . $pedidoId . ', ' . $id . ', ' . $articulo_precio . ', ' . $surtido . ', "' . $talle . '", "' . $colors . '", ' . ($pack * $cantidad) . ', ' . $subtotalArt  . ')';
