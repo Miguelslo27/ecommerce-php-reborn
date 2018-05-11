@@ -93,18 +93,43 @@
  //    }
 	/** Obtiene un array con todos los objetos
 	  */
+   
+   /** Get the result of the query as an object. The query should return a unique row.\n
+      * Note: no need to add "LIMIT 1" at the end of your query because
+      * the method will add that (for optimisation purpose).
+      * @param $query The query.
+      * @param $debug If true, it output the query and the resulting row.
+      * @return An object representing a data row (or NULL if result is empty).
+      */
+  public function getObjeto($query, $debug = -1){
+      $query = "$query LIMIT 1";
+
+      $this->nbQueries++;
+      $result = $this->query($query) or $this->debugAndDie($query);
+
+      $this->debug($debug, $query, $result);
+
+      return $result->fetch_object();
+    }
+
 	public function getObjetos($query){
 		$result=$this->query($query);
+
+    $this->consoleLog(__LINE__, $query);
 
     if($result==NULL){
       $result = $this->lastResult;
     }
+
     if($result==NULL){
       return NULL;
     }else{
 
+      $this->consoleLog(__LINE__, $result->num_rows);
+
       if($result->num_rows>0){
         $array=array();
+        
         while ($row = $result->fetch_object()) {
           $array[]=$row;
         }
@@ -125,23 +150,6 @@
         return $result->num_rows>lastResult;
       else
         return $result->num_rows;
-    }
-    /** Get the result of the query as an object. The query should return a unique row.\n
-      * Note: no need to add "LIMIT 1" at the end of your query because
-      * the method will add that (for optimisation purpose).
-      * @param $query The query.
-      * @param $debug If true, it output the query and the resulting row.
-      * @return An object representing a data row (or NULL if result is empty).
-      */
-	public function getObjeto($query, $debug = -1){
-      $query = "$query LIMIT 1";
-
-      $this->nbQueries++;
-      $result = $this->query($query) or $this->debugAndDie($query);
-
-      $this->debug($debug, $query, $result);
-
-      return $result->fetch_object();
     }
     /** Get the result of the query as value. The query should return a unique cell.\n
       * Note: no need to add "LIMIT 1" at the end of your query because
