@@ -1113,12 +1113,6 @@ function deleteArticle ($id) {
 function agregarAlPedido ($id, $cantidad, $esPack = 'true', $talle = NULL, $color = NULL) {
 	$user = loadUser();
 
-	consoleLog(__LINE__, $id);
-	consoleLog(__LINE__, $cantidad);
-	consoleLog(__LINE__, $esPack);
-
-	return array();
-
 	if ((!$user || $user['user'] == "") && !isset($_SESSION['temp_userid'])) {
 		// Algoritmo del temp_userid
 		$ipToNumber = (int) implode('', explode('.', getRealIP()));
@@ -1140,6 +1134,8 @@ function agregarAlPedido ($id, $cantidad, $esPack = 'true', $talle = NULL, $colo
 	}
 
 	$userid = $temp_userid;
+
+	return array('userid' => $userid);
 
 	// checar si hay un pedido abierto (1 : pendiente, 2 : cancelado, 3 : aprobado, 4 : abierto, 5 : cerrado)
 	$estafecha = time() - (2 * 24 * 60 * 60);
