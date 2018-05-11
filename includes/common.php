@@ -1113,6 +1113,10 @@ function deleteArticle ($id) {
 function agregarAlPedido ($id, $cantidad, $esPack = 'true', $talle = NULL, $color = NULL) {
 	$user = loadUser();
 
+	consoleLog(__LINE__, $id);
+	consoleLog(__LINE__, $cantidad);
+	consoleLog(__LINE__, $esPack);
+
 	if ((!$user || $user['user'] == "") && !isset($_SESSION['temp_userid'])) {
 		// Algoritmo del temp_userid
 		$ipToNumber = (int) implode('', explode('.', getRealIP()));
@@ -1738,6 +1742,10 @@ function getRealIP() {
     else {
         return $_SERVER["REMOTE_ADDR"];
     }
+}
+
+function consoleLog($line, $var) {
+  echo '<script>console.log("PHP#'.$line.'-->", "'.$var.'");</script>';
 }
 
 ?>
