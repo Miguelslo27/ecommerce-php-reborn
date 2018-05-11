@@ -148,7 +148,7 @@ loadSection("header", $userStats);
 						<pre style="display: none;">
 						<?php
 
-						print_r($orden['articulos']);
+						print_r($orden);
 
 						?>
 						</pre>
