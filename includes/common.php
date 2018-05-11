@@ -1135,8 +1135,6 @@ function agregarAlPedido ($id, $cantidad, $esPack = 'true', $talle = NULL, $colo
 
 	$userid = $temp_userid;
 
-	return array('userid' => $userid);
-
 	// checar si hay un pedido abierto (1 : pendiente, 2 : cancelado, 3 : aprobado, 4 : abierto, 5 : cerrado)
 	$estafecha = time() - (2 * 24 * 60 * 60);
 	$esPack    = $esPack == 'true' ? true : false;
@@ -1170,7 +1168,10 @@ function agregarAlPedido ($id, $cantidad, $esPack = 'true', $talle = NULL, $colo
 	// obtengo el articulo para extraer los datos necesarios para el pedido
 	$sql = 'SELECT `packs`, `colores_url`, `colores_surtidos_url`, `talle`, `talle_surtido`, `oferta`, `surtido`, `precio`, `precio_oferta`, `precio_surtido`, `precio_oferta_surtido` FROM `articulo` WHERE `id`=' . $id;
 	$articulo = $db->getObjeto($sql);
-	
+
+	// TODO WORKING ON
+	return array('sql' => $userid, 'articulo' => $articulo);
+
 	// controlar articulo, si no existe retornar error
 	if (!$articulo) {
 		return array('status' => 'error', 'error' => 'ITEM_DOESNT_EXIST');
