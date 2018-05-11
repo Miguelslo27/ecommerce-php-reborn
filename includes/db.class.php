@@ -115,8 +115,6 @@
 	public function getObjetos($query){
 		$result=$this->query($query);
 
-    $this->consoleLog(__LINE__, $query);
-
     if($result==NULL){
       $result = $this->lastResult;
     }
@@ -124,8 +122,6 @@
     if($result==NULL){
       return NULL;
     }else{
-
-      $this->consoleLog(__LINE__, $result->num_rows);
 
       if($result->num_rows>0){
         $array=array();
