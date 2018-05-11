@@ -144,6 +144,15 @@ loadSection("header", $userStats);
 								?>
 							</div>
 						</div>
+
+						<pre style="display: none;">
+						<?php
+
+						print_r($orden['articulos']);
+
+						?>
+						</pre>
+
 						<table>
 							<thead>
 								<tr>
