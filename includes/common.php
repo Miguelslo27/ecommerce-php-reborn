@@ -52,29 +52,29 @@ require_once('class.upload.php');
 include('mailer/PHPMailerAutoload.php');
 
 switch($_SERVER['HTTP_HOST']) {
-	// LOCAL ENV
-	case 'dev.monique.local':
-	case 'mnq2.local':
-		$db_dbase  = 'moniquec_db';
+	// // LOCAL ENV
+	// case 'dev.monique.local':
+	// case 'mnq2.local':
+	// 	$db_dbase  = 'moniquec_db';
+	// 	$dbaseHost = 'localhost';
+	// 	$dbaseUser = 'root';
+	// 	$dbasePass = '';
+	// break;
+	// // DEV SERVER ENV
+	// case 'dev.monique.com.uy':
+	// 	$db_dbase  = 'moniquec_dev_db';
+	// 	$dbaseHost = 'localhost';
+	// 	$dbaseUser = 'moniquec_db_adm';
+	// 	$dbasePass = 'Z[Q7Ia5gWX+7';
+	// break;
+	// // PROD SERVER ENV
+	// case 'monique.com.uy':
+	// case 'www.monique.com.uy':
+	default:
+		$db_dbase  = 'ecommerce_db';
 		$dbaseHost = 'localhost';
 		$dbaseUser = 'root';
 		$dbasePass = '';
-	break;
-	// DEV SERVER ENV
-	case 'dev.monique.com.uy':
-		$db_dbase  = 'moniquec_dev_db';
-		$dbaseHost = 'localhost';
-		$dbaseUser = 'moniquec_db_adm';
-		$dbasePass = 'Z[Q7Ia5gWX+7';
-	break;
-	// PROD SERVER ENV
-	case 'monique.com.uy':
-	case 'www.monique.com.uy':
-	default:
-		$db_dbase  = 'moniquec_db';
-		$dbaseHost = 'localhost';
-		$dbaseUser = 'moniquec_db_adm';
-		$dbasePass = 'Z[Q7Ia5gWX+7';
 	break;
 }
 
@@ -657,7 +657,7 @@ function getCategories ($parentId = NULL) {
 	$sql = 'SELECT `id`, `titulo`, `descripcion_breve`, `descripcion`, `imagen_url`, `categoria_id`, `estado`, `orden` FROM `categoria` WHERE `categoria_id` = ' . $parentId . ' ORDER BY `orden` ASC';
 	$cats = $db->getObjetos($sql);
 
-	return (count($cats) > 0) ? $cats : array();
+	return ($cats && count($cats) > 0) ? $cats : array();
 
 }
 
@@ -695,66 +695,66 @@ function buscarArticulos ($busqueda = NULL) {
 
 			default:
 			$resultado_[] = $palabra;
-			continue;
+			continue 2;
 			break;
 
 			case 'camisas':
 			$resultado_[] = "camisa";
-			continue;
+			continue 2;
 			break;
 
 			case 'pantalones':
 			$resultado_[] = "pantalón";
-			continue;
+			continue 2;
 			break;
 
 			case 'pantalon':
 			$resultado_[] = "pantalón";
-			continue;
+			continue 2;
 			break;
 
 			case 'buzos':
 			$resultado_[] = "buzo";
-			continue;
+			continue 2;
 			break;
 
 			case 'poleras':
 			$resultado_[] = "polera";
-			continue;
+			continue 2;
 			break;
 
 			case 'rompevientos':
 			case 'rompe vientos':
 			case 'rompe viento':
 			$resultado_[] = "rompeviento";
-			continue;
+			continue 2;
 			break;
 
 			case 'sacos':
 			$resultado_[] = "saco";
-			continue;
+			continue 2;
 			break;
 
 			case 'camperas':
 			$resultado_[] = "campera";
-			continue;
+			continue 2;
 			break;
 
 			case 'blusas':
 			$resultado_[] = "blusa";
-			continue;
+			continue 2;
 			break;
 
 			case 'minifaldas':
 			case 'mini faldas':
 			case 'mini falda':
 			$resultado_[] = "minifalda";
-			continue;
+			continue 2;
 			break;
 
 			case 'shorts':
 			$resultado_[] = "short";
-			continue;
+			continue 2;
 			break;
 
 		}
