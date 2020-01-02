@@ -70,6 +70,7 @@ switch($_SERVER['HTTP_HOST']) {
 	// PROD SERVER ENV
 	case 'monique.com.uy':
 	case 'www.monique.com.uy':
+	default:
 		$db_dbase  = 'moniquec_db';
 		$dbaseHost = 'localhost';
 		$dbaseUser = 'moniquec_db_adm';
@@ -1167,7 +1168,7 @@ function agregarAlPedido ($id, $cantidad, $esPack = 'true', $talle = NULL, $colo
 	// obtengo el articulo para extraer los datos necesarios para el pedido
 	$sql = 'SELECT `packs`, `colores_url`, `colores_surtidos_url`, `talle`, `talle_surtido`, `oferta`, `surtido`, `precio`, `precio_oferta`, `precio_surtido`, `precio_oferta_surtido` FROM `articulo` WHERE `id`=' . $id;
 	$articulo = $db->getObjeto($sql);
-	
+
 	// controlar articulo, si no existe retornar error
 	if (!$articulo) {
 		return array('status' => 'error', 'error' => 'ITEM_DOESNT_EXIST');
@@ -1177,7 +1178,7 @@ function agregarAlPedido ($id, $cantidad, $esPack = 'true', $talle = NULL, $colo
 	if($esPack) {
 		$articulo_precio = (($articulo->oferta == 1 && $articulo->precio_oferta > 0) ? $articulo->precio_oferta : $articulo->precio);
 		$surtido = 0;
-		
+
 		// guardar todos los colores en $colors
 		$colorsDir  = '../../..'.str_replace("{id}", $id, $articulo->colores_url);
 
@@ -1220,11 +1221,16 @@ function agregarAlPedido ($id, $cantidad, $esPack = 'true', $talle = NULL, $colo
 	$talle       = $esPack ? $articulo->talle : $talle;
 	
 	$sql = 'UPDATE `pedido` SET `total`=' . $totalPedido . ', `cantidad`=' . ($pedido->cantidad + 1) . ' WHERE `id`=' . $pedidoId;
+	$sql_update_pedido = $sql;
 	$db->insert($sql);
+
+	// TODO WORKING ON
+	// return array('userid' => $userid, 'articulo' => $articulo, 'articulo_precio' => $articulo_precio, 'sql_update_pedido' => $sql_update_pedido);
 
 	// Guardo el articulo relacionado al pedido, en la tabla articulo_pedido
 	$sql = 'INSERT INTO `articulo_pedido` (`pedido_id`, `articulo_id`, `precio_actual`, `surtido`, `talle`, `color`, `cantidad`, `subtotal`) VALUES (' . $pedidoId . ', ' . $id . ', ' . $articulo_precio . ', ' . $surtido . ', "' . $talle . '", "' . $colors . '", ' . ($pack * $cantidad) . ', ' . $subtotalArt  . ')';
 	$rId = $db->insert($sql);
+
 
 	$pedido = $db->getObjeto($sql_reuse);
 
@@ -1737,6 +1743,10 @@ function getRealIP() {
     else {
         return $_SERVER["REMOTE_ADDR"];
     }
+}
+
+function consoleLog($line, $var) {
+  echo '<script>console.log("PHP#'.$line.'-->", "'.$var.'");</script>';
 }
 
 ?>

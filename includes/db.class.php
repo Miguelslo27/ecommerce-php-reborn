@@ -22,14 +22,15 @@
       */
 	private $lastResult;
 
+  private $mysqli;
+
     /** Connect to a MySQL database to be able to use the methods below.
       */
-	function DB($base, $server, $user, $pass){
+	function __construct($base, $server, $user, $pass){
       $this->mtStart    = $this->getMicroTime();
       $this->nbQueries  = 0;
       $this->lastResult = NULL;
-      mysql_connect($server, $user, $pass) or die('Server connexion not possible.');
-      mysql_select_db($base)               or die('Database connexion not possible.');
+      $this->mysqli = mysqli_connect($server, $user, $pass, $base) or die('Server connexion not possible.');
     }
 	
     /** Query the database.
@@ -38,21 +39,21 @@
       * @return The result of the query, to use with fetchNextObject().
       */
 	public function query($query, $debug = -1){
-      $this->nbQueries++;
-      
+    $this->nbQueries++;
 
-		if(strtolower(substr(trim($query),0,6))=="insert"){
-			//return "CHAU";
-	  		return $this->insert($query);
-		}else{
-			$this->lastResult = mysql_query($query) or $this->debugAndDie($query);
+    if(strtolower(substr(trim($query),0,6))=="insert"){
+      //return "CHAU";
+        return $this->insert($query);
+    }else{
+      $this->lastResult = $this->mysqli->query($query) or $this->debugAndDie($query);
+
 			$this->debug($debug, $query, $this->lastResult);
 			return $this->lastResult;
 		}
-    }
+  }
 	
 	public function alter($query){
-		if(mysql_query($query)){
+		if($this->query($query)){
 			return true;
 		}else{
 			return false;
@@ -70,40 +71,65 @@
       */
 	public function execute($query, $debug = -1){
       $this->nbQueries++;
-      mysql_query($query) or $this->debugAndDie($query);
+      $this->mysqli->query($query) or $this->debugAndDie($query);
 
       $this->debug($debug, $query);
     }
-    /** Convenient method for mysql_fetch_object().
+    /** Convenient method for $result->fetch_object.
       * @param $result The ressource returned by query(). If NULL, the last result returned by query() will be used.
       * @return An object representing a data row.
       */
-	public function fetchNextObject($result = NULL){
-      if ($result == NULL)
-        $result = $this->lastResult;
+	// public function fetchNextObject($result = NULL){
+ //      if ($result == NULL)
+ //        $result = $this->lastResult;
 
-      if ($result == NULL || mysql_num_rows($result) < 1)
-        return NULL;
-      else
-        return mysql_fetch_object($result);
-    }
+ //      $this->consoleLog(__LINE__, $result->num_rows);
+ //      $this->consoleLog(__LINE__, $result->fetch_object);
+
+ //      if ($result == NULL || $result->num_rows < 1)
+ //        return NULL;
+ //      else
+ //        return $result->fetch_object;
+ //    }
 	/** Obtiene un array con todos los objetos
 	  */
+   
+   /** Get the result of the query as an object. The query should return a unique row.\n
+      * Note: no need to add "LIMIT 1" at the end of your query because
+      * the method will add that (for optimisation purpose).
+      * @param $query The query.
+      * @param $debug If true, it output the query and the resulting row.
+      * @return An object representing a data row (or NULL if result is empty).
+      */
+  public function getObjeto($query, $debug = -1){
+      $query = "$query LIMIT 1";
+
+      $this->nbQueries++;
+      $result = $this->query($query) or $this->debugAndDie($query);
+
+      $this->debug($debug, $query, $result);
+
+      return $result->fetch_object();
+    }
+
 	public function getObjetos($query){
 		$result=$this->query($query);
-		if($result==NULL){
-			$result = $this->lastResult;
-		}
-		if($result==NULL){
-			return NULL;
-		}else{
-			if(mysql_num_rows($result)>0){
-				$array=array();
-				$row=$this->fetchNextObject($result);
-				while($row!=NULL){
-					$array[]=$row;
-					$row=$this->fetchNextObject($result);
-				}
+
+    if($result==NULL){
+      $result = $this->lastResult;
+    }
+
+    if($result==NULL){
+      return NULL;
+    }else{
+
+      if($result->num_rows>0){
+        $array=array();
+
+        while ($row = $result->fetch_object()) {
+          $array[]=$row;
+        }
+
 				return $array;
 			}else{
 				return NULL;
@@ -117,26 +143,9 @@
       */
 	public function numRows($result = NULL){
       if ($result == NULL)
-        return mysql_num_rows($this->lastResult);
+        return $result->num_rows>lastResult;
       else
-        return mysql_num_rows($result);
-    }
-    /** Get the result of the query as an object. The query should return a unique row.\n
-      * Note: no need to add "LIMIT 1" at the end of your query because
-      * the method will add that (for optimisation purpose).
-      * @param $query The query.
-      * @param $debug If true, it output the query and the resulting row.
-      * @return An object representing a data row (or NULL if result is empty).
-      */
-	public function getObjeto($query, $debug = -1){
-      $query = "$query LIMIT 1";
-
-      $this->nbQueries++;
-      $result = mysql_query($query) or $this->debugAndDie($query);
-
-      $this->debug($debug, $query, $result);
-
-      return mysql_fetch_object($result);
+        return $result->num_rows;
     }
     /** Get the result of the query as value. The query should return a unique cell.\n
       * Note: no need to add "LIMIT 1" at the end of your query because
@@ -149,8 +158,8 @@
       $query = "$query LIMIT 1";
 
       $this->nbQueries++;
-      $result = mysql_query($query) or $this->debugAndDie($query);
-      $line = mysql_fetch_row($result);
+      $result = $this->query($query) or $this->debugAndDie($query);
+      $line = $this->mysqli->fetch_row($result);
 
       $this->debug($debug, $query, $result);
 
@@ -204,7 +213,7 @@
 
       $this->debugQuery($query, "Error");
 
-      die("<p style=\"margin: 2px;\">".mysql_error()."</p></div>");
+      die("<p style=\"margin: 2px;\">".$this->mysqli->error()."</p></div>");
 
     }
 
@@ -238,7 +247,7 @@
 
       if ($result == NULL)
 
-        echo "<p style=\"margin: 2px;\">Number of affected rows: ".mysql_affected_rows()."</p></div>";
+        echo "<p style=\"margin: 2px;\">Number of affected rows: ".$this->mysqli->affected_rows()."</p></div>";
 
       else
 
@@ -284,7 +293,7 @@
 
            "<thead style=\"font-size: 80%\">";
 
-      $numFields = mysql_num_fields($result);
+      $numFields = $this->mysqli->field_count($result);
 
       // BEGIN HEADER
 
@@ -298,7 +307,7 @@
 
       $nbFields  = -1;
 
-      while ($column = mysql_fetch_field($result)) {
+      while ($column = $this->mysqli->fetch_field($result)) {
 
         if ($column->table != $lastTable) {
 
@@ -334,7 +343,7 @@
 
       // END HEADER
 
-      while ($row = mysql_fetch_array($result)) {
+      while ($row = $this->mysqli->fetch_array($result)) {
 
         echo "<tr>";
 
@@ -388,9 +397,9 @@
 
 	private function resetFetch($result){
 
-      if (mysql_num_rows($result) > 0)
+      if ($this->mysqli->num_rows($result) > 0)
 
-        mysql_data_seek($result, 0);
+        $this->mysqli->data_seek($result, 0);
 
     }
 
@@ -402,7 +411,7 @@
 
 	private function lastInsertedId(){
 
-      return mysql_insert_id();
+      return $this->mysqli->insert_id;
 
     }
 
@@ -434,6 +443,10 @@
 
     }
 
+    private function consoleLog($line, $var) {
+      echo '<script>console.log("PHP#'.$line.'-->", "'.$var.'");</script>';
+    }
   } // class DB
+
 
 ?>
