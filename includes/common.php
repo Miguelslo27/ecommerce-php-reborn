@@ -662,27 +662,18 @@ function getCategories ($parentId = NULL) {
 }
 
 function getArticles ($parentId = NULL) {
-
 	$arts;
-
 	$db = $GLOBALS['db'];
 
-	if($parentId == -1) {
-
-		// $sql = 'SELECT `id`, `nombre`, `codigo`, `descripcion_breve`, `descripcion`, `talle`, `adaptable`, `colores_url`, `packs`, `imagenes_url`, `categoria_id`, `estado`, `nuevo`, `agotado`, `oferta`, `surtido`, `precio`, `precio_oferta`, `precio_surtido`, `precio_oferta_surtido`, `orden` FROM `dev_articulo` WHERE `oferta` = 1 ORDER BY `orden` ASC';
+	if ($parentId == -1) {
 		$sql = 'SELECT `id`, `nombre`, `codigo`, `descripcion_breve`, `descripcion`, `talle`, `talle_surtido`, `adaptable`, `colores_url`, `colores_surtidos_url`, `packs`, `imagenes_url`, `categoria_id`, `estado`, `nuevo`, `agotado`, `oferta`, `surtido`, `precio`, `precio_oferta`, `precio_surtido`, `precio_oferta_surtido`, `orden` FROM `articulo` WHERE `oferta` = 1 ORDER BY `orden` ASC';
-
 	} else {
-
-		// $sql = 'SELECT `id`, `nombre`, `codigo`, `descripcion_breve`, `descripcion`, `talle`, `adaptable`, `colores_url`, `packs`, `imagenes_url`, `categoria_id`, `estado`, `nuevo`, `agotado`, `oferta`, `surtido`, `precio`, `precio_oferta`, `precio_surtido`, `precio_oferta_surtido`, `orden` FROM `dev_articulo` WHERE `categoria_id` = ' . $parentId . ' ORDER BY `orden` ASC';
 		$sql = 'SELECT `id`, `nombre`, `codigo`, `descripcion_breve`, `descripcion`, `talle`, `talle_surtido`, `adaptable`, `colores_url`, `colores_surtidos_url`, `packs`, `imagenes_url`, `categoria_id`, `estado`, `nuevo`, `agotado`, `oferta`, `surtido`, `precio`, `precio_oferta`, `precio_surtido`, `precio_oferta_surtido`, `orden` FROM `articulo` WHERE `categoria_id` = ' . $parentId . ' ORDER BY `orden` ASC';
-
 	}
 
 	$arts = $db->getObjetos($sql);
 
-	return (count($arts) > 0) ? $arts : array();
-
+	return ($arts && count($arts) > 0) ? $arts : array();
 }
 
 function buscarArticulos ($busqueda = NULL) {

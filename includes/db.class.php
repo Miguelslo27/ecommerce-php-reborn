@@ -30,7 +30,7 @@
       $this->mtStart    = $this->getMicroTime();
       $this->nbQueries  = 0;
       $this->lastResult = NULL;
-      $this->mysqli = mysqli_connect($server, $user, $pass, $base) or die('Server connexion not possible.');
+      $this->mysqli = new mysqli($server, $user, $pass, $base) or die('Server connexion not possible.');
     }
 	
     /** Query the database.
@@ -41,12 +41,10 @@
 	public function query($query, $debug = -1){
     $this->nbQueries++;
 
-    if(strtolower(substr(trim($query),0,6))=="insert"){
-      //return "CHAU";
-        return $this->insert($query);
-    }else{
-      $this->lastResult = $this->mysqli->query($query) or $this->debugAndDie($query);
-
+    if (strtolower(substr(trim($query),0,6)) == "insert") {
+      return $this->insert($query);
+    } else {
+      $this->lastResult = $this->mysqli->query($query);
 			$this->debug($debug, $query, $this->lastResult);
 			return $this->lastResult;
 		}
@@ -210,12 +208,10 @@
       */
 
 	private function debugAndDie($query){
-
-      $this->debugQuery($query, "Error");
-
-      die("<p style=\"margin: 2px;\">".$this->mysqli->error()."</p></div>");
-
-    }
+    $this->debugQuery($query, "Error");
+    // die("<p style=\"margin: 2px;\">".$this->mysqli->error()."</p></div>");
+    die("<p style=\"margin: 2px;\">".$this->mysqli->connect_errno."</p></div>");
+  }
 
     /** Internal function to debug a MySQL query.\n
 
@@ -266,18 +262,12 @@
       */
 
 	private function debugQuery($query, $reason = "Debug"){
-
-      $color = ($reason == "Error" ? "red" : "orange");
-
-      echo "<div style=\"border: solid $color 1px; margin: 2px;\">".
-
-           "<p style=\"margin: 0 0 2px 0; padding: 0; background-color: #DDF;\">".
-
-           "<strong style=\"padding: 0 3px; background-color: $color; color: white;\">$reason:</strong> ".
-
-           "<span style=\"font-family: monospace;\">".htmlentities($query)."</span></p>";
-
-    }
+    $color = ($reason == "Error" ? "red" : "orange");
+    echo "<div style=\"border: solid $color 1px; margin: 2px;\">".
+         "<p style=\"margin: 0 0 2px 0; padding: 0; background-color: #DDF;\">".
+         "<strong style=\"padding: 0 3px; background-color: $color; color: white;\">$reason:</strong> ".
+         "<span style=\"font-family: monospace;\">".htmlentities($query)."</span></p>";
+  }
 
     /** Internal function to output a table representing the result of a query, for debug purpose.\n
 
