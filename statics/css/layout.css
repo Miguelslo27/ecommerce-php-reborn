@@ -1,0 +1,89 @@
+/* GENERALS */
+/* FONTS */
+@font-face {
+	font-family: 'ARBERKLEY';
+	src: url('/statics/fonts/ARBERKLEY.ttf');
+}
+@font-face {
+	font-family: 'ArialNarrow';
+	src: url('/statics/fonts/arial-narrow.ttf');
+}
+@font-face {
+	font-family: 'Bitter';
+	src: url('/statics/fonts/Bitter-Regular.otf');
+}
+@font-face {
+	font-family: 'ProximaNova';
+	src: url('/statics/fonts/proximanova-light-webfont.ttf') format("truetype");
+}
+@font-face {
+	font-family: 'ProximaNovaIEOTF';
+	src: url('/statics/fonts/ProximaNova-Light.otf') format("truetype");
+}
+
+/* GENERICS */
+img {
+	display: inline-block;
+	border: none;
+}
+.popup,
+.bModal {
+	display: none;
+}
+html {
+	font-size: 16px;
+}
+body {
+	margin: 0;
+	padding: 0;
+	font-family: "ProximaNova", "ProximaNovaIEOTF";
+	color: #222;
+}
+
+/* HEADER */
+header {
+	background: #222;
+	color: #FFF;
+}
+header .header-inner .site-nav {
+	padding: 20px;
+	text-align: center;
+	border-bottom: 1px solid #555;
+}
+header .logo {
+	font-size: 2rem;
+}
+header .header-inner .store-nav {
+	display: flex;
+	flex-direction: row;
+}
+.store-nav > * {
+	flex: 1;
+}
+.store-nav .navigation {
+	/* text */
+}
+.store-nav .navigation a {
+	display: inline-block;
+	padding-left: 10px;
+	height: 2.5rem;
+	color: #FFF;
+	font-size: .8rem;
+	text-decoration: none;
+	text-transform: uppercase;
+	line-height: 2.5rem;
+}
+.store-nav .navigation a:not(:last-child)::after {
+	content: "";
+	padding-left: 14px;
+	border-right: 1px solid #fff;
+}
+.store-nav .navigation .dropdown {
+	display: none;
+}
+.store-nav .search-box {
+	text-align: center;
+}
+.store-nav .user-actions {
+	text-align: right;
+}
