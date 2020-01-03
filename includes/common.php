@@ -1654,7 +1654,7 @@ function startDocument () {
 function endDocument () {
 
 	$place = 'body-end';
-	include($GLOBALS['config']['templatesPath'] . '/modals/modals.php');
+	// include($GLOBALS['config']['templatesPath'] . '/modals/modals.php');
 	include($GLOBALS['config']['templatesPath'] . 'includes.php');
 	echo "</body>\n</html>";
 
