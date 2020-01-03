@@ -1,0 +1,10 @@
+/* HOME */
+/*#body .body-inner,*/
+#body .body-content {
+	padding: 0;
+}
+#home-slider {
+	width: 959px;
+	height: 635px;
+	margin: auto;
+}

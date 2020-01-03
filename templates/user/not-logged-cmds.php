@@ -1,4 +1,3 @@
-			<!-- <a href="/" class="user-menu user-login"><span class="icon fa fa-2x fa-user"></span><span class="label">Ingresar</span></a> -->
 			<div class="user-links">
 				<a href="#" class="user-menu user-login">
 					<span class="icon fa fa-2x fa-user"></span>
