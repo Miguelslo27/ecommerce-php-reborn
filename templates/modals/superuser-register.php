@@ -10,6 +10,7 @@
 					<h3>Registro de usuario Administrador por primera vez</h3>
 					<span class="line-h">&nbsp;</span>
 					<form action="/registro/index.php" method="POST" id="first-time-register-form">
+						<input type="hidden" name="isadmin" value="1">
 						<div class="form-line form-error">
 							<span>Alguno de los datos ingresados es incorrecto!</span>
 						</div>

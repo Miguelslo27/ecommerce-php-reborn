@@ -340,109 +340,82 @@ function actualizarClave($clave = NULL) {
 }
 
 function logout () {
-
 	session_destroy();
 	return array('user' => NULL, 'cart' => NULL, 'status' => 'LOGGED_OUT');
-
 }
 
 function saveUser () {
-
 	$user = loadUser();
 
 	if ($user['user'] && !isset($_POST['id'])) {
-
 		$user['status'] = 'LOGGED';
 		return $user;
-
 	}
 
 	if (!isset($_POST['email'])) {
-
 		return array('user' => NULL, 'cart' => NULL, 'status' => 'EMAIL_NOT_SETTED');
-
 	}
 
 	if (!isset($_POST['pass'])) {
-
 		return array('user' => NULL, 'cart' => NULL,  'status' => 'PASSWORD_NOT_SETTED');
-
 	}
 
-	$db = $GLOBALS['db'];
-
+	$db    = $GLOBALS['db'];
 	$email = str_replace(" ", "", strtolower($_POST['email']));
 
-	// if(!preg_match('^[a-z0-9]+[a-z0-9_.-]*@[a-z0-9_.-]*$', $email)) {
-	if(!preg_match('/^[a-z0-9]+[a-z0-cribir9_.-]+@[a-z0-9_.-]{3,}.[a-z0-9_.-]{1,}.$/', $email)) {
+	if (!preg_match('/^[a-z0-9]+[a-z0-cribir9_.-]+@[a-z0-9_.-]{3,}.[a-z0-9_.-]{1,}.$/', $email)) {
 		return array('user' => NULL, 'cart' => NULL,  'status' => 'EMAIL_MALFORMED');
 	}
 
-	if(!isset($_POST['id'])) {
-
-		// $sql = 'INSERT INTO `dev_usuario` (`nombre`, `apellido`, `rut`, `email`, `clave`, `codigo`, `direccion`, `telefono`, `celular`, `departamento`, `ciudad`, `administrador`) VALUES ("' . $_POST['nombre'] . '","' . $_POST['apellido'] . '","' . $_POST['rut'] . '","' . $email . '","' . md5($_POST['pass'] . $email) . '","' . md5($email) . '","' . $_POST['direccion'] . '","' . $_POST['telefono'] . '","' . $_POST['celular'] . '","' . $_POST['departamento'] . '","' . $_POST['ciudad'] . '",0)';
+	if (!isset($_POST['id']) && isset($_POST['isadmin']) && $_POST['isadmin']) {
+		$sql = 'INSERT INTO `usuario` (`nombre`, `apellido`, `email`, `clave`, `codigo`, `administrador`) VALUES ("' . $_POST['nombre'] . '", "' . $_POST['apellido'] . '", "' . $email . '", "' . md5($_POST['pass'] . $email) . '", "' . md5($email) . '", 1)';
+	} elseif (!isset($_POST['id'])) {
 		$sql = 'INSERT INTO `usuario` (`nombre`, `apellido`, `rut`, `email`, `clave`, `codigo`, `direccion`, `telefono`, `celular`, `departamento`, `ciudad`, `administrador`) VALUES ("' . $_POST['nombre'] . '","' . $_POST['apellido'] . '","' . $_POST['rut'] . '","' . $email . '","' . md5($_POST['pass'] . $email) . '","' . md5($email) . '","' . $_POST['direccion'] . '","' . $_POST['telefono'] . '","' . $_POST['celular'] . '","' . $_POST['departamento'] . '","' . $_POST['ciudad'] . '",0)';
-
 	} else {
-
-		// $sql = 'UPDATE `dev_usuario` SET ';
 		$sql = 'UPDATE `usuario` SET ';
+
 		if (isset($_POST['nombre']) && $_POST['nombre'] != "") {
-
 			$sql .= '`nombre` = "' . $_POST['nombre'] . '",';
-
 		}
+
 		if (isset($_POST['apellido']) && $_POST['apellido'] != "") {
-
 			$sql .= '`apellido` = "' . $_POST['apellido'] . '",';
-
 		}
+
 		if (isset($_POST['rut']) && $_POST['rut'] != "") {
-
 			$sql .= '`rut` = "' . $_POST['rut'] . '",';
-
 		}
+
 		if (isset($_POST['email']) && $_POST['email'] != "") {
-
 			$sql .= '`email` = "' . $email . '",';
-
 		}
+
 		if (isset($_POST['pass']) && $_POST['pass'] != "") {
-
 			$sql .= '`clave` = "' . md5($_POST['pass'] . $email) . '",';
-
 		}
+
 		if (isset($_POST['direccion']) && $_POST['direccion'] != "") {
-
 			$sql .= '`direccion` = "' . $_POST['direccion'] . '",';
-
 		}
+
 		if (isset($_POST['telefono']) && $_POST['telefono'] != "") {
-
 			$sql .= '`telefono` = "' . $_POST['telefono'] . '",';
-
 		}
+
 		if (isset($_POST['celular']) && $_POST['celular'] != "") {
-
 			$sql .= '`celular` = "' . $_POST['celular'] . '",';
-
 		}
+
 		if (isset($_POST['departamento']) && $_POST['departamento'] != "") {
-
 			$sql .= '`departamento` = "' . $_POST['departamento'] . '",';
-
 		}
+
 		if (isset($_POST['ciudad']) && $_POST['ciudad'] != "") {
-
 			$sql .= '`ciudad` = "' . $_POST['ciudad'] . '",';
-
 		}
 
-		$sql = substr($sql, 0, -1);
-
-		$sql .=
-		' WHERE `id` = ' . $_POST['id'];
-
+		$sql  = substr($sql, 0, -1);
+		$sql .= ' WHERE `id` = ' . $_POST['id'];
 	}
 
 	if(!isset($_POST['id']) && checkCurrentUser($_POST['email'])) {
@@ -459,11 +432,9 @@ function saveUser () {
 		header('Location: '.$_SERVER['HTTP_REFERER'], true, 302);
 
 		return $res;
-
 	}
 
 	return array('user' => NULL, 'cart' => NULL,  'status' => 'ERROR_SAVING');
-
 }
 
 function loadSection ($file, $data) {
