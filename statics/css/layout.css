@@ -111,6 +111,7 @@ header .header-inner .store-nav {
 	display: block;
 	border: none !important;
 }
+.store-nav .navigation .dropdown-nav .dropdown:hover,
 .store-nav .navigation .dropdown-nav:hover .dropdown {
 	display: block;
 }
