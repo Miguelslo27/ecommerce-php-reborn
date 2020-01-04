@@ -8,35 +8,22 @@ switch($place) {
 	case 'head':
 		?>
 		<meta charset="UTF-8">
-		
+
 		<meta http-equiv=”Expires” content=”0″>
 		<meta http-equiv=”Last-Modified” content=”0″>
 		<meta http-equiv=”Cache-Control” content=”no-cache, mustrevalidate”>
 		<meta http-equiv=”Pragma” content=”no-cache”>
-		
-		<title>Monique.com.uy | Portada</title>
 
-		<!--[if lt IE 9]>
-		<script type="text/javascript">
-			document.createElement("nav");
-			document.createElement("header");
-			document.createElement("footer");
-			document.createElement("section");
-			document.createElement("article");
-			document.createElement("aside");
-			document.createElement("hgroup");
-		</script>
-		<![endif]-->
+		<title>Demo Site - e-Com.uy</title>
 
 		<!-- css -->
 		<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Muli'>
 		<link rel="stylesheet" href="/statics/css/layout.css?<?php echo $revision; ?>">
 		<link rel="stylesheet" href="/statics/css/frameworks/fontawesome/font-awesome.min.css?<?php echo $revision; ?>">
 		<link rel="stylesheet" href="/statics/css/fontsaddict.css?<?php echo $revision; ?>">
-		<link rel="stylesheet" href="/statics/css/blueimp-gallery.min.css?<?php echo $revision; ?>">
-		
+
 		<?php
-	
+
 		switch($appPlace) {
 			case 'home':
 				?>
@@ -65,11 +52,11 @@ switch($place) {
 		break;
 	case 'body-end':
 		?>
-		
+
 		<!-- plugin scripts -->
-		<script src="/statics/js/plugins/jquery-1.11.0.js?<?php echo $revision; ?>"></script>
+		<!-- <script src="/statics/js/plugins/jquery-1.11.0.js?<?php echo $revision; ?>"></script>
 		<script src="/statics/js/plugins/backstretch.js?<?php echo $revision; ?>"></script>
-		<script src="/statics/js/generals.js?<?php echo $revision; ?>"></script>
+		<script src="/statics/js/generals.js?<?php echo $revision; ?>"></script> -->
 
 		<?php
 		switch($appPlace) {
@@ -77,8 +64,8 @@ switch($place) {
 			?>
 
 			<!-- site scripts -->
-			<script src="/statics/js/home.js?<?php echo $revision; ?>"></script>
-				
+			<!-- <script src="/statics/js/home.js?<?php echo $revision; ?>"></script> -->
+
 			<?php
 			break;
 		case 'search':
@@ -86,21 +73,21 @@ switch($place) {
 			?>
 
 			<!-- site scripts -->
-			<script src="/statics/js/categorias.js?<?php echo $revision; ?>"></script>
-		
+			<!-- <script src="/statics/js/categorias.js?<?php echo $revision; ?>"></script> -->
+
 		<?php
 			break;
 		case 'catalogs':
 			?>
 
-			<script src="/statics/js/jquery.blueimp-gallery.min.js?<?php echo $revision; ?>"></script>
+			<!-- <script src="/statics/js/jquery.blueimp-gallery.min.js?<?php echo $revision; ?>"></script>
 			<script>
 			var catalogo = blueimp.Gallery(document.getElementById('links').getElementsByTagName('a'), {
 				container: '#blueimp-image-carousel',
 				carousel: true,
 			});
-			</script>
-		
+			</script> -->
+
 			<?php
 			break;
 	}
@@ -109,14 +96,14 @@ switch($place) {
 		case 'pedido-actual':
 			?>
 
-			<script src="/statics/js/carrito.js?<?php echo $revision; ?>"></script>
+			<!-- <script src="/statics/js/carrito.js?<?php echo $revision; ?>"></script> -->
 
 			<?php
 			break;
 		case 'register':
 			?>
 
-			<script>
+			<!-- <script>
 			if ($("#ya-registrado").length) {
 				$(".user-cmd-dropdown.bloqueo-de-catalogo")
 					.fadeIn();
@@ -165,7 +152,7 @@ switch($place) {
 					$errorsTemp.fadeIn();
 				}
 			});
-			</script>
+			</script> -->
 			<?php
 			break;
 		}
@@ -174,7 +161,7 @@ switch($place) {
 		if (@$userStats['user']->administrador == 1) {
 			?>
 
-			<script src="/statics/js/administrador.js?<?php echo $revision; ?>"></script>
+			<!-- <script src="/statics/js/administrador.js?<?php echo $revision; ?>"></script> -->
 
 			<?php
 		}
