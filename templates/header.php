@@ -28,21 +28,16 @@
 					<form action="/busqueda/" method="GET">
 						<input type="text" name="clave" class="search-input" placeholder="Qué deseas encontrar?">
 						<button type="submit" class="search-button">
-							<span class="far fa-search"></span>
+							<i class="fas fa-search"></i>
 						</button>
 					</form>
 				</div>
 					
 				<div class="user-actions">
 					<?php
-					$userStats = $GLOBALS['userStats'];
+					$userStats     = $GLOBALS['userStats'];
 					$templatesPath = $GLOBALS['config']['templatesPath'];
-				
-					echo "\n<!--\n";
-					print_r($userStats);
-					echo "\n-->\n";
-					
-					$revision = 'revision='.rand(1,3000);
+					$revision      = 'revision='.rand(1,3000);
 	
 					if ($userStats['status'] == 'LOGGED') {
 						$userName = $userStats['user']->nombre;

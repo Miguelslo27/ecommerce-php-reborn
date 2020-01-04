@@ -438,10 +438,8 @@ function saveUser () {
 }
 
 function loadSection ($file, $data) {
-
 	$congig = $GLOBALS['config'];
 	include($congig['templatesPath'] . $file . '.php');
-
 }
 
 function checkCurrentUser ($email) {

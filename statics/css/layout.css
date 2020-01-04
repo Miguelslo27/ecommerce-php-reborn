@@ -26,6 +26,11 @@ img {
 	display: inline-block;
 	border: none;
 }
+hr {
+	height: 1px;
+	border: 0;
+	background: #555;
+}
 .popup,
 .bModal {
 	display: none;
@@ -94,11 +99,12 @@ header .header-inner .store-nav {
 .store-nav .navigation .dropdown {
 	display: none;
 	position: absolute;
+	width: auto;
 	min-width: calc(100% - 1px);
-	top: 100%;
 	left: -1px;
 	border-left: 1px solid #555;
 	border-right: 1px solid #555;
+	border-bottom: 1px solid #555;
 	background: #222;
 }
 .store-nav .navigation .dropdown a {
