@@ -22,14 +22,16 @@
 				</nav>
 					
 				<div class="search-box">
-					<span class="fa fa-search"></span>
-					<form action="/busqueda/" method="GET" style="margin: 0; padding: 0;">
+					<form action="/busqueda/" method="GET">
 						<input type="text" name="clave" class="search-input" placeholder="Qué deseas encontrar?">
+						<button type="submit" class="search-button">
+							<span class="fa fa-search"></span>
+						</button>
 					</form>
 				</div>
 					
 				<div class="user-actions">
-					<p>User access</p>
+					<span>User access</span>
 					<?php
 					// $userStats = $GLOBALS['userStats'];
 					// $templatesPath = $GLOBALS['config']['templatesPath'];
