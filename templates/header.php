@@ -10,15 +10,17 @@
 			<div class="store-nav">
 				<nav class="navigation">
 					<a href="/" class="access-menu normal-tab <?php if($GLOBALS['appPlace']=="home") echo 'is-active'; ?>">Home</a>
-					<a href="/categorias" class="access-menu normal-tab <?php if($GLOBALS['appPlace']=="categories") echo 'is-active'; ?>">
-						<i class="fa fa-bars"></i>
-						<span>Categorías</span>
+					<div class="dropdown-nav">
+						<a href="/categorias" class="access-menu dropdown-tab <?php if($GLOBALS['appPlace']=="categories") echo 'is-active'; ?>">
+							<i class="fa fa-bars"></i>
+							<span>Categorías</span>
+						</a>
 						<div class="dropdown">
-							<a class="access-menu normal-tab" href="/categorias">Test 1</a>
-							<a class="access-menu normal-tab" href="/categorias">Test 2</a>
+							<a class="access-menu dropdown-item" href="/categorias">Test 1</a>
+							<a class="access-menu dropdown-item" href="/categorias">Test 2</a>
 						</div>
-					</a>
-					<a href="/categorias" class="access-menu large-tab <?php if($GLOBALS['appPlace']=="categories") echo 'is-active'; ?>">Productos</a>
+					</div>
+					<a href="/categorias" class="access-menu normal-tab <?php if($GLOBALS['appPlace']=="categories") echo 'is-active'; ?>">Productos</a>
 					<a href="/contacto" class="access-menu normal-tab <?php if($GLOBALS['appPlace']=="contact") echo 'is-active'; ?>">Contacto</a>
 				</nav>
 					

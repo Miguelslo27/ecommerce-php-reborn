@@ -63,9 +63,13 @@ header .header-inner .store-nav {
 .store-nav > * {
 	flex: 1;
 }
-.store-nav .navigation a {
-	display: inline-block;
-	padding: 0 10px;
+.store-nav .navigation {
+	display: flex;
+	flex-direction: row;
+}
+.store-nav .navigation a.access-menu {
+	display: block;
+	padding: 0 12px;
 	height: 2.5rem;
 	color: #FFF;
 	font-size: .8rem;
@@ -73,16 +77,35 @@ header .header-inner .store-nav {
 	text-transform: uppercase;
 	line-height: 2.5rem;
 }
-.store-nav .navigation a .fa {
+.store-nav .navigation a.access-menu .fa {
 	margin-right: 5px;
 	font-size: 1rem;
 }
-.store-nav .navigation a:not(:last-child) {
-	padding-right: 14px;
+.store-nav .navigation a.access-menu:not(:last-child) {
 	border-right: 1px solid #555;
+}
+
+/* DROPDOWN NAVIGATION */
+.store-nav .navigation .dropdown-nav {
+	display: inline-block;
+	position: relative;
 }
 .store-nav .navigation .dropdown {
 	display: none;
+	position: absolute;
+	min-width: calc(100% - 1px);
+	top: 100%;
+	left: -1px;
+	border-left: 1px solid #555;
+	border-right: 1px solid #555;
+	background: #222;
+}
+.store-nav .navigation .dropdown a {
+	display: block;
+	border: none !important;
+}
+.store-nav .navigation .dropdown-nav:hover .dropdown {
+	display: block;
 }
 
 /* SEARCH FORM */
