@@ -12,9 +12,7 @@ startDocument();
 loadSection("header", $userStats);
 
 ?>
-	<section id="body">
-		<div class="body-inner">
-			<div class="body-content">
+<section class="container">
 <?php
 
 if ($userStats['user']) {
@@ -43,10 +41,10 @@ if ($userStats['user']) {
 	}
 }
 
-// include($templatesPath . 'home/slide.php');
+include($templatesPath . 'home/slide.php');
 
 // section body, inner y content, se cierran en el footer
-// loadSection("footer", $userStats);
+loadSection("footer", $userStats);
 endDocument();
 
 ?>
