@@ -73,6 +73,10 @@ header .header-inner .store-nav {
 	text-transform: uppercase;
 	line-height: 2.5rem;
 }
+.store-nav .navigation a .fa {
+	margin-right: 5px;
+	font-size: 1rem;
+}
 .store-nav .navigation a:not(:last-child) {
 	padding-right: 14px;
 	border-right: 1px solid #555;

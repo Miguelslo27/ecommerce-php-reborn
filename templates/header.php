@@ -11,6 +11,7 @@
 				<nav class="navigation">
 					<a href="/" class="access-menu normal-tab <?php if($GLOBALS['appPlace']=="home") echo 'is-active'; ?>">Home</a>
 					<a href="/categorias" class="access-menu normal-tab <?php if($GLOBALS['appPlace']=="categories") echo 'is-active'; ?>">
+						<i class="fa fa-bars"></i>
 						<span>Categorías</span>
 						<div class="dropdown">
 							<a class="access-menu normal-tab" href="/categorias">Test 1</a>
