@@ -77,7 +77,8 @@ header .header-inner .store-nav {
 	text-transform: uppercase;
 	line-height: 2.5rem;
 }
-.store-nav .navigation a.access-menu .fa {
+.store-nav .navigation a.access-menu .fas,
+.store-nav .navigation a.access-menu .far {
 	margin-right: 5px;
 	font-size: 1rem;
 }

@@ -12,7 +12,7 @@
 					<a href="/" class="access-menu normal-tab <?php if($GLOBALS['appPlace']=="home") echo 'is-active'; ?>">Home</a>
 					<div class="dropdown-nav">
 						<a href="/categorias" class="access-menu dropdown-tab <?php if($GLOBALS['appPlace']=="categories") echo 'is-active'; ?>">
-							<i class="fa fa-bars"></i>
+							<i class="fas fa-bars"></i>
 							<span>Categorías</span>
 						</a>
 						<div class="dropdown">
@@ -28,7 +28,7 @@
 					<form action="/busqueda/" method="GET">
 						<input type="text" name="clave" class="search-input" placeholder="Qué deseas encontrar?">
 						<button type="submit" class="search-button">
-							<span class="fa fa-search"></span>
+							<span class="far fa-search"></span>
 						</button>
 					</form>
 				</div>
