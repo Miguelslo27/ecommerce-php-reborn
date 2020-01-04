@@ -137,6 +137,8 @@ header .header-inner .store-nav {
 	border-top-right-radius: 1.1rem;
 	border-bottom-right-radius: 1.1rem;
 }
-.store-nav .user-actions {
-	text-align: right;
+
+/* USER ACTIONS */
+.store-nav .user-actions .user-links {
+	justify-content: flex-end;
 }

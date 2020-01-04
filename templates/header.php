@@ -34,23 +34,22 @@
 				</div>
 					
 				<div class="user-actions">
-					<span>User access</span>
 					<?php
-					// $userStats = $GLOBALS['userStats'];
-					// $templatesPath = $GLOBALS['config']['templatesPath'];
+					$userStats = $GLOBALS['userStats'];
+					$templatesPath = $GLOBALS['config']['templatesPath'];
 				
-					// echo "\n<!--\n";
-					// print_r($userStats);
-					// echo "\n-->\n";
+					echo "\n<!--\n";
+					print_r($userStats);
+					echo "\n-->\n";
 					
-					// $revision = 'revision='.rand(1,3000);
+					$revision = 'revision='.rand(1,3000);
 	
-					// if ($userStats['status'] == 'LOGGED') {
-					// 	$userName = $userStats['user']->nombre;
-					// 	include($templatesPath . 'user/logged-cmds.php');
-					// } else {
-					// 	include($templatesPath . 'user/not-logged-cmds.php');
-					// }
+					if ($userStats['status'] == 'LOGGED') {
+						$userName = $userStats['user']->nombre;
+						include($templatesPath . 'user/logged-cmds.php');
+					} else {
+						include($templatesPath . 'user/not-logged-cmds.php');
+					}
 					?>
 				</div>
 			</div>
