@@ -41,9 +41,9 @@ if ($userStats['user']) {
 	}
 }
 
-include($templatesPath . 'home/slide.php');
+include($templatesPath . 'components/slide.php');
+include($templatesPath . 'components/categories.php');
 
-// section body, inner y content, se cierran en el footer
 loadSection("footer", $userStats);
 endDocument();
 

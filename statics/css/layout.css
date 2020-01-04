@@ -47,7 +47,10 @@ body {
 
 /* HEADER */
 header {
+	position: relative;
+	z-index: 10;
 	background: #222;
+	box-shadow: 0 -5px 5px 5px #000;
 	color: #FFF;
 }
 header .header-inner .site-nav {
