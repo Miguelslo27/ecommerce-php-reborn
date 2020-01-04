@@ -43,10 +43,10 @@ if ($userStats['user']) {
 	}
 }
 
-include($templatesPath . 'home/slide.php');
+// include($templatesPath . 'home/slide.php');
 
 // section body, inner y content, se cierran en el footer
-loadSection("footer", $userStats);
+// loadSection("footer", $userStats);
 endDocument();
 
 ?>

@@ -1,0 +1,105 @@
+.admin-cmds {
+	position: static;
+	margin-left: 9px;
+}
+.admin-cmds .filtro-cerrado-activo {
+
+}
+
+.admin-cmds .filtro-pendiente-activo {
+	background: #F2DC93;
+}
+.admin-cmds .filtro-aprobado-activo {
+	background: #C2F2C3;
+}
+.admin-cmds .filtro-cancelado-activo {
+	background: #E08B95;
+}
+.admin-cmds .filtro-abierto-activo {}
+.administracion-ordenes {
+	padding: 20px 0;
+}
+.orden-info {
+	position: relative;
+	border: 1px solid #AAAAAA;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+.order-id {
+	position: absolute;
+    right: 8px;
+    top: 20px;
+}
+.order-id,
+.order-id a {
+	font-size: 34px;
+}
+.usuario-info {
+	font-size: 13px;
+    line-height: 20px;
+    padding: 5px;
+}
+.usuario-data {}
+.usuario-data .label {
+	display: inline-block;
+	width: 200px;
+	font-weight: bold;
+}
+.usuario-data .value {}
+.usuario-data.usuario-nombre {}
+.usuario-data.usuario-telefono {}
+.usuario-data.usuario-email {}
+.order-inner {
+	background: #DDDDDD;
+	overflow: hidden;
+}
+.orden-info.orden-pendiente {
+	border-color: #F6C112;
+}
+.orden-info.orden-pendiente .order-inner{
+	background: #F2DC93;
+}
+.orden-info.orden-cancelada {
+	border-color: #D3051D;
+}
+.orden-info.orden-cancelada .order-inner {
+	background: #E08B95;
+}
+.orden-info.orden-aprobada {
+	border-color: #59D65B;
+}
+.orden-info.orden-aprobada .order-inner {
+	background: #C2F2C3;
+}
+.orden-info.orden-abierta {}
+.orden-data {
+    float: left;
+    font-size: 13px;
+    height: 35px;
+    line-height: 35px;
+    padding: 5px 10px 5px 5px;
+}
+.orden-data .label {
+	font-weight: bold;
+}
+.orden-data .value {}
+.orden-data.orden-acciones {
+	float: right;
+	line-height: 22px;
+}
+.orden-data.orden-acciones .btn {
+	margin: 0 3px;
+	cursor: pointer;
+}
+.users-table {
+	table-layout: fixed;
+}
+.users-table thead {}
+.users-table thead tr {}
+.users-table thead tr td {
+	width: auto;
+}
+.users-table thead tr th {}
+.users-table tbody {}
+.users-table tbody tr {}
+.users-table tbody tr td {}
