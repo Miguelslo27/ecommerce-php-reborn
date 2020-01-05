@@ -597,17 +597,17 @@ function getCategory () {
 	return $cat;
 }
 
-function getCategories ($parentId = NULL) {
-
-	$cats;
-
+function getCategories ($parentId = NULL, $limit = null) {
 	$db = $GLOBALS['db'];
-	// $sql = 'SELECT `id`, `titulo`, `descripcion_breve`, `descripcion`, `imagen_url`, `categoria_id`, `estado`, `orden` FROM `dev_categoria` WHERE `categoria_id` = ' . $parentId . ' ORDER BY `orden` ASC';
 	$sql = 'SELECT `id`, `titulo`, `descripcion_breve`, `descripcion`, `imagen_url`, `categoria_id`, `estado`, `orden` FROM `categoria` WHERE `categoria_id` = ' . $parentId . ' ORDER BY `orden` ASC';
+
+	if ($limit) {
+		$sql .= ' LIMIT '.$limit;
+	}
+
 	$cats = $db->getObjetos($sql);
 
 	return ($cats && count($cats) > 0) ? $cats : array();
-
 }
 
 function getArticles ($parentId = NULL) {

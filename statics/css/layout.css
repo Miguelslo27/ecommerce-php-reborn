@@ -153,3 +153,47 @@ header .header-inner .store-nav {
 .store-nav .user-actions .user-links {
 	justify-content: flex-end;
 }
+
+/* FOOTER */
+footer {
+	background: #222;
+}
+footer .footer-columns {
+	display: grid;
+	margin: auto;
+	padding: 20px;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-column-gap: 20px;
+	max-width: 1200px;
+}
+footer .footer-columns > section {
+	padding: 0 20px;
+	color: #FFF;
+}
+footer .footer-columns > section h3 {
+	font-weight: normal;
+}
+footer .footer-columns > section ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+footer .rights {
+	position: relative;
+	margin: 0;
+	margin-top: 20px;
+	padding: 20px;
+	font-size: 12px;
+	text-align: center;
+	color: #FFF;
+	background: #333;
+}
+footer .rights::before {
+	content: "";
+	position: absolute;
+	width: 100%;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	border-top: 1px solid #555;
+}
