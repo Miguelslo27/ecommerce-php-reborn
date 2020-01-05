@@ -45,8 +45,8 @@
 			<h3>Suscribirme</h3>
 			<p>Suscribite y recibí ofertas especiales, promociones y todas las novedades</p>
 			<form action="/suscripcion/" method="POST">
-				<input type="email" placeholder="Email">
-				<button type="submit">Suscribirme</button>
+				<input type="email" class="subscribe-input" placeholder="Email">
+				<button type="submit" class="subscribe-button">Suscribirme</button>
 			</form>
 		</section>
 	</div>

@@ -31,10 +31,6 @@ hr {
 	border: 0;
 	background: #555;
 }
-.popup,
-.bModal {
-	display: none;
-}
 html {
 	font-size: 16px;
 }
@@ -44,6 +40,9 @@ body {
 	font-family: "ProximaNova", "ProximaNovaIEOTF";
 	color: #222;
 }
+
+/* COMMONS */
+/* -- */
 
 /* HEADER */
 header {
@@ -177,6 +176,37 @@ footer .footer-columns > section ul {
 	list-style: none;
 	margin: 0;
 	padding: 0;
+}
+footer .footer-columns .subscribe form {
+	display: flex;
+}
+
+footer .footer-columns .subscribe form .subscribe-input,
+footer .footer-columns .subscribe form .subscribe-button {
+	height: 2.2rem;
+	line-height: 2.2rem;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	background: #fff;
+	outline: none;
+}
+
+footer .footer-columns .subscribe form .subscribe-input {
+	width: 50%;
+	padding: 0 1rem;
+	border-top-left-radius: 1.1rem;
+	border-bottom-left-radius: 1.1rem;
+}
+
+footer .footer-columns .subscribe form .subscribe-button {
+	padding: 0 .6rem;
+	border-top-right-radius: 1.1rem;
+	border-bottom-right-radius: 1.1rem;
+	background: #930077;
+	font-size: .6rem;
+	text-transform: uppercase;
+	color: #FFF;
 }
 footer .rights {
 	position: relative;
