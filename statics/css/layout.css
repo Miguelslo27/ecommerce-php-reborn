@@ -22,6 +22,16 @@
 }
 
 /* GENERICS */
+html {
+	font-size: 16px;
+	overflow-x: hidden;
+}
+body {
+	margin: 0;
+	padding: 0;
+	font-family: "ProximaNova", "ProximaNovaIEOTF";
+	color: #222;
+}
 img {
 	display: inline-block;
 	border: none;
@@ -31,14 +41,17 @@ hr {
 	border: 0;
 	background: #555;
 }
-html {
-	font-size: 16px;
+a {
+	color: #b52299;
+	text-decoration: none;
 }
-body {
-	margin: 0;
-	padding: 0;
-	font-family: "ProximaNova", "ProximaNovaIEOTF";
-	color: #222;
+a:hover {
+	text-decoration: underline;
+}
+i.fas + *,
+i.far + *,
+i.fab + * {
+	margin-left: 5px;
 }
 
 /* COMMONS */
@@ -59,6 +72,7 @@ header .header-inner .site-nav {
 }
 header .logo {
 	font-size: 2rem;
+	color: #b52299;
 }
 
 /* NAVIGATION */
@@ -78,15 +92,19 @@ header .header-inner .store-nav {
 	display: block;
 	padding: 0 12px;
 	height: 2.5rem;
+	box-sizing: border-box;
 	color: #FFF;
 	font-size: .8rem;
 	text-decoration: none;
 	text-transform: uppercase;
 	line-height: 2.5rem;
 }
+.store-nav .navigation a.access-menu:hover {
+	color: #b52299;
+	border-bottom: 2px solid #b52299;
+}
 .store-nav .navigation a.access-menu .fas,
 .store-nav .navigation a.access-menu .far {
-	margin-right: 5px;
 	font-size: 1rem;
 }
 .store-nav .navigation a.access-menu:not(:last-child) {
@@ -146,6 +164,7 @@ header .header-inner .store-nav {
 	padding: 0 .6rem;
 	border-top-right-radius: 1.1rem;
 	border-bottom-right-radius: 1.1rem;
+	color: #b52299;
 }
 
 /* USER ACTIONS */
@@ -172,15 +191,27 @@ footer .footer-columns > section {
 footer .footer-columns > section h3 {
 	font-weight: normal;
 }
+footer .footer-columns > section p {
+	line-height: 1.5rem;
+}
 footer .footer-columns > section ul {
 	list-style: none;
 	margin: 0;
 	padding: 0;
+	line-height: 1.5rem;
+}
+footer .footer-columns>section .links li::before {
+	content: "\f0da";
+	display: inline-block;
+	margin-right: 10px;
+	font-family: "Font Awesome 5 Free";
+	font-weight: 900;
 }
 footer .footer-columns .subscribe form {
 	display: flex;
 }
 
+/* SUBSCRIBE FORM */
 footer .footer-columns .subscribe form .subscribe-input,
 footer .footer-columns .subscribe form .subscribe-button {
 	height: 2.2rem;
@@ -208,6 +239,8 @@ footer .footer-columns .subscribe form .subscribe-button {
 	text-transform: uppercase;
 	color: #FFF;
 }
+
+/* COPYRIGHTS */
 footer .rights {
 	position: relative;
 	margin: 0;

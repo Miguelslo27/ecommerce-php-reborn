@@ -3,7 +3,7 @@
 		<section class="links">
 			<div>
 				<h3>Categorías</h3>
-				<ul>
+				<ul class="links">
 					<li><a href="#">Categoría 1</a></li>
 					<li><a href="#">Categoría 2</a></li>
 					<li><a href="#">Categoría 3</a></li>
@@ -11,7 +11,7 @@
 			</div>
 			<div>
 				<h3>Enlaces de interés</h3>
-				<ul>
+				<ul class="links">
 					<li><a href="#">Productos</a></li>
 					<li><a href="#">Preguntas frecuentes</a></li>
 					<li><a href="#">Contacto</a></li>
@@ -22,15 +22,15 @@
 			<h3>Contacto</h3>
 			<ul>
 				<li>
-					<i>Location icon</i>
+					<i class="fas fa-map-marker-alt"></i>
 					<span>Direccion 1 y 2</span>
 				</li>
 				<li>
-					<i>Phone icon</i>
+					<i class="fas fa-phone-alt"></i>
 					<span>000 0000 000</span>
 				</li>
 				<li>
-					<i>Email icon</i>
+					<i class="fas fa-envelope"></i>
 					<a href="#">mail@mail.com</a>
 				</li>
 			</ul>
@@ -51,6 +51,6 @@
 		</section>
 	</div>
 	<p class="rights">
-		Derechos reservados ©2020
+		Copyright ©2020 - Todos los derechos reservados | e-com.uy
 	</p>
 </footer>
