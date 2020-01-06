@@ -22,6 +22,16 @@
 }
 
 /* GENERICS */
+html {
+	font-size: 16px;
+	overflow-x: hidden;
+}
+body {
+	margin: 0;
+	padding: 0;
+	font-family: "ProximaNova", "ProximaNovaIEOTF";
+	color: #222;
+}
 img {
 	display: inline-block;
 	border: none;
@@ -31,23 +41,28 @@ hr {
 	border: 0;
 	background: #555;
 }
-.popup,
-.bModal {
-	display: none;
+a {
+	color: #b52299;
+	text-decoration: none;
 }
-html {
-	font-size: 16px;
+a:hover {
+	text-decoration: underline;
 }
-body {
-	margin: 0;
-	padding: 0;
-	font-family: "ProximaNova", "ProximaNovaIEOTF";
-	color: #222;
+i.fas + *,
+i.far + *,
+i.fab + * {
+	margin-left: 5px;
 }
+
+/* COMMONS */
+/* -- */
 
 /* HEADER */
 header {
+	position: relative;
+	z-index: 10;
 	background: #222;
+	box-shadow: 0 -5px 5px 5px #000;
 	color: #FFF;
 }
 header .header-inner .site-nav {
@@ -57,6 +72,7 @@ header .header-inner .site-nav {
 }
 header .logo {
 	font-size: 2rem;
+	color: #b52299;
 }
 
 /* NAVIGATION */
@@ -76,15 +92,19 @@ header .header-inner .store-nav {
 	display: block;
 	padding: 0 12px;
 	height: 2.5rem;
+	box-sizing: border-box;
 	color: #FFF;
 	font-size: .8rem;
 	text-decoration: none;
 	text-transform: uppercase;
 	line-height: 2.5rem;
 }
+.store-nav .navigation a.access-menu:hover {
+	color: #b52299;
+	border-bottom: 2px solid #b52299;
+}
 .store-nav .navigation a.access-menu .fas,
 .store-nav .navigation a.access-menu .far {
-	margin-right: 5px;
 	font-size: 1rem;
 }
 .store-nav .navigation a.access-menu:not(:last-child) {
@@ -144,9 +164,99 @@ header .header-inner .store-nav {
 	padding: 0 .6rem;
 	border-top-right-radius: 1.1rem;
 	border-bottom-right-radius: 1.1rem;
+	color: #b52299;
 }
 
 /* USER ACTIONS */
 .store-nav .user-actions .user-links {
 	justify-content: flex-end;
+}
+
+/* FOOTER */
+footer {
+	background: #222;
+}
+footer .footer-columns {
+	display: flex;
+	flex-direction: row;
+	margin: auto;
+	padding: 20px;
+	max-width: 1200px;
+}
+footer .footer-columns > section {
+	flex: 1;
+	padding: 0 20px;
+	color: #FFF;
+}
+footer .footer-columns > section h3 {
+	font-weight: normal;
+}
+footer .footer-columns > section p {
+	line-height: 1.5rem;
+}
+footer .footer-columns > section ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	line-height: 1.5rem;
+}
+footer .footer-columns>section .links li::before {
+	content: "\f0da";
+	display: inline-block;
+	margin-right: 10px;
+	font-family: "Font Awesome 5 Free";
+	font-weight: 900;
+}
+footer .footer-columns .subscribe form {
+	display: flex;
+}
+
+/* SUBSCRIBE FORM */
+footer .footer-columns .subscribe form .subscribe-input,
+footer .footer-columns .subscribe form .subscribe-button {
+	height: 2.2rem;
+	line-height: 2.2rem;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	background: #fff;
+	outline: none;
+}
+
+footer .footer-columns .subscribe form .subscribe-input {
+	width: 50%;
+	padding: 0 1rem;
+	border-top-left-radius: 1.1rem;
+	border-bottom-left-radius: 1.1rem;
+}
+
+footer .footer-columns .subscribe form .subscribe-button {
+	padding: 0 .6rem;
+	border-top-right-radius: 1.1rem;
+	border-bottom-right-radius: 1.1rem;
+	background: #930077;
+	font-size: .6rem;
+	text-transform: uppercase;
+	color: #FFF;
+}
+
+/* COPYRIGHTS */
+footer .rights {
+	position: relative;
+	margin: 0;
+	margin-top: 20px;
+	padding: 20px;
+	font-size: 12px;
+	text-align: center;
+	color: #FFF;
+	background: #333;
+}
+footer .rights::before {
+	content: "";
+	position: absolute;
+	width: 100%;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	border-top: 1px solid #555;
 }

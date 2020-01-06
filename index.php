@@ -12,9 +12,7 @@ startDocument();
 loadSection("header", $userStats);
 
 ?>
-	<section id="body">
-		<div class="body-inner">
-			<div class="body-content">
+<div class="container home">
 <?php
 
 if ($userStats['user']) {
@@ -31,7 +29,7 @@ if ($userStats['user']) {
 			break;
 	}
 } else {
-	switch($userStats['status']) {
+	switch ($userStats['status']) {
 		case 'NO_DATA_SETTED':
 			include($templatesPath . 'reg-without-content.php');
 			break;
@@ -43,10 +41,15 @@ if ($userStats['user']) {
 	}
 }
 
-// include($templatesPath . 'home/slide.php');
+include($templatesPath . 'components/hero.php');
+include($templatesPath . 'components/featuredCategories.php');
+include($templatesPath . 'components/newArticles.php');
+include($templatesPath . 'components/featuredArticles.php');
 
-// section body, inner y content, se cierran en el footer
-// loadSection("footer", $userStats);
+?>
+</div>
+<?php
+
+loadSection("footer", $userStats);
 endDocument();
-
 ?>

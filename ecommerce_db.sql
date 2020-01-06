@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `articulo` (
   KEY `nombre` (`nombre`,`codigo`),
   KEY `categoria_id` (`categoria_id`),
   KEY `oferta` (`oferta`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
 -- Truncar tablas antes de insertar `articulo`
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `articulo_pedido` (
   `subtotal` double NOT NULL,
   PRIMARY KEY (`id`),
   KEY `pedido_id` (`pedido_id`,`articulo_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=212302 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
 -- Truncar tablas antes de insertar `articulo_pedido`
@@ -123,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `categoria` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `titulo_2` (`titulo`),
   KEY `titulo` (`titulo`,`categoria_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=97 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
 -- Truncar tablas antes de insertar `categoria`
@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS `pedido` (
   `notificado` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `usuario_id` (`usuario_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33732 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
 -- Truncar tablas antes de insertar `pedido`
@@ -177,7 +177,7 @@ CREATE TABLE IF NOT EXISTS `suscripciones` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13923 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
 -- Truncar tablas antes de insertar `suscripciones`
@@ -214,7 +214,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   KEY `nombre` (`nombre`,`apellido`,`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33078 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
 -- Truncar tablas antes de insertar `usuario`
@@ -262,7 +262,7 @@ CREATE TABLE IF NOT EXISTS `articulo` (
   KEY `nombre` (`nombre`,`codigo`),
   KEY `categoria_id` (`categoria_id`),
   KEY `oferta` (`oferta`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1638 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
 -- Truncar tablas antes de insertar `articulo`
@@ -294,7 +294,7 @@ CREATE TABLE IF NOT EXISTS `articulo_pedido` (
   `subtotal` double NOT NULL,
   PRIMARY KEY (`id`),
   KEY `pedido_id` (`pedido_id`,`articulo_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=212302 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
 -- Truncar tablas antes de insertar `articulo_pedido`
@@ -326,7 +326,7 @@ CREATE TABLE IF NOT EXISTS `categoria` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `titulo_2` (`titulo`),
   KEY `titulo` (`titulo`,`categoria_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=97 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
 -- Truncar tablas antes de insertar `categoria`
@@ -362,7 +362,7 @@ CREATE TABLE IF NOT EXISTS `pedido` (
   `notificado` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `usuario_id` (`usuario_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33732 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
 -- Truncar tablas antes de insertar `pedido`
@@ -386,7 +386,7 @@ CREATE TABLE IF NOT EXISTS `suscripciones` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13923 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
 -- Truncar tablas antes de insertar `suscripciones`
@@ -423,7 +423,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   KEY `nombre` (`nombre`,`apellido`,`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33078 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
 -- Truncar tablas antes de insertar `usuario`

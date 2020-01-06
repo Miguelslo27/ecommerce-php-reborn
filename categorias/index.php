@@ -26,7 +26,7 @@ $category   = getCategory();
 if (count($category->subcategorias) > 0) {
 
 	include($templatesPath . 'categories.php');
-	
+
 } else {
 
 	include($templatesPath . 'articles.php');

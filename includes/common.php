@@ -52,24 +52,6 @@ require_once('class.upload.php');
 include('mailer/PHPMailerAutoload.php');
 
 switch($_SERVER['HTTP_HOST']) {
-	// // LOCAL ENV
-	// case 'dev.monique.local':
-	// case 'mnq2.local':
-	// 	$db_dbase  = 'moniquec_db';
-	// 	$dbaseHost = 'localhost';
-	// 	$dbaseUser = 'root';
-	// 	$dbasePass = '';
-	// break;
-	// // DEV SERVER ENV
-	// case 'dev.monique.com.uy':
-	// 	$db_dbase  = 'moniquec_dev_db';
-	// 	$dbaseHost = 'localhost';
-	// 	$dbaseUser = 'moniquec_db_adm';
-	// 	$dbasePass = 'Z[Q7Ia5gWX+7';
-	// break;
-	// // PROD SERVER ENV
-	// case 'monique.com.uy':
-	// case 'www.monique.com.uy':
 	default:
 		$db_dbase  = 'ecommerce_db';
 		$dbaseHost = 'localhost';
@@ -89,8 +71,6 @@ $config = array(
 
 $revision = 1; // 'revision='.rand(1,3000);
 
-// $db = new DB('moniquedb', $config['db_host'], $config['db_user'], $config['db_pass']);
-// $db = new DB('moniquedb', $config['db_host'], $config['db_user'], $config['db_pass']);
 $db = new DB($config['db_dbase'], $config['db_host'], $config['db_user'], $config['db_pass']);
 
 /* USUARIO */
@@ -596,7 +576,7 @@ function getCategory () {
 		$cat->descripcion = '';
 		$cat->imagen_url = '';
 		$cat->categoria_id = NULL;
-		$cat->estado = NULL;		
+		$cat->estado = NULL;
 
 	} else {
 
@@ -617,17 +597,17 @@ function getCategory () {
 	return $cat;
 }
 
-function getCategories ($parentId = NULL) {
-
-	$cats;
-
+function getCategories ($parentId = NULL, $limit = null) {
 	$db = $GLOBALS['db'];
-	// $sql = 'SELECT `id`, `titulo`, `descripcion_breve`, `descripcion`, `imagen_url`, `categoria_id`, `estado`, `orden` FROM `dev_categoria` WHERE `categoria_id` = ' . $parentId . ' ORDER BY `orden` ASC';
 	$sql = 'SELECT `id`, `titulo`, `descripcion_breve`, `descripcion`, `imagen_url`, `categoria_id`, `estado`, `orden` FROM `categoria` WHERE `categoria_id` = ' . $parentId . ' ORDER BY `orden` ASC';
+
+	if ($limit) {
+		$sql .= ' LIMIT '.$limit;
+	}
+
 	$cats = $db->getObjetos($sql);
 
 	return ($cats && count($cats) > 0) ? $cats : array();
-
 }
 
 function getArticles ($parentId = NULL) {
@@ -1640,32 +1620,25 @@ function combinarPedidos($pedido, $prepedido) {
 
 /* GENERAL */
 function startDocument () {
-
 	echo "<!doctype html>\n<html lang=\"es\">\n<head>\n";
 	$place = 'head';
 	include($GLOBALS['config']['templatesPath'] . 'includes.php');
 	createAppObjects();
 	echo "\n</head>\n<body>\n";
-
 }
 
 function endDocument () {
-
 	$place = 'body-end';
-	// include($GLOBALS['config']['templatesPath'] . '/modals/modals.php');
 	include($GLOBALS['config']['templatesPath'] . 'includes.php');
 	echo "</body>\n</html>";
-
 }
 
 function createAppObjects () {
-
 	echo "\t<script>\n";
 	echo "\n";
 	echo "\tvar userStats = " . JSON_encode($GLOBALS['userStats']) . ";";
 	echo "\n\n";
 	echo "\t</script>\n";
-
 }
 
 function custom_error_log($msg = null, $line = null, $file = null, $function = null) {
