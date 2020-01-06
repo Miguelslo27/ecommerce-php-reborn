@@ -1,5 +1,5 @@
 <?php
-$categories = getCategories(0, 'sarasa');
+$categories = getCategories(0, 3);
 ?>
 
 <section class="content featured-categories">
@@ -11,9 +11,18 @@ $categories = getCategories(0, 'sarasa');
 
   <?php if (count($categories) > 0) : ?>
     <ul class="categories">
-      <li>Category</li>
-      <li>Category</li>
-      <li>Category</li>
+      <?php foreach ($categories as $cat) : ?>
+        <li>
+          <div style="display: none">
+            <?php var_dump($cat); ?>
+          </div>
+          <article>
+            <p><?php echo $cat->descripcion_breve; ?></p>
+            <a href="/categorias?c=<?php echo $cat->id; ?>" class="<?php echo ($cat->titulo == $category->titulo) ? 'category-selected' : '' ?>"><?php echo $cat->titulo; ?></a>
+            <p>23 artículos en esta categoría</p>
+          </article>
+        </li>
+      <?php endforeach; ?>
     </ul>
   <?php endif; ?>
 </section>
