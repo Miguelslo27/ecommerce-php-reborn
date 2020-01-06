@@ -50,25 +50,35 @@
 	width: 50%;
 	height: 100%;
 	padding: 3rem;
-	background-color: rgba(147, 0, 119, .8);
+	background-color: rgba(255, 255, 255, .6);
 	color: #fff;
 	text-align: left;
 	border-top-right-radius: 250px;
 	border-bottom-right-radius: 250px;
 }
+.hero .hero-message > * {
+	margin: 1rem 0;
+}
 .hero .hero-message h1 {
+	color: #930077;
 	font-weight: 400;
 	text-align: left;
 }
+.hero .hero-message h1::after {
+	display: none;
+}
 .hero .hero-message p {
-	font-size: 18px;
+	color: #222;
+	font-size: 1.4rem;
 	text-align: left;
-	line-height: 1.5rem;
+	line-height: 2rem;
 }
 .hero .hero-message a {
 	display: inline-block;
 	padding: 15px;
-	background: #FFF;
+	background: #930077;
+	color: #fff;
+	border-radius: 2rem;
 }
 
 /* FEATURED CATEGORIES */
