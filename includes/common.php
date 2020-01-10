@@ -232,7 +232,7 @@ function suscribir($email) {
 			$db  = $GLOBALS['db'];
 			$sql = 'INSERT INTO `suscripciones` (`email`) VALUES ("'.$email.'")';
 			$sus = $db->insert($sql);
-			
+
 			// si se suscribió correctamente retornar suscripto = true
 			if($sus) {
 				$suscribed = true;
@@ -256,7 +256,7 @@ function enviarDatosDeRecuperacion ($email) {
 	$mail = new PHPMailer();
 	// $mail->addAddress('no-responder@monique.com.uy', 'Monique.com.uy');
 	$mail->addAddress($email);
-	
+
 	$mail->setFrom('monique@monique.com.uy', 'Monique - Tienda Online');
 	$mail->Subject = utf8_decode($asunto);
 	$mail->msgHTML(utf8_decode($mensaje));
@@ -268,7 +268,7 @@ function enviarDatosDeRecuperacion ($email) {
 	} else {
 
 		return false;
-		
+
 	}
 
 }
@@ -314,7 +314,7 @@ function actualizarClave($clave = NULL) {
 	$sql = 'UPDATE `usuario` SET `clave`="' . md5($clave . $email) . '" WHERE `email`="' . $email .'"';
 
 	$cid = $db->insert($sql);
-	
+
 	return true;
 
 }
@@ -557,8 +557,6 @@ function obtenerSuscripciones() {
 
 function getCategory () {
 
-	$cat;
-
 	if (isset($_GET['c']) && $_GET['c'] != 'new' && $_GET['c'] != 'save') {
 
 		$db = $GLOBALS['db'];
@@ -611,7 +609,6 @@ function getCategories ($parentId = NULL, $limit = null) {
 }
 
 function getArticles ($parentId = NULL) {
-	$arts;
 	$db = $GLOBALS['db'];
 
 	if ($parentId == -1) {
@@ -702,9 +699,6 @@ function buscarArticulos ($busqueda = NULL) {
 	}
 
 	$busqueda_ = implode(" ", $resultado_);
-
-	$arts;
-
 	$db = $GLOBALS['db'];
 	$sql = 'SELECT `id`, `nombre`, `codigo`, `descripcion_breve`, `descripcion`, `talle`, `talle_surtido`, `adaptable`, `colores_url`, `colores_surtidos_url`, `packs`, `imagenes_url`, `categoria_id`, `estado`, `nuevo`, `agotado`, `oferta`, `surtido`, `precio`, `precio_oferta`, `precio_surtido`, `precio_oferta_surtido`, `orden` FROM `articulo` WHERE `codigo` LIKE "%' . $busqueda_ . '%" OR `nombre` LIKE "%' . $busqueda_ . '%" ORDER BY `orden` ASC';
 	$arts = $db->getObjetos($sql);
@@ -737,7 +731,7 @@ function saveCategory () {
 			$cid = $db->insert($sql);
 
 			$imageLocation = $relative . '/statics/images/categories/' . $cid;
-			
+
 			// creo la carpeta para las immagenes de esta categoria
 			mkdir($imageLocation);
 
@@ -753,7 +747,7 @@ function saveCategory () {
 			}
 
 			return;
-			
+
 		}
 
 		if (isset($_POST['delete'])) {
@@ -779,7 +773,7 @@ function updateCategory ($id = NULL) {
 
 		$relative = $GLOBALS['relative'];
 		$imageLocation = $relative . '/statics/images/categories/' . $id;
-		
+
 		// creo la carpeta para las immagenes de esta categoria
 		@mkdir($imageLocation);
 
@@ -843,11 +837,11 @@ function saveArticle () {
 			$imageLocation     = $relative . '/statics/images/articles/' . $cid;
 			$colorLocation     = $relative . '/statics/images/articles/' . $cid . '/colors/';
 			$colorSurtLocation = $relative . '/statics/images/articles/' . $cid . '/colors/surtidos/';
-			
+
 			// creo la carpeta para las imagenes de este artículo
 			@mkdir($imageLocation);
 			@unlink($imageLocation . '/thumbnail.jpg');
-			
+
 			// salvar imagen
 			@$img = new upload($_FILES['imagen']);
 			if ($img->uploaded) {
@@ -857,62 +851,62 @@ function saveArticle () {
 				$img->process($imageLocation);
 
 			}
-			
+
 			@mkdir($colorLocation);
 			@unlink($colorLocation . '/colors.jpg');
-			
+
 			// salvar colores
 			$colorsNum = count($_FILES['colores']['name']);
-			
+
 			for($i = 0; $i < $colorsNum; $i++) {
-				
+
 				$currentColor			  = array();
 				$currentColor['name']	  = $_FILES['colores']['name'][$i];
 				$currentColor['type']     = $_FILES['colores']['type'][$i];
 				$currentColor['tmp_name'] = $_FILES['colores']['tmp_name'][$i];
 				$currentColor['error']    = $_FILES['colores']['error'][$i];
 				$currentColor['size']     = $_FILES['colores']['size'][$i];
-				
+
 				$colorName = (string) $i + 1;
 				$colorName = (strlen($colorName) < 2 ? '0'.$colorName : $colorName);
-				
+
 				@$color = new upload($currentColor);
 				if ($color->uploaded) {
 
 					$color->file_new_name_body = $colorName;
 					$color->image_convert = 'jpg';
 					@$color->process($colorLocation);
-	
+
 				}
 			}
 
 			@mkdir($colorSurtLocation);
-			
+
 			// salvar colores surtidos
 			$colorsSurtNum = count($_FILES['colores_surtidos']['name']);
-			
+
 			for($i = 0; $i < $colorsSurtNum; $i++) {
-				
+
 				$currentSColor			   = array();
 				$currentSColor['name']	   = $_FILES['colores_surtidos']['name'][$i];
 				$currentSColor['type']     = $_FILES['colores_surtidos']['type'][$i];
 				$currentSColor['tmp_name'] = $_FILES['colores_surtidos']['tmp_name'][$i];
 				$currentSColor['error']    = $_FILES['colores_surtidos']['error'][$i];
 				$currentSColor['size']     = $_FILES['colores_surtidos']['size'][$i];
-				
+
 				$colorSName = (string) $i + 1;
 				$colorSName = (strlen($colorSName) < 2 ? '0'.$colorSName : $colorSName);
-				
+
 				@$colorS = new upload($currentSColor);
 				if ($colorS->uploaded) {
 
 					$colorS->file_new_name_body = $colorName;
 					$colorS->image_convert = 'jpg';
 					@$colorS->process($colorSurtLocation);
-	
+
 				}
 			}
-			
+
 		}
 
 		if (isset($_POST['delete'])) {
@@ -933,7 +927,7 @@ function updateArticle ($id) {
 		$imageLoc     = '/statics/images/articles/{id}/';
 		$colorLoc     = '/statics/images/articles/{id}/colors/';
 		$colorSurtLoc = '/statics/images/articles/{id}/colors/surtidos/';
-		
+
 		$sql = 'UPDATE `articulo` SET `nombre`="' . $_POST['nombre'] . '", `codigo`="' . $_POST['codigo'] . '", `descripcion_breve`="' . $_POST['descripcion_breve'] . '", `descripcion`="' . $_POST['descripcion'] . '", `talle`="' . $_POST['talle'] . '", `talle_surtido`="' . $_POST['talle_surtido'] . '", `adaptable`="' . @($_POST['adaptable'] == "on" ? 1 : 0) . '", `colores_url` = "' . $colorLoc . '", `colores_surtidos_url` = "' . $colorSurtLoc . '", `packs`="' . $_POST['packs'] . '", `categoria_id`="' . $_POST['categoria_id'] . '", `imagenes_url` = "' . $imageLoc . '", `orden`=' . $_POST['orden'] . ', `nuevo`=' . ($_POST['nuevo'] == "on" ? 1 : 0) . ', `agotado`=' . ($_POST['agotado'] == "on" ? 1 : 0) . ', `oferta`=' . ($_POST['oferta'] == "on" ? 1 : 0) . ', `surtido`=' . ($_POST['surtido'] == "on" ? 1 : 0) . ', `precio`="' . $_POST['precio'] . '", `precio_oferta`=' . (isset($_POST['precio_oferta']) ? $_POST['precio_oferta'] : 0 ) . ', `precio_surtido`=' . (isset($_POST['precio_surtido']) ? $_POST['precio_surtido'] : 0 ) . ', `precio_oferta_surtido`=' . (isset($_POST['precio_oferta_surtido']) ? $_POST['precio_oferta_surtido'] : 0 ) . ' WHERE `id`=' . $id;
 
 		$cid = $db->insert($sql);
@@ -959,38 +953,38 @@ function updateArticle ($id) {
 
 			}
 		}
-		
+
 		if($_FILES['colores']['error'][0] == 0) {
 			// salvar colores
 			@unlink($imageLocation . '/colors.jpg');
 			$oldColors = glob($colorLocation.'*'); // get all file names
-			
+
 			foreach($oldColors as $oldColor) {
 				unlink($oldColor);
 			}
-			
+
 			// salvar colores
 			$colorsNum = count($_FILES['colores']['name']);
-			
+
 			for($i = 0; $i < $colorsNum; $i++) {
-				
+
 				$currentColor			  = array();
 				$currentColor['name']	  = $_FILES['colores']['name'][$i];
 				$currentColor['type']     = $_FILES['colores']['type'][$i];
 				$currentColor['tmp_name'] = $_FILES['colores']['tmp_name'][$i];
 				$currentColor['error']    = $_FILES['colores']['error'][$i];
 				$currentColor['size']     = $_FILES['colores']['size'][$i];
-				
+
 				$colorName = (string) $i + 1;
 				$colorName = (strlen($colorName) < 2 ? '0'.$colorName : $colorName);
-				
+
 				@$color = new upload($currentColor);
 				if ($color->uploaded) {
 
 					$color->file_new_name_body = $colorName;
 					$color->image_convert = 'jpg';
 					@$color->process($colorLocation);
-	
+
 				}
 			}
 
@@ -999,33 +993,33 @@ function updateArticle ($id) {
 		if($_FILES['colores_surtidos']['error'][0] == 0) {
 			// salvar colores
 			$oldSColors = glob($colorSurtLocation.'*'); // get all file names
-			
+
 			foreach($oldSColors as $oldSColor) {
 				unlink($oldSColor);
 			}
-			
+
 			// salvar colores
 			$colorsSNum = count($_FILES['colores_surtidos']['name']);
-			
+
 			for($i = 0; $i < $colorsSNum; $i++) {
-				
+
 				$currentSColor			  = array();
 				$currentSColor['name']	  = $_FILES['colores_surtidos']['name'][$i];	
 				$currentSColor['type']     = $_FILES['colores_surtidos']['type'][$i];
 				$currentSColor['tmp_name'] = $_FILES['colores_surtidos']['tmp_name'][$i];
 				$currentSColor['error']    = $_FILES['colores_surtidos']['error'][$i];
 				$currentSColor['size']     = $_FILES['colores_surtidos']['size'][$i];
-				
+
 				$colorSName = (string) $i + 1;
 				$colorSName = (strlen($colorSName) < 2 ? '0'.$colorSName : $colorSName);
-				
+
 				@$colorS = new upload($currentSColor);
 				if ($colorS->uploaded) {
 
 					$colorS->file_new_name_body = $colorSName;
 					$colorS->image_convert = 'jpg';
 					@$colorS->process($colorSurtLocation);
-	
+
 				}
 			}
 
@@ -1090,7 +1084,7 @@ function agregarAlPedido ($id, $cantidad, $esPack = 'true', $talle = NULL, $colo
 	} else {
 		// creo el pedido con estado abierto
 		$h = "-3";
-		$hm = $h * 60; 
+		$hm = $h * 60;
 		$ms = $hm * 60;
 		$gmdate = gmdate("Y-m-d H:i:s", time() + ($ms));
 
@@ -1127,7 +1121,7 @@ function agregarAlPedido ($id, $cantidad, $esPack = 'true', $talle = NULL, $colo
 		} else {
 			$colorsFiles = opendir($colorsDir);
 			$colorsList = array();
-			
+
 			if(!$colorsFiles) {
 				$colors = '0';
 			} else {
@@ -1138,7 +1132,7 @@ function agregarAlPedido ($id, $cantidad, $esPack = 'true', $talle = NULL, $colo
 						$auxColors[] = basename($col, '.jpg');
 					}
 				}
-				
+
 				$colors = implode(',', $auxColors);
 			}
 		}
@@ -1154,12 +1148,12 @@ function agregarAlPedido ($id, $cantidad, $esPack = 'true', $talle = NULL, $colo
 		$colors = $color;
 		$surtido = 1;
 	}
-	
+
 	$pack        = $esPack ? (int) str_replace(array("pack x", "pack x ", "X", "x", "X ", "x ", "packs x", "packs x ", "Packs X", "Packs X ", "PACKS X", "PACKS X ", "Pack x", "Pack x "), "", $articulo->packs) : 1;
 	$subtotalArt = $articulo_precio * $pack * $cantidad;
 	$totalPedido = $pedido->total + ($articulo_precio * $pack * $cantidad);
 	$talle       = $esPack ? $articulo->talle : $talle;
-	
+
 	$sql = 'UPDATE `pedido` SET `total`=' . $totalPedido . ', `cantidad`=' . ($pedido->cantidad + 1) . ' WHERE `id`=' . $pedidoId;
 	$sql_update_pedido = $sql;
 	$db->insert($sql);
@@ -1276,7 +1270,7 @@ function obtenerPedidos ($id_usuario = null, $estado = NULL) {
 function obtenerUltimoPedido() {
 	$db = $GLOBALS['db'];
 	$sql = 'SELECT `pedido`.*, `usuario`.`nombre`, `usuario`.`apellido`, `usuario`.`rut`, `usuario`.`telefono`, `usuario`.`celular`, `usuario`.`email` FROM `pedido` JOIN `usuario` ON `pedido`.`usuario_id`=`usuario`.`id` WHERE `estado` = 1 AND `notificado` != 1 ORDER BY `fecha` DESC';
-	
+
 	$pedido = $db->getObjeto($sql);
 
 	return $pedido;
@@ -1418,15 +1412,15 @@ function completarPedido ($idPedido) {
 						$colorsDir    = str_replace("{id}", $articulo->articulo_id, $articulo->colores_url);
 						$colorsAuxDir = $relative.str_replace("{id}", $articulo->articulo_id, $articulo->colores_url);
 					}
-					
+
 					if(file_exists($colorsAuxDir)) {
 						$colorsDirForEmail .= $colorsDir;
-						$mensaje .= 
+						$mensaje .=
 						'<ul style="list-style:none;margin:0;padding:0;display:inline-block;">';
 						foreach($colores AS $color) {
 							if (!is_dir($colorsAuxDir.$color)) {
 								if(file_exists($colorsAuxDir.$color.'.jpg')) {
-									$mensaje .= 
+									$mensaje .=
 									'<li style="display:inline-block;">
 										<span style="border-radius:8px;border-width:2px;border-style:solid;border-color:#ccc;width:14px;font-size:0px;display:inline-block;">
 											<img src="'.$colorsDirForEmail.$color.'.jpg" style="border-radius:7px; width: 14px;" />
@@ -1435,7 +1429,7 @@ function completarPedido ($idPedido) {
 								} else {
 									$colorsDir         = str_replace("{id}", $articulo->articulo_id, $articulo->colores_url);
 									$colorsDirForEmail = 'http://'.$_SERVER['SERVER_NAME'].$colorsDir;
-									$mensaje .= 
+									$mensaje .=
 									'<li style="display:inline-block;">
 										<span style="border-radius:8px;border-width:2px;border-style:solid;border-color:#ccc;width:14px;font-size:0px;display:inline-block;">
 											<img src="'.$colorsDirForEmail.$color.'.jpg" style="border-radius:7px; width: 14px;" />
@@ -1444,12 +1438,12 @@ function completarPedido ($idPedido) {
 								}
 							}
 						}
-						$mensaje .= 
+						$mensaje .=
 						'</ul>';
 					} else {
 						$colorsDir = $relative.str_replace("{id}", $articulo->articulo_id, $articulo->imagenes_url);
 						$colors    = $colorsDir.'colors.jpg';
-						
+
 						if(file_exists($colors)) {
 							$mensaje .= '<img src="http://'.$_SERVER['SERVER_NAME'].str_replace("{id}", $articulo->articulo_id, $articulo->imagenes_url).'colors.jpg" />';
 						} else {
@@ -1457,7 +1451,7 @@ function completarPedido ($idPedido) {
 						}
 					}
 				}
-				
+
 				$mensaje .=
 					'</td>' .
 					'<td>' . $articulo->cantidad . '</td>'.
@@ -1554,7 +1548,7 @@ function posponerPedido ($idPedido) {
 	$sql = 'UPDATE `pedido` SET `estado`=1 WHERE `id`=' . $idPedido;
 	$db->insert($sql);
 
-	return array('status' => 'STATUS_UPDATED_SUCCESSFUL');	
+	return array('status' => 'STATUS_UPDATED_SUCCESSFUL');
 
 }
 
@@ -1566,7 +1560,7 @@ function cerrarPedido ($idPedido) {
 	$sql = 'UPDATE `pedido` SET `estado`=5 WHERE `id`=' . $idPedido;
 	$db->insert($sql);
 
-	return array('status' => 'STATUS_UPDATED_SUCCESSFUL');	
+	return array('status' => 'STATUS_UPDATED_SUCCESSFUL');
 }
 
 function cambiarPertenenciaDelPedido($pedidoid, $idNuevoUsuario, $idViejoUsuario) {
