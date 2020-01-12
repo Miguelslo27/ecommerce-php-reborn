@@ -98,11 +98,12 @@
 	width: 32%;
 	margin-bottom: 1.8rem;
 	background: #999;
-	box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .8);
+	/* box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .8); */
+	box-shadow: 0 0 15px rgba(147, 0, 119, .15);
 	transition: box-shadow .3s ease;
 }
 .featured-categories .categories li:hover {
-	box-shadow: 0 2px 20px 0 rgba(0, 0, 0, .8);
+	box-shadow: 0 0px 15px 0 rgba(147, 0, 119, .8);
 }
 .featured-categories .categories li:nth-child(3n+2),
 .new-articles .articles li:nth-child(3n+2),

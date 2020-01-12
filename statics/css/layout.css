@@ -56,7 +56,19 @@ i.fab + * {
 }
 
 /* COMMONS */
-/* -- */
+.container .inner {
+	max-width: 1200px;
+	margin: auto;
+}
+.floating-debug-section {
+	position: absolute;
+	top: 9rem;
+	right: 1rem;
+	padding: 1rem;
+	background: rgba(0, 0, 0, .8);
+	font-size: 10px;
+	color: #FFF;
+}
 
 /* HEADER */
 header {
