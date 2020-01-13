@@ -715,46 +715,39 @@ function buscarArticulos($busqueda = NULL)
 /* ADMINISTRACION */
 function saveCategory()
 {
-
 	if (isset($_POST['type']) && $_POST['type'] == 'category') {
-
 		if (isset($_POST['save'])) {
-
 			if (isset($_POST['id']) && $_POST['id'] != "") {
-
 				updateCategory($_POST['id']);
 				return;
 			}
 
-			$relative = $GLOBALS['relative'];
+			$relative      = $GLOBALS['relative'];
+			$db            = $GLOBALS['db'];
+			$sql           = 'INSERT INTO `categoria` (`titulo`, `descripcion_breve`, `descripcion`, `categoria_id`, `estado`, `orden`) VALUES ("' . $_POST['titulo'] . '", "' . $_POST['descripcion_breve'] . '", "' . $_POST['descripcion'] . '", "' . $_POST['categoria_id'] . '", 1, ' . $_POST['orden'] . ')';
+			$cid           = $db->insert($sql);
+			$imageLocation = ($_FILES['imagen']['error'] == 0) ? '/statics/images/categories/' . $cid : '';
 
-			$imageLocation = ($_FILES['imagen']['error'] == 0) ? '/statics/images/categories/{id}' : '';
-
-			$db = $GLOBALS['db'];
-			// $sql = 'INSERT INTO `dev_categoria` (`titulo`, `descripcion_breve`, `descripcion`, `imagen_url`, `categoria_id`, `estado`, `orden`) VALUES ("' . $_POST['titulo'] . '","' . $_POST['descripcion_breve'] . '","' . $_POST['descripcion'] . '","' . $imageLocation . '","' . $_POST['categoria_id'] . '", 1, ' . $_POST['orden'] . ')';
-			$sql = 'INSERT INTO `categoria` (`titulo`, `descripcion_breve`, `descripcion`, `imagen_url`, `categoria_id`, `estado`, `orden`) VALUES ("' . $_POST['titulo'] . '","' . $_POST['descripcion_breve'] . '","' . $_POST['descripcion'] . '","' . $imageLocation . '","' . $_POST['categoria_id'] . '", 1, ' . $_POST['orden'] . ')';
-			$cid = $db->insert($sql);
-
-			$imageLocation = $relative . '/statics/images/categories/' . $cid;
-
-			// creo la carpeta para las immagenes de esta categoria
-			mkdir($imageLocation);
+			// creo la carpeta para las imagenes de esta categoria
+			mkdir($relative . $imageLocation);
 
 			// salvar imagen
 			$img = new upload($_FILES['imagen']);
-			if ($img->uploaded) {
 
+			if ($img->uploaded) {
 				$img->image_x = 200;
 				$img->file_new_name_body = 'thumbnail';
 				$img->image_convert = 'jpg';
-				$img->process($imageLocation);
+				$img->process($relative . $imageLocation);
+
+				$sql = 'UPDATE `categoria` SET `imagen_url` = "' . $imageLocation . '/thumbnail.jpg' . '" WHERE `id`=' . $cid;
+				$db->insert($sql);
 			}
 
 			return;
 		}
 
 		if (isset($_POST['delete'])) {
-
 			deleteCategory($_POST['id']);
 		}
 	}
@@ -762,24 +755,18 @@ function saveCategory()
 
 function updateCategory($id = NULL)
 {
-
 	if ($id) {
-
-		$db = $GLOBALS['db'];
-		$imageLoc = '/statics/images/categories/{id}';
-		// $sql = 'UPDATE `dev_categoria` SET `titulo`="' . $_POST['titulo'] . '", `descripcion_breve`="' . $_POST['descripcion_breve'] . '", `descripcion`="' . $_POST['descripcion'] . '", `categoria_id`="' . $_POST['categoria_id'] . '", `imagen_url` = "' . $imageLoc . '", `orden` = ' . $_POST['orden'] . ' WHERE `id`=' . $id;
-		$sql = 'UPDATE `categoria` SET `titulo`="' . $_POST['titulo'] . '", `descripcion_breve`="' . $_POST['descripcion_breve'] . '", `descripcion`="' . $_POST['descripcion'] . '", `categoria_id`="' . $_POST['categoria_id'] . '", `imagen_url` = "' . $imageLoc . '", `orden` = ' . $_POST['orden'] . ' WHERE `id`=' . $id;
-
-		$cid = $db->insert($sql);
-
-		$relative = $GLOBALS['relative'];
+		$db            = $GLOBALS['db'];
+		$imageLoc      = '/statics/images/categories/{id}';
+		$sql           = 'UPDATE `categoria` SET `titulo`="' . $_POST['titulo'] . '", `descripcion_breve`="' . $_POST['descripcion_breve'] . '", `descripcion`="' . $_POST['descripcion'] . '", `categoria_id`="' . $_POST['categoria_id'] . '", `imagen_url` = "' . $imageLoc . '", `orden` = ' . $_POST['orden'] . ' WHERE `id`=' . $id;
+		$cid           = $db->insert($sql);
+		$relative      = $GLOBALS['relative'];
 		$imageLocation = $relative . '/statics/images/categories/' . $id;
 
-		// creo la carpeta para las immagenes de esta categoria
+		// creo la carpeta para las imagenes de esta categoria
 		@mkdir($imageLocation);
 
 		if ($_FILES['imagen']['error'] == 0) {
-
 			// salvar imagen
 			@unlink($imageLocation . '/thumbnail.jpg');
 			$img = new upload($_FILES['imagen']);

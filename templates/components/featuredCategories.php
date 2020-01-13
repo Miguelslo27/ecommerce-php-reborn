@@ -45,13 +45,13 @@ $categories = getCategories(0, 3);
     <ul class="categories">
       <?php foreach ($categories as $cat) : ?>
         <li>
-          <div style="display: none">
-            <?php var_dump($cat); ?>
-          </div>
           <article>
-            <p><?php echo $cat->descripcion_breve; ?></p>
-            <a href="/categorias?c=<?php echo $cat->id; ?>"><?php echo $cat->titulo; ?></a>
-            <p>23 artículos en esta categoría</p>
+            <img src="<?php echo $cat->imagen_url ?>" alt="<?php echo $cat->titulo ?>">
+            <div class="cat-info">
+              <span><?php echo $cat->descripcion_breve ?></span>
+              <a href="<?php // category link ?>"><?php echo $cat->titulo ?></a>
+              <span>0 articulos<?php // articles in the category ?></span>
+            </div>
           </article>
         </li>
       <?php endforeach; ?>
