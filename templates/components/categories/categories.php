@@ -2,14 +2,31 @@
 $categories = getCategories(0);
 ?>
 
-<section class="inner categories">
+<section class="inner categories-component">
   <h1>Categorías</h1>
 
-  <?php if (count($categories) == 0) : ?>
-    <p class="is-empty-message">No se encontraron categorías</p>
-  <?php endif; ?>
-
   <?php if (count($categories) > 0) : ?>
+    <?php if (@$userStats['user']->administrador == 1) : ?>
+      <div class="list-actions">
+        <?php include($templatesPath . 'components/categories/admin-actions.php') ?>
+      </div>
+    <?php endif ?>
+    <div class="list-actions">
+      <div class="pagination">
+        <a href="#"><i class="fas fa-arrow-left"></i></a>
+        <a href="#">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#"><i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="per-page">
+        <span>Mostrar:</span>
+        <a href="#">9</a>
+        <a href="#">12</a>
+        <a href="#">15</a>
+      </div>
+    </div>
+
     <ul class="categories">
       <?php foreach ($categories as $cat) : ?>
         <li>
@@ -17,12 +34,20 @@ $categories = getCategories(0);
             <img src="<?php echo $cat->imagen_url ?>" alt="<?php echo $cat->titulo ?>">
             <div class="cat-info">
               <span><?php echo $cat->descripcion_breve ?></span>
-              <a href="<?php // category link ?>"><?php echo $cat->titulo ?></a>
-              <span>0 articulos<?php // articles in the category ?></span>
+              <a href="/categories/?c=<?php echo $cat->id ?>"><?php echo $cat->titulo ?></a>
+              <span>0 articulos<?php // articles in the category 
+                                ?></span>
             </div>
           </article>
         </li>
       <?php endforeach; ?>
     </ul>
-  <?php endif; ?>
+  <?php else : ?>
+    <?php if (@$userStats['user']->administrador == 1) : ?>
+      <div class="actions">
+        <?php include($templatesPath . 'components/categories/admin-actions.php') ?>
+      </div>
+    <?php endif ?>
+    <p class="is-empty-message">No se encontraron categorías</p>
+  <?php endif ?>
 </section>

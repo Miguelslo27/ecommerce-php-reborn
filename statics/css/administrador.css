@@ -1,18 +1,3 @@
-.admin-cmds {
-	display: flex;
-	justify-content: space-between;
-	padding: 1rem;
-}
-.admin-cmds > div {
-	display: flex;
-	flex-direction: row;
-}
-.admin-cmds a {
-	display: block;
-	padding: .5rem 1rem;
-}
-.admin-cmds .actions {}
-/* .admin-cmds .pagination {} */
-.admin-cmds a:not(:last-child) {
-	border-right: 1px solid;
-}
+/* .list-actions .pagination {
+	justify-content: center;
+} */

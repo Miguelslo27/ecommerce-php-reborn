@@ -17,11 +17,11 @@ loadSection("header", $userStats);
 // saveArticle();
 
 ?>
-<div class="container categories">
+<div class="container">
 	<!-- <?php include($templatesPath . 'components/breadcrumb.php') ?> -->
-	<?php include($templatesPath . 'components/categories/admin-actions.php') ?>
+	<!-- <?php include($templatesPath . 'components/categories/admin-actions.php') ?> -->
 	<?php include($templatesPath . 'components/categories/categories.php') ?>
-	<!-- <?php include($templatesPath.'components/categories/articles.php') ?> -->
+	<!-- <?php include($templatesPath . 'components/categories/articles.php') ?> -->
 </div>
 <?php
 

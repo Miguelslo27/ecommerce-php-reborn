@@ -42,9 +42,9 @@ loadSection("header", $userStats);
 	}
 
 	include($templatesPath . 'components/hero.php');
-	include($templatesPath . 'components/featuredCategories.php');
-	include($templatesPath . 'components/newArticles.php');
-	include($templatesPath . 'components/featuredArticles.php');
+	include($templatesPath . 'components/categories/featuredCategories.php');
+	include($templatesPath . 'components/articles/newArticles.php');
+	include($templatesPath . 'components/articles/featuredArticles.php');
 
 	?>
 </div>

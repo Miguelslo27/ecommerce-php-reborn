@@ -81,53 +81,40 @@ i.fab+* {
 	color: #FFF;
 }
 
-.pagination {
-	display: flex;
-}
-
-.pagination>div {
+.list-actions {
 	display: flex;
 	flex-direction: row;
+	margin-bottom: 1rem;
 }
 
-.pagination a {
+.list-actions>div {
+	display: flex;
+	flex-direction: row;
+	flex: 1;
+}
+
+.list-actions>div span,
+.list-actions>div a {
 	display: block;
+	padding: .5rem 1rem;
 }
 
-.pagination .per-page {
-	line-height: 2rem;
+.list-actions>div span {
+	font-weight: bold;
 }
 
-.pagination .per-page span {
-	margin-right: .5rem;
-}
+.list-actions>div a {}
 
-.pagination .per-page a {
-	padding-right: .5rem;
-}
-
-.pagination .per-page a:not(:last-child) {
+.list-actions>div a:not(:last-child) {
 	border-right: 1px solid;
 }
 
-.pagination .pages {
-	height: 2rem;
-	line-height: 2rem;
+.list-actions .per-page {
+	justify-content: flex-end;
 }
 
-.pagination .pages a:first-of-type {
-	margin-left: 5px;
-}
-
-.pagination .pages a {
-	width: 2rem;
-	text-align: center;
-	border: 1px solid;
-	border-radius: .3rem;
-}
-
-.pagination a:not(:last-child) {
-	margin-right: .5rem;
+.list-actions .pagination {
+	/* justify-content: flex-end; */
 }
 
 /* HEADER */
@@ -273,6 +260,25 @@ header .header-inner .store-nav {
 	padding: 0;
 }
 
+.inner h1 {
+	position: relative;
+	margin-bottom: 2.5rem;
+	text-align: center;
+	text-transform: capitalize;
+	font-size: 2rem;
+	font-weight: normal;
+}
+
+.inner h1::after {
+	content: "";
+	position: absolute;
+	width: 120px;
+	bottom: -15px;
+	left: 50%;
+	border-bottom: 2px solid #333;
+	transform: translateX(-50%);
+}
+
 .articles li,
 .categories li {
 	box-sizing: border-box;
@@ -339,6 +345,7 @@ header .header-inner .store-nav {
 	text-transform: uppercase;
 	line-height: 2rem;
 }
+
 .articles li,
 .articles li {
 	box-shadow: 0 0 25px rgba(147, 0, 119, .15);
@@ -399,10 +406,8 @@ featured .articles li article.new .actions {
 	text-decoration: line-through;
 }
 
-.articles li article.new .article-info .price.after,
-.articles li article.featured .article-info .price.after {
-	/*  */
-}
+/* .articles li article.new .article-info .price.after,
+.articles li article.featured .article-info .price.after {} */
 
 /* FOOTER */
 footer {

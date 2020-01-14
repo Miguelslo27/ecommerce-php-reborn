@@ -97,7 +97,7 @@
 						<!-- <span class="line-h margin-bottom"></span> -->
 						<?php
 						}
-						if ($userStats['user'] && $userStats['user']->administrador == 1) {
+						if (@$userStats['user']->administrador == 1) {
 
 							include($templatesPath . '/user/admin-cmds.php');
 
@@ -123,7 +123,7 @@
 									<a href="/categorias?c=<?php echo $cat->id; ?>"><img src="<?php echo $current_image_url.'?'.$revision; ?>"></a>
 								</div>
 								<?php
-								if ($userStats['user'] && $userStats['user']->administrador == 1) {
+								if (@$userStats['user']->administrador == 1) {
 
 									?>
 
