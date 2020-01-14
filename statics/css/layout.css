@@ -4,18 +4,22 @@
 	font-family: 'ARBERKLEY';
 	src: url('/statics/fonts/ARBERKLEY.ttf');
 }
+
 @font-face {
 	font-family: 'ArialNarrow';
 	src: url('/statics/fonts/arial-narrow.ttf');
 }
+
 @font-face {
 	font-family: 'Bitter';
 	src: url('/statics/fonts/Bitter-Regular.otf');
 }
+
 @font-face {
 	font-family: 'ProximaNova';
 	src: url('/statics/fonts/proximanova-light-webfont.ttf') format("truetype");
 }
+
 @font-face {
 	font-family: 'ProximaNovaIEOTF';
 	src: url('/statics/fonts/ProximaNova-Light.otf') format("truetype");
@@ -26,6 +30,7 @@ html {
 	font-size: 16px;
 	overflow-x: hidden;
 }
+
 body {
 	margin: 0;
 	padding: 0;
@@ -33,25 +38,30 @@ body {
 	color: #222;
 	/* background-color: #fafafa; */
 }
+
 img {
 	display: inline-block;
 	border: none;
 }
+
 hr {
 	height: 1px;
 	border: 0;
 	background: #555;
 }
+
 a {
 	color: #b52299;
 	text-decoration: none;
 }
+
 a:hover {
 	text-decoration: underline;
 }
-i.fas + *,
-i.far + *,
-i.fab + * {
+
+i.fas+*,
+i.far+*,
+i.fab+* {
 	margin-left: 5px;
 }
 
@@ -60,6 +70,7 @@ i.fab + * {
 	max-width: 1200px;
 	margin: auto;
 }
+
 .floating-debug-section {
 	position: absolute;
 	top: 9rem;
@@ -70,6 +81,55 @@ i.fab + * {
 	color: #FFF;
 }
 
+.pagination {
+	display: flex;
+}
+
+.pagination>div {
+	display: flex;
+	flex-direction: row;
+}
+
+.pagination a {
+	display: block;
+}
+
+.pagination .per-page {
+	line-height: 2rem;
+}
+
+.pagination .per-page span {
+	margin-right: .5rem;
+}
+
+.pagination .per-page a {
+	padding-right: .5rem;
+}
+
+.pagination .per-page a:not(:last-child) {
+	border-right: 1px solid;
+}
+
+.pagination .pages {
+	height: 2rem;
+	line-height: 2rem;
+}
+
+.pagination .pages a:first-of-type {
+	margin-left: 5px;
+}
+
+.pagination .pages a {
+	width: 2rem;
+	text-align: center;
+	border: 1px solid;
+	border-radius: .3rem;
+}
+
+.pagination a:not(:last-child) {
+	margin-right: .5rem;
+}
+
 /* HEADER */
 header {
 	position: relative;
@@ -78,11 +138,13 @@ header {
 	box-shadow: 0 -5px 5px 5px #000;
 	color: #FFF;
 }
+
 header .header-inner .site-nav {
 	padding: 20px;
 	text-align: center;
 	border-bottom: 1px solid #555;
 }
+
 header .logo {
 	font-size: 2rem;
 	color: #b52299;
@@ -94,13 +156,16 @@ header .header-inner .store-nav {
 	flex-direction: row;
 	padding: 8px;
 }
-.store-nav > * {
+
+.store-nav>* {
 	flex: 1;
 }
+
 .store-nav .navigation {
 	display: flex;
 	flex-direction: row;
 }
+
 .store-nav .navigation a.access-menu {
 	display: block;
 	padding: 0 12px;
@@ -112,14 +177,17 @@ header .header-inner .store-nav {
 	text-transform: uppercase;
 	line-height: 2.5rem;
 }
+
 .store-nav .navigation a.access-menu:hover {
 	color: #b52299;
 	border-bottom: 2px solid #b52299;
 }
+
 .store-nav .navigation a.access-menu .fas,
 .store-nav .navigation a.access-menu .far {
 	font-size: 1rem;
 }
+
 .store-nav .navigation a.access-menu:not(:last-child) {
 	border-right: 1px solid #555;
 }
@@ -129,6 +197,7 @@ header .header-inner .store-nav {
 	display: inline-block;
 	position: relative;
 }
+
 .store-nav .navigation .dropdown {
 	display: none;
 	position: absolute;
@@ -140,10 +209,12 @@ header .header-inner .store-nav {
 	border-bottom: 1px solid #555;
 	background: #222;
 }
+
 .store-nav .navigation .dropdown a {
 	display: block;
 	border: none !important;
 }
+
 .store-nav .navigation .dropdown-nav .dropdown:hover,
 .store-nav .navigation .dropdown-nav:hover .dropdown {
 	display: block;
@@ -157,6 +228,7 @@ header .header-inner .store-nav {
 	align-items: center;
 	flex-direction: row;
 }
+
 .store-nav .search-box form .search-input,
 .store-nav .search-box form .search-button {
 	height: 2.2rem;
@@ -167,12 +239,14 @@ header .header-inner .store-nav {
 	background: #fff;
 	outline: none;
 }
+
 .store-nav .search-box form .search-input {
 	width: 50%;
 	padding: 0 1rem;
 	border-top-left-radius: 1.1rem;
 	border-bottom-left-radius: 1.1rem;
 }
+
 .store-nav .search-box form .search-button {
 	padding: 0 .6rem;
 	border-top-right-radius: 1.1rem;
@@ -185,10 +259,156 @@ header .header-inner .store-nav {
 	justify-content: flex-end;
 }
 
+/* CONTENTS */
+/* GRIDS */
+/* CATEGORIES */
+.articles,
+.categories {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.articles li,
+.categories li {
+	box-sizing: border-box;
+	width: 32%;
+	margin-bottom: 1.8rem;
+	background: #999;
+	box-shadow: 0 0 15px rgba(147, 0, 119, .15);
+	transition: box-shadow .3s ease;
+}
+
+.categories li:hover {
+	box-shadow: 0 0px 25px 0 rgba(147, 0, 119, .5);
+}
+
+.categories li:nth-child(3n+2),
+.articles li:nth-child(3n+2),
+.articles li:nth-child(3n+2) {
+	margin-left: 2%;
+	margin-right: 2%;
+}
+
+.categories li article,
+.articles li {
+	position: relative;
+}
+
+.categories li article img,
+.articles li article img,
+.articles li article img {
+	display: block;
+	max-width: 100%;
+}
+
+.categories li article .cat-info {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 60%;
+	padding: 1rem;
+	transform: translate(-50%, -50%);
+	background: rgba(255, 255, 255, .9);
+}
+
+.categories li article .cat-info *,
+.articles li article .article-info *,
+.articles li article .article-info * {
+	display: block;
+}
+
+.categories li article .cat-info span,
+.articles li article .article-info span,
+.articles li article .article-info span {
+	font-size: .8rem;
+}
+
+.categories li article .cat-info span:last-child {
+	font-weight: bold;
+}
+
+.categories li article .cat-info a,
+.articles li article .article-info a,
+.articles li article .article-info a {
+	font-size: 1.3rem;
+	text-transform: uppercase;
+	line-height: 2rem;
+}
+.articles li,
+.articles li {
+	box-shadow: 0 0 25px rgba(147, 0, 119, .15);
+	background: #FFF;
+}
+
+.articles li article.new::before,
+.articles li article.featured::before {
+	position: absolute;
+	color: #FFF;
+	font-size: 1.2rem;
+	text-transform: uppercase;
+	padding: 10px 20px;
+	top: 1rem;
+	left: 1rem;
+}
+
+.articles li article.new::before {
+	content: "Nuevo";
+	background: orange;
+}
+
+.articles li article.featured::before {
+	content: "Destacado";
+	background: blueviolet;
+}
+
+.articles li article.new hr,
+.articles li article.featured hr {
+	width: 84%;
+	height: 1px;
+	background: #930077;
+}
+
+.articles li article.new .article-info,
+.articles li article.featured .article-info,
+.articles li article.new .actions,
+.articles li article.featured .actions {
+	padding: 8%;
+}
+
+/* .articles li article.new .actions,
+featured .articles li article.new .actions {
+	padding: 8%;
+} */
+.articles li article.new .article-info .price,
+.articles li article.featured .article-info .price {
+	display: inline-block;
+	margin-right: 1rem;
+	font-size: 1.8rem;
+	font-weight: 400;
+}
+
+.articles li article.new .article-info .price.before,
+.articles li article.featured .article-info .price.before {
+	font-size: 1.3rem;
+	font-weight: normal;
+	text-decoration: line-through;
+}
+
+.articles li article.new .article-info .price.after,
+.articles li article.featured .article-info .price.after {
+	/*  */
+}
+
 /* FOOTER */
 footer {
 	background: #222;
 }
+
 footer .footer-columns {
 	display: flex;
 	flex-direction: row;
@@ -196,23 +416,28 @@ footer .footer-columns {
 	padding: 20px;
 	max-width: 1200px;
 }
-footer .footer-columns > section {
+
+footer .footer-columns>section {
 	flex: 1;
 	padding: 0 20px;
 	color: #FFF;
 }
-footer .footer-columns > section h3 {
+
+footer .footer-columns>section h3 {
 	font-weight: normal;
 }
-footer .footer-columns > section p {
+
+footer .footer-columns>section p {
 	line-height: 1.5rem;
 }
-footer .footer-columns > section ul {
+
+footer .footer-columns>section ul {
 	list-style: none;
 	margin: 0;
 	padding: 0;
 	line-height: 1.5rem;
 }
+
 footer .footer-columns>section .links li::before {
 	content: "\f0da";
 	display: inline-block;
@@ -220,6 +445,7 @@ footer .footer-columns>section .links li::before {
 	font-family: "Font Awesome 5 Free";
 	font-weight: 900;
 }
+
 footer .footer-columns .subscribe form {
 	display: flex;
 }
@@ -264,6 +490,7 @@ footer .rights {
 	color: #FFF;
 	background: #333;
 }
+
 footer .rights::before {
 	content: "";
 	position: absolute;

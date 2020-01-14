@@ -9,7 +9,7 @@ $categories = getCategories(0, 'sarasa');
     <!-- <p class="is-empty-message">No se encontraron artículos nuevos</p> -->
     <ul class="articles news">
       <li>
-        <article class="news">
+        <article class="new">
           <img src="/statics/images/articles/1.jpg" alt="Auriculares Rocca">
           <div class="article-info">
             <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
@@ -24,7 +24,7 @@ $categories = getCategories(0, 'sarasa');
         </article>
       </li>
       <li>
-        <article class="news">
+        <article class="new">
           <img src="/statics/images/articles/2.jpg" alt="Auriculares Xiami">
           <div class="article-info">
             <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
@@ -38,7 +38,7 @@ $categories = getCategories(0, 'sarasa');
         </article>
       </li>
       <li>
-        <article class="news">
+        <article class="new">
           <img src="/statics/images/articles/3.jpg" alt="Auricular Bluetooth">
           <div class="article-info">
             <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
