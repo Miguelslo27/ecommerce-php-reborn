@@ -11,53 +11,54 @@ header("Pragma: no-cache");
 if (isset($_GET['debug'])) {
 
 	$_SESSION['debug'] = $_GET['debug'];
-
 }
 
 if (isset($_SESSION['debug'])) {
 
-	?>
+?>
 
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv=”Expires” content=”0″>
-	<meta http-equiv=”Last-Modified” content=”0″>
-	<meta http-equiv=”Cache-Control” content=”no-cache, mustrevalidate”>
-	<meta http-equiv=”Pragma” content=”no-cache”>
+	<!doctype html>
+	<html lang="en">
 
-	<title>Monique.com.uy - En reparación</title>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv=”Expires” content=”0″>
+		<meta http-equiv=”Last-Modified” content=”0″>
+		<meta http-equiv=”Cache-Control” content=”no-cache, mustrevalidate”>
+		<meta http-equiv=”Pragma” content=”no-cache”>
 
-	<style>
-	body {
-		margin:0;
-		padding:0;
-		text-align: center;
-	}
-	</style>
-</head>
-<body>
-	<img src="/statics/images/enconstruccion.png">
-</body>
-</html>
+		<title>Monique.com.uy - En reparación</title>
 
-	<?php
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<img src="/statics/images/enconstruccion.png">
+	</body>
+
+	</html>
+
+<?php
 	exit();
-
 }
 
 require_once('db.class.php');
 require_once('class.upload.php');
 include('mailer/PHPMailerAutoload.php');
 
-switch($_SERVER['HTTP_HOST']) {
+switch ($_SERVER['HTTP_HOST']) {
 	default:
 		$db_dbase  = 'ecommerce_db';
 		$dbaseHost = 'localhost';
 		$dbaseUser = 'root';
 		$dbasePass = '';
-	break;
+		break;
 }
 
 // config
@@ -74,7 +75,8 @@ $revision = 1; // 'revision='.rand(1,3000);
 $db = new DB($config['db_dbase'], $config['db_host'], $config['db_user'], $config['db_pass']);
 
 /* USUARIO */
-function loadUser ($login = NULL) {
+function loadUser($login = NULL)
+{
 	if (isset($_SESSION['temp_userid'])) {
 		$tempuserid = $_SESSION['temp_userid'];
 		$pedido     = obtenerPedidoAbierto($tempuserid);
@@ -127,7 +129,8 @@ function loadUser ($login = NULL) {
 	}
 }
 
-function loginUser ($email = NULL, $pass = NULL, $forzarLogin = false) {
+function loginUser($email = NULL, $pass = NULL, $forzarLogin = false)
+{
 	if (!$email && !$pass) {
 		$email = isset($_POST['email']) ? $_POST['email'] : '';
 		$pass  = isset($_POST['pass']) ? $_POST['pass'] : '';
@@ -157,18 +160,18 @@ function loginUser ($email = NULL, $pass = NULL, $forzarLogin = false) {
 		$prepedido = false;
 
 		// Si hay un id temporal
-		if(isset($_SESSION['temp_userid'])) {
+		if (isset($_SESSION['temp_userid'])) {
 			// Obtengo el pre pedido
 			$prepedido = obtenerPedidoAbierto($_SESSION['temp_userid']);
 
 			// Si tengo prepedido cambio la pertenencia por la del usuario logueado
-			if($prepedido) {
+			if ($prepedido) {
 				$prepedido = cambiarPertenenciaDelPedido($prepedido->id, $usuario->id, $_SESSION['temp_userid']);
 			}
 		}
 
 		// Si hay pedido y prepedido, los combino en el pedido abierto del usuario
-		if($pedido && $prepedido) {
+		if ($pedido && $prepedido) {
 			$pedido = combinarPedidos($pedido, $prepedido);
 		} else {
 			$pedido = $prepedido;
@@ -178,15 +181,16 @@ function loginUser ($email = NULL, $pass = NULL, $forzarLogin = false) {
 		$_SESSION['pedido'] = JSON_encode($pedido);
 
 		// Redireccionar a la última página visitada donde se cargarán los datos del usuario
-		header('Location: '.$_SERVER['HTTP_REFERER']);
+		header('Location: ' . $_SERVER['HTTP_REFERER']);
 	} else {
-		return array('user' => NULL, 'cart' => NULL,'status' => 'ERROR_EMAIL_OR_PASS');
+		return array('user' => NULL, 'cart' => NULL, 'status' => 'ERROR_EMAIL_OR_PASS');
 	}
 }
 
-function checkEmail ($email = NULL) {
+function checkEmail($email = NULL)
+{
 
-	if(!$email) {
+	if (!$email) {
 		return false;
 	}
 
@@ -195,15 +199,15 @@ function checkEmail ($email = NULL) {
 	$sql = 'SELECT `email`, `codigo` FROM `usuario` WHERE `email` = "' . $email . '"';
 	$usuario = $db->getObjeto($sql);
 
-	if(isset($usuario->email) && $usuario->email != '') {
+	if (isset($usuario->email) && $usuario->email != '') {
 		$_SESSION['codigo-de-recuperacion'] = $usuario->codigo;
 		return true;
 	} else return false;
-
 }
 
-function checkSuscription ($email = NULL) {
-	if(!$email) {
+function checkSuscription($email = NULL)
+{
+	if (!$email) {
 		return false;
 	}
 
@@ -211,30 +215,31 @@ function checkSuscription ($email = NULL) {
 	$sql = 'SELECT `email` FROM `suscripciones` WHERE `email` = "' . $email . '"';
 	$sus = $db->getObjeto($sql);
 
-	if(isset($sus->email) && $sus->email != '') {
+	if (isset($sus->email) && $sus->email != '') {
 		return true;
 	} else return false;
 }
 
-function suscribir($email) {
+function suscribir($email)
+{
 	$suscribed = false;
 	$email = str_replace(" ", "", strtolower($email));
 
 	// Chequear formato del email
-	if(preg_match('/^[a-z0-9]+[a-z0-cribir9_.-]+@[a-z0-9_.-]{3,}.[a-z0-9_.-]{1,}.$/', $email)) {
+	if (preg_match('/^[a-z0-9]+[a-z0-cribir9_.-]+@[a-z0-9_.-]{3,}.[a-z0-9_.-]{1,}.$/', $email)) {
 		// Si el email está bien formado
 		// Chequeo si ya existe usuario con ese email
-		if(checkEmail($email) || checkSuscription($email)) {
+		if (checkEmail($email) || checkSuscription($email)) {
 			// Si existe, retorono suscripto = true
 			$suscribed = true;
 		} else {
 			// Si no existe, lo suscribo
 			$db  = $GLOBALS['db'];
-			$sql = 'INSERT INTO `suscripciones` (`email`) VALUES ("'.$email.'")';
+			$sql = 'INSERT INTO `suscripciones` (`email`) VALUES ("' . $email . '")';
 			$sus = $db->insert($sql);
-			
+
 			// si se suscribió correctamente retornar suscripto = true
-			if($sus) {
+			if ($sus) {
 				$suscribed = true;
 			}
 		}
@@ -243,20 +248,21 @@ function suscribir($email) {
 	return $suscribed;
 }
 
-function enviarDatosDeRecuperacion ($email) {
+function enviarDatosDeRecuperacion($email)
+{
 
 	$asunto = "Solicitud de recuperación de contraseña";
-	$mensaje = ''.
-	'<p>Has solicitado la recuperación de tu contraseña de Monique.com.uy</p>'.
-	'<p>Por favor, sigue el link a continuación y podrás cambiar tu contraseña.</p>'.
-	'<p><a href="http://monique.com.uy/recuperar-clave/index.php?c='.$_SESSION['codigo-de-recuperacion'].'">Click aquí para cambiar contraseña</a></p>'.
-	'<p>Si por cualquier motivo no puedes hacer click en el link anterior, copia la siguente dirección y pégala en la barra de direcciones de tu navegador</p>'.
-	'<p>http://monique.com.uy/recuperar-clave/index.php?c='.$_SESSION['codigo-de-recuperacion'].'</p>';
+	$mensaje = '' .
+		'<p>Has solicitado la recuperación de tu contraseña de Monique.com.uy</p>' .
+		'<p>Por favor, sigue el link a continuación y podrás cambiar tu contraseña.</p>' .
+		'<p><a href="http://monique.com.uy/recuperar-clave/index.php?c=' . $_SESSION['codigo-de-recuperacion'] . '">Click aquí para cambiar contraseña</a></p>' .
+		'<p>Si por cualquier motivo no puedes hacer click en el link anterior, copia la siguente dirección y pégala en la barra de direcciones de tu navegador</p>' .
+		'<p>http://monique.com.uy/recuperar-clave/index.php?c=' . $_SESSION['codigo-de-recuperacion'] . '</p>';
 
 	$mail = new PHPMailer();
 	// $mail->addAddress('no-responder@monique.com.uy', 'Monique.com.uy');
 	$mail->addAddress($email);
-	
+
 	$mail->setFrom('monique@monique.com.uy', 'Monique - Tienda Online');
 	$mail->Subject = utf8_decode($asunto);
 	$mail->msgHTML(utf8_decode($mensaje));
@@ -264,19 +270,17 @@ function enviarDatosDeRecuperacion ($email) {
 	if ($mail->send()) {
 
 		return true;
-
 	} else {
 
 		return false;
-		
 	}
-
 }
 
-function checkCodigoDeValidacion ($codigo = NULL) {
+function checkCodigoDeValidacion($codigo = NULL)
+{
 
 	// debo obtener el usuario según el código
-	if(!$codigo) {
+	if (!$codigo) {
 		return false;
 	}
 
@@ -285,46 +289,46 @@ function checkCodigoDeValidacion ($codigo = NULL) {
 	$sql = 'SELECT `email`, `codigo` FROM `usuario` WHERE `codigo` = "' . $codigo . '"';
 	$usuario = $db->getObjeto($sql);
 
-	if(isset($usuario->email) && $usuario->email != '') {
+	if (isset($usuario->email) && $usuario->email != '') {
 		$_SESSION['email-de-recuperacion'] = $usuario->email;
 		return true;
 	} else return false;
-
 }
 
-function checkClaves($clave1 = NULL, $clave2 = NULL) {
+function checkClaves($clave1 = NULL, $clave2 = NULL)
+{
 
-	if(!$clave1 || !$clave2 || $clave1 != $clave2 || $clave1 == '') {
+	if (!$clave1 || !$clave2 || $clave1 != $clave2 || $clave1 == '') {
 
 		return false;
-
 	}
 
 	return actualizarClave($clave1);
-
 }
 
-function actualizarClave($clave = NULL) {
+function actualizarClave($clave = NULL)
+{
 
-	if(!$clave) return false;
+	if (!$clave) return false;
 	$email = str_replace(" ", "", strtolower($_SESSION['email-de-recuperacion']));
 
 	$db = $GLOBALS['db'];
 	// $sql = 'UPDATE `dev_usuario` SET `clave`="' . md5($clave . $email) . '" WHERE `email`="' . $email .'"';
-	$sql = 'UPDATE `usuario` SET `clave`="' . md5($clave . $email) . '" WHERE `email`="' . $email .'"';
+	$sql = 'UPDATE `usuario` SET `clave`="' . md5($clave . $email) . '" WHERE `email`="' . $email . '"';
 
 	$cid = $db->insert($sql);
-	
-	return true;
 
+	return true;
 }
 
-function logout () {
+function logout()
+{
 	session_destroy();
 	return array('user' => NULL, 'cart' => NULL, 'status' => 'LOGGED_OUT');
 }
 
-function saveUser () {
+function saveUser()
+{
 	$user = loadUser();
 
 	if ($user['user'] && !isset($_POST['id'])) {
@@ -398,7 +402,7 @@ function saveUser () {
 		$sql .= ' WHERE `id` = ' . $_POST['id'];
 	}
 
-	if(!isset($_POST['id']) && checkCurrentUser($_POST['email'])) {
+	if (!isset($_POST['id']) && checkCurrentUser($_POST['email'])) {
 		return array('user' => NULL, 'cart' => NULL,  'status' => 'DUPLICATE_EMAIL');
 	}
 
@@ -409,7 +413,7 @@ function saveUser () {
 		$res = loginUser($email, $_POST['pass'], true);
 
 		// redirecciono a pedidos
-		header('Location: '.$_SERVER['HTTP_REFERER'], true, 302);
+		header('Location: ' . $_SERVER['HTTP_REFERER'], true, 302);
 
 		return $res;
 	}
@@ -417,12 +421,14 @@ function saveUser () {
 	return array('user' => NULL, 'cart' => NULL,  'status' => 'ERROR_SAVING');
 }
 
-function loadSection ($file, $data) {
+function loadSection($file, $data)
+{
 	$congig = $GLOBALS['config'];
 	include($congig['templatesPath'] . $file . '.php');
 }
 
-function checkCurrentUser ($email) {
+function checkCurrentUser($email)
+{
 
 	$db = $GLOBALS['db'];
 	// $sql = 'SELECT COUNT(id) AS usuarios FROM `dev_usuario` WHERE `email` = "' . $email . '"';
@@ -432,14 +438,13 @@ function checkCurrentUser ($email) {
 	if ($r->usuarios == 0) {
 
 		return false;
-
 	}
 
 	return true;
-
 }
 
-function checkUsers () {
+function checkUsers()
+{
 
 	$db = $GLOBALS['db'];
 	// $sql = 'SELECT COUNT(id) AS usuarios FROM `dev_usuario`';
@@ -449,14 +454,13 @@ function checkUsers () {
 	if ($r->usuarios == 0) {
 
 		return false;
-
 	}
 
 	return true;
-
 }
 
-function obtenerUsuarios() {
+function obtenerUsuarios()
+{
 
 	$db = $GLOBALS['db'];
 	$sql = 'SELECT * FROM (SELECT usuario.id, usuario.nombre, usuario.apellido, usuario.rut, usuario.email, usuario.direccion, usuario.telefono, usuario.celular, usuario.departamento, usuario.ciudad, SUM(pedido.total) AS total_pedidos FROM pedido RIGHT JOIN usuario ON pedido.usuario_id = usuario.id WHERE pedido.estado = 1 OR pedido.usuario_id IS NULL GROUP BY usuario.id UNION SELECT usuario.id, usuario.nombre, usuario.apellido, usuario.rut, usuario.email, usuario.direccion, usuario.telefono, usuario.celular, usuario.departamento, usuario.ciudad, NULL AS total_pedidos FROM pedido RIGHT JOIN usuario ON pedido.usuario_id = usuario.id WHERE pedido.estado != 1 GROUP BY usuario.id) AS usuarios GROUP BY usuarios.id ORDER BY `usuarios`.`total_pedidos` DESC';
@@ -464,10 +468,10 @@ function obtenerUsuarios() {
 	$r = $db->getObjetos($sql);
 
 	return $r;
-
 }
 
-function obtenerTotalUsuarios() {
+function obtenerTotalUsuarios()
+{
 	$db = $GLOBALS['db'];
 	$sql = 'SELECT COUNT(`id`) as `total` FROM `usuario`';
 
@@ -476,16 +480,18 @@ function obtenerTotalUsuarios() {
 	return $r;
 }
 
-function obtenerUsuariosPaginados($cantidadPorPagina = 20, $pagina = 1) {
+function obtenerUsuariosPaginados($cantidadPorPagina = 20, $pagina = 1)
+{
 	$db = $GLOBALS['db'];
-	$sql = 'SELECT * FROM `usuario` LIMIT '.($cantidadPorPagina*($pagina - 1)).','.$cantidadPorPagina;
+	$sql = 'SELECT * FROM `usuario` LIMIT ' . ($cantidadPorPagina * ($pagina - 1)) . ',' . $cantidadPorPagina;
 
 	$r = $db->getObjetos($sql);
 
 	return $r;
 }
 
-function obtenerTotalOrdenes($id_usuario = null, $estado = NULL) {
+function obtenerTotalOrdenes($id_usuario = null, $estado = NULL)
+{
 	$db = $GLOBALS['db'];
 	$sql = 'SELECT COUNT(`id`) as `total` FROM `pedido`';
 
@@ -509,7 +515,8 @@ function obtenerTotalOrdenes($id_usuario = null, $estado = NULL) {
 	return $r;
 }
 
-function obtenerOrdenesPaginadas ($id_usuario = null, $estado = NULL, $cantidadPorPagina = 20, $pagina = 1) {
+function obtenerOrdenesPaginadas($id_usuario = null, $estado = NULL, $cantidadPorPagina = 20, $pagina = 1)
+{
 	$db = $GLOBALS['db'];
 	$sql = 'SELECT `pedido`.*, `usuario`.`nombre`, `usuario`.`apellido`, `usuario`.`rut`, `usuario`.`telefono`, `usuario`.`celular`, `usuario`.`email` FROM `pedido` JOIN `usuario` ON `pedido`.`usuario_id`=`usuario`.`id`';
 
@@ -528,14 +535,14 @@ function obtenerOrdenesPaginadas ($id_usuario = null, $estado = NULL, $cantidadP
 		$sql .= ' `estado`=' . $estado;
 	}
 
-	$sql .= ' ORDER BY `fecha` DESC LIMIT '.($cantidadPorPagina*($pagina - 1)).','.$cantidadPorPagina;
+	$sql .= ' ORDER BY `fecha` DESC LIMIT ' . ($cantidadPorPagina * ($pagina - 1)) . ',' . $cantidadPorPagina;
 
 	$pedidos = $db->getObjetos($sql);
 	return $pedidos;
-
 }
 
-function obtenerUsuariosExportacion() {
+function obtenerUsuariosExportacion()
+{
 	$db = $GLOBALS['db'];
 	$sql = 'SELECT * FROM (SELECT usuario.id, usuario.nombre, usuario.apellido, usuario.rut, usuario.email, usuario.direccion, usuario.telefono, usuario.celular, usuario.departamento, usuario.ciudad, SUM(pedido.total) AS total_pedidos FROM pedido RIGHT JOIN usuario ON pedido.usuario_id = usuario.id WHERE pedido.estado = 1 OR pedido.usuario_id IS NULL GROUP BY usuario.id UNION SELECT usuario.id, usuario.nombre, usuario.apellido, usuario.rut, usuario.email, usuario.direccion, usuario.telefono, usuario.celular, usuario.departamento, usuario.ciudad, NULL AS total_pedidos FROM pedido RIGHT JOIN usuario ON pedido.usuario_id = usuario.id WHERE pedido.estado != 1 GROUP BY usuario.id) AS usuarios GROUP BY usuarios.id ORDER BY `usuarios`.`total_pedidos` DESC';
 
@@ -544,7 +551,8 @@ function obtenerUsuariosExportacion() {
 	return $r;
 }
 
-function obtenerSuscripciones() {
+function obtenerSuscripciones()
+{
 
 	$db = $GLOBALS['db'];
 	$sql = 'SELECT * FROM `suscripciones`';
@@ -552,12 +560,10 @@ function obtenerSuscripciones() {
 	$r = $db->getObjetos($sql);
 
 	return $r;
-
 }
 
-function getCategory () {
-
-	$cat;
+function getCategory()
+{
 
 	if (isset($_GET['c']) && $_GET['c'] != 'new' && $_GET['c'] != 'save') {
 
@@ -566,8 +572,7 @@ function getCategory () {
 		$sql = 'SELECT `id`, `titulo`, `descripcion_breve`, `descripcion`, `imagen_url`, `categoria_id`, `estado`, `orden` FROM `categoria` WHERE id = ' . $_GET['c'];
 
 		$cat = $db->getObjeto($sql);
-
-	} elseif(isset($_GET['ofertas']) && $_GET['ofertas'] == 1) {
+	} elseif (isset($_GET['ofertas']) && $_GET['ofertas'] == 1) {
 
 		$cat = new stdClass();
 		$cat->id = -1;
@@ -577,7 +582,6 @@ function getCategory () {
 		$cat->imagen_url = '';
 		$cat->categoria_id = NULL;
 		$cat->estado = NULL;
-
 	} else {
 
 		$cat = new stdClass();
@@ -588,7 +592,6 @@ function getCategory () {
 		$cat->imagen_url = '';
 		$cat->categoria_id = NULL;
 		$cat->estado = NULL;
-
 	}
 
 	$cat->subcategorias = getCategories($cat->id);
@@ -597,12 +600,13 @@ function getCategory () {
 	return $cat;
 }
 
-function getCategories ($parentId = NULL, $limit = null) {
+function getCategories($parentId = NULL, $limit = null)
+{
 	$db = $GLOBALS['db'];
 	$sql = 'SELECT `id`, `titulo`, `descripcion_breve`, `descripcion`, `imagen_url`, `categoria_id`, `estado`, `orden` FROM `categoria` WHERE `categoria_id` = ' . $parentId . ' ORDER BY `orden` ASC';
 
 	if ($limit) {
-		$sql .= ' LIMIT '.$limit;
+		$sql .= ' LIMIT ' . $limit;
 	}
 
 	$cats = $db->getObjetos($sql);
@@ -610,8 +614,8 @@ function getCategories ($parentId = NULL, $limit = null) {
 	return ($cats && count($cats) > 0) ? $cats : array();
 }
 
-function getArticles ($parentId = NULL) {
-	$arts;
+function getArticles($parentId = NULL)
+{
 	$db = $GLOBALS['db'];
 
 	if ($parentId == -1) {
@@ -625,7 +629,8 @@ function getArticles ($parentId = NULL) {
 	return ($arts && count($arts) > 0) ? $arts : array();
 }
 
-function buscarArticulos ($busqueda = NULL) {
+function buscarArticulos($busqueda = NULL)
+{
 
 	$palabras_buscadas = explode(" ", $busqueda);
 	$resultado_ = array();
@@ -634,157 +639,134 @@ function buscarArticulos ($busqueda = NULL) {
 		switch ($palabra) {
 
 			default:
-			$resultado_[] = $palabra;
-			continue 2;
-			break;
+				$resultado_[] = $palabra;
+				continue 2;
+				break;
 
 			case 'camisas':
-			$resultado_[] = "camisa";
-			continue 2;
-			break;
+				$resultado_[] = "camisa";
+				continue 2;
+				break;
 
 			case 'pantalones':
-			$resultado_[] = "pantalón";
-			continue 2;
-			break;
+				$resultado_[] = "pantalón";
+				continue 2;
+				break;
 
 			case 'pantalon':
-			$resultado_[] = "pantalón";
-			continue 2;
-			break;
+				$resultado_[] = "pantalón";
+				continue 2;
+				break;
 
 			case 'buzos':
-			$resultado_[] = "buzo";
-			continue 2;
-			break;
+				$resultado_[] = "buzo";
+				continue 2;
+				break;
 
 			case 'poleras':
-			$resultado_[] = "polera";
-			continue 2;
-			break;
+				$resultado_[] = "polera";
+				continue 2;
+				break;
 
 			case 'rompevientos':
 			case 'rompe vientos':
 			case 'rompe viento':
-			$resultado_[] = "rompeviento";
-			continue 2;
-			break;
+				$resultado_[] = "rompeviento";
+				continue 2;
+				break;
 
 			case 'sacos':
-			$resultado_[] = "saco";
-			continue 2;
-			break;
+				$resultado_[] = "saco";
+				continue 2;
+				break;
 
 			case 'camperas':
-			$resultado_[] = "campera";
-			continue 2;
-			break;
+				$resultado_[] = "campera";
+				continue 2;
+				break;
 
 			case 'blusas':
-			$resultado_[] = "blusa";
-			continue 2;
-			break;
+				$resultado_[] = "blusa";
+				continue 2;
+				break;
 
 			case 'minifaldas':
 			case 'mini faldas':
 			case 'mini falda':
-			$resultado_[] = "minifalda";
-			continue 2;
-			break;
+				$resultado_[] = "minifalda";
+				continue 2;
+				break;
 
 			case 'shorts':
-			$resultado_[] = "short";
-			continue 2;
-			break;
-
+				$resultado_[] = "short";
+				continue 2;
+				break;
 		}
-
 	}
 
 	$busqueda_ = implode(" ", $resultado_);
-
-	$arts;
-
 	$db = $GLOBALS['db'];
 	$sql = 'SELECT `id`, `nombre`, `codigo`, `descripcion_breve`, `descripcion`, `talle`, `talle_surtido`, `adaptable`, `colores_url`, `colores_surtidos_url`, `packs`, `imagenes_url`, `categoria_id`, `estado`, `nuevo`, `agotado`, `oferta`, `surtido`, `precio`, `precio_oferta`, `precio_surtido`, `precio_oferta_surtido`, `orden` FROM `articulo` WHERE `codigo` LIKE "%' . $busqueda_ . '%" OR `nombre` LIKE "%' . $busqueda_ . '%" ORDER BY `orden` ASC';
 	$arts = $db->getObjetos($sql);
 
 	return (count($arts) > 0) ? $arts : array();
-
 }
 
 /* ADMINISTRACION */
-function saveCategory () {
-
+function saveCategory()
+{
 	if (isset($_POST['type']) && $_POST['type'] == 'category') {
-
 		if (isset($_POST['save'])) {
-
 			if (isset($_POST['id']) && $_POST['id'] != "") {
-
 				updateCategory($_POST['id']);
 				return;
-
 			}
 
-			$relative = $GLOBALS['relative'];
+			$relative      = $GLOBALS['relative'];
+			$db            = $GLOBALS['db'];
+			$sql           = 'INSERT INTO `categoria` (`titulo`, `descripcion_breve`, `descripcion`, `categoria_id`, `estado`, `orden`) VALUES ("' . $_POST['titulo'] . '", "' . $_POST['descripcion_breve'] . '", "' . $_POST['descripcion'] . '", "' . $_POST['categoria_id'] . '", 1, ' . $_POST['orden'] . ')';
+			$cid           = $db->insert($sql);
+			$imageLocation = ($_FILES['imagen']['error'] == 0) ? '/statics/images/categories/' . $cid : '';
 
-			$imageLocation = ($_FILES['imagen']['error'] == 0) ? '/statics/images/categories/{id}' : '';
-
-			$db = $GLOBALS['db'];
-			// $sql = 'INSERT INTO `dev_categoria` (`titulo`, `descripcion_breve`, `descripcion`, `imagen_url`, `categoria_id`, `estado`, `orden`) VALUES ("' . $_POST['titulo'] . '","' . $_POST['descripcion_breve'] . '","' . $_POST['descripcion'] . '","' . $imageLocation . '","' . $_POST['categoria_id'] . '", 1, ' . $_POST['orden'] . ')';
-			$sql = 'INSERT INTO `categoria` (`titulo`, `descripcion_breve`, `descripcion`, `imagen_url`, `categoria_id`, `estado`, `orden`) VALUES ("' . $_POST['titulo'] . '","' . $_POST['descripcion_breve'] . '","' . $_POST['descripcion'] . '","' . $imageLocation . '","' . $_POST['categoria_id'] . '", 1, ' . $_POST['orden'] . ')';
-			$cid = $db->insert($sql);
-
-			$imageLocation = $relative . '/statics/images/categories/' . $cid;
-			
-			// creo la carpeta para las immagenes de esta categoria
-			mkdir($imageLocation);
+			// creo la carpeta para las imagenes de esta categoria
+			mkdir($relative . $imageLocation);
 
 			// salvar imagen
 			$img = new upload($_FILES['imagen']);
-			if ($img->uploaded) {
 
+			if ($img->uploaded) {
 				$img->image_x = 200;
 				$img->file_new_name_body = 'thumbnail';
 				$img->image_convert = 'jpg';
-				$img->process($imageLocation);
+				$img->process($relative . $imageLocation);
 
+				$sql = 'UPDATE `categoria` SET `imagen_url` = "' . $imageLocation . '/thumbnail.jpg' . '" WHERE `id`=' . $cid;
+				$db->insert($sql);
 			}
 
 			return;
-			
 		}
 
 		if (isset($_POST['delete'])) {
-
 			deleteCategory($_POST['id']);
-
 		}
-
 	}
-
 }
 
-function updateCategory ($id = NULL) {
-
+function updateCategory($id = NULL)
+{
 	if ($id) {
-
-		$db = $GLOBALS['db'];
-		$imageLoc = '/statics/images/categories/{id}';
-		// $sql = 'UPDATE `dev_categoria` SET `titulo`="' . $_POST['titulo'] . '", `descripcion_breve`="' . $_POST['descripcion_breve'] . '", `descripcion`="' . $_POST['descripcion'] . '", `categoria_id`="' . $_POST['categoria_id'] . '", `imagen_url` = "' . $imageLoc . '", `orden` = ' . $_POST['orden'] . ' WHERE `id`=' . $id;
-		$sql = 'UPDATE `categoria` SET `titulo`="' . $_POST['titulo'] . '", `descripcion_breve`="' . $_POST['descripcion_breve'] . '", `descripcion`="' . $_POST['descripcion'] . '", `categoria_id`="' . $_POST['categoria_id'] . '", `imagen_url` = "' . $imageLoc . '", `orden` = ' . $_POST['orden'] . ' WHERE `id`=' . $id;
-
-		$cid = $db->insert($sql);
-
-		$relative = $GLOBALS['relative'];
+		$db            = $GLOBALS['db'];
+		$imageLoc      = '/statics/images/categories/{id}';
+		$sql           = 'UPDATE `categoria` SET `titulo`="' . $_POST['titulo'] . '", `descripcion_breve`="' . $_POST['descripcion_breve'] . '", `descripcion`="' . $_POST['descripcion'] . '", `categoria_id`="' . $_POST['categoria_id'] . '", `imagen_url` = "' . $imageLoc . '", `orden` = ' . $_POST['orden'] . ' WHERE `id`=' . $id;
+		$cid           = $db->insert($sql);
+		$relative      = $GLOBALS['relative'];
 		$imageLocation = $relative . '/statics/images/categories/' . $id;
-		
-		// creo la carpeta para las immagenes de esta categoria
+
+		// creo la carpeta para las imagenes de esta categoria
 		@mkdir($imageLocation);
 
-		if($_FILES['imagen']['error'] == 0) {
-
+		if ($_FILES['imagen']['error'] == 0) {
 			// salvar imagen
 			@unlink($imageLocation . '/thumbnail.jpg');
 			$img = new upload($_FILES['imagen']);
@@ -794,16 +776,13 @@ function updateCategory ($id = NULL) {
 				$img->file_new_name_body = 'thumbnail';
 				$img->image_convert = 'jpg';
 				$img->process($imageLocation);
-
 			}
-
 		}
-
 	}
-
 }
 
-function deleteCategory ($id = NULL) {
+function deleteCategory($id = NULL)
+{
 
 	if ($id) {
 
@@ -812,12 +791,11 @@ function deleteCategory ($id = NULL) {
 		$sql = 'DELETE FROM `categoria` WHERE `id`=' . $id;
 
 		$cid = $db->insert($sql);
-
 	}
-
 }
 
-function saveArticle () {
+function saveArticle()
+{
 
 	if (isset($_POST['type']) && $_POST['type'] == 'article') {
 
@@ -827,7 +805,6 @@ function saveArticle () {
 
 				updateArticle($_POST['id']);
 				return;
-
 			}
 
 			$relative = $GLOBALS['relative'];
@@ -843,11 +820,11 @@ function saveArticle () {
 			$imageLocation     = $relative . '/statics/images/articles/' . $cid;
 			$colorLocation     = $relative . '/statics/images/articles/' . $cid . '/colors/';
 			$colorSurtLocation = $relative . '/statics/images/articles/' . $cid . '/colors/surtidos/';
-			
+
 			// creo la carpeta para las imagenes de este artículo
 			@mkdir($imageLocation);
 			@unlink($imageLocation . '/thumbnail.jpg');
-			
+
 			// salvar imagen
 			@$img = new upload($_FILES['imagen']);
 			if ($img->uploaded) {
@@ -855,77 +832,71 @@ function saveArticle () {
 				$img->file_new_name_body = 'thumbnail';
 				$img->image_convert = 'jpg';
 				$img->process($imageLocation);
-
 			}
-			
+
 			@mkdir($colorLocation);
 			@unlink($colorLocation . '/colors.jpg');
-			
+
 			// salvar colores
 			$colorsNum = count($_FILES['colores']['name']);
-			
-			for($i = 0; $i < $colorsNum; $i++) {
-				
+
+			for ($i = 0; $i < $colorsNum; $i++) {
+
 				$currentColor			  = array();
 				$currentColor['name']	  = $_FILES['colores']['name'][$i];
 				$currentColor['type']     = $_FILES['colores']['type'][$i];
 				$currentColor['tmp_name'] = $_FILES['colores']['tmp_name'][$i];
 				$currentColor['error']    = $_FILES['colores']['error'][$i];
 				$currentColor['size']     = $_FILES['colores']['size'][$i];
-				
+
 				$colorName = (string) $i + 1;
-				$colorName = (strlen($colorName) < 2 ? '0'.$colorName : $colorName);
-				
+				$colorName = (strlen($colorName) < 2 ? '0' . $colorName : $colorName);
+
 				@$color = new upload($currentColor);
 				if ($color->uploaded) {
 
 					$color->file_new_name_body = $colorName;
 					$color->image_convert = 'jpg';
 					@$color->process($colorLocation);
-	
 				}
 			}
 
 			@mkdir($colorSurtLocation);
-			
+
 			// salvar colores surtidos
 			$colorsSurtNum = count($_FILES['colores_surtidos']['name']);
-			
-			for($i = 0; $i < $colorsSurtNum; $i++) {
-				
+
+			for ($i = 0; $i < $colorsSurtNum; $i++) {
+
 				$currentSColor			   = array();
 				$currentSColor['name']	   = $_FILES['colores_surtidos']['name'][$i];
 				$currentSColor['type']     = $_FILES['colores_surtidos']['type'][$i];
 				$currentSColor['tmp_name'] = $_FILES['colores_surtidos']['tmp_name'][$i];
 				$currentSColor['error']    = $_FILES['colores_surtidos']['error'][$i];
 				$currentSColor['size']     = $_FILES['colores_surtidos']['size'][$i];
-				
+
 				$colorSName = (string) $i + 1;
-				$colorSName = (strlen($colorSName) < 2 ? '0'.$colorSName : $colorSName);
-				
+				$colorSName = (strlen($colorSName) < 2 ? '0' . $colorSName : $colorSName);
+
 				@$colorS = new upload($currentSColor);
 				if ($colorS->uploaded) {
 
 					$colorS->file_new_name_body = $colorName;
 					$colorS->image_convert = 'jpg';
 					@$colorS->process($colorSurtLocation);
-	
 				}
 			}
-			
 		}
 
 		if (isset($_POST['delete'])) {
 
 			deleteArticle($_POST['id']);
-
 		}
-
 	}
-
 }
 
-function updateArticle ($id) {
+function updateArticle($id)
+{
 
 	if ($id) {
 
@@ -933,8 +904,8 @@ function updateArticle ($id) {
 		$imageLoc     = '/statics/images/articles/{id}/';
 		$colorLoc     = '/statics/images/articles/{id}/colors/';
 		$colorSurtLoc = '/statics/images/articles/{id}/colors/surtidos/';
-		
-		$sql = 'UPDATE `articulo` SET `nombre`="' . $_POST['nombre'] . '", `codigo`="' . $_POST['codigo'] . '", `descripcion_breve`="' . $_POST['descripcion_breve'] . '", `descripcion`="' . $_POST['descripcion'] . '", `talle`="' . $_POST['talle'] . '", `talle_surtido`="' . $_POST['talle_surtido'] . '", `adaptable`="' . @($_POST['adaptable'] == "on" ? 1 : 0) . '", `colores_url` = "' . $colorLoc . '", `colores_surtidos_url` = "' . $colorSurtLoc . '", `packs`="' . $_POST['packs'] . '", `categoria_id`="' . $_POST['categoria_id'] . '", `imagenes_url` = "' . $imageLoc . '", `orden`=' . $_POST['orden'] . ', `nuevo`=' . ($_POST['nuevo'] == "on" ? 1 : 0) . ', `agotado`=' . ($_POST['agotado'] == "on" ? 1 : 0) . ', `oferta`=' . ($_POST['oferta'] == "on" ? 1 : 0) . ', `surtido`=' . ($_POST['surtido'] == "on" ? 1 : 0) . ', `precio`="' . $_POST['precio'] . '", `precio_oferta`=' . (isset($_POST['precio_oferta']) ? $_POST['precio_oferta'] : 0 ) . ', `precio_surtido`=' . (isset($_POST['precio_surtido']) ? $_POST['precio_surtido'] : 0 ) . ', `precio_oferta_surtido`=' . (isset($_POST['precio_oferta_surtido']) ? $_POST['precio_oferta_surtido'] : 0 ) . ' WHERE `id`=' . $id;
+
+		$sql = 'UPDATE `articulo` SET `nombre`="' . $_POST['nombre'] . '", `codigo`="' . $_POST['codigo'] . '", `descripcion_breve`="' . $_POST['descripcion_breve'] . '", `descripcion`="' . $_POST['descripcion'] . '", `talle`="' . $_POST['talle'] . '", `talle_surtido`="' . $_POST['talle_surtido'] . '", `adaptable`="' . @($_POST['adaptable'] == "on" ? 1 : 0) . '", `colores_url` = "' . $colorLoc . '", `colores_surtidos_url` = "' . $colorSurtLoc . '", `packs`="' . $_POST['packs'] . '", `categoria_id`="' . $_POST['categoria_id'] . '", `imagenes_url` = "' . $imageLoc . '", `orden`=' . $_POST['orden'] . ', `nuevo`=' . ($_POST['nuevo'] == "on" ? 1 : 0) . ', `agotado`=' . ($_POST['agotado'] == "on" ? 1 : 0) . ', `oferta`=' . ($_POST['oferta'] == "on" ? 1 : 0) . ', `surtido`=' . ($_POST['surtido'] == "on" ? 1 : 0) . ', `precio`="' . $_POST['precio'] . '", `precio_oferta`=' . (isset($_POST['precio_oferta']) ? $_POST['precio_oferta'] : 0) . ', `precio_surtido`=' . (isset($_POST['precio_surtido']) ? $_POST['precio_surtido'] : 0) . ', `precio_oferta_surtido`=' . (isset($_POST['precio_oferta_surtido']) ? $_POST['precio_oferta_surtido'] : 0) . ' WHERE `id`=' . $id;
 
 		$cid = $db->insert($sql);
 
@@ -946,7 +917,7 @@ function updateArticle ($id) {
 		// creo la carpeta para las imagenes de este artículo
 		@mkdir($imageLocation);
 
-		if($_FILES['imagen']['error'] == 0) {
+		if ($_FILES['imagen']['error'] == 0) {
 
 			// salvar imagen
 			@unlink($imageLocation . '/thumbnail.jpg');
@@ -956,86 +927,80 @@ function updateArticle ($id) {
 				$img->file_new_name_body = 'thumbnail';
 				$img->image_convert = 'jpg';
 				$img->process($imageLocation);
-
 			}
 		}
-		
-		if($_FILES['colores']['error'][0] == 0) {
+
+		if ($_FILES['colores']['error'][0] == 0) {
 			// salvar colores
 			@unlink($imageLocation . '/colors.jpg');
-			$oldColors = glob($colorLocation.'*'); // get all file names
-			
-			foreach($oldColors as $oldColor) {
+			$oldColors = glob($colorLocation . '*'); // get all file names
+
+			foreach ($oldColors as $oldColor) {
 				unlink($oldColor);
 			}
-			
+
 			// salvar colores
 			$colorsNum = count($_FILES['colores']['name']);
-			
-			for($i = 0; $i < $colorsNum; $i++) {
-				
+
+			for ($i = 0; $i < $colorsNum; $i++) {
+
 				$currentColor			  = array();
 				$currentColor['name']	  = $_FILES['colores']['name'][$i];
 				$currentColor['type']     = $_FILES['colores']['type'][$i];
 				$currentColor['tmp_name'] = $_FILES['colores']['tmp_name'][$i];
 				$currentColor['error']    = $_FILES['colores']['error'][$i];
 				$currentColor['size']     = $_FILES['colores']['size'][$i];
-				
+
 				$colorName = (string) $i + 1;
-				$colorName = (strlen($colorName) < 2 ? '0'.$colorName : $colorName);
-				
+				$colorName = (strlen($colorName) < 2 ? '0' . $colorName : $colorName);
+
 				@$color = new upload($currentColor);
 				if ($color->uploaded) {
 
 					$color->file_new_name_body = $colorName;
 					$color->image_convert = 'jpg';
 					@$color->process($colorLocation);
-	
 				}
 			}
-
 		}
 
-		if($_FILES['colores_surtidos']['error'][0] == 0) {
+		if ($_FILES['colores_surtidos']['error'][0] == 0) {
 			// salvar colores
-			$oldSColors = glob($colorSurtLocation.'*'); // get all file names
-			
-			foreach($oldSColors as $oldSColor) {
+			$oldSColors = glob($colorSurtLocation . '*'); // get all file names
+
+			foreach ($oldSColors as $oldSColor) {
 				unlink($oldSColor);
 			}
-			
+
 			// salvar colores
 			$colorsSNum = count($_FILES['colores_surtidos']['name']);
-			
-			for($i = 0; $i < $colorsSNum; $i++) {
-				
+
+			for ($i = 0; $i < $colorsSNum; $i++) {
+
 				$currentSColor			  = array();
-				$currentSColor['name']	  = $_FILES['colores_surtidos']['name'][$i];	
+				$currentSColor['name']	  = $_FILES['colores_surtidos']['name'][$i];
 				$currentSColor['type']     = $_FILES['colores_surtidos']['type'][$i];
 				$currentSColor['tmp_name'] = $_FILES['colores_surtidos']['tmp_name'][$i];
 				$currentSColor['error']    = $_FILES['colores_surtidos']['error'][$i];
 				$currentSColor['size']     = $_FILES['colores_surtidos']['size'][$i];
-				
+
 				$colorSName = (string) $i + 1;
-				$colorSName = (strlen($colorSName) < 2 ? '0'.$colorSName : $colorSName);
-				
+				$colorSName = (strlen($colorSName) < 2 ? '0' . $colorSName : $colorSName);
+
 				@$colorS = new upload($currentSColor);
 				if ($colorS->uploaded) {
 
 					$colorS->file_new_name_body = $colorSName;
 					$colorS->image_convert = 'jpg';
 					@$colorS->process($colorSurtLocation);
-	
 				}
 			}
-
 		}
-
 	}
-
 }
 
-function deleteArticle ($id) {
+function deleteArticle($id)
+{
 
 	if ($id) {
 
@@ -1044,13 +1009,12 @@ function deleteArticle ($id) {
 		$sql = 'DELETE FROM `articulo` WHERE `id`=' . $id;
 
 		$cid = $db->insert($sql);
-
 	}
-
 }
 
 /* PEDIDOS */
-function agregarAlPedido ($id, $cantidad, $esPack = 'true', $talle = NULL, $color = NULL) {
+function agregarAlPedido($id, $cantidad, $esPack = 'true', $talle = NULL, $color = NULL)
+{
 	$user = loadUser();
 
 	if ((!$user || $user['user'] == "") && !isset($_SESSION['temp_userid'])) {
@@ -1063,7 +1027,6 @@ function agregarAlPedido ($id, $cantidad, $esPack = 'true', $talle = NULL, $colo
 
 		// Guardo ese user id temporal en la sesión
 		$_SESSION['temp_userid'] = $temp_userid;
-
 	} else {
 		if (!$user || $user['user'] == "") {
 			// Guardo el user ID para guardar el pedido
@@ -1079,7 +1042,7 @@ function agregarAlPedido ($id, $cantidad, $esPack = 'true', $talle = NULL, $colo
 	$estafecha = time() - (2 * 24 * 60 * 60);
 	$esPack    = $esPack == 'true' ? true : false;
 	$db        = $GLOBALS['db'];
-	$sql_reuse = 'SELECT `id`, `fecha`, `total`, `cantidad`, `estado` FROM `pedido` WHERE `usuario_id` = "' . $userid . '" AND `estado` = 4 AND `fecha` >= "' . date('Y/m/d', $estafecha) .'"';
+	$sql_reuse = 'SELECT `id`, `fecha`, `total`, `cantidad`, `estado` FROM `pedido` WHERE `usuario_id` = "' . $userid . '" AND `estado` = 4 AND `fecha` >= "' . date('Y/m/d', $estafecha) . '"';
 	$pedido    = $db->getObjeto($sql_reuse);
 	$pedidoId  = NULL;
 
@@ -1090,11 +1053,11 @@ function agregarAlPedido ($id, $cantidad, $esPack = 'true', $talle = NULL, $colo
 	} else {
 		// creo el pedido con estado abierto
 		$h = "-3";
-		$hm = $h * 60; 
+		$hm = $h * 60;
 		$ms = $hm * 60;
 		$gmdate = gmdate("Y-m-d H:i:s", time() + ($ms));
 
-		$sql = 'INSERT INTO `pedido` (`usuario_id`, `fecha`, `total`, `cantidad`, `estado`) VALUES ("' . $userid .'", "' . $gmdate . '", 0, 0, 4)';
+		$sql = 'INSERT INTO `pedido` (`usuario_id`, `fecha`, `total`, `cantidad`, `estado`) VALUES ("' . $userid . '", "' . $gmdate . '", 0, 0, 4)';
 		$pedidoId = $db->insert($sql);
 
 		// controlar pedido, si no existe retornar error
@@ -1115,36 +1078,36 @@ function agregarAlPedido ($id, $cantidad, $esPack = 'true', $talle = NULL, $colo
 	}
 
 	// Chequeo el precio si es pack o surtido y lo actualizo en el pedido
-	if($esPack) {
+	if ($esPack) {
 		$articulo_precio = (($articulo->oferta == 1 && $articulo->precio_oferta > 0) ? $articulo->precio_oferta : $articulo->precio);
 		$surtido = 0;
 
 		// guardar todos los colores en $colors
-		$colorsDir  = '../../..'.str_replace("{id}", $id, $articulo->colores_url);
+		$colorsDir  = '../../..' . str_replace("{id}", $id, $articulo->colores_url);
 
-		if(!is_dir($colorsDir)) {
+		if (!is_dir($colorsDir)) {
 			$colors = '0';
 		} else {
 			$colorsFiles = opendir($colorsDir);
 			$colorsList = array();
-			
-			if(!$colorsFiles) {
+
+			if (!$colorsFiles) {
 				$colors = '0';
 			} else {
 				$auxColors = array();
-				while($col = readdir($colorsFiles)) {
-					if (!is_dir($colorsDir.$col)) {
+				while ($col = readdir($colorsFiles)) {
+					if (!is_dir($colorsDir . $col)) {
 						// $colorsList[] = $col;
 						$auxColors[] = basename($col, '.jpg');
 					}
 				}
-				
+
 				$colors = implode(',', $auxColors);
 			}
 		}
 	} else {
 		$articulo_precio = 0;
-		if($articulo->oferta == 1) {
+		if ($articulo->oferta == 1) {
 			$articulo_precio = ($articulo->precio_oferta_surtido > 0 ? $articulo->precio_oferta_surtido : ($articulo->precio_surtido > 0 ? $articulo->precio_surtido : ($articulo->precio_oferta > 0 ? $articulo->precio_oferta : $articulo->precio)));
 		} else {
 			$articulo_precio = ($articulo->precio_surtido > 0 ? $articulo->precio_surtido : $articulo->precio);
@@ -1154,12 +1117,12 @@ function agregarAlPedido ($id, $cantidad, $esPack = 'true', $talle = NULL, $colo
 		$colors = $color;
 		$surtido = 1;
 	}
-	
+
 	$pack        = $esPack ? (int) str_replace(array("pack x", "pack x ", "X", "x", "X ", "x ", "packs x", "packs x ", "Packs X", "Packs X ", "PACKS X", "PACKS X ", "Pack x", "Pack x "), "", $articulo->packs) : 1;
 	$subtotalArt = $articulo_precio * $pack * $cantidad;
 	$totalPedido = $pedido->total + ($articulo_precio * $pack * $cantidad);
 	$talle       = $esPack ? $articulo->talle : $talle;
-	
+
 	$sql = 'UPDATE `pedido` SET `total`=' . $totalPedido . ', `cantidad`=' . ($pedido->cantidad + 1) . ' WHERE `id`=' . $pedidoId;
 	$sql_update_pedido = $sql;
 	$db->insert($sql);
@@ -1181,7 +1144,8 @@ function agregarAlPedido ($id, $cantidad, $esPack = 'true', $talle = NULL, $colo
 	}
 }
 
-function eliminarDelPedido ($idpedido, $itemid, $pedidoid, $precioitem, $cantidaditem, $totalpedido, $cantidaditemstotal) {
+function eliminarDelPedido($idpedido, $itemid, $pedidoid, $precioitem, $cantidaditem, $totalpedido, $cantidaditemstotal)
+{
 
 	$db = $GLOBALS['db'];
 	$sql = 'DELETE FROM `articulo_pedido` WHERE `pedido_id`=' . $pedidoid . ' AND `articulo_id`=' . $itemid . ' AND `id`=' . $idpedido;
@@ -1193,20 +1157,18 @@ function eliminarDelPedido ($idpedido, $itemid, $pedidoid, $precioitem, $cantida
 	if ($articulos->cantidad_en_pedido > 0) {
 
 		$sql = 'UPDATE `pedido` SET `total`=' . $articulos->total_en_pedido . ', `cantidad`=' . $articulos->cantidad_en_pedido . ' WHERE `id`=' . $pedidoid;
-
 	} else {
 
 		$sql = 'DELETE FROM `pedido` WHERE `id`=' . $pedidoid;
-
 	}
 
 	$db->insert($sql);
 
 	return array('status' => 'DELTE_SUCCESSFUL', 'articulos' => $articulos->cantidad_en_pedido, 'total' => $articulos->total_en_pedido);
-
 }
 
-function obtenerPedido ($idPedido) {
+function obtenerPedido($idPedido)
+{
 	$pedidoCompleto = array('articulos' => NULL, 'pedido' => NULL);
 
 	$db = $GLOBALS['db'];
@@ -1224,21 +1186,22 @@ function obtenerPedido ($idPedido) {
 	return $pedidoCompleto;
 }
 
-function obtenerPedidoAbierto ($id_usuario = null) {
+function obtenerPedidoAbierto($id_usuario = null)
+{
 
 	$id_us     = $id_usuario ? $id_usuario : JSON_decode($_SESSION['usuario'])->id;
 
 	$estafecha = time() - (2 * 24 * 60 * 60);
 	// obtengo el pedido abierto
 	$db        = $GLOBALS['db'];
-	$sql       = 'SELECT * FROM `pedido` WHERE `estado` = 4 AND `usuario_id`=' . $id_us . ' AND `fecha` >= "' . date('Y/m/d', $estafecha) .'"';
+	$sql       = 'SELECT * FROM `pedido` WHERE `estado` = 4 AND `usuario_id`=' . $id_us . ' AND `fecha` >= "' . date('Y/m/d', $estafecha) . '"';
 	$pedido    = $db->getObjeto($sql);
 
 	return $pedido;
-
 }
 
-function obtenerPedidos ($id_usuario = null, $estado = NULL) {
+function obtenerPedidos($id_usuario = null, $estado = NULL)
+{
 
 	$db = $GLOBALS['db'];
 	// de momento selecciono todos los pedidos
@@ -1247,7 +1210,6 @@ function obtenerPedidos ($id_usuario = null, $estado = NULL) {
 
 		// le agrego el usuario, si se especifico el id
 		$sql .= ' WHERE `usuario_id`=' . $id_usuario;
-
 	}
 
 	if ($estado) {
@@ -1255,42 +1217,41 @@ function obtenerPedidos ($id_usuario = null, $estado = NULL) {
 		if (!$id_usuario) {
 
 			$sql .= ' WHERE';
-
 		} else {
 
 			$sql .= ' AND';
-
 		}
 
 		$sql .= ' `estado`=' . $estado;
-
 	}
 
 	$sql .= ' ORDER BY `estado` ASC';
 
 	$pedidos = $db->getObjetos($sql);
 	return $pedidos;
-
 }
 
-function obtenerUltimoPedido() {
+function obtenerUltimoPedido()
+{
 	$db = $GLOBALS['db'];
 	$sql = 'SELECT `pedido`.*, `usuario`.`nombre`, `usuario`.`apellido`, `usuario`.`rut`, `usuario`.`telefono`, `usuario`.`celular`, `usuario`.`email` FROM `pedido` JOIN `usuario` ON `pedido`.`usuario_id`=`usuario`.`id` WHERE `estado` = 1 AND `notificado` != 1 ORDER BY `fecha` DESC';
-	
+
 	$pedido = $db->getObjeto($sql);
 
 	return $pedido;
 }
 
-function actualizarUltimoPedido() {
+function actualizarUltimoPedido()
+{
 	$db = $GLOBALS['db'];
 	// Update last order with a flag
 	$sql = 'UPDATE `pedido` SET `notificado` = 1';
 	$db->insert($sql);
 }
 
-function completarPedido ($idPedido) {
-	if(!empty($_GET['test-mode']) && $_GET['test-mode'] == 't') {
+function completarPedido($idPedido)
+{
+	if (!empty($_GET['test-mode']) && $_GET['test-mode'] == 't') {
 		// $currentUser = loadUser();
 		// var_dump($currentUser);
 		// var_dump($currentUser['user']->email);
@@ -1301,7 +1262,7 @@ function completarPedido ($idPedido) {
 	$lugar = ($_POST['lugar_compra'] == 'envio_interior' ? 'Interior' : ($_POST['lugar_compra'] == 'envio_montevideo' ? 'Montevideo' : ''));
 	$retira = $_POST['retira_agencia'] == 'true' || $_POST['retira_local'] == 'true' ? 1 : 0;
 
-	$sql = 'UPDATE `pedido` SET `estado`=1, `lugar`="' . $lugar . '", `retira`=' . $retira . ', `agencia_de_envio`="' . $_POST['agencia_entrega']. '", `direccion_de_entrega`="' . $_POST['direccion_entrega']. '", `forma_de_pago`="' . (isset ($_POST['forma_pago']) ? $_POST['forma_pago'] : ''). '" WHERE `id`=' . $idPedido;
+	$sql = 'UPDATE `pedido` SET `estado`=1, `lugar`="' . $lugar . '", `retira`=' . $retira . ', `agencia_de_envio`="' . $_POST['agencia_entrega'] . '", `direccion_de_entrega`="' . $_POST['direccion_entrega'] . '", `forma_de_pago`="' . (isset($_POST['forma_pago']) ? $_POST['forma_pago'] : '') . '" WHERE `id`=' . $idPedido;
 	// agregar direccion del usuario, agencia de entrega y forma de pago al pedido
 	$db->insert($sql);
 
@@ -1315,22 +1276,22 @@ function completarPedido ($idPedido) {
 	$pedidoOBJ = $db->getObjetos($pedidoSQL);
 
 	$asunto = '(Monique.com.uy - Pedido) Orden N. ' . $idPedido;
-	$mensaje = ''.
+	$mensaje = '' .
 
-	'<h2><a href="http://monique.com.uy/detalle?id=' . $idPedido . '">Orden N. ' . $idPedido . '</a></h2>'.
-	'<p><strong>Fecha:</strong> ' . $ordenOBJ->fecha . '</p>'.
-	'<p><strong>Nombre:</strong> ' . $usuarioOBJ->nombre . ' ' . $usuarioOBJ->apellido . '</p>'.
-	'<p><strong>RUT:</strong> ' . $usuarioOBJ->rut . '</p>'.
-	'<p><strong>Teléfono:</strong> ' . $usuarioOBJ->telefono . (($usuarioOBJ->celular != "") ? ' / ' . $usuarioOBJ->celular : '') . '</p>'.
-	'<p><strong>Email:</strong> ' . $usuarioOBJ->email . '</p>';
+		'<h2><a href="http://monique.com.uy/detalle?id=' . $idPedido . '">Orden N. ' . $idPedido . '</a></h2>' .
+		'<p><strong>Fecha:</strong> ' . $ordenOBJ->fecha . '</p>' .
+		'<p><strong>Nombre:</strong> ' . $usuarioOBJ->nombre . ' ' . $usuarioOBJ->apellido . '</p>' .
+		'<p><strong>RUT:</strong> ' . $usuarioOBJ->rut . '</p>' .
+		'<p><strong>Teléfono:</strong> ' . $usuarioOBJ->telefono . (($usuarioOBJ->celular != "") ? ' / ' . $usuarioOBJ->celular : '') . '</p>' .
+		'<p><strong>Email:</strong> ' . $usuarioOBJ->email . '</p>';
 
 	$mensaje .=
-	'<p><strong>Compra en '.$lugar.'</strong></p>';
+		'<p><strong>Compra en ' . $lugar . '</strong></p>';
 
 	// TODO MIKE - Debug on email for direccion de entrega and forma de pago
-	if(!empty($_GET['test-mode']) && $_GET['test-mode'] == 't') {
+	if (!empty($_GET['test-mode']) && $_GET['test-mode'] == 't') {
 		$currentUser = loadUser();
-		if($currentUser['user']->email == 'miguelmail2006@gmail.com') {
+		if ($currentUser['user']->email == 'miguelmail2006@gmail.com') {
 			var_dump($ordenOBJ);
 			exit;
 		}
@@ -1338,142 +1299,138 @@ function completarPedido ($idPedido) {
 
 	// Interior
 	// Montevideo
-	if($lugar == 'Interior') {
-		if($retira) {
+	if ($lugar == 'Interior') {
+		if ($retira) {
 
 			$mensaje .=
-			'<p><strong>Retira en Agencia</strong></p>'.
-			'<p><strong>Localidad:</strong> ' . $usuarioOBJ->departamento . ', ' . $usuarioOBJ->ciudad . '</p>';
-
+				'<p><strong>Retira en Agencia</strong></p>' .
+				'<p><strong>Localidad:</strong> ' . $usuarioOBJ->departamento . ', ' . $usuarioOBJ->ciudad . '</p>';
 		} else {
 
 			$mensaje .=
 
-			'<p><strong>Envio al Interior</strong></p>'.
-			'<p><strong>Localidad:</strong> ' . $usuarioOBJ->departamento . ', ' . $usuarioOBJ->ciudad . '</p>'.
-			'<p><strong>Dirección de entrega:</strong> ' . $ordenOBJ->direccion_de_entrega . '</p>';
-
+				'<p><strong>Envio al Interior</strong></p>' .
+				'<p><strong>Localidad:</strong> ' . $usuarioOBJ->departamento . ', ' . $usuarioOBJ->ciudad . '</p>' .
+				'<p><strong>Dirección de entrega:</strong> ' . $ordenOBJ->direccion_de_entrega . '</p>';
 		}
 
 		$mensaje .=
-		'<p><strong>Agencia de Envío:</strong> ' . $ordenOBJ->agencia_de_envio . '</p>'.
-		'<p><strong>Forma de Pago:</strong> ' . $ordenOBJ->forma_de_pago . '</p>';
-	} elseif($lugar == 'Montevideo') {
-		if($retira) {
+			'<p><strong>Agencia de Envío:</strong> ' . $ordenOBJ->agencia_de_envio . '</p>' .
+			'<p><strong>Forma de Pago:</strong> ' . $ordenOBJ->forma_de_pago . '</p>';
+	} elseif ($lugar == 'Montevideo') {
+		if ($retira) {
 
 			$mensaje .=
-			'<p><strong>Retira y paga en local Monique.</strong></p>';
-
+				'<p><strong>Retira y paga en local Monique.</strong></p>';
 		} else {
 
 			$mensaje .=
-			'<p><strong>Envio en Montevideo</strong></p>'.
-			'<p><strong>Dirección de entrega:</strong> ' . $ordenOBJ->direccion_de_entrega . '</p>'.
-			'<p><strong>Forma de Pago:</strong> ' . $ordenOBJ->forma_de_pago . '</p>';
+				'<p><strong>Envio en Montevideo</strong></p>' .
+				'<p><strong>Dirección de entrega:</strong> ' . $ordenOBJ->direccion_de_entrega . '</p>' .
+				'<p><strong>Forma de Pago:</strong> ' . $ordenOBJ->forma_de_pago . '</p>';
 		}
 	}
 
 	$mensaje .=
-	'<table border="1">'.
-		'<thead>'.
-			'<tr>'.
-				'<td>Código</td>'.
-				'<td>Artículo</td>'.
-				'<td>Surtido</td>'.
-				'<td>Talles</td>'.
-				'<td>Colores</td>'.
-				'<td>Cantidad</td>'.
-				'<td>Subtotal</td>'.
-			'</tr>'.
-		'</thead>'.
+		'<table border="1">' .
+		'<thead>' .
+		'<tr>' .
+		'<td>Código</td>' .
+		'<td>Artículo</td>' .
+		'<td>Surtido</td>' .
+		'<td>Talles</td>' .
+		'<td>Colores</td>' .
+		'<td>Cantidad</td>' .
+		'<td>Subtotal</td>' .
+		'</tr>' .
+		'</thead>' .
 		'<tbody>';
-			foreach($pedidoOBJ as $articulo) {
+	foreach ($pedidoOBJ as $articulo) {
 
+		$mensaje .=
+			'<tr>' .
+			'<td>' . $articulo->codigo . '</td>' .
+			'<td>' . $articulo->nombre . '</td>' .
+			'<td>' . ($articulo->surtido == 0 ? 'No' : 'Si') . '</td>' .
+			'<td>' . $articulo->talle . '</td>' .
+			'<td>';
+
+		$surtido           = $articulo->surtido == 0 ? false : true;
+		$relative          = '../../..';
+		$colorsAuxDir      = '';
+		$colorsDir         = '';
+		$colorsDirForEmail = 'http://' . $_SERVER['SERVER_NAME'];
+		$colores           = explode(',', $articulo->color);
+
+		if ($articulo->colores_url == $articulo->imagenes_url) {
+			$mensaje .= '<img src="http://' . $_SERVER['SERVER_NAME'] . str_replace("{id}", $articulo->articulo_id, $articulo->imagenes_url) . 'colors.jpg" />';
+		} else {
+			if ($surtido) {
+				$colorsDir    = str_replace("{id}", $articulo->articulo_id, $articulo->colores_surtidos_url);
+				$colorsAuxDir = $relative . str_replace("{id}", $articulo->articulo_id, $articulo->colores_surtidos_url);
+				if (!file_exists($colorsAuxDir)) {
+					$colorsDir    = str_replace("{id}", $articulo->articulo_id, $articulo->colores_url);
+					$colorsAuxDir = $relative . str_replace("{id}", $articulo->articulo_id, $articulo->colores_url);
+				}
+			} else {
+				$colorsDir    = str_replace("{id}", $articulo->articulo_id, $articulo->colores_url);
+				$colorsAuxDir = $relative . str_replace("{id}", $articulo->articulo_id, $articulo->colores_url);
+			}
+
+			if (file_exists($colorsAuxDir)) {
+				$colorsDirForEmail .= $colorsDir;
 				$mensaje .=
-				'<tr>'.
-					'<td>' . $articulo->codigo . '</td>'.
-					'<td>' . $articulo->nombre . '</td>'.
-					'<td>' . ($articulo->surtido == 0 ? 'No' : 'Si') . '</td>'.
-					'<td>' . $articulo->talle . '</td>'.
-					'<td>';
-
-				$surtido           = $articulo->surtido == 0 ? false : true;
-				$relative          = '../../..';
-				$colorsAuxDir      = '';
-				$colorsDir         = '';
-				$colorsDirForEmail = 'http://'.$_SERVER['SERVER_NAME'];
-				$colores           = explode(',', $articulo->color);
-
-				if($articulo->colores_url == $articulo->imagenes_url) {
-					$mensaje .= '<img src="http://'.$_SERVER['SERVER_NAME'].str_replace("{id}", $articulo->articulo_id, $articulo->imagenes_url).'colors.jpg" />';
-				} else {
-					if($surtido) {
-						$colorsDir    = str_replace("{id}", $articulo->articulo_id, $articulo->colores_surtidos_url);
-						$colorsAuxDir = $relative.str_replace("{id}", $articulo->articulo_id, $articulo->colores_surtidos_url);
-						if(!file_exists($colorsAuxDir)) {
-							$colorsDir    = str_replace("{id}", $articulo->articulo_id, $articulo->colores_url);
-							$colorsAuxDir = $relative.str_replace("{id}", $articulo->articulo_id, $articulo->colores_url);
-						}
-					} else {
-						$colorsDir    = str_replace("{id}", $articulo->articulo_id, $articulo->colores_url);
-						$colorsAuxDir = $relative.str_replace("{id}", $articulo->articulo_id, $articulo->colores_url);
-					}
-					
-					if(file_exists($colorsAuxDir)) {
-						$colorsDirForEmail .= $colorsDir;
-						$mensaje .= 
-						'<ul style="list-style:none;margin:0;padding:0;display:inline-block;">';
-						foreach($colores AS $color) {
-							if (!is_dir($colorsAuxDir.$color)) {
-								if(file_exists($colorsAuxDir.$color.'.jpg')) {
-									$mensaje .= 
-									'<li style="display:inline-block;">
+					'<ul style="list-style:none;margin:0;padding:0;display:inline-block;">';
+				foreach ($colores as $color) {
+					if (!is_dir($colorsAuxDir . $color)) {
+						if (file_exists($colorsAuxDir . $color . '.jpg')) {
+							$mensaje .=
+								'<li style="display:inline-block;">
 										<span style="border-radius:8px;border-width:2px;border-style:solid;border-color:#ccc;width:14px;font-size:0px;display:inline-block;">
-											<img src="'.$colorsDirForEmail.$color.'.jpg" style="border-radius:7px; width: 14px;" />
+											<img src="' . $colorsDirForEmail . $color . '.jpg" style="border-radius:7px; width: 14px;" />
 										</span>
 									</li>';
-								} else {
-									$colorsDir         = str_replace("{id}", $articulo->articulo_id, $articulo->colores_url);
-									$colorsDirForEmail = 'http://'.$_SERVER['SERVER_NAME'].$colorsDir;
-									$mensaje .= 
-									'<li style="display:inline-block;">
-										<span style="border-radius:8px;border-width:2px;border-style:solid;border-color:#ccc;width:14px;font-size:0px;display:inline-block;">
-											<img src="'.$colorsDirForEmail.$color.'.jpg" style="border-radius:7px; width: 14px;" />
-										</span>
-									</li>';
-								}
-							}
-						}
-						$mensaje .= 
-						'</ul>';
-					} else {
-						$colorsDir = $relative.str_replace("{id}", $articulo->articulo_id, $articulo->imagenes_url);
-						$colors    = $colorsDir.'colors.jpg';
-						
-						if(file_exists($colors)) {
-							$mensaje .= '<img src="http://'.$_SERVER['SERVER_NAME'].str_replace("{id}", $articulo->articulo_id, $articulo->imagenes_url).'colors.jpg" />';
 						} else {
-							$mensaje .= '<span>No hay colores</span>';
+							$colorsDir         = str_replace("{id}", $articulo->articulo_id, $articulo->colores_url);
+							$colorsDirForEmail = 'http://' . $_SERVER['SERVER_NAME'] . $colorsDir;
+							$mensaje .=
+								'<li style="display:inline-block;">
+										<span style="border-radius:8px;border-width:2px;border-style:solid;border-color:#ccc;width:14px;font-size:0px;display:inline-block;">
+											<img src="' . $colorsDirForEmail . $color . '.jpg" style="border-radius:7px; width: 14px;" />
+										</span>
+									</li>';
 						}
 					}
 				}
-				
 				$mensaje .=
-					'</td>' .
-					'<td>' . $articulo->cantidad . '</td>'.
-					'<td>$ ' . $articulo->subtotal . ',00</td>'.
-				'</tr>';
+					'</ul>';
+			} else {
+				$colorsDir = $relative . str_replace("{id}", $articulo->articulo_id, $articulo->imagenes_url);
+				$colors    = $colorsDir . 'colors.jpg';
 
+				if (file_exists($colors)) {
+					$mensaje .= '<img src="http://' . $_SERVER['SERVER_NAME'] . str_replace("{id}", $articulo->articulo_id, $articulo->imagenes_url) . 'colors.jpg" />';
+				} else {
+					$mensaje .= '<span>No hay colores</span>';
+				}
 			}
+		}
 
 		$mensaje .=
-		'</tbody>'.
-	'</table>'.
-	'<p><strong>TOTAL:</strong> $' . $ordenOBJ->total . ',00</p>';
+			'</td>' .
+			'<td>' . $articulo->cantidad . '</td>' .
+			'<td>$ ' . $articulo->subtotal . ',00</td>' .
+			'</tr>';
+	}
+
+	$mensaje .=
+		'</tbody>' .
+		'</table>' .
+		'<p><strong>TOTAL:</strong> $' . $ordenOBJ->total . ',00</p>';
 
 	$mail = new PHPMailer();
 
-	if($usuarioOBJ->email == 'miguelmail2006@gmail.com') {
+	if ($usuarioOBJ->email == 'miguelmail2006@gmail.com') {
 		$mail->addAddress('miguelmail2006@gmail.com', 'Monique.com.uy');
 		// $mail->addAddress('miguelso18@hotmail.com', 'Monique.com.uy');
 		// $mail->addAddress('esteban.leyton@hotmail.com', 'Monique.com.uy');
@@ -1504,22 +1461,18 @@ function completarPedido ($idPedido) {
 		if ($mail->send()) {
 
 			return array('status' => 'EMAIL_SENT', 'message' => $mensaje);
-
 		} else {
 
 			return array('status' => 'EMAIL_ERROR', 'error' => $mail->ErrorInfo);
-
 		}
-
 	} else {
 
 		return array('status' => 'EMAIL_ERROR', 'error' => $mail->ErrorInfo);
-
 	}
-
 }
 
-function aprobarPedido ($idPedido) {
+function aprobarPedido($idPedido)
+{
 
 	$db = $GLOBALS['db'];
 
@@ -1529,10 +1482,10 @@ function aprobarPedido ($idPedido) {
 	$db->insert($sql);
 
 	return array('status' => 'STATUS_UPDATED_SUCCESSFUL');
-
 }
 
-function cancelarPedido ($idPedido) {
+function cancelarPedido($idPedido)
+{
 
 	$db = $GLOBALS['db'];
 
@@ -1542,10 +1495,10 @@ function cancelarPedido ($idPedido) {
 	$db->insert($sql);
 
 	return array('status' => 'STATUS_UPDATED_SUCCESSFUL');
-
 }
 
-function posponerPedido ($idPedido) {
+function posponerPedido($idPedido)
+{
 
 	$db = $GLOBALS['db'];
 
@@ -1554,11 +1507,11 @@ function posponerPedido ($idPedido) {
 	$sql = 'UPDATE `pedido` SET `estado`=1 WHERE `id`=' . $idPedido;
 	$db->insert($sql);
 
-	return array('status' => 'STATUS_UPDATED_SUCCESSFUL');	
-
+	return array('status' => 'STATUS_UPDATED_SUCCESSFUL');
 }
 
-function cerrarPedido ($idPedido) {
+function cerrarPedido($idPedido)
+{
 	$db = $GLOBALS['db'];
 
 	// agregar direccion del usuario, agencia de entrega y forma de pago al pedido
@@ -1566,14 +1519,15 @@ function cerrarPedido ($idPedido) {
 	$sql = 'UPDATE `pedido` SET `estado`=5 WHERE `id`=' . $idPedido;
 	$db->insert($sql);
 
-	return array('status' => 'STATUS_UPDATED_SUCCESSFUL');	
+	return array('status' => 'STATUS_UPDATED_SUCCESSFUL');
 }
 
-function cambiarPertenenciaDelPedido($pedidoid, $idNuevoUsuario, $idViejoUsuario) {
+function cambiarPertenenciaDelPedido($pedidoid, $idNuevoUsuario, $idViejoUsuario)
+{
 	$db = $GLOBALS['db'];
 
 	// Cambio el id temporal de usuario del prepedido por el id del usuario logueado
-	$sql = 'UPDATE `pedido` SET `usuario_id` = '. $idNuevoUsuario .' WHERE `id` = ' . $pedidoid . ' AND `usuario_id`=' . $idViejoUsuario;
+	$sql = 'UPDATE `pedido` SET `usuario_id` = ' . $idNuevoUsuario . ' WHERE `id` = ' . $pedidoid . ' AND `usuario_id`=' . $idViejoUsuario;
 	$db->insert($sql);
 
 	// Obtengo el pedido
@@ -1584,7 +1538,8 @@ function cambiarPertenenciaDelPedido($pedidoid, $idNuevoUsuario, $idViejoUsuario
 	return $pedido;
 }
 
-function combinarPedidos($pedido, $prepedido) {
+function combinarPedidos($pedido, $prepedido)
+{
 	$db = $GLOBALS['db'];
 
 	$pedido_cantidad = $pedido->cantidad;
@@ -1595,18 +1550,18 @@ function combinarPedidos($pedido, $prepedido) {
 	$prearticulospedidos = $db->getObjetos($sql_prearticulos);
 
 	// Recorro los articulos pre pedidos
-	foreach($prearticulospedidos as $art_pedido) {
+	foreach ($prearticulospedidos as $art_pedido) {
 		// actualizo el total y la cantidad en el pedido
 		$pedido_cantidad = $pedido_cantidad + 1;
 		$pedido_total    = $pedido_total + $art_pedido->subtotal;
 	}
 
 	// Cambio el id de los articulos pre pedidos por los del pedido
-	$sql_ap = 'UPDATE `articulo_pedido` SET `pedido_id` = '. $pedido->id .' WHERE `pedido_id` = ' . $prepedido->id;
+	$sql_ap = 'UPDATE `articulo_pedido` SET `pedido_id` = ' . $pedido->id . ' WHERE `pedido_id` = ' . $prepedido->id;
 	$db->insert($sql_ap);
 
 	// Actualizo la cantidad y el total al pedido principal
-	$sql_p = 'UPDATE `pedido` SET `cantidad` = '. $pedido_cantidad .', `total` = '.$pedido_total.' WHERE `id` = ' . $pedido->id;
+	$sql_p = 'UPDATE `pedido` SET `cantidad` = ' . $pedido_cantidad . ', `total` = ' . $pedido_total . ' WHERE `id` = ' . $pedido->id;
 	$db->insert($sql_p);
 
 	// Elimino el prepedido
@@ -1619,7 +1574,8 @@ function combinarPedidos($pedido, $prepedido) {
 }
 
 /* GENERAL */
-function startDocument () {
+function startDocument()
+{
 	echo "<!doctype html>\n<html lang=\"es\">\n<head>\n";
 	$place = 'head';
 	include($GLOBALS['config']['templatesPath'] . 'includes.php');
@@ -1627,13 +1583,15 @@ function startDocument () {
 	echo "\n</head>\n<body>\n";
 }
 
-function endDocument () {
+function endDocument()
+{
 	$place = 'body-end';
 	include($GLOBALS['config']['templatesPath'] . 'includes.php');
 	echo "</body>\n</html>";
 }
 
-function createAppObjects () {
+function createAppObjects()
+{
 	echo "\t<script>\n";
 	echo "\n";
 	echo "\tvar userStats = " . JSON_encode($GLOBALS['userStats']) . ";";
@@ -1641,45 +1599,65 @@ function createAppObjects () {
 	echo "\t</script>\n";
 }
 
-function custom_error_log($msg = null, $line = null, $file = null, $function = null) {
+function custom_error_log($msg = null, $line = null, $file = null, $function = null)
+{
 	// echo date('d/m/Y H:i:s').' :: '.$file.' :: '.$function.' :: '.$line.': '.$msg."\n";
 
-    if(empty($msg)) {
-        error_log(date('d/m/Y H:i:s').' :: '.__FILE__.' :: '.__FUNCTION__.' :: '.__LINE__.': $msg is null or empty'."\n", 3, "../../error.txt");
-    }
-    if(empty($line)) {
-        error_log(date('d/m/Y H:i:s').' :: '.__FILE__.' :: '.__FUNCTION__.' :: '.__LINE__.': $line is null or empty'."\n", 3, "../../error.txt");
-    }
-    if(empty($file)) {
-        error_log(date('d/m/Y H:i:s').' :: '.__FILE__.' :: '.__FUNCTION__.' :: '.__LINE__.': $line is null or empty'."\n", 3, "../../error.txt");
-    }
+	if (empty($msg)) {
+		error_log(date('d/m/Y H:i:s') . ' :: ' . __FILE__ . ' :: ' . __FUNCTION__ . ' :: ' . __LINE__ . ': $msg is null or empty' . "\n", 3, "../../error.txt");
+	}
+	if (empty($line)) {
+		error_log(date('d/m/Y H:i:s') . ' :: ' . __FILE__ . ' :: ' . __FUNCTION__ . ' :: ' . __LINE__ . ': $line is null or empty' . "\n", 3, "../../error.txt");
+	}
+	if (empty($file)) {
+		error_log(date('d/m/Y H:i:s') . ' :: ' . __FILE__ . ' :: ' . __FUNCTION__ . ' :: ' . __LINE__ . ': $line is null or empty' . "\n", 3, "../../error.txt");
+	}
 
-    error_log(date('d/m/Y H:i:s').' :: '.$file.' :: '.$function.' :: '.$line.': '.$msg."\n", 3, "../../error.txt");
+	error_log(date('d/m/Y H:i:s') . ' :: ' . $file . ' :: ' . $function . ' :: ' . $line . ': ' . $msg . "\n", 3, "../../error.txt");
 }
 
-function getRealIP() {
-    if (isset($_SERVER["HTTP_CLIENT_IP"])) {
-        return $_SERVER["HTTP_CLIENT_IP"];
-    }
-    elseif (isset($_SERVER["HTTP_X_FORWARDED_FOR"])) {
-        return $_SERVER["HTTP_X_FORWARDED_FOR"];
-    }
-    elseif (isset($_SERVER["HTTP_X_FORWARDED"])) {
-        return $_SERVER["HTTP_X_FORWARDED"];
-    }
-    elseif (isset($_SERVER["HTTP_FORWARDED_FOR"])) {
-        return $_SERVER["HTTP_FORWARDED_FOR"];
-    }
-    elseif (isset($_SERVER["HTTP_FORWARDED"])) {
-        return $_SERVER["HTTP_FORWARDED"];
-    }
-    else {
-        return $_SERVER["REMOTE_ADDR"];
-    }
+function getRealIP()
+{
+	if (isset($_SERVER["HTTP_CLIENT_IP"])) {
+		return $_SERVER["HTTP_CLIENT_IP"];
+	} elseif (isset($_SERVER["HTTP_X_FORWARDED_FOR"])) {
+		return $_SERVER["HTTP_X_FORWARDED_FOR"];
+	} elseif (isset($_SERVER["HTTP_X_FORWARDED"])) {
+		return $_SERVER["HTTP_X_FORWARDED"];
+	} elseif (isset($_SERVER["HTTP_FORWARDED_FOR"])) {
+		return $_SERVER["HTTP_FORWARDED_FOR"];
+	} elseif (isset($_SERVER["HTTP_FORWARDED"])) {
+		return $_SERVER["HTTP_FORWARDED"];
+	} else {
+		return $_SERVER["REMOTE_ADDR"];
+	}
 }
 
-function consoleLog($line, $var) {
-  echo '<script>console.log("PHP#'.$line.'-->", "'.$var.'");</script>';
+function consoleLog($line, $var)
+{
+	echo '<script>console.log("PHP#' . $line . '-->", "' . $var . '");</script>';
+}
+
+function debug($variable)
+{
+	$bt = debug_backtrace();
+	$caller = array_shift($bt);
+	$file = @array_pop(explode('/', $caller['file']));
+	header_log($variable);
+	?>
+<pre class="floating-debug-section">
+<strong><?php echo $file . '#' . $caller['line'] . ':' ?></strong>
+<?php var_dump($variable); ?>
+</pre>
+	<?php
+}
+
+function header_log($data)
+{
+	$bt = debug_backtrace();
+	$caller = array_shift($bt);
+	$file = @array_pop(explode('/', $caller['file']));
+	header('log_' . $file . '#' . $caller['line'] . ': ' . json_encode($data));
 }
 
 ?>

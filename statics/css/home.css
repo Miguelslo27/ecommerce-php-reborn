@@ -3,6 +3,7 @@
 	margin: auto;
 	max-width: 1200px;
 }
+
 .home h1 {
 	position: relative;
 	margin-bottom: 2.5rem;
@@ -11,9 +12,11 @@
 	font-size: 2rem;
 	font-weight: normal;
 }
+
 .home p {
 	text-align: center;
 }
+
 .home h1::after {
 	content: "";
 	position: absolute;
@@ -23,6 +26,7 @@
 	border-bottom: 2px solid #333;
 	transform: translateX(-50%);
 }
+
 .home .is-empty-message {
 	padding: 10px;
 	background: #999;
@@ -36,9 +40,11 @@
 	height: 500px;
 	overflow: hidden;
 }
+
 .hero img {
 	width: 100%;
 }
+
 .hero .hero-message {
 	position: absolute;
 	top: 0;
@@ -56,152 +62,32 @@
 	border-top-right-radius: 250px;
 	border-bottom-right-radius: 250px;
 }
-.hero .hero-message > * {
+
+.hero .hero-message>* {
 	margin: 1rem 0;
 }
+
 .hero .hero-message h1 {
 	color: #930077;
 	font-weight: 400;
 	text-align: left;
 }
+
 .hero .hero-message h1::after {
 	display: none;
 }
+
 .hero .hero-message p {
 	color: #222;
 	font-size: 1.4rem;
 	text-align: left;
 	line-height: 2rem;
 }
+
 .hero .hero-message a {
 	display: inline-block;
 	padding: 15px;
 	background: #930077;
 	color: #fff;
 	border-radius: 2rem;
-}
-
-/* FEATURED CATEGORIES */
-.content .articles,
-.content .categories {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: center;
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-.content .articles li,
-.content .categories li {
-	box-sizing: border-box;
-	width: 32%;
-	margin-bottom: 1.8rem;
-	background: #999;
-	box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .8);
-	transition: box-shadow .3s ease;
-}
-.featured-categories .categories li:hover {
-	box-shadow: 0 2px 20px 0 rgba(0, 0, 0, .8);
-}
-.featured-categories .categories li:nth-child(3n+2),
-.new-articles .articles li:nth-child(3n+2),
-.featured-articles .articles li:nth-child(3n+2) {
-	margin-left: 2%;
-	margin-right: 2%;
-}
-.featured-categories .categories li article {
-	position: relative;
-}
-.featured-categories .categories li article img,
-.new-articles .articles li article img,
-.featured-articles .articles li article img {
-	display: block;
-	max-width: 100%;
-}
-.featured-categories .categories li article .cat-info {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	width: 60%;
-	padding: 1rem;
-	transform: translate(-50%, -50%);
-	background: rgba(255, 255, 255, .9);
-}
-.featured-categories .categories li article .cat-info *,
-.new-articles .articles li article .article-info *,
-.featured-articles .articles li article .article-info * {
-	display: block;
-}
-.featured-categories .categories li article .cat-info span,
-.new-articles .articles li article .article-info span,
-.featured-articles .articles li article .article-info span {
-	font-size: .8rem;
-}
-.featured-categories .categories li article .cat-info span:last-child {
-	font-weight: bold;
-}
-.featured-categories .categories li article .cat-info a,
-.new-articles .articles li article .article-info a,
-.featured-articles .articles li article .article-info a {
-	font-size: 1.3rem;
-	text-transform: uppercase;
-	line-height: 2rem;
-}
-.new-articles .articles li,
-.featured-articles .articles li {
-	position: relative;
-	box-shadow: 0 0 25px rgba(147, 0, 119, .15);
-	background: #FFF;
-}
-.new-articles .articles li article::before,
-.featured-articles .articles li article::before {
-	position: absolute;
-	color: #FFF;
-	font-size: 1.2rem;
-	text-transform: uppercase;
-	padding: 10px 20px;
-	top: 1rem;
-	left: 1rem;
-}
-.new-articles .articles li article::before {
-	content: "Nuevo";
-	background: orange;
-}
-.featured-articles .articles li article::before {
-	content: "Destacado";
-	background: blueviolet;
-}
-.new-articles .articles li article hr,
-.featured-articles .articles li article hr {
-	width: 84%;
-	height: 1px;
-	background: #930077;
-}
-.new-articles .articles li article .article-info,
-.featured-articles .articles li article .article-info,
-.new-articles .articles li article .actions,
-.featured-articles .articles li article .actions {
-	padding: 8%;
-}
-/* .new-articles .articles li article .actions,
-featured .new-articles .articles li article .actions {
-	padding: 8%;
-} */
-.new-articles .articles li article .article-info .price,
-.featured-articles .articles li article .article-info .price {
-	display: inline-block;
-	margin-right: 1rem;
-	font-size: 1.8rem;
-	font-weight: 400;
-}
-.new-articles .articles li article .article-info .price.before,
-.featured-articles .articles li article .article-info .price.before {
-	font-size: 1.3rem;
-	font-weight: normal;
-	text-decoration: line-through;
-}
-.new-articles .articles li article .article-info .price.after,
-.featured-articles .articles li article .article-info .price.after {
-	/*  */
 }
