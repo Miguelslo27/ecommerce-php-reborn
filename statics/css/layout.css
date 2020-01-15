@@ -269,6 +269,22 @@ header .header-inner .store-nav {
 	font-weight: normal;
 }
 
+h1.shadowed-title {
+	position: relative;
+	margin-top: 4rem;
+}
+h1.shadowed-title .title-shadow {
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, -45%);
+	color: rgba(147, 0, 119, .1);
+	font-size: 5rem;
+	font-weight: bold;
+}
+h1.shadowed-title .title {
+	position: relative;
+}
+
 .inner h1::after {
 	content: "";
 	position: absolute;

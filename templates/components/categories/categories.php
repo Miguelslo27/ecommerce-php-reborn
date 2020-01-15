@@ -3,7 +3,10 @@ $categories = getCategories(0);
 ?>
 
 <section class="inner categories-component">
-  <h1>Categorías</h1>
+  <h1 class="shadowed-title">
+    <span class="title-shadow">Categorías</span>
+    <span class="title">Categorías</span>
+  </h1>
 
   <?php if (count($categories) > 0) : ?>
     <?php if (@$userStats['user']->administrador == 1) : ?>
