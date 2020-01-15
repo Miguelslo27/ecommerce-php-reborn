@@ -1,14 +1,14 @@
 <?php
-$categories = getCategories(0);
+$articles = getArticles(0);
 ?>
 
-<section class="inner categories-component">
+<section class="inner articles-component">
   <h1 class="shadowed-title">
-    <span class="title-shadow">Categorías</span>
-    <span class="title">Categorías</span>
+    <span class="title-shadow">Articulos</span>
+    <span class="title">Artículos</span>
   </h1>
 
-  <?php if (count($categories) > 0) : ?>
+  <?php if (count($articles) > 0) : ?>
     <?php if (@$userStats['user']->administrador == 1) : ?>
       <div class="list-actions">
         <?php include($templatesPath . 'components/admin/admin-actions.php') ?>
@@ -30,16 +30,20 @@ $categories = getCategories(0);
       </div>
     </div>
 
-    <ul class="categories">
-      <?php foreach ($categories as $cat) : ?>
+    <ul class="articles">
+      <?php foreach ($articles as $art) : ?>
         <li>
           <article>
-            <img src="<?php echo $cat->imagen_url ?>" alt="<?php echo $cat->titulo ?>">
-            <div class="cat-info">
-              <span><?php echo $cat->descripcion_breve ?></span>
-              <a href="/categories/?c=<?php echo $cat->id ?>"><?php echo $cat->titulo ?></a>
-              <span>0 articulos<?php // articles in the category 
-                                ?></span>
+            <img src="/statics/images/articles/1.jpg" alt="Auriculares Rocca">
+            <div class="article-info">
+              <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
+              <a href="#">Lorem ipsum</a>
+              <span class="price before">$250</span>
+              <span class="price after">$150</span>
+            </div>
+            <hr>
+            <div class="actions">
+              <a href="#">Agregar al carrito +</a>
             </div>
           </article>
         </li>
@@ -48,13 +52,13 @@ $categories = getCategories(0);
   <?php else : ?>
     <?php if (@$userStats['user']->administrador == 1) : ?>
       <div class="list-actions">
-        <?php include($templatesPath . 'components/categories/admin-actions.php') ?>
+        <?php include($templatesPath . 'components/admin/admin-actions.php') ?>
       </div>
     <?php endif ?>
     <hr>
     <p class="shadowed-title">
-      <span class="title-shadow">No se encontraron categorías</span>
-      <span class="title">No se encontraron categorías</span>
+      <span class="title-shadow">No se encontraron artículos</span>
+      <span class="title">No se encontraron artículos</span>
     </p>
     <hr>
   <?php endif ?>
