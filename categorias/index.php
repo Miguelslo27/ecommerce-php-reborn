@@ -13,15 +13,9 @@ $category      = getCategory();
 startDocument();
 loadSection("header", $userStats);
 
-// saveCategory();
-// saveArticle();
-
 ?>
 <div class="container">
-	<!-- <?php include($templatesPath . 'components/breadcrumb.php') ?> -->
-	<!-- <?php include($templatesPath . 'components/categories/admin-actions.php') ?> -->
 	<?php include($templatesPath . 'components/categories/categories.php') ?>
-	<?php include($templatesPath . 'components/articles/articles.php') ?>
 </div>
 <?php
 

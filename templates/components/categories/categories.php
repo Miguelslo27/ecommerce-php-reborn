@@ -11,7 +11,9 @@ $categories = getCategories(0);
   <?php if (count($categories) > 0) : ?>
     <?php if (@$userStats['user']->administrador == 1) : ?>
       <div class="list-actions">
-        <?php include($templatesPath . 'components/admin/admin-actions.php') ?>
+        <div class="admin-actions">
+          <a href="/categoria/nueva">Nueva categoría +</a>
+        </div>
       </div>
     <?php endif ?>
     <div class="list-actions">
