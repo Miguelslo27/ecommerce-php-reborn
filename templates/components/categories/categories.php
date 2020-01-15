@@ -24,9 +24,9 @@ $categories = getCategories(0);
       </div>
       <div class="per-page">
         <span>Mostrar:</span>
-        <a href="#">9</a>
+        <a href="#">6</a>
         <a href="#">12</a>
-        <a href="#">15</a>
+        <a href="#">24</a>
       </div>
     </div>
 

@@ -1,5 +1,5 @@
 <?php
-$categories = getCategories(0, 3);
+$categories = getCategories(0, 4);
 ?>
 
 <section class="content featured-categories">
