@@ -4,7 +4,7 @@ $relative = '../..';
 require '../../includes/common.php';
 
 $userStats     = loadUser();
-$appPlace      = 'categories';
+$appPlace      = 'category';
 $appSubPlace   = 'new';
 $templatesPath = $GLOBALS['config']['templatesPath'];
 // $categories    = getCategories(0);
@@ -21,7 +21,7 @@ loadSection("header", $userStats);
   <!-- <?php include($templatesPath . 'components/breadcrumb.php') ?> -->
   <!-- <?php include($templatesPath . 'components/categories/admin-actions.php') ?> -->
 
-  <?php include($templatesPath . 'forms/category.php') ?>
+  <?php include($templatesPath . 'components/admin/forms/category.php') ?>
 </div>
 <?php
 

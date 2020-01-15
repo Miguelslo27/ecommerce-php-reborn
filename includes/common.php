@@ -796,30 +796,23 @@ function deleteCategory($id = NULL)
 
 function saveArticle()
 {
-
 	if (isset($_POST['type']) && $_POST['type'] == 'article') {
-
 		if (isset($_POST['save'])) {
-
 			if (isset($_POST['id']) && $_POST['id'] != "") {
-
 				updateArticle($_POST['id']);
 				return;
 			}
 
-			$relative = $GLOBALS['relative'];
-
+			$relative           = $GLOBALS['relative'];
 			$imagesLocation     = ($_FILES['imagen']['error'] == 0) ? '/statics/images/articles/{id}/' : '';
 			$colorsLocation     = ($_FILES['colores']['error'][0] == 0) ? '/statics/images/articles/{id}/colors/' : '';
 			$colorsSurtLocation = ($_FILES['colores_surtidos']['error'][0] == 0) ? '/statics/images/articles/{id}/colors/surtidos/' : '';
-
-			$db = $GLOBALS['db'];
-			$sql = 'INSERT INTO `articulo` (`nombre`, `codigo`, `descripcion_breve`, `descripcion`, `talle`, `talle_surtido`, `adaptable`, `colores_url`, `colores_surtidos_url`, `packs`, `categoria_id`, `imagenes_url`, `estado`, `nuevo`, `agotado`, `oferta`, `surtido`, `precio`, `precio_oferta`, `precio_surtido`, `precio_oferta_surtido`, `orden`) VALUES ("' . $_POST['nombre'] . '","' . $_POST['codigo'] . '","' . $_POST['descripcion_breve'] . '","' . $_POST['descripcion'] . '","' . $_POST['talle'] . '","' . $_POST['talle_surtido'] . '","0","' . $colorsLocation . '","' . $colorsSurtLocation . '","' . $_POST['packs'] . '","' . $_POST['categoria_id'] . '","' . $imagesLocation . '", 1, "' . @($_POST['nuevo'] == "on" ? 1 : 0) . '", "' . @($_POST['agotado'] == "on" ? 1 : 0) . '", "' . @($_POST['oferta'] == "on" ? 1 : 0) . '", "' . @($_POST['surtido'] == "on" ? 1 : 0) . '", "' . $_POST['precio'] . '", "' . $_POST['precio_oferta'] . '", "' . $_POST['precio_surtido'] . '", "' . $_POST['precio_oferta_surtido'] . '", ' . $_POST['orden'] . ')';
-			$cid = $db->insert($sql);
-
-			$imageLocation     = $relative . '/statics/images/articles/' . $cid;
-			$colorLocation     = $relative . '/statics/images/articles/' . $cid . '/colors/';
-			$colorSurtLocation = $relative . '/statics/images/articles/' . $cid . '/colors/surtidos/';
+			$db                 = $GLOBALS['db'];
+			$sql                = 'INSERT INTO `articulo` (`nombre`, `codigo`, `descripcion_breve`, `descripcion`, `talle`, `talle_surtido`, `adaptable`, `colores_url`, `colores_surtidos_url`, `packs`, `categoria_id`, `imagenes_url`, `estado`, `nuevo`, `agotado`, `oferta`, `surtido`, `precio`, `precio_oferta`, `precio_surtido`, `precio_oferta_surtido`, `orden`) VALUES ("' . $_POST['nombre'] . '","' . $_POST['codigo'] . '","' . $_POST['descripcion_breve'] . '","' . $_POST['descripcion'] . '","' . $_POST['talle'] . '","' . $_POST['talle_surtido'] . '","0","' . $colorsLocation . '","' . $colorsSurtLocation . '","' . $_POST['packs'] . '","' . $_POST['categoria_id'] . '","' . $imagesLocation . '", 1, "' . @($_POST['nuevo'] == "on" ? 1 : 0) . '", "' . @($_POST['agotado'] == "on" ? 1 : 0) . '", "' . @($_POST['oferta'] == "on" ? 1 : 0) . '", "' . @($_POST['surtido'] == "on" ? 1 : 0) . '", "' . $_POST['precio'] . '", "' . $_POST['precio_oferta'] . '", "' . $_POST['precio_surtido'] . '", "' . $_POST['precio_oferta_surtido'] . '", ' . $_POST['orden'] . ')';
+			$cid                = $db->insert($sql);
+			$imageLocation      = $relative . '/statics/images/articles/' . $cid;
+			$colorLocation      = $relative . '/statics/images/articles/' . $cid . '/colors/';
+			$colorSurtLocation  = $relative . '/statics/images/articles/' . $cid . '/colors/surtidos/';
 
 			// creo la carpeta para las imagenes de este artículo
 			@mkdir($imageLocation);
