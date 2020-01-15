@@ -260,39 +260,27 @@ header .header-inner .store-nav {
 	padding: 0;
 }
 
-.inner h1 {
+.shadowed-title {
 	position: relative;
-	margin-bottom: 2.5rem;
+	margin: 2em 0;
 	text-align: center;
-	text-transform: capitalize;
-	font-size: 2rem;
-	font-weight: normal;
 }
 
-h1.shadowed-title {
-	position: relative;
-	margin-top: 4rem;
+.shadowed-title span {
+	white-space: nowrap;
 }
-h1.shadowed-title .title-shadow {
+
+.shadowed-title .title-shadow {
 	position: absolute;
 	left: 50%;
 	transform: translate(-50%, -45%);
 	color: rgba(147, 0, 119, .1);
-	font-size: 5rem;
+	font-size: 3em;
 	font-weight: bold;
 }
-h1.shadowed-title .title {
-	position: relative;
-}
 
-.inner h1::after {
-	content: "";
-	position: absolute;
-	width: 120px;
-	bottom: -15px;
-	left: 50%;
-	border-bottom: 2px solid #333;
-	transform: translateX(-50%);
+.shadowed-title .title {
+	position: relative;
 }
 
 .articles li,

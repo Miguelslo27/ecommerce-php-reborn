@@ -47,10 +47,15 @@ $categories = getCategories(0);
     </ul>
   <?php else : ?>
     <?php if (@$userStats['user']->administrador == 1) : ?>
-      <div class="actions">
+      <div class="list-actions">
         <?php include($templatesPath . 'components/categories/admin-actions.php') ?>
       </div>
     <?php endif ?>
-    <p class="is-empty-message">No se encontraron categorías</p>
+    <hr>
+    <p class="shadowed-title">
+      <span class="title-shadow">No se encontraron categorías</span>
+      <span class="title">No se encontraron categorías</span>
+    </p>
+    <hr>
   <?php endif ?>
 </section>

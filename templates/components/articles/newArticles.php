@@ -3,7 +3,10 @@ $categories = getCategories(0, 'sarasa');
 ?>
 
 <section class="content new-articles">
-  <h1>Artículos nuevos</h1>
+  <h1 class="shadowed-title">
+    <span class="title-shadow">Artículos nuevos</span>
+    <span class="title">Artículos nuevos</span>
+  </h1>
 
   <?php if (count($categories) == 0) : ?>
     <!-- <p class="is-empty-message">No se encontraron artículos nuevos</p> -->

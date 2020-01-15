@@ -3,7 +3,10 @@ $categories = getCategories(0, 'sarasa');
 ?>
 
 <section class="content featured-articles">
-  <h1>Artículos destacados</h1>
+  <h1 class="shadowed-title">
+    <span class="title-shadow">Artículos destacados</span>
+    <span class="title">Artículos destacados</span>
+  </h1>
 
   <?php if (count($categories) == 0) : ?>
     <!-- <p class="is-empty-message">No se encontraron artículos destacados</p> -->
