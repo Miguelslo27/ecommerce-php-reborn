@@ -17,7 +17,7 @@ $categories = getCategories(0);
       </div>
     <?php endif ?>
     <div class="list-actions">
-      <div class="pagination">
+      <!-- <div class="pagination">
         <a href="#"><i class="fas fa-arrow-left"></i></a>
         <a href="#">1</a>
         <a href="#">2</a>
@@ -29,7 +29,8 @@ $categories = getCategories(0);
         <a href="#">6</a>
         <a href="#">12</a>
         <a href="#">24</a>
-      </div>
+      </div> -->
+      <?php paginateCategories() ?>
     </div>
 
     <ul class="categories">
