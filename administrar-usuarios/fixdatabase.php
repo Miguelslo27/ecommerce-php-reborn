@@ -7,7 +7,7 @@ function obtenerTodosLosUsuarios() {
 	$db = $GLOBALS['db'];
 	$sql = 'SELECT `email`, `id`, `nombre`, `apellido`, `clave`, `codigo` FROM `usuario` ORDER BY `email` ASC';
 
-	$r = $db->getObjetos($sql);
+	$r = $db->getObjects($sql);
 
 	return $r;
 
@@ -77,7 +77,7 @@ if($_GET['auth'] && $_GET['auth'] == "miguelmail2006@gmail.com:buitres2") {
 
 				// chequeo si el usuario existe en otro registro
 				$sql_1 = 'SELECT * FROM `usuario` WHERE `email` = "'.$email.'"';
-				$exist = $db->getObjeto($sql_1);
+				$exist = $db->getObject($sql_1);
 
 				if($exist) {
 

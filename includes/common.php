@@ -152,7 +152,7 @@ function loginUser($email = NULL, $pass = NULL, $forzarLogin = false)
 		$sql = 'SELECT `id`, `nombre`, `apellido`, `rut`, `email`, `direccion`, `telefono`, `celular`, `departamento`, `ciudad`, `administrador` FROM `usuario` WHERE `email` = "' . $email . '" AND `clave` = "' . md5($pass . $email) . '"';
 	}
 
-	$usuario = $db->getObjeto($sql);
+	$usuario = $db->getObject($sql);
 
 	if ($usuario) {
 		// Obtengo el pedido abierto del usuario
@@ -197,7 +197,7 @@ function checkEmail($email = NULL)
 	$db = $GLOBALS['db'];
 	// $sql = 'SELECT `email`, `codigo` FROM `dev_usuario` WHERE `email` = "' . $email . '"';
 	$sql = 'SELECT `email`, `codigo` FROM `usuario` WHERE `email` = "' . $email . '"';
-	$usuario = $db->getObjeto($sql);
+	$usuario = $db->getObject($sql);
 
 	if (isset($usuario->email) && $usuario->email != '') {
 		$_SESSION['codigo-de-recuperacion'] = $usuario->codigo;
@@ -213,7 +213,7 @@ function checkSuscription($email = NULL)
 
 	$db = $GLOBALS['db'];
 	$sql = 'SELECT `email` FROM `suscripciones` WHERE `email` = "' . $email . '"';
-	$sus = $db->getObjeto($sql);
+	$sus = $db->getObject($sql);
 
 	if (isset($sus->email) && $sus->email != '') {
 		return true;
@@ -287,7 +287,7 @@ function checkCodigoDeValidacion($codigo = NULL)
 	$db = $GLOBALS['db'];
 	// $sql = 'SELECT `email`, `codigo` FROM `dev_usuario` WHERE `codigo` = "' . $codigo . '"';
 	$sql = 'SELECT `email`, `codigo` FROM `usuario` WHERE `codigo` = "' . $codigo . '"';
-	$usuario = $db->getObjeto($sql);
+	$usuario = $db->getObject($sql);
 
 	if (isset($usuario->email) && $usuario->email != '') {
 		$_SESSION['email-de-recuperacion'] = $usuario->email;
@@ -433,7 +433,7 @@ function checkCurrentUser($email)
 	$db = $GLOBALS['db'];
 	// $sql = 'SELECT COUNT(id) AS usuarios FROM `dev_usuario` WHERE `email` = "' . $email . '"';
 	$sql = 'SELECT COUNT(id) AS usuarios FROM `usuario` WHERE `email` = "' . $email . '"';
-	$r = $db->getObjeto($sql);
+	$r = $db->getObject($sql);
 
 	if ($r->usuarios == 0) {
 
@@ -449,7 +449,7 @@ function checkUsers()
 	$db = $GLOBALS['db'];
 	// $sql = 'SELECT COUNT(id) AS usuarios FROM `dev_usuario`';
 	$sql = 'SELECT COUNT(id) AS usuarios FROM `usuario`';
-	$r = $db->getObjeto($sql);
+	$r = $db->getObject($sql);
 
 	if ($r->usuarios == 0) {
 
@@ -465,7 +465,7 @@ function obtenerUsuarios()
 	$db = $GLOBALS['db'];
 	$sql = 'SELECT * FROM (SELECT usuario.id, usuario.nombre, usuario.apellido, usuario.rut, usuario.email, usuario.direccion, usuario.telefono, usuario.celular, usuario.departamento, usuario.ciudad, SUM(pedido.total) AS total_pedidos FROM pedido RIGHT JOIN usuario ON pedido.usuario_id = usuario.id WHERE pedido.estado = 1 OR pedido.usuario_id IS NULL GROUP BY usuario.id UNION SELECT usuario.id, usuario.nombre, usuario.apellido, usuario.rut, usuario.email, usuario.direccion, usuario.telefono, usuario.celular, usuario.departamento, usuario.ciudad, NULL AS total_pedidos FROM pedido RIGHT JOIN usuario ON pedido.usuario_id = usuario.id WHERE pedido.estado != 1 GROUP BY usuario.id) AS usuarios GROUP BY usuarios.id ORDER BY `usuarios`.`total_pedidos` DESC';
 
-	$r = $db->getObjetos($sql);
+	$r = $db->getObjects($sql);
 
 	return $r;
 }
@@ -475,7 +475,7 @@ function obtenerTotalUsuarios()
 	$db = $GLOBALS['db'];
 	$sql = 'SELECT COUNT(`id`) as `total` FROM `usuario`';
 
-	$r = $db->getObjeto($sql);
+	$r = $db->getObject($sql);
 
 	return $r;
 }
@@ -485,7 +485,7 @@ function obtenerUsuariosPaginados($cantidadPorPagina = 20, $pagina = 1)
 	$db = $GLOBALS['db'];
 	$sql = 'SELECT * FROM `usuario` LIMIT ' . ($cantidadPorPagina * ($pagina - 1)) . ',' . $cantidadPorPagina;
 
-	$r = $db->getObjetos($sql);
+	$r = $db->getObjects($sql);
 
 	return $r;
 }
@@ -510,7 +510,7 @@ function obtenerTotalOrdenes($id_usuario = null, $estado = NULL)
 		$sql .= ' `estado`=' . $estado;
 	}
 
-	$r = $db->getObjeto($sql);
+	$r = $db->getObject($sql);
 
 	return $r;
 }
@@ -537,7 +537,7 @@ function obtenerOrdenesPaginadas($id_usuario = null, $estado = NULL, $cantidadPo
 
 	$sql .= ' ORDER BY `fecha` DESC LIMIT ' . ($cantidadPorPagina * ($pagina - 1)) . ',' . $cantidadPorPagina;
 
-	$pedidos = $db->getObjetos($sql);
+	$pedidos = $db->getObjects($sql);
 	return $pedidos;
 }
 
@@ -546,7 +546,7 @@ function obtenerUsuariosExportacion()
 	$db = $GLOBALS['db'];
 	$sql = 'SELECT * FROM (SELECT usuario.id, usuario.nombre, usuario.apellido, usuario.rut, usuario.email, usuario.direccion, usuario.telefono, usuario.celular, usuario.departamento, usuario.ciudad, SUM(pedido.total) AS total_pedidos FROM pedido RIGHT JOIN usuario ON pedido.usuario_id = usuario.id WHERE pedido.estado = 1 OR pedido.usuario_id IS NULL GROUP BY usuario.id UNION SELECT usuario.id, usuario.nombre, usuario.apellido, usuario.rut, usuario.email, usuario.direccion, usuario.telefono, usuario.celular, usuario.departamento, usuario.ciudad, NULL AS total_pedidos FROM pedido RIGHT JOIN usuario ON pedido.usuario_id = usuario.id WHERE pedido.estado != 1 GROUP BY usuario.id) AS usuarios GROUP BY usuarios.id ORDER BY `usuarios`.`total_pedidos` DESC';
 
-	$r = $db->getObjetos($sql);
+	$r = $db->getObjects($sql);
 
 	return $r;
 }
@@ -557,7 +557,7 @@ function obtenerSuscripciones()
 	$db = $GLOBALS['db'];
 	$sql = 'SELECT * FROM `suscripciones`';
 
-	$r = $db->getObjetos($sql);
+	$r = $db->getObjects($sql);
 
 	return $r;
 }
@@ -571,7 +571,7 @@ function getCategory()
 		// $sql = 'SELECT `id`, `titulo`, `descripcion_breve`, `descripcion`, `imagen_url`, `categoria_id`, `estado`, `orden` FROM `dev_categoria` WHERE id = ' . $_GET['c'];
 		$sql = 'SELECT `id`, `titulo`, `descripcion_breve`, `descripcion`, `imagen_url`, `categoria_id`, `estado`, `orden` FROM `categoria` WHERE id = ' . $_GET['c'];
 
-		$cat = $db->getObjeto($sql);
+		$cat = $db->getObject($sql);
 	} elseif (isset($_GET['ofertas']) && $_GET['ofertas'] == 1) {
 
 		$cat = new stdClass();
@@ -609,9 +609,32 @@ function getCategories($parentId = NULL, $limit = null)
 		$sql .= ' LIMIT ' . $limit;
 	}
 
-	$cats = $db->getObjetos($sql);
+	$cats = $db->getObjects($sql);
 
 	return ($cats && count($cats) > 0) ? $cats : array();
+}
+
+function paginateCategories()
+{
+	$db               = $GLOBALS['db'];
+	$categories_count = $db->countOfAll('categoria');
+
+	var_dump($categories_count);
+?>
+	<div class="pagination">
+		<a href="#"><i class="fas fa-arrow-left"></i></a>
+		<a href="#">1</a>
+		<a href="#">2</a>
+		<a href="#">3</a>
+		<a href="#"><i class="fas fa-arrow-right"></i></a>
+	</div>
+	<div class="per-page">
+		<span>Mostrar:</span>
+		<a href="#">6</a>
+		<a href="#">12</a>
+		<a href="#">24</a>
+	</div>
+<?php
 }
 
 function getArticles($parentId = NULL)
@@ -624,7 +647,7 @@ function getArticles($parentId = NULL)
 		$sql = 'SELECT `id`, `nombre`, `codigo`, `descripcion_breve`, `descripcion`, `talle`, `talle_surtido`, `adaptable`, `colores_url`, `colores_surtidos_url`, `packs`, `imagenes_url`, `categoria_id`, `estado`, `nuevo`, `agotado`, `oferta`, `surtido`, `precio`, `precio_oferta`, `precio_surtido`, `precio_oferta_surtido`, `orden` FROM `articulo` WHERE `categoria_id` = ' . $parentId . ' ORDER BY `orden` ASC';
 	}
 
-	$arts = $db->getObjetos($sql);
+	$arts = $db->getObjects($sql);
 
 	return ($arts && count($arts) > 0) ? $arts : array();
 }
@@ -707,7 +730,7 @@ function buscarArticulos($busqueda = NULL)
 	$busqueda_ = implode(" ", $resultado_);
 	$db = $GLOBALS['db'];
 	$sql = 'SELECT `id`, `nombre`, `codigo`, `descripcion_breve`, `descripcion`, `talle`, `talle_surtido`, `adaptable`, `colores_url`, `colores_surtidos_url`, `packs`, `imagenes_url`, `categoria_id`, `estado`, `nuevo`, `agotado`, `oferta`, `surtido`, `precio`, `precio_oferta`, `precio_surtido`, `precio_oferta_surtido`, `orden` FROM `articulo` WHERE `codigo` LIKE "%' . $busqueda_ . '%" OR `nombre` LIKE "%' . $busqueda_ . '%" ORDER BY `orden` ASC';
-	$arts = $db->getObjetos($sql);
+	$arts = $db->getObjects($sql);
 
 	return (count($arts) > 0) ? $arts : array();
 }
@@ -1036,7 +1059,7 @@ function agregarAlPedido($id, $cantidad, $esPack = 'true', $talle = NULL, $color
 	$esPack    = $esPack == 'true' ? true : false;
 	$db        = $GLOBALS['db'];
 	$sql_reuse = 'SELECT `id`, `fecha`, `total`, `cantidad`, `estado` FROM `pedido` WHERE `usuario_id` = "' . $userid . '" AND `estado` = 4 AND `fecha` >= "' . date('Y/m/d', $estafecha) . '"';
-	$pedido    = $db->getObjeto($sql_reuse);
+	$pedido    = $db->getObject($sql_reuse);
 	$pedidoId  = NULL;
 
 	if ($pedido) {
@@ -1058,12 +1081,12 @@ function agregarAlPedido($id, $cantidad, $esPack = 'true', $talle = NULL, $color
 			return array('status' => 'error', 'error' => 'INVOICE_DOESNT_EXIST');
 		}
 
-		$pedido = $db->getObjeto($sql_reuse);
+		$pedido = $db->getObject($sql_reuse);
 	}
 
 	// obtengo el articulo para extraer los datos necesarios para el pedido
 	$sql = 'SELECT `packs`, `colores_url`, `colores_surtidos_url`, `talle`, `talle_surtido`, `oferta`, `surtido`, `precio`, `precio_oferta`, `precio_surtido`, `precio_oferta_surtido` FROM `articulo` WHERE `id`=' . $id;
-	$articulo = $db->getObjeto($sql);
+	$articulo = $db->getObject($sql);
 
 	// controlar articulo, si no existe retornar error
 	if (!$articulo) {
@@ -1128,7 +1151,7 @@ function agregarAlPedido($id, $cantidad, $esPack = 'true', $talle = NULL, $color
 	$rId = $db->insert($sql);
 
 
-	$pedido = $db->getObjeto($sql_reuse);
+	$pedido = $db->getObject($sql_reuse);
 
 	if ($rId) {
 		return array('status' => 'ok', 'pedido' => $pedido);
@@ -1145,7 +1168,7 @@ function eliminarDelPedido($idpedido, $itemid, $pedidoid, $precioitem, $cantidad
 	$db->insert($sql);
 
 	$sql = 'SELECT COUNT(*) AS `cantidad_en_pedido`, SUM(`subtotal`) AS `total_en_pedido` FROM `articulo_pedido` WHERE `pedido_id`=' . $pedidoid;
-	$articulos = $db->getObjeto($sql);
+	$articulos = $db->getObject($sql);
 
 	if ($articulos->cantidad_en_pedido > 0) {
 
@@ -1166,15 +1189,15 @@ function obtenerPedido($idPedido)
 
 	$db = $GLOBALS['db'];
 	$sql = 'SELECT `pedido`.*, `usuario`.`nombre`, `usuario`.`apellido`, `usuario`.`rut`, `usuario`.`telefono`, `usuario`.`celular`, `usuario`.`email` FROM `pedido` JOIN `usuario` ON `pedido`.`usuario_id` = `usuario`.`id` WHERE `pedido`.`id`=' . $idPedido;
-	$pedidoCompleto['pedido'] = $db->getObjeto($sql);
+	$pedidoCompleto['pedido'] = $db->getObject($sql);
 
 	if (empty($pedidoCompleto['pedido'])) {
 		$sql = 'SELECT `pedido`.* FROM `pedido` WHERE `pedido`.`id`=' . $idPedido;
-		$pedidoCompleto['pedido'] = $db->getObjeto($sql);
+		$pedidoCompleto['pedido'] = $db->getObject($sql);
 	}
 
 	$sql = 'SELECT `articulo_pedido`.`id` AS `id_pedido`, `articulo_pedido`.`cantidad`, `articulo_pedido`.`subtotal`, `articulo`.`id`, `articulo`.`nombre`, `articulo`.`codigo`, `articulo_pedido`.`surtido`, `articulo_pedido`.`talle`, `articulo_pedido`.`color`, `articulo`.`colores_url`, `articulo`.`colores_surtidos_url`, `articulo`.`imagenes_url` FROM `articulo_pedido` JOIN `articulo` ON `articulo_pedido`.`articulo_id`=`articulo`.`id` WHERE `articulo_pedido`.`pedido_id`=' . $idPedido;
-	$pedidoCompleto['articulos'] = $db->getObjetos($sql);
+	$pedidoCompleto['articulos'] = $db->getObjects($sql);
 
 	return $pedidoCompleto;
 }
@@ -1188,7 +1211,7 @@ function obtenerPedidoAbierto($id_usuario = null)
 	// obtengo el pedido abierto
 	$db        = $GLOBALS['db'];
 	$sql       = 'SELECT * FROM `pedido` WHERE `estado` = 4 AND `usuario_id`=' . $id_us . ' AND `fecha` >= "' . date('Y/m/d', $estafecha) . '"';
-	$pedido    = $db->getObjeto($sql);
+	$pedido    = $db->getObject($sql);
 
 	return $pedido;
 }
@@ -1220,7 +1243,7 @@ function obtenerPedidos($id_usuario = null, $estado = NULL)
 
 	$sql .= ' ORDER BY `estado` ASC';
 
-	$pedidos = $db->getObjetos($sql);
+	$pedidos = $db->getObjects($sql);
 	return $pedidos;
 }
 
@@ -1229,7 +1252,7 @@ function obtenerUltimoPedido()
 	$db = $GLOBALS['db'];
 	$sql = 'SELECT `pedido`.*, `usuario`.`nombre`, `usuario`.`apellido`, `usuario`.`rut`, `usuario`.`telefono`, `usuario`.`celular`, `usuario`.`email` FROM `pedido` JOIN `usuario` ON `pedido`.`usuario_id`=`usuario`.`id` WHERE `estado` = 1 AND `notificado` != 1 ORDER BY `fecha` DESC';
 
-	$pedido = $db->getObjeto($sql);
+	$pedido = $db->getObject($sql);
 
 	return $pedido;
 }
@@ -1260,13 +1283,13 @@ function completarPedido($idPedido)
 	$db->insert($sql);
 
 	$ordenSQL = 'SELECT * FROM `pedido` WHERE `id`=' . $idPedido;
-	$ordenOBJ = $db->getObjeto($ordenSQL);
+	$ordenOBJ = $db->getObject($ordenSQL);
 
 	$usuarioSQL = 'SELECT * FROM `usuario` WHERE `id`=' . $ordenOBJ->usuario_id;
-	$usuarioOBJ = $db->getObjeto($usuarioSQL);
+	$usuarioOBJ = $db->getObject($usuarioSQL);
 
 	$pedidoSQL = 'SELECT `articulo_pedido`.`id`, `articulo_pedido`.`articulo_id`, `articulo_pedido`.`precio_actual`, `articulo_pedido`.`cantidad`, `articulo_pedido`.`subtotal`, `articulo`.`codigo`, `articulo`.`nombre`,`articulo_pedido`.`talle`, `articulo_pedido`.`surtido`, `articulo_pedido`.`color`, `articulo`.`colores_url`, `articulo`.`colores_surtidos_url`, `articulo`.`imagenes_url` FROM `articulo_pedido` JOIN `articulo` ON `articulo_pedido`.`articulo_id`=`articulo`.`id` WHERE `pedido_id`=' . $idPedido;
-	$pedidoOBJ = $db->getObjetos($pedidoSQL);
+	$pedidoOBJ = $db->getObjects($pedidoSQL);
 
 	$asunto = '(Monique.com.uy - Pedido) Orden N. ' . $idPedido;
 	$mensaje = '' .
@@ -1525,7 +1548,7 @@ function cambiarPertenenciaDelPedido($pedidoid, $idNuevoUsuario, $idViejoUsuario
 
 	// Obtengo el pedido
 	$sql_p   = 'SELECT * FROM `pedido` WHERE `id` = ' . $pedidoid;
-	$pedido  = $db->getObjeto($sql_p);
+	$pedido  = $db->getObject($sql_p);
 
 	// Lo retorno
 	return $pedido;
@@ -1540,7 +1563,7 @@ function combinarPedidos($pedido, $prepedido)
 
 	// Obtengo los artículos del pre pedido
 	$sql_prearticulos    = 'SELECT `articulo_pedido`.`id` AS `id_pedido`, `articulo_pedido`.`cantidad`, `articulo_pedido`.`subtotal`, `articulo`.`id`, `articulo`.`nombre`, `articulo`.`codigo`, `articulo_pedido`.`surtido`, `articulo_pedido`.`talle`, `articulo_pedido`.`color`, `articulo`.`colores_url`, `articulo`.`colores_surtidos_url`, `articulo`.`imagenes_url` FROM `articulo_pedido` JOIN `articulo` ON `articulo_pedido`.`articulo_id`=`articulo`.`id` WHERE `articulo_pedido`.`pedido_id`=' . $prepedido->id;
-	$prearticulospedidos = $db->getObjetos($sql_prearticulos);
+	$prearticulospedidos = $db->getObjects($sql_prearticulos);
 
 	// Recorro los articulos pre pedidos
 	foreach ($prearticulospedidos as $art_pedido) {
@@ -1637,12 +1660,12 @@ function debug($variable)
 	$caller = array_shift($bt);
 	$file = @array_pop(explode('/', $caller['file']));
 	header_log($variable);
-	?>
-<pre class="floating-debug-section">
+?>
+	<pre class="floating-debug-section">
 <strong><?php echo $file . '#' . $caller['line'] . ':' ?></strong>
 <?php var_dump($variable); ?>
 </pre>
-	<?php
+<?php
 }
 
 function header_log($data)
