@@ -605,6 +605,14 @@ function getCategories($parentId = NULL, $limit = null)
 	$sql                .= " LIMIT $offset, $categories_per_page";
 	$cats                = $db->getObjects($sql);
 
+	if (!$cats || count($cats) == 0) {
+		$curret_page = 1;
+		$offset      = ($curret_page - 1) * $categories_per_page;
+		$sql         = "SELECT `id`, `titulo`, `descripcion_breve`, `descripcion`, `imagen_url`, `categoria_id`, `estado`, `orden` FROM `categoria` WHERE `categoria_id` = $parentId AND `estado` = 1 ORDER BY `orden` ASC";
+		$sql        .= " LIMIT $offset, $categories_per_page";
+		$cats        = $db->getObjects($sql);
+	}
+
 	return ($cats && count($cats) > 0) ? $cats : array();
 }
 
@@ -620,6 +628,7 @@ function paginateCategories()
 	$url                 = preg_replace('/p=\d+/i', 'p={{page}}', $url);
 	$url                 = str_replace('{{per_page}}', $categories_per_page, $url);
 ?>
+<?php if ($pages_count > 1) : ?>
 	<div class="pagination">
 		<a href="<?php echo str_replace('{{page}}', $curret_page > 1 ? $curret_page - 1 : $pages_count, $url) ?>"><i class="fas fa-arrow-left"></i></a>
 		<?php for ($i = 1; $i <= $pages_count; $i++) : ?>
@@ -630,6 +639,7 @@ function paginateCategories()
 		<?php endfor ?>
 		<a href="<?php echo str_replace('{{page}}', $curret_page < $pages_count ? $curret_page + 1 : 1, $url) ?>"><i class="fas fa-arrow-right"></i></a>
 	</div>
+<?php endif ?>
 	<div class="per-page">
 		<span>Mostrar:</span>
 		<a
