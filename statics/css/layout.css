@@ -103,7 +103,10 @@ i.fab+* {
 	font-weight: bold;
 }
 
-.list-actions>div a {}
+.list-actions>div a.active {
+	background-color: #b52299;
+	color: #fff;
+}
 
 .list-actions>div a:not(:last-child) {
 	border-right: 1px solid;
@@ -111,10 +114,6 @@ i.fab+* {
 
 .list-actions .per-page {
 	justify-content: flex-end;
-}
-
-.list-actions .pagination {
-	/* justify-content: flex-end; */
 }
 
 .shadowed-title {

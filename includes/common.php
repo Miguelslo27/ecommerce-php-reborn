@@ -8,8 +8,9 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 
-if (isset($_GET['debug'])) {
+define('CATEGORIES_PER_PAGE', 6);
 
+if (isset($_GET['debug'])) {
 	$_SESSION['debug'] = $_GET['debug'];
 }
 
@@ -564,16 +565,11 @@ function obtenerSuscripciones()
 
 function getCategory()
 {
-
 	if (isset($_GET['c']) && $_GET['c'] != 'new' && $_GET['c'] != 'save') {
-
-		$db = $GLOBALS['db'];
-		// $sql = 'SELECT `id`, `titulo`, `descripcion_breve`, `descripcion`, `imagen_url`, `categoria_id`, `estado`, `orden` FROM `dev_categoria` WHERE id = ' . $_GET['c'];
-		$sql = 'SELECT `id`, `titulo`, `descripcion_breve`, `descripcion`, `imagen_url`, `categoria_id`, `estado`, `orden` FROM `categoria` WHERE id = ' . $_GET['c'];
-
+		$db  = $GLOBALS['db'];
+		$sql = 'SELECT `id`, `titulo`, `descripcion_breve`, `descripcion`, `imagen_url`, `categoria_id`, `estado`, `orden` FROM `categoria` WHERE id = ' . $_GET['c'] . ' AND `estado` = 1';
 		$cat = $db->getObject($sql);
 	} elseif (isset($_GET['ofertas']) && $_GET['ofertas'] == 1) {
-
 		$cat = new stdClass();
 		$cat->id = -1;
 		$cat->titulo = 'Ofertas Monique';
@@ -583,7 +579,6 @@ function getCategory()
 		$cat->categoria_id = NULL;
 		$cat->estado = NULL;
 	} else {
-
 		$cat = new stdClass();
 		$cat->id = 0;
 		$cat->titulo = 'Todas las categorías';
@@ -602,37 +597,50 @@ function getCategory()
 
 function getCategories($parentId = NULL, $limit = null)
 {
-	$db = $GLOBALS['db'];
-	$sql = 'SELECT `id`, `titulo`, `descripcion_breve`, `descripcion`, `imagen_url`, `categoria_id`, `estado`, `orden` FROM `categoria` WHERE `categoria_id` = ' . $parentId . ' ORDER BY `orden` ASC';
-
-	if ($limit) {
-		$sql .= ' LIMIT ' . $limit;
-	}
-
-	$cats = $db->getObjects($sql);
+	$db                  = $GLOBALS['db'];
+	$categories_per_page = @$_GET['pp'] ? $_GET['pp'] : CATEGORIES_PER_PAGE;
+	$curret_page         = @$_GET['p'] ? $_GET['p'] : 1;
+	$offset              = ($curret_page - 1) * $categories_per_page;
+	$sql                 = "SELECT `id`, `titulo`, `descripcion_breve`, `descripcion`, `imagen_url`, `categoria_id`, `estado`, `orden` FROM `categoria` WHERE `categoria_id` = $parentId AND `estado` = 1 ORDER BY `orden` ASC";
+	$sql                .= " LIMIT $offset, $categories_per_page";
+	$cats                = $db->getObjects($sql);
 
 	return ($cats && count($cats) > 0) ? $cats : array();
 }
 
 function paginateCategories()
 {
-	$db               = $GLOBALS['db'];
-	$categories_count = $db->countOfAll('categoria');
-
-	var_dump($categories_count);
+	$db                  = $GLOBALS['db'];
+	$categories_per_page = @$_GET['pp'] ? $_GET['pp'] : CATEGORIES_PER_PAGE;
+	$curret_page         = @$_GET['p'] ? $_GET['p'] : 1;
+	$categories_count    = $db->countOf('categoria', '`estado` = 1');
+	$pages_count         = ceil($categories_count / $categories_per_page);
+	$url                 = $_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : '?p={{page}}&pp={{per_page}}';
+	$url                 = preg_replace('/pp=\d+/i', 'pp={{per_page}}', $url);
+	$url                 = preg_replace('/p=\d+/i', 'p={{page}}', $url);
+	$url                 = str_replace('{{per_page}}', $categories_per_page, $url);
 ?>
 	<div class="pagination">
-		<a href="#"><i class="fas fa-arrow-left"></i></a>
-		<a href="#">1</a>
-		<a href="#">2</a>
-		<a href="#">3</a>
-		<a href="#"><i class="fas fa-arrow-right"></i></a>
+		<a href="<?php echo str_replace('{{page}}', $curret_page > 1 ? $curret_page - 1 : $pages_count, $url) ?>"><i class="fas fa-arrow-left"></i></a>
+		<?php for ($i = 1; $i <= $pages_count; $i++) : ?>
+			<a
+				class="<?php echo $i == $curret_page ? 'active' : '' ?>"
+				href="<?php echo str_replace('{{page}}', $i, $url) ?>"
+			><?php echo $i ?></a>
+		<?php endfor ?>
+		<a href="<?php echo str_replace('{{page}}', $curret_page < $pages_count ? $curret_page + 1 : 1, $url) ?>"><i class="fas fa-arrow-right"></i></a>
 	</div>
 	<div class="per-page">
 		<span>Mostrar:</span>
-		<a href="#">6</a>
-		<a href="#">12</a>
-		<a href="#">24</a>
+		<a
+			class="<?php echo $categories_per_page == 6 ? 'active' : ''?>"
+			href="?p=1&pp=6">6</a>
+		<a
+			class="<?php echo $categories_per_page == 12 ? 'active' : ''?>"
+			href="?p=1&pp=12">12</a>
+		<a
+			class="<?php echo $categories_per_page == 24 ? 'active' : ''?>"
+			href="?p=1&pp=24">24</a>
 	</div>
 <?php
 }

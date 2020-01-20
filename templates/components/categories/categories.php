@@ -1,7 +1,3 @@
-<?php
-$categories = getCategories(0);
-?>
-
 <section class="inner categories-component">
   <h1 class="shadowed-title">
     <span class="title-shadow">Categorías</span>
@@ -16,20 +12,8 @@ $categories = getCategories(0);
         </div>
       </div>
     <?php endif ?>
+
     <div class="list-actions">
-      <!-- <div class="pagination">
-        <a href="#"><i class="fas fa-arrow-left"></i></a>
-        <a href="#">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#"><i class="fas fa-arrow-right"></i></a>
-      </div>
-      <div class="per-page">
-        <span>Mostrar:</span>
-        <a href="#">6</a>
-        <a href="#">12</a>
-        <a href="#">24</a>
-      </div> -->
       <?php paginateCategories() ?>
     </div>
 
@@ -51,7 +35,7 @@ $categories = getCategories(0);
   <?php else : ?>
     <?php if (@$userStats['user']->administrador == 1) : ?>
       <div class="list-actions">
-        <?php include($templatesPath . 'components/categories/admin-actions.php') ?>
+        <?php include($templatesPath . 'components/admin/admin-actions.php') ?>
       </div>
     <?php endif ?>
     <hr>
