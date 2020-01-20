@@ -4,27 +4,8 @@
 	max-width: 1200px;
 }
 
-.home h1 {
-	position: relative;
-	margin-bottom: 2.5rem;
-	text-align: center;
-	text-transform: capitalize;
-	font-size: 2rem;
-	font-weight: normal;
-}
-
 .home p {
 	text-align: center;
-}
-
-.home h1::after {
-	content: "";
-	position: absolute;
-	width: 120px;
-	bottom: -15px;
-	left: 50%;
-	border-bottom: 2px solid #333;
-	transform: translateX(-50%);
 }
 
 .home .is-empty-message {

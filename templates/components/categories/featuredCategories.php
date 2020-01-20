@@ -1,12 +1,20 @@
 <?php
-$categories = getCategories(0, 3);
+$categories = getCategories(0, 4);
 ?>
 
 <section class="content featured-categories">
-  <h1>Categorías destacadas</h1>
+  <h1 class="shadowed-title">
+    <span class="title-shadow">Categorías destacadas</span>
+    <span class="title">Categorías destacadas</span>
+  </h1>
 
   <?php if (count($categories) == 0) : ?>
-    <p class="is-empty-message">No se encontraron categorías destacadas</p>
+    <hr>
+    <p class="shadowed-title">
+      <span class="title-shadow">No se encontraron categorías destacadas</span>
+      <span class="title">No se encontraron categorías destacadas</span>
+    </p>
+    <hr>
   <?php endif; ?>
 
   <?php if (count($categories) > 0) : ?>
@@ -18,7 +26,8 @@ $categories = getCategories(0, 3);
             <div class="cat-info">
               <span><?php echo $cat->descripcion_breve ?></span>
               <a href="/categories/?c=<?php echo $cat->id ?>"><?php echo $cat->titulo ?></a>
-              <span>0 articulos<?php // articles in the category ?></span>
+              <span>0 articulos<?php // articles in the category 
+                                ?></span>
             </div>
           </article>
         </li>

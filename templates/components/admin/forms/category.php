@@ -1,5 +1,5 @@
 <?php
-$categories = getCategories(0, 'sarasa');
+$categories = getCategories(0);
 $category   = getCategory();
 saveCategory();
 ?>

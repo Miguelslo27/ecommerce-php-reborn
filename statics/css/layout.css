@@ -103,7 +103,10 @@ i.fab+* {
 	font-weight: bold;
 }
 
-.list-actions>div a {}
+.list-actions>div a.active {
+	background-color: #b52299;
+	color: #fff;
+}
 
 .list-actions>div a:not(:last-child) {
 	border-right: 1px solid;
@@ -113,8 +116,27 @@ i.fab+* {
 	justify-content: flex-end;
 }
 
-.list-actions .pagination {
-	/* justify-content: flex-end; */
+.shadowed-title {
+	position: relative;
+	margin: 2em 0;
+	text-align: center;
+}
+
+.shadowed-title span {
+	white-space: nowrap;
+}
+
+.shadowed-title .title-shadow {
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, -45%);
+	color: rgba(147, 0, 119, .1);
+	font-size: 3em;
+	font-weight: bold;
+}
+
+.shadowed-title .title {
+	position: relative;
 }
 
 /* HEADER */
@@ -254,55 +276,39 @@ header .header-inner .store-nav {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	justify-content: center;
+	justify-content: space-between;
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
 
-.inner h1 {
-	position: relative;
-	margin-bottom: 2.5rem;
-	text-align: center;
-	text-transform: capitalize;
-	font-size: 2rem;
-	font-weight: normal;
-}
-
-.inner h1::after {
-	content: "";
-	position: absolute;
-	width: 120px;
-	bottom: -15px;
-	left: 50%;
-	border-bottom: 2px solid #333;
-	transform: translateX(-50%);
-}
-
 .articles li,
 .categories li {
 	box-sizing: border-box;
-	width: 32%;
 	margin-bottom: 1.8rem;
-	background: #999;
 	box-shadow: 0 0 15px rgba(147, 0, 119, .15);
 	transition: box-shadow .3s ease;
+}
+
+.categories li {
+	width: 49%;
+}
+
+.articles li {
+	width: 32%;
 }
 
 .categories li:hover {
 	box-shadow: 0 0px 25px 0 rgba(147, 0, 119, .5);
 }
 
-.categories li:nth-child(3n+2),
-.articles li:nth-child(3n+2),
-.articles li:nth-child(3n+2) {
-	margin-left: 2%;
-	margin-right: 2%;
+.categories li article,
+.articles li article {
+	position: relative;
 }
 
-.categories li article,
-.articles li {
-	position: relative;
+.categories li article {
+	height: 200px;
 }
 
 .categories li article img,
@@ -310,16 +316,20 @@ header .header-inner .store-nav {
 .articles li article img {
 	display: block;
 	max-width: 100%;
+	max-height: 100%;
+}
+
+.categories li article img {
+	float: right;
 }
 
 .categories li article .cat-info {
 	position: absolute;
-	left: 50%;
+	left: 0;
 	top: 50%;
 	width: 60%;
-	padding: 1rem;
-	transform: translate(-50%, -50%);
-	background: rgba(255, 255, 255, .9);
+	padding: 2rem;
+	transform: translateY(-50%);
 }
 
 .categories li article .cat-info *,
@@ -331,7 +341,7 @@ header .header-inner .store-nav {
 .categories li article .cat-info span,
 .articles li article .article-info span,
 .articles li article .article-info span {
-	font-size: .8rem;
+	font-size: 1rem;
 }
 
 .categories li article .cat-info span:last-child {
@@ -341,7 +351,7 @@ header .header-inner .store-nav {
 .categories li article .cat-info a,
 .articles li article .article-info a,
 .articles li article .article-info a {
-	font-size: 1.3rem;
+	font-size: 1.5rem;
 	text-transform: uppercase;
 	line-height: 2rem;
 }

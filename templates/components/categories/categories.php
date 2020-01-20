@@ -1,30 +1,20 @@
-<?php
-$categories = getCategories(0);
-?>
-
 <section class="inner categories-component">
-  <h1>Categorías</h1>
+  <h1 class="shadowed-title">
+    <span class="title-shadow">Categorías</span>
+    <span class="title">Categorías</span>
+  </h1>
 
   <?php if (count($categories) > 0) : ?>
     <?php if (@$userStats['user']->administrador == 1) : ?>
       <div class="list-actions">
-        <?php include($templatesPath . 'components/categories/admin-actions.php') ?>
+        <div class="admin-actions">
+          <a href="/categoria/nueva">Nueva categoría +</a>
+        </div>
       </div>
     <?php endif ?>
+
     <div class="list-actions">
-      <div class="pagination">
-        <a href="#"><i class="fas fa-arrow-left"></i></a>
-        <a href="#">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#"><i class="fas fa-arrow-right"></i></a>
-      </div>
-      <div class="per-page">
-        <span>Mostrar:</span>
-        <a href="#">9</a>
-        <a href="#">12</a>
-        <a href="#">15</a>
-      </div>
+      <?php paginateCategories() ?>
     </div>
 
     <ul class="categories">
@@ -44,10 +34,15 @@ $categories = getCategories(0);
     </ul>
   <?php else : ?>
     <?php if (@$userStats['user']->administrador == 1) : ?>
-      <div class="actions">
-        <?php include($templatesPath . 'components/categories/admin-actions.php') ?>
+      <div class="list-actions">
+        <?php include($templatesPath . 'components/admin/admin-actions.php') ?>
       </div>
     <?php endif ?>
-    <p class="is-empty-message">No se encontraron categorías</p>
+    <hr>
+    <p class="shadowed-title">
+      <span class="title-shadow">No se encontraron categorías</span>
+      <span class="title">No se encontraron categorías</span>
+    </p>
+    <hr>
   <?php endif ?>
 </section>
