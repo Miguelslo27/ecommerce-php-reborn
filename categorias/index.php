@@ -8,7 +8,6 @@ $appPlace      = 'categories';
 $appSubPlace   = '';
 $templatesPath = $GLOBALS['config']['templatesPath'];
 $categories    = getCategories(0);
-$category      = getCategory();
 
 startDocument();
 loadSection("header", $userStats);

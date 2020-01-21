@@ -28,6 +28,15 @@
               <span>0 articulos<?php // articles in the category 
                                 ?></span>
             </div>
+            <?php if (@$userStats['user']->administrador == 1) : ?>
+              <div class="admin-category-controls">
+                <label for="select-<?php echo $cat->id ?>">
+                  <input type="checkbox" id="select-<?php echo $cat->id ?>">
+                </label>
+                <a href="#"><i class="far fa-edit"></i></a>
+                <a href="#"><i class="far fa-trash-alt"></i></a>
+              </div>
+            <?php endif ?>
           </article>
         </li>
       <?php endforeach; ?>
