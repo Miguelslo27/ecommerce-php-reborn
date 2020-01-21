@@ -811,7 +811,7 @@ function updateCategory($id = NULL)
 	@mkdir($imageLocation);
 
 	// Elimino la imagen anterior
-	unlink($relative . $imageLocation . '/thumbnail.jpg');
+	@unlink($relative . $imageLocation . '/thumbnail.jpg');
 
 	// salvar imagen
 	$img = new upload($_FILES['imagen']);
@@ -829,14 +829,11 @@ function updateCategory($id = NULL)
 
 function deleteCategory($id = NULL)
 {
-
 	if ($id) {
-
-		$db = $GLOBALS['db'];
-		// $sql = 'DELETE FROM `dev_categoria` WHERE `id`=' . $id;
+		$db  = $GLOBALS['db'];
 		$sql = 'DELETE FROM `categoria` WHERE `id`=' . $id;
 
-		$cid = $db->insert($sql);
+		$db->insert($sql);
 	}
 }
 
