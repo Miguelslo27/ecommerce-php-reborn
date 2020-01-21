@@ -8,7 +8,9 @@ $appPlace      = 'categories';
 $appSubPlace   = '';
 $templatesPath = $GLOBALS['config']['templatesPath'];
 $categories    = getCategories(0);
-$category      = getCategory();
+
+// If comes from category form, save the category
+$messages = saveCategory();
 
 startDocument();
 loadSection("header", $userStats);

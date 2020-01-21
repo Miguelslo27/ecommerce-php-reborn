@@ -28,6 +28,12 @@
               <span>0 articulos<?php // articles in the category 
                                 ?></span>
             </div>
+            <?php if (@$userStats['user']->administrador == 1) : ?>
+              <div class="admin-category-controls">
+                <a href="/categoria/editar/?cid=<?php echo $cat->id ?>"><i class="far fa-edit"></i></a>
+                <a href="/categoria/eliminar/?cid=<?php echo $cat->id ?>"><i class="far fa-trash-alt"></i></a>
+              </div>
+            <?php endif ?>
           </article>
         </li>
       <?php endforeach; ?>
