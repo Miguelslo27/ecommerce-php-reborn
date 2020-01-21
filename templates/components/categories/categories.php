@@ -30,8 +30,8 @@
             </div>
             <?php if (@$userStats['user']->administrador == 1) : ?>
               <div class="admin-category-controls">
-                <a href="#"><i class="far fa-edit"></i></a>
-                <a href="#"><i class="far fa-trash-alt"></i></a>
+                <a href="/categoria/editar/?id=<?php echo $cat->id ?>"><i class="far fa-edit"></i></a>
+                <a href="/categoria/eliminar/?id=<?php echo $cat->id ?>"><i class="far fa-trash-alt"></i></a>
               </div>
             <?php endif ?>
           </article>
