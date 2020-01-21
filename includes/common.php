@@ -565,9 +565,9 @@ function obtenerSuscripciones()
 
 function getCategory()
 {
-	if (isset($_GET['c']) && $_GET['c'] != 'new' && $_GET['c'] != 'save') {
+	if (isset($_GET['cid']) && $_GET['cid'] != 'new' && $_GET['cid'] != 'save') {
 		$db  = $GLOBALS['db'];
-		$sql = 'SELECT `id`, `titulo`, `descripcion_breve`, `descripcion`, `imagen_url`, `categoria_id`, `estado`, `orden` FROM `categoria` WHERE id = ' . $_GET['c'] . ' AND `estado` = 1';
+		$sql = 'SELECT `id`, `titulo`, `descripcion_breve`, `descripcion`, `imagen_url`, `categoria_id`, `estado`, `orden` FROM `categoria` WHERE id = ' . $_GET['cid'] . ' AND `estado` = 1';
 		$cat = $db->getObject($sql);
 	} elseif (isset($_GET['ofertas']) && $_GET['ofertas'] == 1) {
 		$cat = new stdClass();
