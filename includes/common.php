@@ -770,7 +770,7 @@ function saveCategory()
 			$imageLocation = ($_FILES['imagen']['error'] == 0) ? '/statics/images/categories/' . $cid : '';
 
 			// creo la carpeta para las imagenes de esta categoria
-			mkdir($relative . $imageLocation);
+			@mkdir($relative . $imageLocation);
 
 			// salvar imagen
 			$img = new upload($_FILES['imagen']);
@@ -796,29 +796,34 @@ function saveCategory()
 
 function updateCategory($id = NULL)
 {
-	if ($id) {
-		$db            = $GLOBALS['db'];
-		$imageLoc      = '/statics/images/categories/{id}';
-		$sql           = 'UPDATE `categoria` SET `titulo`="' . $_POST['titulo'] . '", `descripcion_breve`="' . $_POST['descripcion_breve'] . '", `descripcion`="' . $_POST['descripcion'] . '", `categoria_id`="' . $_POST['categoria_id'] . '", `imagen_url` = "' . $imageLoc . '", `orden` = ' . $_POST['orden'] . ' WHERE `id`=' . $id;
-		$cid           = $db->insert($sql);
-		$relative      = $GLOBALS['relative'];
-		$imageLocation = $relative . '/statics/images/categories/' . $id;
+	if (!$id) {
+		return;
+	}
 
-		// creo la carpeta para las imagenes de esta categoria
-		@mkdir($imageLocation);
+	$relative      = $GLOBALS['relative'];
+	$db            = $GLOBALS['db'];
+	$sql           = 'UPDATE `categoria` SET `titulo`="' . $_POST['titulo'] . '", `descripcion_breve`="' . $_POST['descripcion_breve'] . '", `descripcion`="' . $_POST['descripcion'] . '", `categoria_id`=' . $_POST['categoria_id'] . ', `orden` = ' . $_POST['orden'] . ' WHERE `id`=' . $id;
+	$imageLocation = ($_FILES['imagen']['error'] == 0) ? '/statics/images/categories/' . $id : '';
 
-		if ($_FILES['imagen']['error'] == 0) {
-			// salvar imagen
-			@unlink($imageLocation . '/thumbnail.jpg');
-			$img = new upload($_FILES['imagen']);
-			if ($img->uploaded) {
+	$db->insert($sql);
 
-				$img->image_x = 200;
-				$img->file_new_name_body = 'thumbnail';
-				$img->image_convert = 'jpg';
-				$img->process($imageLocation);
-			}
-		}
+	// creo la carpeta para las imagenes de esta categoria
+	@mkdir($imageLocation);
+
+	// Elimino la imagen anterior
+	unlink($relative . $imageLocation . '/thumbnail.jpg');
+
+	// salvar imagen
+	$img = new upload($_FILES['imagen']);
+
+	if ($img->uploaded) {
+		$img->image_x = 200;
+		$img->file_new_name_body = 'thumbnail';
+		$img->image_convert = 'jpg';
+		$img->process($relative . $imageLocation);
+
+		$sql = 'UPDATE `categoria` SET `imagen_url` = "' . $imageLocation . '/thumbnail.jpg' . '" WHERE `id`=' . $id;
+		$db->insert($sql);
 	}
 }
 
