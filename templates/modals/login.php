@@ -27,7 +27,7 @@
 								Recúerdame en este equipo
 							</label>
 						</div>
-						<div class="form-line form-commands">
+						<div class="form-line form-actions">
 							<button type="submit" class="btn bnt-login btn-style black">Ingresar</button>
 							<a href="/recuperar-clave/">¿Has olvidado tu contraseña?</a>
 						</div>
@@ -47,7 +47,7 @@
 								<li>Recibir ofertas y promociones exclusivas en tu email</li>
 							</ul>
 						</div>
-						<div class="form-line form-commands">
+						<div class="form-line form-actions">
 							<a href="/registro" class="btn btn-style btn-register black">Registrarme</a>
 							<a href="/" class="btn bnt-login btn-style grey action-close">Ahora no, gracias</a>
 						</div>

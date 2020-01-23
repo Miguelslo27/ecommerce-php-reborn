@@ -112,7 +112,7 @@ saveArticle();
               <?php endforeach ?>
             </select>
           </div>
-          <div class="form-line form-commands">
+          <div class="form-line form-actions">
             <button type="submit" class="btn btn-style bnt-login black">Guardar</button>
             <button type="button" class="btn btn-style bnt-login grey action-close">Cancelar</button>
           </div>

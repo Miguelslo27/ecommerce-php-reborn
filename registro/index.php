@@ -172,7 +172,7 @@ if(!$userStats['user'] || ($userStats['user'] && isset($_GET['id']))) {
 									<label for="ciudad">Localidad</label>
 									<input type="text" class="input" data-label="Localidad" id="ciudad" name="ciudad" value="<?php echo ($userStats['user'] ? $userStats['user']->ciudad : ''); ?>">
 								</div>
-								<div class="form-line form-commands">
+								<div class="form-line form-actions">
 									<?php
 
 									if(isset($_GET['id'])) {

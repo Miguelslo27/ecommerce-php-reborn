@@ -171,7 +171,7 @@ $userStats = $GLOBALS['userStats'];
 							<label><input type="radio" value="BROU" name="forma_de_pago" id="forma_de_pago_brou">BROU</label>
 						</div>
 						<p></p>
-						<div class="form-line form-commands">
+						<div class="form-line form-actions">
 							<a href="#" class="btn black btn-style terminar-confirmacion-pedido" data-id="<?php echo $cartItems['pedido']->id; ?>">Enviar Pedido</a>
 							<a href="#" class="btn grey btn-style action-close">Cancelar</a>
 						</div>

@@ -12,7 +12,7 @@ $catid      = isset($_GET['cid']) ? $_GET['cid'] : null;
 		<input type="hidden" name="type" value="category">
 		<input type="hidden" name="id" id="id" <?php echo $catid ? 'value="' . $catid . '"' : '' ?>>
 		<input type="hidden" name="delete" id="delete">
-		<div class="form-line form-commands">
+		<div class="form-line form-actions">
 			<button type="submit" class="btn btn-style bnt-login black">Eliminar</button>
 			<button type="button" class="btn btn-style bnt-login grey action-close">Cancelar</button>
 		</div>

@@ -36,11 +36,10 @@
 		#user-subscripction .modal-content .modal-col-inner form#suscribe-form .form-line {
 			text-align: center;
 		}
-		#user-subscripction .modal-content .modal-col-inner form#suscribe-form .form-line.form-commands {
+		#user-subscripction .modal-content .modal-col-inner form#suscribe-form .form-line.form-actions {
 			position: initial;
 		}
 		#user-subscripction .modal-content .modal-col-inner form#suscribe-form .form-line input {
-			box-sizing: border-box;
 		    float: none;
 		    height: 44px;
 		    text-align: center;
@@ -91,7 +90,7 @@
 						<div class="form-line">
 							<input type="text" class="input <?php echo isset($_GET['subscription']) && $_GET['subscription'] == 'error' ? 'error' : '' ?>" id="email" name="email" placeholder="<?php echo isset($_GET['subscription']) && $_GET['subscription'] == 'error' ? 'Error en el email' : 'Ingresá tu email' ?>">
 						</div>
-						<div class="form-line form-commands">
+						<div class="form-line form-actions">
 							<button type="submit" class="btn bnt-suscribe btn-rounded btn-style black">Ok</button>
 						</div>
 					</form>

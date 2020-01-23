@@ -20,7 +20,6 @@ switch($place) {
 		<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Muli'>
 		<link rel="stylesheet" href="/statics/css/layout.css?<?php echo $revision; ?>">
 		<link rel="stylesheet" href="/statics/css/frameworks/fontawesome/font-awesome.min.css?<?php echo $revision; ?>">
-		<link rel="stylesheet" href="/statics/css/fontsaddict.css?<?php echo $revision; ?>">
 
 		<?php
 

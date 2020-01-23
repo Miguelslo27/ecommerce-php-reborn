@@ -4,18 +4,17 @@ $category   = getCategory();
 $catid      = isset($_GET['cid']) ? $_GET['cid'] : null;
 ?>
 
-<div class="container category-form">
-  <h2>Nueva categoría</h2>
-  <a href="#" class="modal-close action-close"><span class="modal-close-left"></span><span class="modal-close-right"></span></a>
-
-  <h3>Registrar una nueva categoría</h3>
+<div class="inner form-new-category">
+  <h1>Agregar Categoría</h1>
   <form action="/categorias/" enctype="multipart/form-data" method="POST" id="category-create-new">
     <input type="hidden" name="type" value="category">
     <input type="hidden" name="id" id="id" <?php echo $catid ? 'value="' . $catid . '"' : '' ?>>
     <input type="hidden" name="save" id="save">
     <div class="form-line">
-      <label for="orden">Orden</label>
-      <input type="text" class="input" id="orden" value="<?php echo $catid ? $category->orden : '0' ?>" name="orden">
+      <label class="file">
+        <span>Click para cargar una imagen</span>
+        <input type="file" class="input" id="imagen" name="imagen">
+      </label>
     </div>
     <div class="form-line">
       <label for="titulo">Titulo</label>
@@ -25,15 +24,12 @@ $catid      = isset($_GET['cid']) ? $_GET['cid'] : null;
       <label for="descripcion_breve">Descripción breve</label>
       <input type="text" class="input" id="descripcion_breve" name="descripcion_breve" value="<?php echo $catid ? $category->descripcion_breve : '' ?>">
     </div>
+    <hr>
     <div class="form-line">
       <label for="descripcion">Descripción</label>
       <textarea class="input" id="descripcion" name="descripcion"><?php echo $catid ? $category->descripcion : '' ?></textarea>
     </div>
-    <div class="form-line">
-      <label for="imagen">Imagen</label>
-      <input type="file" class="input" id="imagen" name="imagen">
-    </div>
-    <div class="form-line">
+    <div class="form-group">
       <label for="categoria_id">Categoría padre</label>
       <select name="categoria_id" id="categoria_id" class="input">
         <option value="0" <?php echo ($category->categoria_id == 0) ? 'selected' : ''; ?>>-- No tiene padre --</option>
@@ -41,10 +37,12 @@ $catid      = isset($_GET['cid']) ? $_GET['cid'] : null;
           <option value="<?php echo $cat->id; ?>" <?php echo ($category->categoria_id == $cat->id) ? 'selected' : ''; ?>><?php echo $cat->titulo; ?></option>
         <?php endforeach ?>
       </select>
+      <label for="orden">Posición</label>
+      <input type="number" class="input" id="orden" value="<?php echo $catid ? $category->orden : '0' ?>" name="orden">
     </div>
-    <div class="form-line form-commands">
+    <div class="form-actions">
       <button type="submit" class="btn btn-style bnt-login black">Guardar</button>
-      <button type="button" class="btn btn-style bnt-login grey action-close">Cancelar</button>
+      <button type="reset" class="btn btn-style bnt-login grey action-close">Cancelar</button>
     </div>
   </form>
 </div>

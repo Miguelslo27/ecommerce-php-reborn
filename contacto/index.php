@@ -48,10 +48,10 @@ loadSection("header", $userStats);
 	#contact-form textarea.input {
 		height: 80px;
 	}
-	#contact-form .form-line.form-commands {
+	#contact-form .form-line.form-actions {
 		text-align: left;
 	}
-	#contact-form .form-line.form-commands .btn {
+	#contact-form .form-line.form-actions .btn {
 		margin-left: 90px;
 	}
 	.line-v {
@@ -241,7 +241,7 @@ loadSection("header", $userStats);
 										<label for="mensaje">Mensaje</label>
 										<textarea class="input" id="mensaje" name="mensaje"></textarea>
 									</div>
-									<div class="form-line form-commands">
+									<div class="form-line form-actions">
 										<button type="submit" name="submit" value="enviar" class="btn bnt-login black btn-style">Enviar</button>
 									</div>
 								</form>

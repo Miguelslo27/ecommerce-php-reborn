@@ -30,7 +30,7 @@ loadSection("header", $userStats);
       Recúerdame en este equipo
     </label>
   </div>
-  <div class="form-line form-commands">
+  <div class="form-line form-actions">
     <button type="submit" class="btn bnt-login btn-style black">Ingresar</button>
     <a href="/recuperar-clave/">¿Has olvidado tu contraseña?</a>
   </div>

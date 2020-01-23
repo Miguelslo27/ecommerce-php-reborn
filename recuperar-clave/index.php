@@ -18,7 +18,7 @@ loadSection("header", $userStats);
 	<style>
 	#reset-pass-form .input { float: left; width: 250px; margin-right: 10px; }
 	#reset-pass-form .btn { line-height: 20px; }
-	#reset-pass-form .form-line.form-commands { text-align: left; }
+	#reset-pass-form .form-line.form-actions { text-align: left; }
 	.error {
 		background: none repeat scroll 0 0 #f8bbb8;
 	    border: 1px solid #aa0000;
