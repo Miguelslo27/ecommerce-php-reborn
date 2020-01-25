@@ -465,8 +465,8 @@ form .form-line label {
 	padding-left: 0;
 }
 
-form .form-line input,
-form .form-group input,
+form .form-line input:not([type=checkbox]),
+form .form-group input:not([type=checkbox]),
 form .form-line label.file,
 form .form-group label.file,
 form .form-line textarea,
@@ -483,7 +483,8 @@ form .form-group select {
 form .form-line input,
 form .form-line label.file,
 form .form-line textarea,
-form .form-line select {
+form .form-line select,
+form .form-group {
 	flex-grow: 3;
 }
 

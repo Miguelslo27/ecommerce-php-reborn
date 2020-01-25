@@ -6,7 +6,7 @@ $catid      = isset($_GET['cid']) ? $_GET['cid'] : null;
 
 <div class="inner form-new-category">
   <h1>Agregar Categoría</h1>
-  <form action="/categorias/" enctype="multipart/form-data" method="POST" id="category-create-new">
+  <form action="/categorias/" enctype="multipart/form-data" method="POST">
     <input type="hidden" name="type" value="category">
     <input type="hidden" name="id" id="id" <?php echo $catid ? 'value="' . $catid . '"' : '' ?>>
     <input type="hidden" name="save" id="save">
@@ -41,8 +41,8 @@ $catid      = isset($_GET['cid']) ? $_GET['cid'] : null;
       <input type="number" class="input" id="orden" value="<?php echo $catid ? $category->orden : '0' ?>" name="orden">
     </div>
     <div class="form-actions">
-      <button type="submit" class="btn btn-style bnt-login black">Guardar</button>
-      <button type="reset" class="btn btn-style bnt-login grey action-close">Cancelar</button>
+      <button type="submit">Guardar</button>
+      <button type="reset">Cancelar</button>
     </div>
   </form>
 </div>
