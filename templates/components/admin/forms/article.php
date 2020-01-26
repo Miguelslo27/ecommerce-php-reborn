@@ -17,12 +17,6 @@ $category   = getCategory();
       </label>
     </div>
     <div class="form-line">
-      <label class="file">
-        <span>Click para cargar colores</span>
-        <input type="file" class="input" id="colores" name="colores[]" multiple="true">
-      </label>
-    </div>
-    <div class="form-line">
       <label for="nombre">Nombre</label>
       <input type="text" class="input" id="nombre" name="nombre">
     </div>
@@ -34,6 +28,7 @@ $category   = getCategory();
       <label for="descripcion_breve">Descripción breve</label>
       <input type="text" class="input" id="descripcion_breve" name="descripcion_breve">
     </div>
+    <hr>
     <div class="form-line">
       <label>Configuración</label>
       <div class="form-group">
@@ -49,15 +44,12 @@ $category   = getCategory();
       <label for="descripcion">Descripción</label>
       <textarea class="input" id="descripcion" name="descripcion"></textarea>
     </div>
-    <div class="form-line">
+    <div class="form-group">
       <label for="precio">Precio</label>
       <input type="text" class="input" id="precio" name="precio" value="0">
-    </div>
-    <div class="form-line">
-      <label for="precio_oferta">Precio de oferta</label>
+      <label for="precio_oferta" class="align-center">Precio de oferta</label>
       <input type="text" class="input" id="precio_oferta" name="precio_oferta" value="0">
     </div>
-
     <div class="form-group">
       <label for="categoria_id">Categoría</label>
       <select name="categoria_id" id="categoria_id" class="input">
@@ -66,7 +58,7 @@ $category   = getCategory();
           <option value="<?php echo $cat->id; ?>" <?php echo ($category->id == $cat->id) ? 'selected' : ''; ?>><?php echo $cat->titulo; ?></option>
         <?php endforeach ?>
       </select>
-      <label for="orden">Posición</label>
+      <label for="orden" class="align-center">Posición</label>
       <input type="text" class="input" id="orden" value="0" name="orden">
     </div>
     <div class="form-actions">

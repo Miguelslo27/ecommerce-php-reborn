@@ -37,7 +37,7 @@ $catid      = isset($_GET['cid']) ? $_GET['cid'] : null;
           <option value="<?php echo $cat->id; ?>" <?php echo ($category->categoria_id == $cat->id) ? 'selected' : ''; ?>><?php echo $cat->titulo; ?></option>
         <?php endforeach ?>
       </select>
-      <label for="orden">Posición</label>
+      <label for="orden" class="align-center">Posición</label>
       <input type="number" class="input" id="orden" value="<?php echo $catid ? $category->orden : '0' ?>" name="orden">
     </div>
     <div class="form-actions">
