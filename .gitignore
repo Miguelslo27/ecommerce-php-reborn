@@ -1,3 +1,5 @@
 statics/images/articles
 statics/images/categories
 statics/images/catalogos
+error_log
+error.*
