@@ -74,8 +74,17 @@ i.fab+* {
 }
 
 /* COMMONS */
+.align-center,
+.align-right {
+	display: block !important;
+}
+
 .align-center {
 	text-align: center;
+}
+
+.align-right {
+	text-align: right;
 }
 
 .container .inner {
@@ -446,7 +455,8 @@ form hr {
 
 form .form-line,
 form .form-group,
-form .form-actions {
+form .form-actions,
+form .help-line {
 	display: flex;
 	padding: 1rem;
 }
