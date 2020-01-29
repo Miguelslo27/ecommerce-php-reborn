@@ -34,7 +34,7 @@
 							<label for="pass2">Repetir contraseña</label>
 							<input type="password" class="input" id="pass2" name="pass2">
 						</div>
-						<div class="form-line form-commands">
+						<div class="form-line form-actions">
 							<button type="submit" class="btn btn-style bnt-login black">Registrarme</button>
 							<button type="button" class="btn btn-style bnt-login grey action-close">Cancelar</button>
 						</div>

@@ -7,7 +7,7 @@ $relative = '..';
 require '../includes/common.php';
 
 header('Content-type: text/csv');
-header('Content-Disposition: attachment;filename="Suscripciones Monique.csv"');
+header('Content-Disposition: attachment;filename="Suscripciones eCommerce.csv"');
 header('Cache-Control: max-age=0');
 
 $output = fopen('php://output', 'w');

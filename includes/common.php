@@ -28,7 +28,7 @@ if (isset($_SESSION['debug'])) {
 		<meta http-equiv=”Cache-Control” content=”no-cache, mustrevalidate”>
 		<meta http-equiv=”Pragma” content=”no-cache”>
 
-		<title>Monique.com.uy - En reparación</title>
+		<title>eCommerce - En reparación</title>
 
 		<style>
 			body {
@@ -254,17 +254,17 @@ function enviarDatosDeRecuperacion($email)
 
 	$asunto = "Solicitud de recuperación de contraseña";
 	$mensaje = '' .
-		'<p>Has solicitado la recuperación de tu contraseña de Monique.com.uy</p>' .
+		'<p>Has solicitado la recuperación de tu contraseña de eCommerce</p>' .
 		'<p>Por favor, sigue el link a continuación y podrás cambiar tu contraseña.</p>' .
-		'<p><a href="http://monique.com.uy/recuperar-clave/index.php?c=' . $_SESSION['codigo-de-recuperacion'] . '">Click aquí para cambiar contraseña</a></p>' .
+		'<p><a href="/recuperar-clave/index.php?c=' . $_SESSION['codigo-de-recuperacion'] . '">Click aquí para cambiar contraseña</a></p>' .
 		'<p>Si por cualquier motivo no puedes hacer click en el link anterior, copia la siguente dirección y pégala en la barra de direcciones de tu navegador</p>' .
-		'<p>http://monique.com.uy/recuperar-clave/index.php?c=' . $_SESSION['codigo-de-recuperacion'] . '</p>';
+		'<p>/recuperar-clave/index.php?c=' . $_SESSION['codigo-de-recuperacion'] . '</p>';
 
 	$mail = new PHPMailer();
-	// $mail->addAddress('no-responder@monique.com.uy', 'Monique.com.uy');
+	// $mail->addAddress('no-responder@eCommerce', 'eCommerce');
 	$mail->addAddress($email);
 
-	$mail->setFrom('monique@monique.com.uy', 'Monique - Tienda Online');
+	$mail->setFrom('eCommerce@eCommerce', 'eCommerce - Tienda Online');
 	$mail->Subject = utf8_decode($asunto);
 	$mail->msgHTML(utf8_decode($mensaje));
 
@@ -572,8 +572,8 @@ function getCategory()
 	} elseif (isset($_GET['ofertas']) && $_GET['ofertas'] == 1) {
 		$cat = new stdClass();
 		$cat->id = -1;
-		$cat->titulo = 'Ofertas Monique';
-		$cat->descripcion_breve = 'Encuentra todos los artículos en oferta en Monique';
+		$cat->titulo = 'Ofertas eCommerce';
+		$cat->descripcion_breve = 'Encuentra todos los artículos en oferta en eCommerce';
 		$cat->descripcion = '';
 		$cat->imagen_url = '';
 		$cat->categoria_id = NULL;
@@ -1311,10 +1311,10 @@ function completarPedido($idPedido)
 	$pedidoSQL = 'SELECT `articulo_pedido`.`id`, `articulo_pedido`.`articulo_id`, `articulo_pedido`.`precio_actual`, `articulo_pedido`.`cantidad`, `articulo_pedido`.`subtotal`, `articulo`.`codigo`, `articulo`.`nombre`,`articulo_pedido`.`talle`, `articulo_pedido`.`surtido`, `articulo_pedido`.`color`, `articulo`.`colores_url`, `articulo`.`colores_surtidos_url`, `articulo`.`imagenes_url` FROM `articulo_pedido` JOIN `articulo` ON `articulo_pedido`.`articulo_id`=`articulo`.`id` WHERE `pedido_id`=' . $idPedido;
 	$pedidoOBJ = $db->getObjects($pedidoSQL);
 
-	$asunto = '(Monique.com.uy - Pedido) Orden N. ' . $idPedido;
+	$asunto = '(eCommerce - Pedido) Orden N. ' . $idPedido;
 	$mensaje = '' .
 
-		'<h2><a href="http://monique.com.uy/detalle?id=' . $idPedido . '">Orden N. ' . $idPedido . '</a></h2>' .
+		'<h2><a href="/detalle?id=' . $idPedido . '">Orden N. ' . $idPedido . '</a></h2>' .
 		'<p><strong>Fecha:</strong> ' . $ordenOBJ->fecha . '</p>' .
 		'<p><strong>Nombre:</strong> ' . $usuarioOBJ->nombre . ' ' . $usuarioOBJ->apellido . '</p>' .
 		'<p><strong>RUT:</strong> ' . $usuarioOBJ->rut . '</p>' .
@@ -1357,7 +1357,7 @@ function completarPedido($idPedido)
 		if ($retira) {
 
 			$mensaje .=
-				'<p><strong>Retira y paga en local Monique.</strong></p>';
+				'<p><strong>Retira y paga en local eCommerce.</strong></p>';
 		} else {
 
 			$mensaje .=
@@ -1467,16 +1467,16 @@ function completarPedido($idPedido)
 	$mail = new PHPMailer();
 
 	if ($usuarioOBJ->email == 'miguelmail2006@gmail.com') {
-		$mail->addAddress('miguelmail2006@gmail.com', 'Monique.com.uy');
-		// $mail->addAddress('miguelso18@hotmail.com', 'Monique.com.uy');
-		// $mail->addAddress('esteban.leyton@hotmail.com', 'Monique.com.uy');
+		$mail->addAddress('miguelmail2006@gmail.com', 'eCommerce');
+		// $mail->addAddress('miguelso18@hotmail.com', 'eCommerce');
+		// $mail->addAddress('esteban.leyton@hotmail.com', 'eCommerce');
 	} else {
-		$mail->addAddress('miguelmail2006@gmail.com', 'Monique.com.uy');
-		$mail->addAddress('moniqueindumentaria@hotmail.com', 'Monique.com.uy');
+		$mail->addAddress('miguelmail2006@gmail.com', 'eCommerce');
+		$mail->addAddress('miguelmail2006@gmail.com', 'eCommerce');
 		$mail->addAddress('gahecht@hotmail.com', 'Gabriela Hecht');
 	}
 
-	$mail->setFrom('monique@monique.com.uy', 'Monique - Pedidos Online');
+	$mail->setFrom('eCommerce@eCommerce', 'eCommerce - Pedidos Online');
 	$mail->Subject = utf8_decode($asunto);
 	$mail->isHTML(true);
 	$mail->Body = utf8_decode($mensaje);
@@ -1486,7 +1486,7 @@ function completarPedido($idPedido)
 		$mail->clearAddresses();
 		$mail->addAddress($usuarioOBJ->email, $usuarioOBJ->nombre . ' ' . $usuarioOBJ->apellido);
 
-		$linkareemplazar = '<a href="http://monique.com.uy/detalle?id=' . $idPedido . '">Orden N. ' . $idPedido . '</a>';
+		$linkareemplazar = '<a href="/detalle?id=' . $idPedido . '">Orden N. ' . $idPedido . '</a>';
 		$valornuevo = 'Orden N. ' . $idPedido;
 
 		$msg = str_replace($linkareemplazar, $valornuevo, $mensaje);

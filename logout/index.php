@@ -35,7 +35,7 @@ loadSection("header", $userStats);
 	<section id="body">
 		<div class="body-inner">
 			<div class="body-content">
-				<h1><span class="fa fa-circle"></span> Gracias por comprar en <span class="fa fa-circle"></span> <span class="marca">Monique.com.uy</span> <span class="fa fa-circle"></span></h1>
+				<h1><span class="fa fa-circle"></span> Gracias por comprar en <span class="fa fa-circle"></span> <span class="marca">eCommerce</span> <span class="fa fa-circle"></span></h1>
 				<!-- <span class="line-h">&nbsp;</span> -->
 				<h2>¡Vuelve pronto!</h2>
 				<script>

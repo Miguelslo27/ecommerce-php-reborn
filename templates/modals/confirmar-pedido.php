@@ -138,11 +138,11 @@ $userStats = $GLOBALS['userStats'];
 							<!-- Retira y paga en local formulario -->
 							<div class="form-line">
 								<label class="label">
-									<input type="radio" name="enviosub2" id="envio_montevideo_retira_local" data-show="retira-paga-local">Retira y paga en local Monique
+									<input type="radio" name="enviosub2" id="envio_montevideo_retira_local" data-show="retira-paga-local">Retira y paga en local eCommerce
 								</label>
 							</div>
 							<div id="retira-paga-local" class="formulario-oculto">
-								<p>Ha especificado que retira y abona en el local de Monique.</p>
+								<p>Ha especificado que retira y abona en el local de eCommerce.</p>
 								<p>Una vez finalizado el pedido, diríjase con el número del mismo a nuestro local, ubicado en Arenal Grande 2380.</p>
 							</div>
 							<!-- final de Retira y paga en local formulario -->
@@ -171,7 +171,7 @@ $userStats = $GLOBALS['userStats'];
 							<label><input type="radio" value="BROU" name="forma_de_pago" id="forma_de_pago_brou">BROU</label>
 						</div>
 						<p></p>
-						<div class="form-line form-commands">
+						<div class="form-line form-actions">
 							<a href="#" class="btn black btn-style terminar-confirmacion-pedido" data-id="<?php echo $cartItems['pedido']->id; ?>">Enviar Pedido</a>
 							<a href="#" class="btn grey btn-style action-close">Cancelar</a>
 						</div>

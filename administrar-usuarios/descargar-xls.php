@@ -6,7 +6,7 @@ $relative = '..';
 require '../includes/common.php';
 
 header('Content-type: application/vnd.ms-excel');
-header('Content-Disposition: attachment;filename="Usuarios monique.xls"');
+header('Content-Disposition: attachment;filename="Usuarios eCommerce.xls"');
 header('Cache-Control: max-age=0');
 
 $userStats = loadUser();
@@ -27,11 +27,11 @@ $todosLosUsuarios = obtenerUsuarios(isset($_GET['id']) ? $_GET['id'] : null);
 $xls = new PHPExcel();
 
 $xls->getProperties()
-->setCreator("Monique.com.uy")
-->setLastModifiedBy("Monique.com.uy")
+->setCreator("eCommerce")
+->setLastModifiedBy("eCommerce")
 ->setTitle("Usuarios registrados")
 ->setSubject("Usuarios registrados")
-->setDescription("Lista de usuarios registrados en monique.com.uy");
+->setDescription("Lista de usuarios registrados en eCommerce");
 
 $xls->setActiveSheetIndex(0);
 

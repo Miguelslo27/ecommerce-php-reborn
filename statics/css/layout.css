@@ -26,6 +26,10 @@
 }
 
 /* GENERICS */
+* {
+	box-sizing: border-box;
+}
+
 html {
 	font-size: 16px;
 	overflow-x: hidden;
@@ -37,6 +41,10 @@ body {
 	font-family: "ProximaNova", "ProximaNovaIEOTF";
 	color: #222;
 	/* background-color: #fafafa; */
+}
+
+h1 {
+	text-align: center;
 }
 
 img {
@@ -66,6 +74,19 @@ i.fab+* {
 }
 
 /* COMMONS */
+.align-center,
+.align-right {
+	display: block !important;
+}
+
+.align-center {
+	text-align: center;
+}
+
+.align-right {
+	text-align: right;
+}
+
 .container .inner {
 	max-width: 1200px;
 	margin: auto;
@@ -179,7 +200,6 @@ header .header-inner .store-nav {
 	display: block;
 	padding: 0 12px;
 	height: 2.5rem;
-	box-sizing: border-box;
 	color: #FFF;
 	font-size: .8rem;
 	text-decoration: none;
@@ -232,10 +252,14 @@ header .header-inner .store-nav {
 /* SEARCH FORM */
 .store-nav .search-box form {
 	display: flex;
+	padding: 0;
+	margin: 0;
 	height: 100%;
 	justify-content: center;
 	align-items: center;
 	flex-direction: row;
+	border-radius: 0;
+	box-shadow: unset;
 }
 
 .store-nav .search-box form .search-input,
@@ -284,7 +308,6 @@ header .header-inner .store-nav {
 
 .articles li,
 .categories li {
-	box-sizing: border-box;
 	margin-bottom: 1.8rem;
 	box-shadow: 0 0 15px rgba(147, 0, 119, .15);
 	transition: box-shadow .3s ease;
@@ -416,8 +439,163 @@ featured .articles li article.new .actions {
 	text-decoration: line-through;
 }
 
-/* .articles li article.new .article-info .price.after,
-.articles li article.featured .article-info .price.after {} */
+/* FORMS */
+form {
+	width: 100%;
+	max-width: 900px;
+	padding: 2rem;
+	margin: auto;
+	margin-bottom: 2rem;
+	box-shadow: 0 0 15px rgba(147, 0, 119, .15);
+}
+
+form hr {
+	margin: 1rem;
+}
+
+form .form-line,
+form .form-group,
+form .form-actions,
+form .help-line {
+	display: flex;
+	padding: 1rem;
+}
+
+form .form-line>*,
+form .form-group>* {
+	flex: 1;
+	height: 3rem;
+	line-height: 2rem;
+	padding: .5rem;
+}
+
+form .form-group label:first-child {
+	padding-left: 0;
+	padding-right: 1rem;
+}
+
+form .form-line label {
+	flex-grow: 1;
+	padding-left: 0;
+}
+
+form .form-line input:not([type=checkbox]),
+form .form-group input:not([type=checkbox]),
+form .form-line label.file,
+form .form-group label.file,
+form .form-line textarea,
+form .form-group textarea,
+form .form-line select,
+form .form-group select {
+	border: 1px solid #ddd;
+	box-shadow: 0 4px 6px -4px #b52299;
+	transition:
+		border .15s ease,
+		border-radius .15s ease;
+}
+
+form .form-line input,
+form .form-line label.file,
+form .form-line textarea,
+form .form-line select,
+form .form-group {
+	flex-grow: 3;
+}
+
+form .form-line input {}
+
+form .form-line label.file {
+	overflow: hidden;
+	position: relative;
+	text-align: center;
+	border: 2px dotted #b52299;
+}
+
+form .form-line label.file span {
+	font-weight: bold;
+}
+
+form .form-line label.file [type=file] {
+	display: block;
+	min-height: 100%;
+	min-width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	cursor: inherit;
+}
+
+form .form-line textarea {
+	height: initial;
+}
+
+form .form-line select {}
+
+form .form-line button {}
+
+form .form-line:hover {}
+
+form .form-line:hover label {}
+
+form .form-line:hover input {}
+
+form .form-line:hover textarea {}
+
+form .form-line:hover select {}
+
+form .form-line:hover button {}
+
+form .form-line input:focus,
+form .form-group input:focus,
+form .form-line label.file:focus,
+form .form-group label.file:focus,
+form .form-line textarea:focus,
+form .form-group textarea:focus,
+form .form-line select:focus,
+form .form-group select:focus {
+	outline: none;
+	border: 2px solid #b52299;
+	border-radius: .5rem;
+}
+
+form .form-actions {
+	justify-content: space-between;
+}
+
+form .form-actions button {
+	width: 49%;
+	padding: 1.5rem;
+	font-weight: bold;
+	text-transform: uppercase;
+	border-radius: 50px;
+	box-shadow: 0 4px 6px -4px #b52299;
+	outline: none;
+}
+
+form .form-actions button[type=submit]:focus,
+form .form-actions button[type=reset]:focus {
+	border: 2px solid #FFF;
+	box-shadow:
+		0 0px 2px #b52299,
+		0 4px 6px -4px #b52299;
+}
+
+form .form-actions button:disabled {}
+
+form .form-actions button[type=submit] {
+	background: #930077;
+	border: 2px solid #930077;
+	color: #FFF;
+}
+
+form .form-actions button[type=submit]:disabled {}
+
+form .form-actions button[type=reset] {
+	border: 2px solid #930077;
+}
+
+form .form-actions button[type=reset]:disabled {}
 
 /* FOOTER */
 footer {
@@ -463,6 +641,10 @@ footer .footer-columns>section .links li::before {
 
 footer .footer-columns .subscribe form {
 	display: flex;
+	padding: 0;
+	margin: 0;
+	border-radius: 0;
+	box-shadow: unset;
 }
 
 /* SUBSCRIBE FORM */

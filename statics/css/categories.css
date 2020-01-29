@@ -464,7 +464,7 @@
 	padding: 0;
 	clear: both;
 	/*height: 25px;*/
-	
+
 	/* TODO MIKE */
 	background: #f8f8f8;
 	/*overflow: hidden;*/
@@ -478,7 +478,6 @@
 	background: #f8f8f8;
 	font-weight: bold;
 	color: #666;
-	box-sizing: border-box;
 	width: 50%;
 	padding: 0 10px;
 	float: left;
@@ -486,7 +485,6 @@
 .info-value {
 	color: #888;
 	font-size: 14px;
-	box-sizing: border-box;
 	width: 50%;
 	padding: 0 0 0 10px;
 	float: left;
@@ -497,11 +495,10 @@
 }
 .item-articulo-description-line.item-articulo-nombre .info-value {
 	/*font-size: 17px;*/
-	
+
 	/* TODO MIKE - Simetrizar altura de articulos */
 	font-size: 14px;
 	background: none;
-	
 	color: #333;
 	width: 100%;
 	float: none;

@@ -250,7 +250,7 @@ ul li {}
 .modal form {
 	padding-bottom: 50px;
 }
-.modal form .form-line.form-commands {
+.modal form .form-line.form-actions {
 	position: absolute;
 	bottom: 0;
 	/*margin: 0 -20px;*/
@@ -817,15 +817,15 @@ form .form-line .input {
 form .form-line textarea.input {
 	height: 200px;
 }
-form .form-line.form-commands {
+form .form-line.form-actions {
 	text-align: right;
 }
-form .form-line.form-commands a {
+form .form-line.form-actions a {
 	/*font-size: 12px;*/
 	display: inline-block;
 	margin: 0 10px;
 }
-form .form-line.form-commands .btn {
+form .form-line.form-actions .btn {
 	margin: 0;
 }
 form#form-confirmar-pedido {
@@ -835,7 +835,7 @@ form#form-confirmar-pedido {
 form#form-confirmar-pedido table {
 	width: 100%;
 }
-form#form-confirmar-pedido .form-line.form-commands {
+form#form-confirmar-pedido .form-line.form-actions {
 	margin: 0 -20px;
 }
 

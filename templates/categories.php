@@ -58,10 +58,10 @@
 
 						}
 						?>
-							<!-- <li class="categoria-ofertas"><a href="/categorias?ofertas=1">Ofertas Monique</a></li> -->
-							<!-- <li class="categoria-ofertas"><a href="/categorias?ofertas=1"><span class="fa fa-star"></span>&nbsp;&nbsp;&nbsp;Ofertas Monique&nbsp;&nbsp;&nbsp;<span class="fa fa-star"></span></a></li> -->
+							<!-- <li class="categoria-ofertas"><a href="/categorias?ofertas=1">Ofertas eCommerce</a></li> -->
+							<!-- <li class="categoria-ofertas"><a href="/categorias?ofertas=1"><span class="fa fa-star"></span>&nbsp;&nbsp;&nbsp;Ofertas eCommerce&nbsp;&nbsp;&nbsp;<span class="fa fa-star"></span></a></li> -->
 						</ul>
-						<a class="categoria-ofertas" href="/categorias?ofertas=1"><img src="/statics/images/ofertas.jpg" alt="Ofertas Monique"></a>
+						<a class="categoria-ofertas" href="/categorias?ofertas=1"><img src="/statics/images/ofertas.jpg" alt="Ofertas eCommerce"></a>
 					</div>
 
 					<div class="lista-subcategorias">

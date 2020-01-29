@@ -5,7 +5,7 @@ require '../includes/common.php';
 
 $userStats     = loadUser();
 $appPlace      = 'categories';
-$appSubPlace   = '';
+$appSubPlace   = 'list';
 $templatesPath = $GLOBALS['config']['templatesPath'];
 $categories    = getCategories(0);
 

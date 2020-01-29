@@ -27,10 +27,10 @@
 		.modal#pre-pedido-login #clave-olvidada {
 			display: none;
 		}
-		.modal#pre-pedido-login form .form-line.form-commands {
+		.modal#pre-pedido-login form .form-line.form-actions {
 			position: relative;
 		}
-		.modal#pre-pedido-login form .form-line.form-commands {
+		.modal#pre-pedido-login form .form-line.form-actions {
 			text-align: left;
 		}
 	</style>

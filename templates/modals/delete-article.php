@@ -15,7 +15,7 @@
 							<input type="hidden" name="id" id="id">
 							<input type="hidden" name="delete" id="delete">
 						</div>
-						<div class="form-line form-commands">
+						<div class="form-line form-actions">
 							<button type="submit" class="btn bnt-login btn-style black">Eliminar</button>
 							<button type="button" class="btn bnt-login btn-style grey action-close">Cancelar</button>
 						</div>
