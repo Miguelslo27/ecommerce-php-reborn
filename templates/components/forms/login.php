@@ -11,6 +11,8 @@
 		</div>
 		<div class="help-line align-right">
 			<a href="/recuperar-clave/">He olvidado mi contraseña</a>
+			<span>|</span>
+			<a href="/registro/">Soy nuevo, deseo registrarme</a>
 		</div>
 		<div class="form-line">
 			<label for="rememberme">
@@ -23,19 +25,4 @@
 			<button type="reset">Regresar</button>
 		</div>
 	</form>
-	<!-- <h3>Nuevo usuario</h3>
-	<form action="/registro" method="POST">
-		<div class="form-line">
-			<p>Registrarse en Monique.com.uy tiene muchas ventajas:</p>
-			<ul>
-				<li>Acceso a nuestros precios mayoristas</li>
-				<li>Poder realizar pedidos desde la web</li>
-				<li>Recibir ofertas y promociones exclusivas en tu email</li>
-			</ul>
-		</div>
-		<div class="form-line form-actions">
-			<a href="/registro" class="btn btn-style btn-register black">Registrarme</a>
-			<a href="/" class="btn bnt-login btn-style grey action-close">Ahora no, gracias</a>
-		</div>
-	</form> -->
 </div>
