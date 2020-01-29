@@ -1,6 +1,6 @@
 <div class="inner form-login">
 	<h1>Ingresar</h1>
-	<form action="/" method="POST">
+	<form action="/login/" method="POST">
 		<div class="form-line">
 			<label for="email">E-Mail</label>
 			<input type="text" class="input" id="email" name="email">
