@@ -49,7 +49,7 @@ loadSection("header", $userStats);
 		<div class="body-inner">
 			<div class="body-content">
 				<h1><span class="fa fa-circle"></span> Gracias por suscribirte a nuestro boletín <span class="fa fa-circle"></span></h1>
-				<h1><span class="fa fa-circle"></span> <span class="marca">Monique.com.uy</span> <span class="fa fa-circle"></span></h1>
+				<h1><span class="fa fa-circle"></span> <span class="marca">eCommerce</span> <span class="fa fa-circle"></span></h1>
 				<script>
 					setTimeout(function () {
 						document.location.href = '/';

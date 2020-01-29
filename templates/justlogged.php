@@ -1,4 +1,4 @@
-<h1>Has ingresado en Monique.com.uy</h1>
+<h1>Has ingresado en eCommerce</h1>
 <span class="line-h">&nbsp;</span>
 <div class="body-content">
 	<h2>Serás redirigido en breve.</h2>

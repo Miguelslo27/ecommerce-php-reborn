@@ -62,8 +62,8 @@ loadSection("header", $userStats);
 						<!-- <span class="line-h"></span> -->
 						<div class="body-content">
 							
-							<h2>¿Qué debo hacer para comprar en monique.com.uy?</h2>
-							<p>Para poder comprar, debes <a href="/registro/">registrarte</a> en Monique.com.uy. Una vez registrado ya puedes comprar dirigiéndote a <a href="/categorias/">Precios | Pedidos</a>, en la barra de navegación superior.</p>
+							<h2>¿Qué debo hacer para comprar en eCommerce?</h2>
+							<p>Para poder comprar, debes <a href="/registro/">registrarte</a> en eCommerce. Una vez registrado ya puedes comprar dirigiéndote a <a href="/categorias/">Precios | Pedidos</a>, en la barra de navegación superior.</p>
 							<p>Ya registrado, podrás volver cuando quieras, e ingresar con tu usuario y contraseña.</p>
 							<p>Ingresa, poniendo tu usuario y contraseña y ya podrás realizar pedidos online y acceder a nuestra lista de precios por mayor.</p>
 							
@@ -75,7 +75,7 @@ loadSection("header", $userStats);
 								<ul>
 									<li>Directos desde la pagina web, a través del carrito de compra.</li>
 									<li>Telefónicamente al 22003328 / 22098151.</li>
-									<li>Enviándonos un mail a moniqueindumentaria@hotmail.com</li>
+									<li>Enviándonos un mail a miguelmail2006@gmail.com</li>
 									<li>Visitarnos a nuestro local mayorista de Arenal Grande 2380 de lunes a viernes de 9 a 18hs y sábados de 9 a 13hs.</li>
 								</ul>
 							</p>

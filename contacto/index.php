@@ -114,8 +114,8 @@ loadSection("header", $userStats);
 							<div class="body-content">
 								<p><strong>Dirección:</strong> Arenal Grande 2380</p>
 								<p><strong>Comunicate al:</strong> 2200 33 28 / 2209 81 51</p>
-								<p><strong>Email:</strong> moniqueindumentaria@hotmail.com</p>
-								<p><strong>Seguinos en <a class="fa fa-2x fa-facebook-square" target="_blank" href="https://www.facebook.com/monique.ventasxmayor"></a></strong></p>
+								<p><strong>Email:</strong> miguelmail2006@gmail.com</p>
+								<p><strong>Seguinos en <a class="fa fa-2x fa-facebook-square" target="_blank" href="https://www.facebook.com/eCommerce.ventasxmayor"></a></strong></p>
 							</div>
 						</div>
 						<!-- <span class="line-v"></span> -->
@@ -160,12 +160,12 @@ loadSection("header", $userStats);
 
 										$mail = new PHPMailer();
 
-										$mail->addAddress('moniqueindumentaria@hotmail.com', 'Monique.com.uy');
+										$mail->addAddress('miguelmail2006@gmail.com', 'eCommerce');
 										$mail->addAddress('gahecht@hotmail.com', 'Gabriela Hecht');
-										// $mail->addAddress('miguelmail2006@gmail.com', 'Monique.com.uy');
-										$mail->setFrom('monique@monique.com.uy', $_POST['nombre'] . ' ' . $_POST['apellido']);
+										// $mail->addAddress('miguelmail2006@gmail.com', 'eCommerce');
+										$mail->setFrom('eCommerce@eCommerce', $_POST['nombre'] . ' ' . $_POST['apellido']);
 										$mail->addReplyTo($_POST['email'], $_POST['nombre'] . ' ' . $_POST['apellido']);
-										$mail->Subject = '(Monique.com.uy) ' . utf8_decode($_POST['asunto']);
+										$mail->Subject = '(eCommerce) ' . utf8_decode($_POST['asunto']);
 										$mail->msgHTML(utf8_decode($_POST['mensaje']));
 
 										if ($mail->send()) {

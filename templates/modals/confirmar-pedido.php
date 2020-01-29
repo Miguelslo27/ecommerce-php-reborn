@@ -138,11 +138,11 @@ $userStats = $GLOBALS['userStats'];
 							<!-- Retira y paga en local formulario -->
 							<div class="form-line">
 								<label class="label">
-									<input type="radio" name="enviosub2" id="envio_montevideo_retira_local" data-show="retira-paga-local">Retira y paga en local Monique
+									<input type="radio" name="enviosub2" id="envio_montevideo_retira_local" data-show="retira-paga-local">Retira y paga en local eCommerce
 								</label>
 							</div>
 							<div id="retira-paga-local" class="formulario-oculto">
-								<p>Ha especificado que retira y abona en el local de Monique.</p>
+								<p>Ha especificado que retira y abona en el local de eCommerce.</p>
 								<p>Una vez finalizado el pedido, diríjase con el número del mismo a nuestro local, ubicado en Arenal Grande 2380.</p>
 							</div>
 							<!-- final de Retira y paga en local formulario -->

@@ -18,7 +18,7 @@
 			}
 			?>
 			</ul>
-			<a class="categoria-ofertas" href="/categorias?ofertas=1"><img src="/statics/images/ofertas.jpg?<?php echo $revision ?>" alt="Ofertas Monique"></a>
+			<a class="categoria-ofertas" href="/categorias?ofertas=1"><img src="/statics/images/ofertas.jpg?<?php echo $revision ?>" alt="Ofertas eCommerce"></a>
 		</div>
 
 		<div class="lista-articulos">

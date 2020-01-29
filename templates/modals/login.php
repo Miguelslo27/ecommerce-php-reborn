@@ -40,7 +40,7 @@
 					<span class="line-h">&nbsp;</span>
 					<form action="/registro" method="POST">
 						<div class="form-line">
-							<p>Registrarse en Monique.com.uy tiene muchas ventajas:</p>
+							<p>Registrarse en eCommerce tiene muchas ventajas:</p>
 							<ul>
 								<li>Acceso a nuestros precios mayoristas</li>
 								<li>Poder realizar pedidos desde la web</li>
