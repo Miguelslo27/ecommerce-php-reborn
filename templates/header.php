@@ -1,5 +1,5 @@
-<header>
-	<div class="header-inner">
+<!-- <header>
+	<div class="header-inner"> -->
 		<div class="site-nav">
 			<div class="logo">
 				ECOMMERCE
@@ -47,5 +47,5 @@
 				?>
 			</div>
 		</div>
-	</div>
-</header>
+	<!-- </div>
+</header> -->

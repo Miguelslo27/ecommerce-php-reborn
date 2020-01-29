@@ -161,27 +161,37 @@ i.fab+* {
 }
 
 /* HEADER */
-header {
+/* header {
 	position: relative;
 	z-index: 10;
 	background: #222;
 	box-shadow: 0 -5px 5px 5px #000;
 	color: #FFF;
-}
+} */
 
-header .header-inner .site-nav {
+/* header .header-inner */ .site-nav {
+	position: relative;
+	z-index: 11;
+	background: #222;
+	color: #FFF;
 	padding: 20px;
 	text-align: center;
 	border-bottom: 1px solid #555;
 }
 
-header .logo {
+/* header */ .logo {
 	font-size: 2rem;
 	color: #b52299;
 }
 
 /* NAVIGATION */
-header .header-inner .store-nav {
+/* header .header-inner */ .store-nav {
+	position: sticky;
+	top: 0;
+	z-index: 10;
+	background: #222;
+	box-shadow: 0 -5px 5px 5px #000;
+	color: #FFF;
 	display: flex;
 	flex-direction: row;
 	padding: 8px;
