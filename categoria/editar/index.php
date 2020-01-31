@@ -8,6 +8,7 @@ $appPlace      = 'category';
 $appSubPlace   = 'edit';
 $templatesPath = $GLOBALS['config']['templatesPath'];
 
+protectFromNotAdminUsers();
 startDocument();
 loadSection("header", $userStats);
 

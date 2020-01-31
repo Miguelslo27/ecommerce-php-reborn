@@ -8,6 +8,7 @@ $appPlace      = 'article';
 $appSubPlace   = 'new';
 $templatesPath = $GLOBALS['config']['templatesPath'];
 
+protectFromNotAdminUsers();
 startDocument();
 loadSection("header", $userStats);
 
