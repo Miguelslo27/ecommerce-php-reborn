@@ -6,7 +6,7 @@
 		</a>
 		<div class="dropdown">
 			<a href="/registro?id=<?php echo $userStats['user']->id ?>" class="access-menu dropdown-item">Edición</a>
-			<?php if ($userStats['user']->administrador == 1) : ?>
+			<?php if (@$userStats['user']->administrador == 1) : ?>
 				<hr>
 				<a href="/administrar-pedidos" class="access-menu dropdown-item">Pedidos</a>
 				<a href="/administrar-usuarios" class="access-menu dropdown-item">Usuarios</a>
@@ -19,7 +19,7 @@
 		<span class="link-label">Salir</span>
 	</a>
 
-	<?php if ($userStats['user']->administrador == 0) : ?>
+	<?php if (@$userStats['user']->administrador == 0) : ?>
 		<a href="/pedido" class="access-menu normal-tab">
 			<i class="fas fa-shopping-cart"></i>
 			<span class="access-menu normal-tab">Mi pedido: $<?php echo $userStats['cart'] ? $userStats['cart']->cantidad : 0; ?></span>

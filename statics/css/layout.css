@@ -231,7 +231,7 @@ header .header-inner .store-nav {
 	display: none;
 	position: absolute;
 	width: auto;
-	min-width: calc(100% - 1px);
+	min-width: calc(100% + 1px);
 	left: -1px;
 	border-left: 1px solid #555;
 	border-right: 1px solid #555;
@@ -274,14 +274,16 @@ header .header-inner .store-nav {
 }
 
 .store-nav .search-box form .search-input {
-	width: 50%;
+	width: 75%;
 	padding: 0 1rem;
+	border-radius: 0;
 	border-top-left-radius: 1.1rem;
 	border-bottom-left-radius: 1.1rem;
 }
 
 .store-nav .search-box form .search-button {
 	padding: 0 .6rem;
+	border-radius: 0;
 	border-top-right-radius: 1.1rem;
 	border-bottom-right-radius: 1.1rem;
 	color: #b52299;

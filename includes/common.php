@@ -1692,7 +1692,7 @@ function header_log($data)
 
 function isAdmin()
 {
-	return $GLOBALS['userStats']['user']->administrador;
+	return @$GLOBALS['userStats']['user']->administrador;
 }
 
 function protectFromNotAdminUsers()
