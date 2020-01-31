@@ -1,12 +1,14 @@
 <?php
+$userStats   = $GLOBALS['userStats'];
 $appPlace    = $GLOBALS['appPlace'];
 $appSubPlace = $GLOBALS['appSubPlace'];
-$userStats   = $GLOBALS['userStats'];
-$revision    = 'revision='.rand(1,3000);
+$revision    = 'revision=' . rand(1, 3000);
 
-switch($place) {
+// @TODO
+/* Replace all switches with ifs for more readability */
+switch ($place) {
 	case 'head':
-		?>
+?>
 		<meta charset="UTF-8">
 
 		<meta http-equiv=”Expires” content=”0″>
@@ -23,19 +25,19 @@ switch($place) {
 
 		<?php
 
-		switch($appPlace) {
+		switch ($appPlace) {
 			case 'home':
-				?>
+		?>
 				<!-- home css -->
 				<link rel="stylesheet" href="/statics/css/home.css?<?php echo $revision; ?>">
-				<?php
+			<?php
 				break;
 			case 'search':
 			case 'categories':
-				?>
+			?>
 				<!-- home css -->
 				<link rel="stylesheet" href="/statics/css/categories.css?<?php echo $revision; ?>">
-				<?php
+			<?php
 				break;
 		}
 
@@ -43,14 +45,14 @@ switch($place) {
 		if (@$userStats['user']->administrador == 1) {
 			?>
 			<link rel="stylesheet" href="/statics/css/administrador.css?<?php echo $revision; ?>">
-			<?php
+		<?php
 		}
 		?>
 
-		<?php
+	<?php
 		break;
 	case 'body-end':
-		?>
+	?>
 
 		<!-- plugin scripts -->
 		<!-- <script src="/statics/js/plugins/jquery-1.11.0.js?<?php echo $revision; ?>"></script>
@@ -58,28 +60,28 @@ switch($place) {
 		<script src="/statics/js/generals.js?<?php echo $revision; ?>"></script> -->
 
 		<?php
-		switch($appPlace) {
+		switch ($appPlace) {
 			case 'home':
-			?>
+		?>
 
-			<!-- site scripts -->
-			<!-- <script src="/statics/js/home.js?<?php echo $revision; ?>"></script> -->
+				<!-- site scripts -->
+				<!-- <script src="/statics/js/home.js?<?php echo $revision; ?>"></script> -->
 
 			<?php
-			break;
-		case 'search':
-		case 'categories':
+				break;
+			case 'search':
+			case 'categories':
 			?>
 
-			<!-- site scripts -->
-			<!-- <script src="/statics/js/categorias.js?<?php echo $revision; ?>"></script> -->
+				<!-- site scripts -->
+				<!-- <script src="/statics/js/categorias.js?<?php echo $revision; ?>"></script> -->
 
-		<?php
-			break;
-		case 'catalogs':
+			<?php
+				break;
+			case 'catalogs':
 			?>
 
-			<!-- <script src="/statics/js/jquery.blueimp-gallery.min.js?<?php echo $revision; ?>"></script>
+				<!-- <script src="/statics/js/jquery.blueimp-gallery.min.js?<?php echo $revision; ?>"></script>
 			<script>
 			var catalogo = blueimp.Gallery(document.getElementById('links').getElementsByTagName('a'), {
 				container: '#blueimp-image-carousel',
@@ -88,21 +90,21 @@ switch($place) {
 			</script> -->
 
 			<?php
-			break;
-	}
+				break;
+		}
 
-	switch($appSubPlace) {
-		case 'pedido-actual':
+		switch ($appSubPlace) {
+			case 'pedido-actual':
 			?>
 
-			<!-- <script src="/statics/js/carrito.js?<?php echo $revision; ?>"></script> -->
+				<!-- <script src="/statics/js/carrito.js?<?php echo $revision; ?>"></script> -->
 
 			<?php
-			break;
-		case 'register':
+				break;
+			case 'register':
 			?>
 
-			<!-- <script>
+				<!-- <script>
 			if ($("#ya-registrado").length) {
 				$(".user-cmd-dropdown.bloqueo-de-catalogo")
 					.fadeIn();
@@ -153,7 +155,7 @@ switch($place) {
 			});
 			</script> -->
 			<?php
-			break;
+				break;
 		}
 
 		// scripts que solo se usaran en paginas de administrador
@@ -162,11 +164,15 @@ switch($place) {
 
 			<!-- <script src="/statics/js/administrador.js?<?php echo $revision; ?>"></script> -->
 
-			<?php
+		<?php
 		}
-	?>
+		?>
 
-	<?php
-	break;
+<?php
+		break;
 }
 ?>
+
+<?php if ($appPlace == '404') : ?>
+	<link rel="stylesheet" href="/statics/css/404.css?<?php echo $revision; ?>">
+<?php endif ?>

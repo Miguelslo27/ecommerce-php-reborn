@@ -424,8 +424,8 @@ function saveUser()
 
 function loadSection($file, $data)
 {
-	$congig = $GLOBALS['config'];
-	include($congig['templatesPath'] . $file . '.php');
+	$config = $GLOBALS['config'];
+	include($config['templatesPath'] . $file . '.php');
 }
 
 function checkCurrentUser($email)
