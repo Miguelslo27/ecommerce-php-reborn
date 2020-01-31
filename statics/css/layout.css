@@ -464,6 +464,11 @@ form .help-line {
 form .form-line>*,
 form .form-group>* {
 	flex: 1;
+}
+
+form .form-line>*:not(button),
+form .form-group>*:not(button) {
+	flex: 1;
 	height: 3rem;
 	line-height: 2rem;
 	padding: .5rem;
@@ -532,8 +537,6 @@ form .form-line textarea {
 
 form .form-line select {}
 
-form .form-line button {}
-
 form .form-line:hover {}
 
 form .form-line:hover label {}
@@ -543,8 +546,6 @@ form .form-line:hover input {}
 form .form-line:hover textarea {}
 
 form .form-line:hover select {}
-
-form .form-line:hover button {}
 
 form .form-line input:focus,
 form .form-group input:focus,
@@ -563,9 +564,11 @@ form .form-actions {
 	justify-content: space-between;
 }
 
+form .form-line button,
+form .form-group button,
 form .form-actions button {
 	width: 49%;
-	padding: 1.5rem;
+	padding: 1rem;
 	font-weight: bold;
 	text-transform: uppercase;
 	border-radius: 50px;
@@ -573,6 +576,10 @@ form .form-actions button {
 	outline: none;
 }
 
+form .form-line button[type=submit]:focus,
+form .form-line button[type=reset]:focus,
+form .form-group button[type=submit]:focus,
+form .form-group button[type=reset]:focus,
 form .form-actions button[type=submit]:focus,
 form .form-actions button[type=reset]:focus {
 	border: 2px solid #FFF;
@@ -581,8 +588,12 @@ form .form-actions button[type=reset]:focus {
 		0 4px 6px -4px #b52299;
 }
 
+form .form-line button:disabled,
+form .form-group button:disabled,
 form .form-actions button:disabled {}
 
+form .form-line button[type=submit],
+form .form-group button[type=submit],
 form .form-actions button[type=submit] {
 	background: #930077;
 	border: 2px solid #930077;
@@ -591,6 +602,8 @@ form .form-actions button[type=submit] {
 
 form .form-actions button[type=submit]:disabled {}
 
+form .form-line button[type=reset],
+form .form-group button[type=reset],
 form .form-actions button[type=reset] {
 	border: 2px solid #930077;
 }
