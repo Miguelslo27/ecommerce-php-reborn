@@ -325,6 +325,7 @@ function actualizarClave($clave = NULL)
 function logout()
 {
 	session_destroy();
+	header('Location: /');
 	return array('user' => NULL, 'cart' => NULL, 'status' => 'LOGGED_OUT');
 }
 
