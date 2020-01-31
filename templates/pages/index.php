@@ -1,1 +1,1 @@
-Acceso restringido!
+<?php header('Location: /404') ?>
