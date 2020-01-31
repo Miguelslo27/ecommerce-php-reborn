@@ -325,6 +325,7 @@ function actualizarClave($clave = NULL)
 function logout()
 {
 	session_destroy();
+	header('Location: /');
 	return array('user' => NULL, 'cart' => NULL, 'status' => 'LOGGED_OUT');
 }
 
@@ -628,29 +629,20 @@ function paginateCategories()
 	$url                 = preg_replace('/p=\d+/i', 'p={{page}}', $url);
 	$url                 = str_replace('{{per_page}}', $categories_per_page, $url);
 ?>
-<?php if ($pages_count > 1) : ?>
-	<div class="pagination">
-		<a href="<?php echo str_replace('{{page}}', $curret_page > 1 ? $curret_page - 1 : $pages_count, $url) ?>"><i class="fas fa-arrow-left"></i></a>
-		<?php for ($i = 1; $i <= $pages_count; $i++) : ?>
-			<a
-				class="<?php echo $i == $curret_page ? 'active' : '' ?>"
-				href="<?php echo str_replace('{{page}}', $i, $url) ?>"
-			><?php echo $i ?></a>
-		<?php endfor ?>
-		<a href="<?php echo str_replace('{{page}}', $curret_page < $pages_count ? $curret_page + 1 : 1, $url) ?>"><i class="fas fa-arrow-right"></i></a>
-	</div>
-<?php endif ?>
+	<?php if ($pages_count > 1) : ?>
+		<div class="pagination">
+			<a href="<?php echo str_replace('{{page}}', $curret_page > 1 ? $curret_page - 1 : $pages_count, $url) ?>"><i class="fas fa-arrow-left"></i></a>
+			<?php for ($i = 1; $i <= $pages_count; $i++) : ?>
+				<a class="<?php echo $i == $curret_page ? 'active' : '' ?>" href="<?php echo str_replace('{{page}}', $i, $url) ?>"><?php echo $i ?></a>
+			<?php endfor ?>
+			<a href="<?php echo str_replace('{{page}}', $curret_page < $pages_count ? $curret_page + 1 : 1, $url) ?>"><i class="fas fa-arrow-right"></i></a>
+		</div>
+	<?php endif ?>
 	<div class="per-page">
 		<span>Mostrar:</span>
-		<a
-			class="<?php echo $categories_per_page == 6 ? 'active' : ''?>"
-			href="?p=1&pp=6">6</a>
-		<a
-			class="<?php echo $categories_per_page == 12 ? 'active' : ''?>"
-			href="?p=1&pp=12">12</a>
-		<a
-			class="<?php echo $categories_per_page == 24 ? 'active' : ''?>"
-			href="?p=1&pp=24">24</a>
+		<a class="<?php echo $categories_per_page == 6 ? 'active' : '' ?>" href="?p=1&pp=6">6</a>
+		<a class="<?php echo $categories_per_page == 12 ? 'active' : '' ?>" href="?p=1&pp=12">12</a>
+		<a class="<?php echo $categories_per_page == 24 ? 'active' : '' ?>" href="?p=1&pp=24">24</a>
 	</div>
 <?php
 }
@@ -756,6 +748,8 @@ function buscarArticulos($busqueda = NULL)
 /* ADMINISTRACION */
 function saveCategory()
 {
+	if (!isAdmin()) return;
+
 	if (isset($_POST['type']) && $_POST['type'] == 'category') {
 		if (isset($_POST['save'])) {
 			if (isset($_POST['id']) && $_POST['id'] != "") {
@@ -796,9 +790,8 @@ function saveCategory()
 
 function updateCategory($id = NULL)
 {
-	if (!$id) {
-		return;
-	}
+	if (!isAdmin()) return;
+	if (!$id) return;
 
 	$relative      = $GLOBALS['relative'];
 	$db            = $GLOBALS['db'];
@@ -829,16 +822,19 @@ function updateCategory($id = NULL)
 
 function deleteCategory($id = NULL)
 {
-	if ($id) {
-		$db  = $GLOBALS['db'];
-		$sql = 'DELETE FROM `categoria` WHERE `id`=' . $id;
+	if (!isAdmin()) return;
+	if (!$id) return;
 
-		$db->insert($sql);
-	}
+	$db  = $GLOBALS['db'];
+	$sql = 'DELETE FROM `categoria` WHERE `id`=' . $id;
+
+	$db->insert($sql);
 }
 
 function saveArticle()
 {
+	if (!isAdmin()) return;
+
 	if (isset($_POST['type']) && $_POST['type'] == 'article') {
 		if (isset($_POST['save'])) {
 			if (isset($_POST['id']) && $_POST['id'] != "") {
@@ -933,103 +929,102 @@ function saveArticle()
 
 function updateArticle($id)
 {
+	if (!isAdmin()) return;
+	if (!$id) return;
 
-	if ($id) {
+	$db = $GLOBALS['db'];
+	$imageLoc     = '/statics/images/articles/{id}/';
+	$colorLoc     = '/statics/images/articles/{id}/colors/';
+	$colorSurtLoc = '/statics/images/articles/{id}/colors/surtidos/';
 
-		$db = $GLOBALS['db'];
-		$imageLoc     = '/statics/images/articles/{id}/';
-		$colorLoc     = '/statics/images/articles/{id}/colors/';
-		$colorSurtLoc = '/statics/images/articles/{id}/colors/surtidos/';
+	$sql = 'UPDATE `articulo` SET `nombre`="' . $_POST['nombre'] . '", `codigo`="' . $_POST['codigo'] . '", `descripcion_breve`="' . $_POST['descripcion_breve'] . '", `descripcion`="' . $_POST['descripcion'] . '", `talle`="' . $_POST['talle'] . '", `talle_surtido`="' . $_POST['talle_surtido'] . '", `adaptable`="' . @($_POST['adaptable'] == "on" ? 1 : 0) . '", `colores_url` = "' . $colorLoc . '", `colores_surtidos_url` = "' . $colorSurtLoc . '", `packs`="' . $_POST['packs'] . '", `categoria_id`="' . $_POST['categoria_id'] . '", `imagenes_url` = "' . $imageLoc . '", `orden`=' . $_POST['orden'] . ', `nuevo`=' . ($_POST['nuevo'] == "on" ? 1 : 0) . ', `agotado`=' . ($_POST['agotado'] == "on" ? 1 : 0) . ', `oferta`=' . ($_POST['oferta'] == "on" ? 1 : 0) . ', `surtido`=' . ($_POST['surtido'] == "on" ? 1 : 0) . ', `precio`="' . $_POST['precio'] . '", `precio_oferta`=' . (isset($_POST['precio_oferta']) ? $_POST['precio_oferta'] : 0) . ', `precio_surtido`=' . (isset($_POST['precio_surtido']) ? $_POST['precio_surtido'] : 0) . ', `precio_oferta_surtido`=' . (isset($_POST['precio_oferta_surtido']) ? $_POST['precio_oferta_surtido'] : 0) . ' WHERE `id`=' . $id;
 
-		$sql = 'UPDATE `articulo` SET `nombre`="' . $_POST['nombre'] . '", `codigo`="' . $_POST['codigo'] . '", `descripcion_breve`="' . $_POST['descripcion_breve'] . '", `descripcion`="' . $_POST['descripcion'] . '", `talle`="' . $_POST['talle'] . '", `talle_surtido`="' . $_POST['talle_surtido'] . '", `adaptable`="' . @($_POST['adaptable'] == "on" ? 1 : 0) . '", `colores_url` = "' . $colorLoc . '", `colores_surtidos_url` = "' . $colorSurtLoc . '", `packs`="' . $_POST['packs'] . '", `categoria_id`="' . $_POST['categoria_id'] . '", `imagenes_url` = "' . $imageLoc . '", `orden`=' . $_POST['orden'] . ', `nuevo`=' . ($_POST['nuevo'] == "on" ? 1 : 0) . ', `agotado`=' . ($_POST['agotado'] == "on" ? 1 : 0) . ', `oferta`=' . ($_POST['oferta'] == "on" ? 1 : 0) . ', `surtido`=' . ($_POST['surtido'] == "on" ? 1 : 0) . ', `precio`="' . $_POST['precio'] . '", `precio_oferta`=' . (isset($_POST['precio_oferta']) ? $_POST['precio_oferta'] : 0) . ', `precio_surtido`=' . (isset($_POST['precio_surtido']) ? $_POST['precio_surtido'] : 0) . ', `precio_oferta_surtido`=' . (isset($_POST['precio_oferta_surtido']) ? $_POST['precio_oferta_surtido'] : 0) . ' WHERE `id`=' . $id;
+	$cid = $db->insert($sql);
 
-		$cid = $db->insert($sql);
+	$relative          = $GLOBALS['relative'];
+	$imageLocation     = $relative . '/statics/images/articles/' . $id;
+	$colorLocation     = $relative . '/statics/images/articles/' . $id . '/colors/';
+	$colorSurtLocation = $relative . '/statics/images/articles/' . $id . '/colors/surtidos/';
 
-		$relative          = $GLOBALS['relative'];
-		$imageLocation     = $relative . '/statics/images/articles/' . $id;
-		$colorLocation     = $relative . '/statics/images/articles/' . $id . '/colors/';
-		$colorSurtLocation = $relative . '/statics/images/articles/' . $id . '/colors/surtidos/';
+	// creo la carpeta para las imagenes de este artículo
+	@mkdir($imageLocation);
 
-		// creo la carpeta para las imagenes de este artículo
-		@mkdir($imageLocation);
+	if ($_FILES['imagen']['error'] == 0) {
 
-		if ($_FILES['imagen']['error'] == 0) {
+		// salvar imagen
+		@unlink($imageLocation . '/thumbnail.jpg');
+		$img = new upload($_FILES['imagen']);
+		if ($img->uploaded) {
 
-			// salvar imagen
-			@unlink($imageLocation . '/thumbnail.jpg');
-			$img = new upload($_FILES['imagen']);
-			if ($img->uploaded) {
+			$img->file_new_name_body = 'thumbnail';
+			$img->image_convert = 'jpg';
+			$img->process($imageLocation);
+		}
+	}
 
-				$img->file_new_name_body = 'thumbnail';
-				$img->image_convert = 'jpg';
-				$img->process($imageLocation);
-			}
+	if ($_FILES['colores']['error'][0] == 0) {
+		// salvar colores
+		@unlink($imageLocation . '/colors.jpg');
+		$oldColors = glob($colorLocation . '*'); // get all file names
+
+		foreach ($oldColors as $oldColor) {
+			unlink($oldColor);
 		}
 
-		if ($_FILES['colores']['error'][0] == 0) {
-			// salvar colores
-			@unlink($imageLocation . '/colors.jpg');
-			$oldColors = glob($colorLocation . '*'); // get all file names
+		// salvar colores
+		$colorsNum = count($_FILES['colores']['name']);
 
-			foreach ($oldColors as $oldColor) {
-				unlink($oldColor);
-			}
+		for ($i = 0; $i < $colorsNum; $i++) {
 
-			// salvar colores
-			$colorsNum = count($_FILES['colores']['name']);
+			$currentColor			  = array();
+			$currentColor['name']	  = $_FILES['colores']['name'][$i];
+			$currentColor['type']     = $_FILES['colores']['type'][$i];
+			$currentColor['tmp_name'] = $_FILES['colores']['tmp_name'][$i];
+			$currentColor['error']    = $_FILES['colores']['error'][$i];
+			$currentColor['size']     = $_FILES['colores']['size'][$i];
 
-			for ($i = 0; $i < $colorsNum; $i++) {
+			$colorName = (string) $i + 1;
+			$colorName = (strlen($colorName) < 2 ? '0' . $colorName : $colorName);
 
-				$currentColor			  = array();
-				$currentColor['name']	  = $_FILES['colores']['name'][$i];
-				$currentColor['type']     = $_FILES['colores']['type'][$i];
-				$currentColor['tmp_name'] = $_FILES['colores']['tmp_name'][$i];
-				$currentColor['error']    = $_FILES['colores']['error'][$i];
-				$currentColor['size']     = $_FILES['colores']['size'][$i];
+			@$color = new upload($currentColor);
+			if ($color->uploaded) {
 
-				$colorName = (string) $i + 1;
-				$colorName = (strlen($colorName) < 2 ? '0' . $colorName : $colorName);
-
-				@$color = new upload($currentColor);
-				if ($color->uploaded) {
-
-					$color->file_new_name_body = $colorName;
-					$color->image_convert = 'jpg';
-					@$color->process($colorLocation);
-				}
+				$color->file_new_name_body = $colorName;
+				$color->image_convert = 'jpg';
+				@$color->process($colorLocation);
 			}
 		}
+	}
 
-		if ($_FILES['colores_surtidos']['error'][0] == 0) {
-			// salvar colores
-			$oldSColors = glob($colorSurtLocation . '*'); // get all file names
+	if ($_FILES['colores_surtidos']['error'][0] == 0) {
+		// salvar colores
+		$oldSColors = glob($colorSurtLocation . '*'); // get all file names
 
-			foreach ($oldSColors as $oldSColor) {
-				unlink($oldSColor);
-			}
+		foreach ($oldSColors as $oldSColor) {
+			unlink($oldSColor);
+		}
 
-			// salvar colores
-			$colorsSNum = count($_FILES['colores_surtidos']['name']);
+		// salvar colores
+		$colorsSNum = count($_FILES['colores_surtidos']['name']);
 
-			for ($i = 0; $i < $colorsSNum; $i++) {
+		for ($i = 0; $i < $colorsSNum; $i++) {
 
-				$currentSColor			  = array();
-				$currentSColor['name']	  = $_FILES['colores_surtidos']['name'][$i];
-				$currentSColor['type']     = $_FILES['colores_surtidos']['type'][$i];
-				$currentSColor['tmp_name'] = $_FILES['colores_surtidos']['tmp_name'][$i];
-				$currentSColor['error']    = $_FILES['colores_surtidos']['error'][$i];
-				$currentSColor['size']     = $_FILES['colores_surtidos']['size'][$i];
+			$currentSColor			  = array();
+			$currentSColor['name']	  = $_FILES['colores_surtidos']['name'][$i];
+			$currentSColor['type']     = $_FILES['colores_surtidos']['type'][$i];
+			$currentSColor['tmp_name'] = $_FILES['colores_surtidos']['tmp_name'][$i];
+			$currentSColor['error']    = $_FILES['colores_surtidos']['error'][$i];
+			$currentSColor['size']     = $_FILES['colores_surtidos']['size'][$i];
 
-				$colorSName = (string) $i + 1;
-				$colorSName = (strlen($colorSName) < 2 ? '0' . $colorSName : $colorSName);
+			$colorSName = (string) $i + 1;
+			$colorSName = (strlen($colorSName) < 2 ? '0' . $colorSName : $colorSName);
 
-				@$colorS = new upload($currentSColor);
-				if ($colorS->uploaded) {
+			@$colorS = new upload($currentSColor);
+			if ($colorS->uploaded) {
 
-					$colorS->file_new_name_body = $colorSName;
-					$colorS->image_convert = 'jpg';
-					@$colorS->process($colorSurtLocation);
-				}
+				$colorS->file_new_name_body = $colorSName;
+				$colorS->image_convert = 'jpg';
+				@$colorS->process($colorSurtLocation);
 			}
 		}
 	}
@@ -1037,15 +1032,12 @@ function updateArticle($id)
 
 function deleteArticle($id)
 {
+	if (!isAdmin()) return;
+	if (!$id) return;
 
-	if ($id) {
-
-		$db = $GLOBALS['db'];
-		// $sql = 'DELETE FROM `dev_articulo` WHERE `id`=' . $id;
-		$sql = 'DELETE FROM `articulo` WHERE `id`=' . $id;
-
-		$cid = $db->insert($sql);
-	}
+	$db = $GLOBALS['db'];
+	$sql = 'DELETE FROM `articulo` WHERE `id`=' . $id;
+	$cid = $db->insert($sql);
 }
 
 /* PEDIDOS */
@@ -1522,6 +1514,8 @@ function aprobarPedido($idPedido)
 
 function cancelarPedido($idPedido)
 {
+	if (!isAdmin()) return;
+	if (!$idPedido) return;
 
 	$db = $GLOBALS['db'];
 
@@ -1694,6 +1688,18 @@ function header_log($data)
 	$caller = array_shift($bt);
 	$file = @array_pop(explode('/', $caller['file']));
 	header('log_' . $file . '#' . $caller['line'] . ': ' . json_encode($data));
+}
+
+function isAdmin()
+{
+	return $GLOBALS['userStats']['user']->administrador;
+}
+
+function protectFromNotAdminUsers()
+{
+	if (!isAdmin()) {
+		header('Location: /404');
+	}
 }
 
 ?>
