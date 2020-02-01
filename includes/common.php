@@ -831,9 +831,11 @@ function deleteCategory($id = NULL)
 	if (!isAdmin()) return;
 	if (!$id) return;
 
-	$db  = $GLOBALS['db'];
-	$sql = 'DELETE FROM `categoria` WHERE `id`=' . $id;
+	$relative = $GLOBALS['relative'];
+	$db       = $GLOBALS['db'];
+	$sql      = 'DELETE FROM `categoria` WHERE `id`=' . $id;
 
+	delTree($relative . '/statics/images/categories/' . $id);
 	$db->insert($sql);
 }
 
@@ -1652,6 +1654,17 @@ function protectFromNotAdminUsers()
 	if (!isAdmin()) {
 		header('Location: /404');
 	}
+}
+
+function delTree($dir)
+{
+	$files = array_diff(scandir($dir), array('.','..'));
+
+	foreach ($files as $file) {
+		(is_dir("$dir/$file")) ? delTree("$dir/$file") : unlink("$dir/$file");
+	}
+
+	return rmdir($dir);
 }
 
 ?>
