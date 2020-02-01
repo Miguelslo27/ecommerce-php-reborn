@@ -765,7 +765,7 @@ function saveCategory()
 			$db            = $GLOBALS['db'];
 			$sql           = 'INSERT INTO `categoria` (`titulo`, `descripcion_breve`, `descripcion`, `categoria_id`, `estado`, `orden`) VALUES ("' . $_POST['titulo'] . '", "' . $_POST['descripcion_breve'] . '", "' . $_POST['descripcion'] . '", "' . $_POST['categoria_id'] . '", 1, ' . $_POST['orden'] . ')';
 			$cid           = $db->insert($sql);
-			$imageLocation = ($_FILES['imagen']['error'] == 0) ? '/statics/images/categories/' . $cid : '';
+			$imageLocation = ($_FILES['imagen']['error'] == 0) ? '/statics/images/categories/' . $cid . '/' : '';
 
 			// creo la carpeta para las imagenes de esta categoria
 			@mkdir($relative . $imageLocation);
@@ -775,12 +775,13 @@ function saveCategory()
 
 			if ($img->uploaded) {
 				$img->file_new_name_body = 'thumbnail';
-				$img->image_resize = true;
-				$img->image_x = 200;
-				$img->image_convert = 'jpg';
+				$img->image_resize       = true;
+				$img->image_x            = 500;
+				$img->image_ratio_y      = true;
+				$img->image_convert      = 'webp';
 				$img->process($relative . $imageLocation);
 
-				$sql = 'UPDATE `categoria` SET `imagen_url` = "' . $imageLocation . '/thumbnail.jpg' . '" WHERE `id`=' . $cid;
+				$sql = 'UPDATE `categoria` SET `imagen_url` = "' . $imageLocation . $img->file_dst_name . '" WHERE `id`=' . $cid;
 				$db->insert($sql);
 			}
 
@@ -801,7 +802,7 @@ function updateCategory($id = NULL)
 	$relative      = $GLOBALS['relative'];
 	$db            = $GLOBALS['db'];
 	$sql           = 'UPDATE `categoria` SET `titulo`="' . $_POST['titulo'] . '", `descripcion_breve`="' . $_POST['descripcion_breve'] . '", `descripcion`="' . $_POST['descripcion'] . '", `categoria_id`=' . $_POST['categoria_id'] . ', `orden` = ' . $_POST['orden'] . ' WHERE `id`=' . $id;
-	$imageLocation = ($_FILES['imagen']['error'] == 0) ? '/statics/images/categories/' . $id : '';
+	$imageLocation = ($_FILES['imagen']['error'] == 0) ? '/statics/images/categories/' . $id . '/' : '';
 
 	$db->insert($sql);
 
@@ -816,12 +817,13 @@ function updateCategory($id = NULL)
 
 	if ($img->uploaded) {
 		$img->file_new_name_body = 'thumbnail';
-		$img->image_resize = true;
-		$img->image_x = 200;
-		$img->image_convert = 'jpg';
+		$img->image_resize       = true;
+		$img->image_x            = 500;
+		$img->image_ratio_y      = true;
+		$img->image_convert      = 'webp';
 		$img->process($relative . $imageLocation);
 
-		$sql = 'UPDATE `categoria` SET `imagen_url` = "' . $imageLocation . '/thumbnail.jpg' . '" WHERE `id`=' . $id;
+		$sql = 'UPDATE `categoria` SET `imagen_url` = "' . $imageLocation . $img->file_dst_name . '" WHERE `id`=' . $id;
 		$db->insert($sql);
 	}
 }
@@ -855,7 +857,7 @@ function saveArticle()
 			// $sql        = 'INSERT INTO `articulo` (`nombre`, `codigo`, `descripcion_breve`, `descripcion`, `talle`, `talle_surtido`, `adaptable`, `colores_url`, `colores_surtidos_url`, `packs`, `categoria_id`, `imagenes_url`, `estado`, `nuevo`, `agotado`, `oferta`, `surtido`, `precio`, `precio_oferta`, `precio_surtido`, `precio_oferta_surtido`, `orden`) VALUES ("' . $_POST['nombre'] . '","' . $_POST['codigo'] . '","' . $_POST['descripcion_breve'] . '","' . $_POST['descripcion'] . '","' . $_POST['talle'] . '","' . $_POST['talle_surtido'] . '","0","' . $colorsLocation . '","' . $colorsSurtLocation . '","' . $_POST['packs'] . '","' . $_POST['categoria_id'] . '","' . $imagesLocation . '", 1, "' . @($_POST['nuevo'] == "on" ? 1 : 0) . '", "' . @($_POST['agotado'] == "on" ? 1 : 0) . '", "' . @($_POST['oferta'] == "on" ? 1 : 0) . '", "' . @($_POST['surtido'] == "on" ? 1 : 0) . '", "' . $_POST['precio'] . '", "' . $_POST['precio_oferta'] . '", "' . $_POST['precio_surtido'] . '", "' . $_POST['precio_oferta_surtido'] . '", ' . $_POST['orden'] . ')';
 			$sql           = 'INSERT INTO `articulo` (`nombre`,`codigo`,`descripcion_breve`,`descripcion`,`categoria_id`,`nuevo`,`agotado`,`oferta`,`precio`,`precio_oferta`,`orden`) VALUES ("' . $_POST['nombre'] . '","' . $_POST[' codigo'] . '","' . $_POST[' descripcion_breve'] . '","' . $_POST[' descripcion'] . '","' . $_POST[' categoria_id'] . '","' . ($_POST['nuevo'] == "on" ? 1 : 0) . '","' . ($_POST['agotado'] == "on" ? 1 : 0) . '","' . ($_POST['oferta'] == "on" ? 1 : 0) . '","' . $_POST['precio'] . '","' . $_POST['precio_oferta'] . '","' . $_POST['orden'] . '")';
 			$cid           = $db->insert($sql);
-			$imageLocation = ($_FILES['imagen']['error'] == 0) ? '/statics/images/articles/' . $cid : '';
+			$imageLocation = ($_FILES['imagen']['error'] == 0) ? '/statics/images/articles/' . $cid . '/' : '';
 
 			// creo la carpeta para las imagenes de este artículo
 			@mkdir($relative . $imageLocation);
@@ -865,12 +867,13 @@ function saveArticle()
 
 			if ($img->uploaded) {
 				$img->file_new_name_body = 'thumbnail';
-				$img->image_resize = true;
-				$img->image_x = 200;
-				$img->image_convert = 'jpg';
+				$img->image_resize       = true;
+				$img->image_x            = 500;
+				$img->image_ratio_y      = true;
+				$img->image_convert      = 'webp';
 				$img->process($relative . $imageLocation);
 
-				$sql = 'UPDATE `articulo` SET `imagenes_url` = "' . $imageLocation . '/thumbnail.jpg' . '" WHERE `id`=' . $cid;
+				$sql = 'UPDATE `articulo` SET `imagenes_url` = "' . $imageLocation . $img->file_dst_name . '" WHERE `id`=' . $cid;
 				$db->insert($sql);
 			}
 		}
@@ -896,7 +899,7 @@ function updateArticle($id)
 	$cid = $db->insert($sql);
 
 	$relative          = $GLOBALS['relative'];
-	$imageLocation     = $relative . '/statics/images/articles/' . $id;
+	$imageLocation     = $relative . '/statics/images/articles/' . $id . '/';
 	$colorLocation     = $relative . '/statics/images/articles/' . $id . '/colors/';
 	$colorSurtLocation = $relative . '/statics/images/articles/' . $id . '/colors/surtidos/';
 
@@ -908,10 +911,13 @@ function updateArticle($id)
 		// salvar imagen
 		@unlink($imageLocation . '/thumbnail.jpg');
 		$img = new \Verot\Upload\Upload($_FILES['imagen']);
+		
 		if ($img->uploaded) {
-
 			$img->file_new_name_body = 'thumbnail';
-			$img->image_convert = 'jpg';
+			$img->image_resize       = true;
+			$img->image_x            = 500;
+			$img->image_ratio_y      = true;
+			$img->image_convert      = 'webp';
 			$img->process($imageLocation);
 		}
 	}
@@ -941,8 +947,8 @@ function updateArticle($id)
 			$colorName = (strlen($colorName) < 2 ? '0' . $colorName : $colorName);
 
 			@$color = new \Verot\Upload\Upload($currentColor);
+			
 			if ($color->uploaded) {
-
 				$color->file_new_name_body = $colorName;
 				$color->image_convert = 'jpg';
 				@$color->process($colorLocation);
