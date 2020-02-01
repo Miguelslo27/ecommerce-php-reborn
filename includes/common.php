@@ -771,11 +771,12 @@ function saveCategory()
 			@mkdir($relative . $imageLocation);
 
 			// salvar imagen
-			$img = new upload($_FILES['imagen']);
+			$img = new \Verot\Upload\Upload($_FILES['imagen']);
 
 			if ($img->uploaded) {
-				$img->image_x = 200;
 				$img->file_new_name_body = 'thumbnail';
+				$img->image_resize = true;
+				$img->image_x = 200;
 				$img->image_convert = 'jpg';
 				$img->process($relative . $imageLocation);
 
@@ -811,11 +812,12 @@ function updateCategory($id = NULL)
 	@unlink($relative . $imageLocation . '/thumbnail.jpg');
 
 	// salvar imagen
-	$img = new upload($_FILES['imagen']);
+	$img = new \Verot\Upload\Upload($_FILES['imagen']);
 
 	if ($img->uploaded) {
-		$img->image_x = 200;
 		$img->file_new_name_body = 'thumbnail';
+		$img->image_resize = true;
+		$img->image_x = 200;
 		$img->image_convert = 'jpg';
 		$img->process($relative . $imageLocation);
 
@@ -857,11 +859,12 @@ function saveArticle()
 			@mkdir($relative . $imageLocation);
 
 			// salvar imagen
-			$img = new upload($_FILES['imagen']);
+			$img = new \Verot\Upload\Upload($_FILES['imagen']);
 
 			if ($img->uploaded) {
-				$img->image_x = 200;
 				$img->file_new_name_body = 'thumbnail';
+				$img->image_resize = true;
+				$img->image_x = 200;
 				$img->image_convert = 'jpg';
 				$img->process($relative . $imageLocation);
 
@@ -902,7 +905,7 @@ function updateArticle($id)
 
 		// salvar imagen
 		@unlink($imageLocation . '/thumbnail.jpg');
-		$img = new upload($_FILES['imagen']);
+		$img = new \Verot\Upload\Upload($_FILES['imagen']);
 		if ($img->uploaded) {
 
 			$img->file_new_name_body = 'thumbnail';
@@ -935,7 +938,7 @@ function updateArticle($id)
 			$colorName = (string) $i + 1;
 			$colorName = (strlen($colorName) < 2 ? '0' . $colorName : $colorName);
 
-			@$color = new upload($currentColor);
+			@$color = new \Verot\Upload\Upload($currentColor);
 			if ($color->uploaded) {
 
 				$color->file_new_name_body = $colorName;
@@ -968,7 +971,7 @@ function updateArticle($id)
 			$colorSName = (string) $i + 1;
 			$colorSName = (strlen($colorSName) < 2 ? '0' . $colorSName : $colorSName);
 
-			@$colorS = new upload($currentSColor);
+			@$colorS = new \Verot\Upload\Upload($currentSColor);
 			if ($colorS->uploaded) {
 
 				$colorS->file_new_name_body = $colorSName;
