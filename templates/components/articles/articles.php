@@ -1,65 +1,78 @@
-<?php
-$articles = getArticles(0);
-?>
-
-<section class="inner articles-component">
+<section class="inner categories-component">
   <h1 class="shadowed-title">
-    <span class="title-shadow">Articulos</span>
-    <span class="title">Artículos</span>
+    <span class="title-shadow">Artículos nuevos</span>
+    <span class="title">Artículos nuevos</span>
   </h1>
 
-  <?php if (count($articles) > 0) : ?>
+  <?php if (count($categories) > 0) : ?>
     <?php if (@$userStats['user']->administrador == 1) : ?>
       <div class="list-actions">
-        <?php include($templatesPath . 'components/admin/admin-actions.php') ?>
+        <div class="admin-actions">
+          <a href="/producto/nuevo">Nuevo artículo +</a>
+        </div>
       </div>
     <?php endif ?>
+
     <div class="list-actions">
-      <div class="pagination">
-        <a href="#"><i class="fas fa-arrow-left"></i></a>
-        <a href="#">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#"><i class="fas fa-arrow-right"></i></a>
-      </div>
-      <div class="per-page">
-        <span>Mostrar:</span>
-        <a href="#">6</a>
-        <a href="#">12</a>
-        <a href="#">24</a>
-      </div>
+      <?php paginateCategories() ?>
     </div>
 
-    <ul class="articles">
-      <?php foreach ($articles as $art) : ?>
-        <li>
-          <article>
-            <img src="/statics/images/articles/1.jpg" alt="Auriculares Rocca">
-            <div class="article-info">
-              <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
-              <a href="#">Lorem ipsum</a>
-              <span class="price before">$250</span>
-              <span class="price after">$150</span>
-            </div>
-            <hr>
-            <div class="actions">
-              <a href="#">Agregar al carrito +</a>
-            </div>
-          </article>
-        </li>
-      <?php endforeach; ?>
+    <ul class="articles news">
+      <li>
+        <article class="new">
+          <img src="/statics/images/articles/1.jpg" alt="Auriculares Rocca">
+          <div class="article-info">
+            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
+            <a href="#">Lorem ipsum</a>
+            <span class="price before">$250</span>
+            <span class="price after">$150</span>
+          </div>
+          <hr>
+          <div class="actions">
+            <a href="#">Agregar al carrito +</a>
+          </div>
+        </article>
+      </li>
+      <li>
+        <article class="new">
+          <img src="/statics/images/articles/2.jpg" alt="Auriculares Xiami">
+          <div class="article-info">
+            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
+            <a href="#">Lorem ipsum</a>
+            <span class="price">$200</span>
+          </div>
+          <hr>
+          <div class="actions">
+            <a href="#">Agregar al carrito +</a>
+          </div>
+        </article>
+      </li>
+      <li>
+        <article class="new">
+          <img src="/statics/images/articles/3.jpg" alt="Auricular Bluetooth">
+          <div class="article-info">
+            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
+            <a href="#">Lorem ipsum</a>
+            <span class="price">$275</span>
+          </div>
+          <hr>
+          <div class="actions">
+            <a href="#">Agregar al carrito +</a>
+          </div>
+        </article>
+      </li>
     </ul>
   <?php else : ?>
     <?php if (@$userStats['user']->administrador == 1) : ?>
       <div class="list-actions">
-        <?php include($templatesPath . 'components/admin/admin-actions.php') ?>
+        <div class="admin-actions">
+          <a href="/producto/nuevo">Nuevo artículo +</a>
+        </div>
       </div>
     <?php endif ?>
-    <hr>
-    <p class="shadowed-title">
-      <span class="title-shadow">No se encontraron artículos</span>
-      <span class="title">No se encontraron artículos</span>
-    </p>
-    <hr>
+
+    <div class="empty-list">
+      <h2 class>No se encontraron artículos</h2>
+    </div>
   <?php endif ?>
 </section>

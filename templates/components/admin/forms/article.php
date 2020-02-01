@@ -1,13 +1,14 @@
 <?php
 $categories = getCategories(0);
 $category   = getCategory();
+$artid      = isset($_GET['cid']) ? $_GET['cid'] : null;
 ?>
 
 <div class="inner form-new-article">
   <h1>Agregar Articulo</h1>
-  <form action="/categorias" enctype="multipart/form-data" method="POST" id="article-create-new">
+  <form action="/productos/" enctype="multipart/form-data" method="POST">
     <input type="hidden" name="type" value="article">
-    <input type="hidden" name="id" id="id">
+    <input type="hidden" name="id" id="id" <?php echo $artid ? 'value="' . $artid . '"' : '' ?>>
     <input type="hidden" name="save" id="save">
 
     <div class="form-line">

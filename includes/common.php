@@ -650,10 +650,14 @@ function paginateCategories()
 function getArticles($parentId = NULL)
 {
 	$db = $GLOBALS['db'];
+	$sql = 'SELECT `id`, `nombre`, `codigo`, `descripcion_breve`, `descripcion`, `talle`, `talle_surtido`, `adaptable`, `colores_url`, `colores_surtidos_url`, `packs`, `imagenes_url`, `categoria_id`, `estado`, `nuevo`, `agotado`, `oferta`, `surtido`, `precio`, `precio_oferta`, `precio_surtido`, `precio_oferta_surtido`, `orden` FROM `articulo`';
 
-	if ($parentId == -1) {
+	if (!isset($parentId)) {
+		$sql .= 'ORDER BY `orden` ASC';
+	}
+	elseif ($parentId == -1) {
 		$sql = "SELECT `id`, `nombre`, `codigo`, `descripcion_breve`, `descripcion`, `talle`, `talle_surtido`, `adaptable`, `colores_url`, `colores_surtidos_url`, `packs`, `imagenes_url`, `categoria_id`, `estado`, `nuevo`, `agotado`, `oferta`, `surtido`, `precio`, `precio_oferta`, `precio_surtido`, `precio_oferta_surtido`, `orden` FROM `articulo` WHERE `oferta` = 1 ORDER BY `orden` ASC";
-	} else {
+	} elseif ($parentId > 0) {
 		$sql = "SELECT `id`, `nombre`, `codigo`, `descripcion_breve`, `descripcion`, `talle`, `talle_surtido`, `adaptable`, `colores_url`, `colores_surtidos_url`, `packs`, `imagenes_url`, `categoria_id`, `estado`, `nuevo`, `agotado`, `oferta`, `surtido`, `precio`, `precio_oferta`, `precio_surtido`, `precio_oferta_surtido`, `orden` FROM `articulo` WHERE `categoria_id` = $parentId AND `estado` = 1 ORDER BY `orden` ASC";
 	}
 
@@ -842,86 +846,31 @@ function saveArticle()
 				return;
 			}
 
-			$relative           = $GLOBALS['relative'];
-			$imagesLocation     = ($_FILES['imagen']['error'] == 0) ? '/statics/images/articles/{id}/' : '';
-			$colorsLocation     = ($_FILES['colores']['error'][0] == 0) ? '/statics/images/articles/{id}/colors/' : '';
-			$colorsSurtLocation = ($_FILES['colores_surtidos']['error'][0] == 0) ? '/statics/images/articles/{id}/colors/surtidos/' : '';
-			$db                 = $GLOBALS['db'];
-			$sql                = 'INSERT INTO `articulo` (`nombre`, `codigo`, `descripcion_breve`, `descripcion`, `talle`, `talle_surtido`, `adaptable`, `colores_url`, `colores_surtidos_url`, `packs`, `categoria_id`, `imagenes_url`, `estado`, `nuevo`, `agotado`, `oferta`, `surtido`, `precio`, `precio_oferta`, `precio_surtido`, `precio_oferta_surtido`, `orden`) VALUES ("' . $_POST['nombre'] . '","' . $_POST['codigo'] . '","' . $_POST['descripcion_breve'] . '","' . $_POST['descripcion'] . '","' . $_POST['talle'] . '","' . $_POST['talle_surtido'] . '","0","' . $colorsLocation . '","' . $colorsSurtLocation . '","' . $_POST['packs'] . '","' . $_POST['categoria_id'] . '","' . $imagesLocation . '", 1, "' . @($_POST['nuevo'] == "on" ? 1 : 0) . '", "' . @($_POST['agotado'] == "on" ? 1 : 0) . '", "' . @($_POST['oferta'] == "on" ? 1 : 0) . '", "' . @($_POST['surtido'] == "on" ? 1 : 0) . '", "' . $_POST['precio'] . '", "' . $_POST['precio_oferta'] . '", "' . $_POST['precio_surtido'] . '", "' . $_POST['precio_oferta_surtido'] . '", ' . $_POST['orden'] . ')';
-			$cid                = $db->insert($sql);
-			$imageLocation      = $relative . '/statics/images/articles/' . $cid;
-			$colorLocation      = $relative . '/statics/images/articles/' . $cid . '/colors/';
-			$colorSurtLocation  = $relative . '/statics/images/articles/' . $cid . '/colors/surtidos/';
+			$relative      = $GLOBALS['relative'];
+			$db            = $GLOBALS['db'];
+			// $sql        = 'INSERT INTO `articulo` (`nombre`, `codigo`, `descripcion_breve`, `descripcion`, `talle`, `talle_surtido`, `adaptable`, `colores_url`, `colores_surtidos_url`, `packs`, `categoria_id`, `imagenes_url`, `estado`, `nuevo`, `agotado`, `oferta`, `surtido`, `precio`, `precio_oferta`, `precio_surtido`, `precio_oferta_surtido`, `orden`) VALUES ("' . $_POST['nombre'] . '","' . $_POST['codigo'] . '","' . $_POST['descripcion_breve'] . '","' . $_POST['descripcion'] . '","' . $_POST['talle'] . '","' . $_POST['talle_surtido'] . '","0","' . $colorsLocation . '","' . $colorsSurtLocation . '","' . $_POST['packs'] . '","' . $_POST['categoria_id'] . '","' . $imagesLocation . '", 1, "' . @($_POST['nuevo'] == "on" ? 1 : 0) . '", "' . @($_POST['agotado'] == "on" ? 1 : 0) . '", "' . @($_POST['oferta'] == "on" ? 1 : 0) . '", "' . @($_POST['surtido'] == "on" ? 1 : 0) . '", "' . $_POST['precio'] . '", "' . $_POST['precio_oferta'] . '", "' . $_POST['precio_surtido'] . '", "' . $_POST['precio_oferta_surtido'] . '", ' . $_POST['orden'] . ')';
+			$sql           = 'INSERT INTO `articulo` (`nombre`,`codigo`,`descripcion_breve`,`descripcion`,`categoria_id`,`nuevo`,`agotado`,`oferta`,`precio`,`precio_oferta`,`orden`) VALUES ("' . $_POST['nombre'] . '","' . $_POST[' codigo'] . '","' . $_POST[' descripcion_breve'] . '","' . $_POST[' descripcion'] . '","' . $_POST[' categoria_id'] . '","' . ($_POST['nuevo'] == "on" ? 1 : 0) . '","' . ($_POST['agotado'] == "on" ? 1 : 0) . '","' . ($_POST['oferta'] == "on" ? 1 : 0) . '","' . $_POST['precio'] . '","' . $_POST['precio_oferta'] . '","' . $_POST['orden'] . '")';
+			$cid           = $db->insert($sql);
+			$imageLocation = ($_FILES['imagen']['error'] == 0) ? '/statics/images/articles/' . $cid : '';
 
 			// creo la carpeta para las imagenes de este artículo
-			@mkdir($imageLocation);
-			@unlink($imageLocation . '/thumbnail.jpg');
+			@mkdir($relative . $imageLocation);
 
 			// salvar imagen
-			@$img = new upload($_FILES['imagen']);
-			if ($img->uploaded) {
+			$img = new upload($_FILES['imagen']);
 
+			if ($img->uploaded) {
+				$img->image_x = 200;
 				$img->file_new_name_body = 'thumbnail';
 				$img->image_convert = 'jpg';
-				$img->process($imageLocation);
-			}
+				$img->process($relative . $imageLocation);
 
-			@mkdir($colorLocation);
-			@unlink($colorLocation . '/colors.jpg');
-
-			// salvar colores
-			$colorsNum = count($_FILES['colores']['name']);
-
-			for ($i = 0; $i < $colorsNum; $i++) {
-
-				$currentColor			  = array();
-				$currentColor['name']	  = $_FILES['colores']['name'][$i];
-				$currentColor['type']     = $_FILES['colores']['type'][$i];
-				$currentColor['tmp_name'] = $_FILES['colores']['tmp_name'][$i];
-				$currentColor['error']    = $_FILES['colores']['error'][$i];
-				$currentColor['size']     = $_FILES['colores']['size'][$i];
-
-				$colorName = (string) $i + 1;
-				$colorName = (strlen($colorName) < 2 ? '0' . $colorName : $colorName);
-
-				@$color = new upload($currentColor);
-				if ($color->uploaded) {
-
-					$color->file_new_name_body = $colorName;
-					$color->image_convert = 'jpg';
-					@$color->process($colorLocation);
-				}
-			}
-
-			@mkdir($colorSurtLocation);
-
-			// salvar colores surtidos
-			$colorsSurtNum = count($_FILES['colores_surtidos']['name']);
-
-			for ($i = 0; $i < $colorsSurtNum; $i++) {
-
-				$currentSColor			   = array();
-				$currentSColor['name']	   = $_FILES['colores_surtidos']['name'][$i];
-				$currentSColor['type']     = $_FILES['colores_surtidos']['type'][$i];
-				$currentSColor['tmp_name'] = $_FILES['colores_surtidos']['tmp_name'][$i];
-				$currentSColor['error']    = $_FILES['colores_surtidos']['error'][$i];
-				$currentSColor['size']     = $_FILES['colores_surtidos']['size'][$i];
-
-				$colorSName = (string) $i + 1;
-				$colorSName = (strlen($colorSName) < 2 ? '0' . $colorSName : $colorSName);
-
-				@$colorS = new upload($currentSColor);
-				if ($colorS->uploaded) {
-
-					$colorS->file_new_name_body = $colorName;
-					$colorS->image_convert = 'jpg';
-					@$colorS->process($colorSurtLocation);
-				}
+				$sql = 'UPDATE `articulo` SET `imagenes_url` = "' . $imageLocation . '/thumbnail.jpg' . '" WHERE `id`=' . $cid;
+				$db->insert($sql);
 			}
 		}
 
 		if (isset($_POST['delete'])) {
-
 			deleteArticle($_POST['id']);
 		}
 	}

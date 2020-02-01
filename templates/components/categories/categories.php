@@ -41,14 +41,13 @@
   <?php else : ?>
     <?php if (@$userStats['user']->administrador == 1) : ?>
       <div class="list-actions">
-        <?php include($templatesPath . 'components/admin/admin-actions.php') ?>
+        <div class="admin-actions">
+          <a href="/categoria/nueva">Nueva categoría +</a>
+        </div>
       </div>
     <?php endif ?>
-    <hr>
-    <p class="shadowed-title">
-      <span class="title-shadow">No se encontraron categorías</span>
-      <span class="title">No se encontraron categorías</span>
-    </p>
-    <hr>
+    <div class="empty-list">
+      <h2 class>No se encontraron categorías</h2>
+    </div>
   <?php endif ?>
 </section>

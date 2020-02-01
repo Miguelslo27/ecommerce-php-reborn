@@ -9,12 +9,9 @@ $categories = getCategories(0, 4);
   </h1>
 
   <?php if (count($categories) == 0) : ?>
-    <hr>
-    <p class="shadowed-title">
-      <span class="title-shadow">No se encontraron categorías destacadas</span>
-      <span class="title">No se encontraron categorías destacadas</span>
-    </p>
-    <hr>
+    <div class="empty-list">
+      <h2 class>No se encontraron categorías destacadas</h2>
+    </div>
   <?php endif; ?>
 
   <?php if (count($categories) > 0) : ?>

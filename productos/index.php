@@ -8,16 +8,17 @@ $appPlace      = 'categories';
 $appSubPlace   = 'list';
 $templatesPath = $GLOBALS['config']['templatesPath'];
 $categories    = getCategories(0);
+$articles      = getArticles();
 
 // If comes from category form, save the category
-$messages      = saveCategory();
+$messages      = saveArticle();
 
 startDocument();
 loadSection("header", $userStats);
 
 ?>
 <div class="container">
-	<?php include($templatesPath . 'components/categories/categories.php') ?>
+	<?php include($templatesPath . 'components/articles/articles.php') ?>
 </div>
 <?php
 

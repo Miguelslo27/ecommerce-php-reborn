@@ -160,6 +160,12 @@ i.fab+* {
 	position: relative;
 }
 
+.empty-list {
+	text-align: center;
+}
+
+.empty-list {}
+
 /* HEADER */
 header {
 	position: relative;
@@ -449,6 +455,11 @@ form {
 	margin: auto;
 	margin-bottom: 2rem;
 	box-shadow: 0 0 15px rgba(147, 0, 119, .15);
+}
+
+form label,
+form button {
+	cursor: pointer;
 }
 
 form hr {
