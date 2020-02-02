@@ -344,13 +344,24 @@ header .header-inner .store-nav {
 	height: 200px;
 }
 
+.articles li article {
+	overflow: hidden;
+}
+
 .categories li article img,
-.articles li article img,
 .articles li article img {
 	display: block;
 	max-width: 100%;
 	max-height: 100%;
 }
+
+/* @TODO */
+/* .articles li img {
+	transition: transform .3s ease;
+}
+.articles li:hover img {
+	transform: scale(1.2);
+} */
 
 .categories li article img {
 	float: right;
