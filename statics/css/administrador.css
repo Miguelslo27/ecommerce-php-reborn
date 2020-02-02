@@ -16,25 +16,38 @@
 }
 
 /* ADMIN CONTROLS IN CATEGORY */
-.admin-category-controls {
+.admin-category-controls,
+.admin-article-controls {
   display: flex;
-  padding: .5rem;
+  margin: 1rem;
+  padding: 0 .3rem;
   position: absolute;
   top: 0;
   visibility: hidden;
   opacity: 0;
+  background: #b52299;
+  border-radius: 20px;
   transition: opacity .3s ease;
 }
 
-ul.categories li:hover .admin-category-controls {
-  visibility: visible;
-  opacity: 1;
+.admin-category-controls a,
+.admin-article-controls a {
+  color: #fff;
 }
 
-.admin-category-controls > * {
+ul.categories li:hover .admin-category-controls,
+ul.articles li:hover .admin-article-controls {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity .3s ease;
+}
+
+.admin-category-controls > *,
+.admin-article-controls > * {
   padding: .5rem .8rem;
 }
 
-.admin-category-controls>*:not(:last-child) {
+.admin-category-controls>*:not(:last-child),
+.admin-article-controls>*:not(:last-child) {
   border-right: 1px solid;
 }

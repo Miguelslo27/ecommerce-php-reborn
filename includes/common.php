@@ -647,6 +647,7 @@ function paginateCategories()
 <?php
 }
 
+// @TODO
 function getArticles($parentId = NULL)
 {
 	$db = $GLOBALS['db'];
@@ -855,7 +856,7 @@ function saveArticle()
 			$relative      = $GLOBALS['relative'];
 			$db            = $GLOBALS['db'];
 			// $sql        = 'INSERT INTO `articulo` (`nombre`, `codigo`, `descripcion_breve`, `descripcion`, `talle`, `talle_surtido`, `adaptable`, `colores_url`, `colores_surtidos_url`, `packs`, `categoria_id`, `imagenes_url`, `estado`, `nuevo`, `agotado`, `oferta`, `surtido`, `precio`, `precio_oferta`, `precio_surtido`, `precio_oferta_surtido`, `orden`) VALUES ("' . $_POST['nombre'] . '","' . $_POST['codigo'] . '","' . $_POST['descripcion_breve'] . '","' . $_POST['descripcion'] . '","' . $_POST['talle'] . '","' . $_POST['talle_surtido'] . '","0","' . $colorsLocation . '","' . $colorsSurtLocation . '","' . $_POST['packs'] . '","' . $_POST['categoria_id'] . '","' . $imagesLocation . '", 1, "' . @($_POST['nuevo'] == "on" ? 1 : 0) . '", "' . @($_POST['agotado'] == "on" ? 1 : 0) . '", "' . @($_POST['oferta'] == "on" ? 1 : 0) . '", "' . @($_POST['surtido'] == "on" ? 1 : 0) . '", "' . $_POST['precio'] . '", "' . $_POST['precio_oferta'] . '", "' . $_POST['precio_surtido'] . '", "' . $_POST['precio_oferta_surtido'] . '", ' . $_POST['orden'] . ')';
-			$sql           = 'INSERT INTO `articulo` (`nombre`,`codigo`,`descripcion_breve`,`descripcion`,`categoria_id`,`nuevo`,`agotado`,`oferta`,`precio`,`precio_oferta`,`orden`) VALUES ("' . $_POST['nombre'] . '","' . $_POST[' codigo'] . '","' . $_POST[' descripcion_breve'] . '","' . $_POST[' descripcion'] . '","' . $_POST[' categoria_id'] . '","' . ($_POST['nuevo'] == "on" ? 1 : 0) . '","' . ($_POST['agotado'] == "on" ? 1 : 0) . '","' . ($_POST['oferta'] == "on" ? 1 : 0) . '","' . $_POST['precio'] . '","' . $_POST['precio_oferta'] . '","' . $_POST['orden'] . '")';
+			$sql           = 'INSERT INTO `articulo` (`nombre`,`codigo`,`descripcion_breve`,`descripcion`,`categoria_id`,`nuevo`,`agotado`,`oferta`,`precio`,`precio_oferta`,`orden`) VALUES ("' . $_POST['nombre'] . '","' . $_POST['codigo'] . '","' . $_POST['descripcion_breve'] . '","' . $_POST['descripcion'] . '","' . $_POST['categoria_id'] . '","' . (@$_POST['nuevo'] == "on" ? 1 : 0) . '","' . (@$_POST['agotado'] == "on" ? 1 : 0) . '","' . (@$_POST['oferta'] == "on" ? 1 : 0) . '","' . $_POST['precio'] . '","' . $_POST['precio_oferta'] . '","' . $_POST['orden'] . '")';
 			$cid           = $db->insert($sql);
 			$imageLocation = ($_FILES['imagen']['error'] == 0) ? '/statics/images/articles/' . $cid . '/' : '';
 

@@ -1,10 +1,10 @@
-<section class="inner categories-component">
+<section class="inner articles-component">
   <h1 class="shadowed-title">
-    <span class="title-shadow">Artículos nuevos</span>
-    <span class="title">Artículos nuevos</span>
+    <span class="title-shadow">Artículos</span>
+    <span class="title">Artículos</span>
   </h1>
 
-  <?php if (count($categories) > 0) : ?>
+  <?php if (count($articles) > 0) : ?>
     <?php if (@$userStats['user']->administrador == 1) : ?>
       <div class="list-actions">
         <div class="admin-actions">
@@ -17,50 +17,49 @@
       <?php paginateCategories() ?>
     </div>
 
-    <ul class="articles news">
-      <li>
-        <article class="new">
-          <img src="/statics/images/articles/1.jpg" alt="Auriculares Rocca">
-          <div class="article-info">
-            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
-            <a href="#">Lorem ipsum</a>
-            <span class="price before">$250</span>
-            <span class="price after">$150</span>
-          </div>
-          <hr>
-          <div class="actions">
-            <a href="#">Agregar al carrito +</a>
-          </div>
-        </article>
-      </li>
-      <li>
-        <article class="new">
-          <img src="/statics/images/articles/2.jpg" alt="Auriculares Xiami">
-          <div class="article-info">
-            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
-            <a href="#">Lorem ipsum</a>
-            <span class="price">$200</span>
-          </div>
-          <hr>
-          <div class="actions">
-            <a href="#">Agregar al carrito +</a>
-          </div>
-        </article>
-      </li>
-      <li>
-        <article class="new">
-          <img src="/statics/images/articles/3.jpg" alt="Auricular Bluetooth">
-          <div class="article-info">
-            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
-            <a href="#">Lorem ipsum</a>
-            <span class="price">$275</span>
-          </div>
-          <hr>
-          <div class="actions">
-            <a href="#">Agregar al carrito +</a>
-          </div>
-        </article>
-      </li>
+    <ul class="articles">
+      <?php foreach ($articles as $article) : ?>
+        <?php
+        $class = '';
+        if ($article->nuevo === '1') {
+          $class = 'new';
+        }
+
+        if ($article->oferta === '1') {
+          $class = 'offer';
+        }
+
+        if ($article->agotado === '1') {
+          $class = 'spent';
+        }
+        ?>
+        <li>
+          <article class="<?php echo $class ?>">
+            <img src="<?php echo $article->imagenes_url ?>" alt="<?php echo $article->nombre ?>">
+            <div class="article-info">
+              <span><?php echo $article->descripcion_breve ?></span>
+              <a href="<?php echo $article->id ?>"><?php echo $article->nombre ?></a>
+
+              <?php if ($article->oferta === '1') : ?>
+                <span class="price before">$<?php echo $article->precio ?></span>
+                <span class="price after">$<?php echo $article->precio_oferta ?></span>
+              <?php else : ?>
+                <span class="price">$<?php echo $article->precio ?></span>
+              <?php endif ?>
+            </div>
+            <hr>
+            <div class="actions">
+              <a href="<?php echo $article->id ?>">Agregar al carrito +</a>
+            </div>
+            <?php if (@$userStats['user']->administrador == 1) : ?>
+              <div class="admin-article-controls">
+                <a href="/categoria/editar/?cid=<?php echo $category->id ?>"><i class="far fa-edit"></i></a>
+                <a href="/categoria/eliminar/?cid=<?php echo $category->id ?>"><i class="far fa-trash-alt"></i></a>
+              </div>
+            <?php endif ?>
+          </article>
+        </li>
+      <?php endforeach ?>
     </ul>
   <?php else : ?>
     <?php if (@$userStats['user']->administrador == 1) : ?>

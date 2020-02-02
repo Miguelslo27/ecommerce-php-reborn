@@ -18,20 +18,20 @@
     </div>
 
     <ul class="categories">
-      <?php foreach ($categories as $cat) : ?>
+      <?php foreach ($categories as $category) : ?>
         <li>
           <article>
-            <img src="<?php echo $cat->imagen_url ?>" alt="<?php echo $cat->titulo ?>">
+            <img src="<?php echo $category->imagen_url ?>" alt="<?php echo $category->titulo ?>">
             <div class="cat-info">
-              <span><?php echo $cat->descripcion_breve ?></span>
-              <a href="/categories/?c=<?php echo $cat->id ?>"><?php echo $cat->titulo ?></a>
+              <span><?php echo $category->descripcion_breve ?></span>
+              <a href="/categories/?c=<?php echo $category->id ?>"><?php echo $category->titulo ?></a>
               <span>0 articulos<?php // articles in the category 
                                 ?></span>
             </div>
             <?php if (@$userStats['user']->administrador == 1) : ?>
               <div class="admin-category-controls">
-                <a href="/categoria/editar/?cid=<?php echo $cat->id ?>"><i class="far fa-edit"></i></a>
-                <a href="/categoria/eliminar/?cid=<?php echo $cat->id ?>"><i class="far fa-trash-alt"></i></a>
+                <a href="/categoria/editar/?cid=<?php echo $category->id ?>"><i class="far fa-edit"></i></a>
+                <a href="/categoria/eliminar/?cid=<?php echo $category->id ?>"><i class="far fa-trash-alt"></i></a>
               </div>
             <?php endif ?>
           </article>
