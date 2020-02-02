@@ -377,13 +377,11 @@ header .header-inner .store-nav {
 }
 
 .categories li article .cat-info *,
-.articles li article .article-info *,
 .articles li article .article-info * {
 	display: block;
 }
 
 .categories li article .cat-info span,
-.articles li article .article-info span,
 .articles li article .article-info span {
 	font-size: 1rem;
 }
@@ -393,14 +391,12 @@ header .header-inner .store-nav {
 }
 
 .categories li article .cat-info a,
-.articles li article .article-info a,
 .articles li article .article-info a {
 	font-size: 1.5rem;
 	text-transform: uppercase;
 	line-height: 2rem;
 }
 
-.articles li,
 .articles li {
 	box-shadow: 0 0 25px rgba(147, 0, 119, .15);
 	background: #FFF;

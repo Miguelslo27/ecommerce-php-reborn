@@ -53,8 +53,8 @@
             </div>
             <?php if (@$userStats['user']->administrador == 1) : ?>
               <div class="admin-article-controls">
-                <a href="/categoria/editar/?cid=<?php echo $category->id ?>"><i class="far fa-edit"></i></a>
-                <a href="/categoria/eliminar/?cid=<?php echo $category->id ?>"><i class="far fa-trash-alt"></i></a>
+                <a href="/producto/editar/?cid=<?php echo $article->id ?>"><i class="far fa-edit"></i></a>
+                <a href="/producto/eliminar/?cid=<?php echo $article->id ?>"><i class="far fa-trash-alt"></i></a>
               </div>
             <?php endif ?>
           </article>
