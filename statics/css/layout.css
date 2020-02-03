@@ -308,11 +308,18 @@ header .header-inner .store-nav {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	justify-content: space-between;
-	align-items: flex-start;
 	list-style: none;
 	margin: 0;
 	padding: 0;
+	margin-bottom: 2rem;
+}
+
+.categories {
+	justify-content: space-between;	
+}
+
+.articles {
+	align-items: flex-start;
 }
 
 .articles li,
@@ -328,6 +335,10 @@ header .header-inner .store-nav {
 
 .articles li {
 	width: 32%;
+}
+
+.articles li:nth-child(3n-1) {
+	margin: 0 2%;
 }
 
 .categories li:hover,
