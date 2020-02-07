@@ -14,7 +14,7 @@
     <?php endif ?>
 
     <div class="list-actions">
-      <?php paginateCategories() ?>
+      <?php paginateArticles() ?>
     </div>
 
     <ul class="articles">

@@ -11,7 +11,7 @@ $templatesPath = $GLOBALS['config']['templatesPath'];
 startDocument();
 loadSection("header", $userStats);
 
-$resultado = buscarArticulos($_GET['clave']);
+$resultado = searchForArticles($_GET['clave']);
 $categories = getCategories(0);
 
 ?>
