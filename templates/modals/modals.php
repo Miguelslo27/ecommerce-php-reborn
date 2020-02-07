@@ -32,7 +32,7 @@ switch($appSubPlace) {
 switch($appPlace) {
 	case 'search':
 	case 'categories':
-		if ($userStats['user'] && $userStats['user']->administrador == 1) {
+		if (@$userStats['user']->administrador == 1) {
 			$categories = $GLOBALS['categories'];
 			$category = $GLOBALS['category'];
 

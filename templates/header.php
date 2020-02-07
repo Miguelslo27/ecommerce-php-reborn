@@ -19,7 +19,7 @@
 						<a class="access-menu dropdown-item" href="/categorias">Test 2</a>
 					</div>
 				</div>
-				<a href="/categorias" class="access-menu normal-tab <?php if ($GLOBALS['appPlace'] == "categories") echo 'is-active'; ?>">Productos</a>
+				<a href="/productos" class="access-menu normal-tab <?php if ($GLOBALS['appPlace'] == "categories") echo 'is-active'; ?>">Productos</a>
 				<a href="/contacto" class="access-menu normal-tab <?php if ($GLOBALS['appPlace'] == "contact") echo 'is-active'; ?>">Contacto</a>
 			</nav>
 

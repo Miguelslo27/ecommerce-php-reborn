@@ -18,20 +18,20 @@
     </div>
 
     <ul class="categories">
-      <?php foreach ($categories as $cat) : ?>
+      <?php foreach ($categories as $category) : ?>
         <li>
           <article>
-            <img src="<?php echo $cat->imagen_url ?>" alt="<?php echo $cat->titulo ?>">
+            <img src="<?php echo $category->imagen_url ?>" alt="<?php echo $category->titulo ?>">
             <div class="cat-info">
-              <span><?php echo $cat->descripcion_breve ?></span>
-              <a href="/categories/?c=<?php echo $cat->id ?>"><?php echo $cat->titulo ?></a>
+              <span><?php echo $category->descripcion_breve ?></span>
+              <a href="/categories/?c=<?php echo $category->id ?>"><?php echo $category->titulo ?></a>
               <span>0 articulos<?php // articles in the category 
                                 ?></span>
             </div>
             <?php if (@$userStats['user']->administrador == 1) : ?>
               <div class="admin-category-controls">
-                <a href="/categoria/editar/?cid=<?php echo $cat->id ?>"><i class="far fa-edit"></i></a>
-                <a href="/categoria/eliminar/?cid=<?php echo $cat->id ?>"><i class="far fa-trash-alt"></i></a>
+                <a href="/categoria/editar/?cid=<?php echo $category->id ?>"><i class="far fa-edit"></i></a>
+                <a href="/categoria/eliminar/?cid=<?php echo $category->id ?>"><i class="far fa-trash-alt"></i></a>
               </div>
             <?php endif ?>
           </article>
@@ -41,14 +41,13 @@
   <?php else : ?>
     <?php if (@$userStats['user']->administrador == 1) : ?>
       <div class="list-actions">
-        <?php include($templatesPath . 'components/admin/admin-actions.php') ?>
+        <div class="admin-actions">
+          <a href="/categoria/nueva">Nueva categoría +</a>
+        </div>
       </div>
     <?php endif ?>
-    <hr>
-    <p class="shadowed-title">
-      <span class="title-shadow">No se encontraron categorías</span>
-      <span class="title">No se encontraron categorías</span>
-    </p>
-    <hr>
+    <div class="empty-list">
+      <h2 class>No se encontraron categorías</h2>
+    </div>
   <?php endif ?>
 </section>

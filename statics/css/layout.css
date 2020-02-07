@@ -160,6 +160,12 @@ i.fab+* {
 	position: relative;
 }
 
+.empty-list {
+	text-align: center;
+}
+
+.empty-list {}
+
 /* HEADER */
 header {
 	position: relative;
@@ -231,7 +237,7 @@ header .header-inner .store-nav {
 	display: none;
 	position: absolute;
 	width: auto;
-	min-width: calc(100% - 1px);
+	min-width: calc(100% + 1px);
 	left: -1px;
 	border-left: 1px solid #555;
 	border-right: 1px solid #555;
@@ -274,14 +280,16 @@ header .header-inner .store-nav {
 }
 
 .store-nav .search-box form .search-input {
-	width: 50%;
+	width: 75%;
 	padding: 0 1rem;
+	border-radius: 0;
 	border-top-left-radius: 1.1rem;
 	border-bottom-left-radius: 1.1rem;
 }
 
 .store-nav .search-box form .search-button {
 	padding: 0 .6rem;
+	border-radius: 0;
 	border-top-right-radius: 1.1rem;
 	border-bottom-right-radius: 1.1rem;
 	color: #b52299;
@@ -300,10 +308,18 @@ header .header-inner .store-nav {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	justify-content: space-between;
 	list-style: none;
 	margin: 0;
 	padding: 0;
+	margin-bottom: 2rem;
+}
+
+.categories {
+	justify-content: space-between;	
+}
+
+.articles {
+	align-items: flex-start;
 }
 
 .articles li,
@@ -321,7 +337,12 @@ header .header-inner .store-nav {
 	width: 32%;
 }
 
-.categories li:hover {
+.articles li:nth-child(3n-1) {
+	margin: 0 2%;
+}
+
+.categories li:hover,
+.articles li:hover {
 	box-shadow: 0 0px 25px 0 rgba(147, 0, 119, .5);
 }
 
@@ -334,13 +355,24 @@ header .header-inner .store-nav {
 	height: 200px;
 }
 
+.articles li article {
+	overflow: hidden;
+}
+
 .categories li article img,
-.articles li article img,
 .articles li article img {
 	display: block;
 	max-width: 100%;
 	max-height: 100%;
 }
+
+/* @TODO */
+/* .articles li img {
+	transition: transform .3s ease;
+}
+.articles li:hover img {
+	transform: scale(1.2);
+} */
 
 .categories li article img {
 	float: right;
@@ -356,13 +388,11 @@ header .header-inner .store-nav {
 }
 
 .categories li article .cat-info *,
-.articles li article .article-info *,
 .articles li article .article-info * {
 	display: block;
 }
 
 .categories li article .cat-info span,
-.articles li article .article-info span,
 .articles li article .article-info span {
 	font-size: 1rem;
 }
@@ -372,21 +402,21 @@ header .header-inner .store-nav {
 }
 
 .categories li article .cat-info a,
-.articles li article .article-info a,
 .articles li article .article-info a {
 	font-size: 1.5rem;
 	text-transform: uppercase;
 	line-height: 2rem;
 }
 
-.articles li,
 .articles li {
 	box-shadow: 0 0 25px rgba(147, 0, 119, .15);
 	background: #FFF;
 }
 
 .articles li article.new::before,
-.articles li article.featured::before {
+.articles li article.featured::before,
+.articles li article.offer::before,
+.articles li article.spent::before {
 	position: absolute;
 	color: #FFF;
 	font-size: 1.2rem;
@@ -406,6 +436,17 @@ header .header-inner .store-nav {
 	background: blueviolet;
 }
 
+.articles li article.offer::before {
+	content: "Oferta";
+	background: greenyellow;
+}
+
+.articles li article.spent::before {
+	content: "spent";
+	background: grey;
+}
+
+.articles li article hr,
 .articles li article.new hr,
 .articles li article.featured hr {
 	width: 84%;
@@ -413,10 +454,16 @@ header .header-inner .store-nav {
 	background: #930077;
 }
 
+.articles li article .article-info,
 .articles li article.new .article-info,
 .articles li article.featured .article-info,
+.articles li article.offer .article-info,
+.articles li article.spent .article-info,
+.articles li article .actions,
 .articles li article.new .actions,
-.articles li article.featured .actions {
+.articles li article.featured .actions,
+.articles li article.offer .actions,
+.articles li article.spent .actions {
 	padding: 8%;
 }
 
@@ -424,16 +471,22 @@ header .header-inner .store-nav {
 featured .articles li article.new .actions {
 	padding: 8%;
 } */
+.articles li article .article-info .price,
 .articles li article.new .article-info .price,
-.articles li article.featured .article-info .price {
+.articles li article.featured .article-info .price,
+.articles li article.offer .article-info .price,
+.articles li article.spent .article-info .price {
 	display: inline-block;
 	margin-right: 1rem;
 	font-size: 1.8rem;
 	font-weight: 400;
 }
 
+.articles li article .article-info .price.before,
 .articles li article.new .article-info .price.before,
-.articles li article.featured .article-info .price.before {
+.articles li article.featured .article-info .price.before,
+.articles li article.offer .article-info .price.before,
+.articles li article.spent .article-info .price.before {
 	font-size: 1.3rem;
 	font-weight: normal;
 	text-decoration: line-through;
@@ -447,6 +500,11 @@ form {
 	margin: auto;
 	margin-bottom: 2rem;
 	box-shadow: 0 0 15px rgba(147, 0, 119, .15);
+}
+
+form label,
+form button {
+	cursor: pointer;
 }
 
 form hr {

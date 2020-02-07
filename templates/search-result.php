@@ -47,7 +47,7 @@
 									}
 									?>
 									<?php
-									if ($userStats['user'] && $userStats['user']->administrador == 1) {
+									if (@$userStats['user']->administrador == 1) {
 	
 										?>
 	

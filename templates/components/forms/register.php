@@ -1,6 +1,6 @@
 <div class="inner form-register">
 	<h1>Registro de Usuario</h1>
-	<form action="/" method="POST">
+	<form action="" method="POST">
 		<div class="form-group">
 			<label for="nombre">Nombre</label>
 			<input type="text" id="nombre" name="nombre">

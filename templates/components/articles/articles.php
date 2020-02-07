@@ -1,65 +1,77 @@
-<?php
-$articles = getArticles(0);
-?>
-
 <section class="inner articles-component">
   <h1 class="shadowed-title">
-    <span class="title-shadow">Articulos</span>
+    <span class="title-shadow">Artículos</span>
     <span class="title">Artículos</span>
   </h1>
 
   <?php if (count($articles) > 0) : ?>
     <?php if (@$userStats['user']->administrador == 1) : ?>
       <div class="list-actions">
-        <?php include($templatesPath . 'components/admin/admin-actions.php') ?>
+        <div class="admin-actions">
+          <a href="/producto/nuevo">Nuevo artículo +</a>
+        </div>
       </div>
     <?php endif ?>
+
     <div class="list-actions">
-      <div class="pagination">
-        <a href="#"><i class="fas fa-arrow-left"></i></a>
-        <a href="#">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#"><i class="fas fa-arrow-right"></i></a>
-      </div>
-      <div class="per-page">
-        <span>Mostrar:</span>
-        <a href="#">6</a>
-        <a href="#">12</a>
-        <a href="#">24</a>
-      </div>
+      <?php paginateArticles() ?>
     </div>
 
     <ul class="articles">
-      <?php foreach ($articles as $art) : ?>
+      <?php foreach ($articles as $article) : ?>
+        <?php
+        $class = '';
+        if ($article->nuevo === '1') {
+          $class = 'new';
+        }
+
+        if ($article->oferta === '1') {
+          $class = 'offer';
+        }
+
+        if ($article->agotado === '1') {
+          $class = 'spent';
+        }
+        ?>
         <li>
-          <article>
-            <img src="/statics/images/articles/1.jpg" alt="Auriculares Rocca">
+          <article class="<?php echo $class ?>">
+            <img src="<?php echo $article->imagenes_url ?>" alt="<?php echo $article->nombre ?>">
             <div class="article-info">
-              <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
-              <a href="#">Lorem ipsum</a>
-              <span class="price before">$250</span>
-              <span class="price after">$150</span>
+              <span><?php echo $article->descripcion_breve ?></span>
+              <a href="<?php echo $article->id ?>"><?php echo $article->nombre ?></a>
+
+              <?php if ($article->oferta === '1') : ?>
+                <span class="price before">$<?php echo $article->precio ?></span>
+                <span class="price after">$<?php echo $article->precio_oferta ?></span>
+              <?php else : ?>
+                <span class="price">$<?php echo $article->precio ?></span>
+              <?php endif ?>
             </div>
             <hr>
             <div class="actions">
-              <a href="#">Agregar al carrito +</a>
+              <a href="<?php echo $article->id ?>">Agregar al carrito +</a>
             </div>
+            <?php if (@$userStats['user']->administrador == 1) : ?>
+              <div class="admin-article-controls">
+                <a href="/producto/editar/?cid=<?php echo $article->id ?>"><i class="far fa-edit"></i></a>
+                <a href="/producto/eliminar/?cid=<?php echo $article->id ?>"><i class="far fa-trash-alt"></i></a>
+              </div>
+            <?php endif ?>
           </article>
         </li>
-      <?php endforeach; ?>
+      <?php endforeach ?>
     </ul>
   <?php else : ?>
     <?php if (@$userStats['user']->administrador == 1) : ?>
       <div class="list-actions">
-        <?php include($templatesPath . 'components/admin/admin-actions.php') ?>
+        <div class="admin-actions">
+          <a href="/producto/nuevo">Nuevo artículo +</a>
+        </div>
       </div>
     <?php endif ?>
-    <hr>
-    <p class="shadowed-title">
-      <span class="title-shadow">No se encontraron artículos</span>
-      <span class="title">No se encontraron artículos</span>
-    </p>
-    <hr>
+
+    <div class="empty-list">
+      <h2 class>No se encontraron artículos</h2>
+    </div>
   <?php endif ?>
 </section>
