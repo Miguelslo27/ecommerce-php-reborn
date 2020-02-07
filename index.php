@@ -3,9 +3,9 @@
 $relative = '.';
 include('./core/common.php');
 
-$userStats = loadUser();
-$appPlace = 'home';
-$appSubPlace = '';
+$userStats     = loadUser();
+$appPlace      = 'home';
+$appSubPlace   = '';
 $templatesPath = $GLOBALS['config']['templatesPath'];
 
 startDocument();
