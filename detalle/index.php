@@ -1,7 +1,7 @@
 <?php
 
 $relative = '..';
-require '../includes/common.php';
+require '../core/common.php';
 
 $userStats = loadUser();
 if ($userStats['user']->administrador == 0 ) {

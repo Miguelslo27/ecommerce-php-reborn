@@ -3,7 +3,7 @@
 ini_set("memory_limit","500M");
 
 $relative = '..';
-require '../includes/common.php';
+require '../core/common.php';
 
 header('Content-type: application/vnd.ms-excel');
 header('Content-Disposition: attachment;filename="Usuarios eCommerce.xls"');
@@ -17,7 +17,7 @@ if ($userStats['user']->administrador == 0 ) {
 
 }
 
-include_once '../includes/phpexcel/PHPExcel.php';
+include_once '../core/phpexcel/PHPExcel.php';
 
 $todosLosUsuarios = obtenerUsuarios(isset($_GET['id']) ? $_GET['id'] : null);
 // echo '<pre>';
