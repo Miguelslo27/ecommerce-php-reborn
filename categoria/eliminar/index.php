@@ -13,7 +13,7 @@ startDocument();
 loadSection("header", $userStats);
 
 ?>
-<div class="container categories">
+<div class="container">
   <?php include($templatesPath . 'components/admin/forms/delete-category.php') ?>
 </div>
 <?php
