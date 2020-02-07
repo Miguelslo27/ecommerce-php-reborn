@@ -1,7 +1,7 @@
 <?php
 
 $relative = '.';
-include('./includes/common.php');
+include('./core/common.php');
 
 $userStats = loadUser();
 $appPlace = 'home';

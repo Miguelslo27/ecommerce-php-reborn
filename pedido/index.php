@@ -1,7 +1,7 @@
 <?php
 
 $relative = '..';
-require '../includes/common.php';
+require '../core/common.php';
 
 $userStats = loadUser();
 $cartItems = $userStats['cart'] ? obtenerPedido($userStats['cart']->id) : NULL;

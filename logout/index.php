@@ -1,6 +1,6 @@
 <?php
 
 $relative = '..';
-require '../includes/common.php';
+require '../core/common.php';
 $userStats = logout();
 ?>
