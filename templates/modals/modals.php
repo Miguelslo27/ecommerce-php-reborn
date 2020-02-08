@@ -5,27 +5,27 @@
 $appPlace      = $GLOBALS['appPlace'];
 $appSubPlace   = $GLOBALS['appSubPlace'];
 $userStats     = $GLOBALS['userStats'];
-$templatesPath = $GLOBALS['config']['templatesPath'];
+$template_path = getTemplatePath();
 
 switch($userStats['status']) {
 	case 'NO_USERS':
-		include($templatesPath . 'modals/superuser-register.php');
+		include($template_path . 'modals/superuser-register.php');
 	break;
 	case 'READY_TO_LOGIN':
 	case 'USER_DOESNT_EXIST':
 	case 'ERROR_EMAIL_OR_PASS':
-		include($templatesPath . 'modals/login.php');
-		include($templatesPath . 'modals/pre-pedido-login.php');
+		include($template_path . 'modals/login.php');
+		include($template_path . 'modals/pre-pedido-login.php');
 	break;
 }
 
 switch($appSubPlace) {
 	case 'register':
-		include($templatesPath . 'modals/login.php');
+		include($template_path . 'modals/login.php');
 	break;
 	case 'pedido-actual':
-		include($templatesPath . 'modals/confirmar-pedido.php');
-		include($templatesPath . 'modals/compra-menor-al-limite.php');
+		include($template_path . 'modals/confirmar-pedido.php');
+		include($template_path . 'modals/compra-menor-al-limite.php');
 	break;
 }
 
@@ -36,18 +36,18 @@ switch($appPlace) {
 			$categories = $GLOBALS['categories'];
 			$category = $GLOBALS['category'];
 
-			include($templatesPath . 'modals/new-category.php');
-			include($templatesPath . 'modals/new-article.php');
-			include($templatesPath . 'modals/delete-category.php');
-			include($templatesPath . 'modals/delete-article.php');
+			include($template_path . 'modals/new-category.php');
+			include($template_path . 'modals/new-article.php');
+			include($template_path . 'modals/delete-category.php');
+			include($template_path . 'modals/delete-article.php');
 		} else if (!$userStats['user']) {
-			include($templatesPath . 'modals/accesso-restringido.php');
+			include($template_path . 'modals/accesso-restringido.php');
 		} else {
-			include($templatesPath . 'modals/mensaje-nueva-forma-compra.php');
+			include($template_path . 'modals/mensaje-nueva-forma-compra.php');
 		}
 	break;
 	default:
-		include($templatesPath.'modals/suscripcion.php');
+		include($template_path.'modals/suscripcion.php');
 }
 
 ?>

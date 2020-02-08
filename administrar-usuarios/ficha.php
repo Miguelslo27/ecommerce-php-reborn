@@ -11,11 +11,11 @@ if (!isAdmin() ) {
 
 }
 // $cartItems = $userStats['cart'] ? obtenerPedido($userStats['cart']->id) : NULL;
-$usuario = obtenerUsuarios(isset($_GET['id']) ? $_GET['id'] : null);
+$usuario = getUsers(isset($_GET['id']) ? $_GET['id'] : null);
 $appPlace = 'online-history';
 $appSubPlace = 'administrar-usuarios';
 
 startDocument();
-include($templatesPath . 'header.php');
+include($template_path . 'header.php');
 
 ?>

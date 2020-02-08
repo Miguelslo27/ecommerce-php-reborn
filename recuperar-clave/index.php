@@ -6,20 +6,20 @@ require '../core/common.php';
 $userStats = loadUser();
 $appPlace = 'home';
 $appSubPlace = 'password-recovery';
-$templatesPath = $GLOBALS['config']['templatesPath'];
+$template_path = getTemplatePath();
 
 $checkEmail = checkEmail(@$_POST['email']);
 
 startDocument();
-include($templatesPath . 'header.php');
+include($template_path . 'header.php');
 
 ?>
 <div class="container">
-	<?php include($templatesPath . 'components/forms/password-recovery.php') ?>
+	<?php include($template_path . 'components/forms/password-recovery.php') ?>
 </div>
 <?php
 
-include($templatesPath . 'footer.php');
+include($template_path . 'footer.php');
 endDocument();
 
 ?>

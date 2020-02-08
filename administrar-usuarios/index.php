@@ -19,10 +19,10 @@ $totalUsuarios     = obtenerTotalUsuarios();
 $cantidadPorPagina = isset($_GET['cpp']) ? (int) $_GET['cpp'] : 50;
 $totalPaginas      = ceil($totalUsuarios->total / $cantidadPorPagina);
 $pagina            = isset($_GET['p']) ? (int) $_GET['p'] : 1;
-$usuarios          = obtenerUsuariosPaginados($cantidadPorPagina, $pagina);
+$usuarios          = getUsersPaginados($cantidadPorPagina, $pagina);
 
 startDocument();
-include($templatesPath . 'header.php');
+include($template_path . 'header.php');
 
 ?>
 
@@ -125,7 +125,7 @@ include($templatesPath . 'header.php');
 
 <?php
 
-include($templatesPath . 'footer.php');
+include($template_path . 'footer.php');
 endDocument();
 
 ?>

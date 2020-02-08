@@ -20,7 +20,7 @@ if (!isAdmin() ) {
 
 }
 
-$todosLosUsuarios = obtenerUsuariosExportacion();
+$todosLosUsuarios = getUsersExportacion();
 
 // output the column headings
 fputcsv($output, array('ID', 'Nombre', 'RUT', 'E-Mail', 'Dirección', 'Teléfono', 'Localidad', 'Total Compras'));

@@ -6,13 +6,13 @@ include('../core/common.php');
 $userStats = loadUser();
 $appPlace = '404';
 $appSubPlace = '';
-$templatesPath = $GLOBALS['config']['templatesPath'];
+$template_path = getTemplatePath();
 
 startDocument();
-include($templatesPath . 'header.php');
+include($template_path . 'header.php');
 
-include($templatesPath . 'pages/404.php');
+include($template_path . 'pages/404.php');
 
-include($templatesPath . 'footer.php');
+include($template_path . 'footer.php');
 endDocument();
 ?>

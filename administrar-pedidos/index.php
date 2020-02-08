@@ -21,7 +21,7 @@ $pagina            = isset($_GET['p']) ? (int) $_GET['p'] : 1;
 $ordenes           = obtenerOrdenesPaginadas(NULL, isset($_GET['estado']) ? $_GET['estado'] : 1, $cantidadPorPagina, $pagina);
 
 startDocument();
-include($templatesPath . 'header.php');
+include($template_path . 'header.php');
 ?>
 
 	<style>
@@ -219,7 +219,7 @@ include($templatesPath . 'header.php');
 // print_r($ordenes);
 // echo '</pre>';
 
-include($templatesPath . 'footer.php');
+include($template_path . 'footer.php');
 endDocument();
 
 ?>

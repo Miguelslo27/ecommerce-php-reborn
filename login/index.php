@@ -6,17 +6,17 @@ require '../core/common.php';
 $userStats = loadUser();
 $appPlace = 'home';
 $appSubPlace = 'login';
-$templatesPath = $GLOBALS['config']['templatesPath'];
+$template_path = getTemplatePath();
 
 startDocument();
-include($templatesPath . 'header.php');
+include($template_path . 'header.php');
 
 ?>
 <div class="container">
-  <?php include($templatesPath . 'components/forms/login.php') ?>
+  <?php include($template_path . 'components/forms/login.php') ?>
 </div>
 <?php
 
-include($templatesPath . 'footer.php');
+include($template_path . 'footer.php');
 endDocument();
 ?>

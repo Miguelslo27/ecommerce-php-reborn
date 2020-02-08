@@ -6,10 +6,10 @@ require '../core/common.php';
 $userStats = loadUser();
 $appPlace = 'search';
 $appSubPlace = '';
-$templatesPath = $GLOBALS['config']['templatesPath'];
+$template_path = getTemplatePath();
 
 startDocument();
-include($templatesPath . 'header.php');
+include($template_path . 'header.php');
 
 $resultado = searchForArticles($_GET['clave']);
 $categories = getCategories(0);
@@ -37,9 +37,9 @@ $categories = getCategories(0);
 
 				}
 
-				include($templatesPath . 'search-result.php');
+				include($template_path . 'search-result.php');
 
-include($templatesPath . 'footer.php');
+include($template_path . 'footer.php');
 endDocument();
 
 ?>

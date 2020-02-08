@@ -10,6 +10,7 @@ header("Pragma: no-cache");
 
 define('CATEGORIES_PER_PAGE', 6);
 define('ARTICLES_PER_PAGE', 6);
+define('USERS_PER_PAGE', 10);
 
 if (isset($_GET['debug'])) {
   $_SESSION['debug'] = $_GET['debug'];
@@ -75,6 +76,11 @@ $config = array(
 $revision = 1; // 'revision='.rand(1,3000);
 
 $db = new DB($config['db_dbase'], $config['db_host'], $config['db_user'], $config['db_pass']);
+
+function getTemplatePath()
+{
+  return $GLOBALS['config']['templatesPath'];
+}
 
 /* USUARIO */
 function loadUser($login = NULL)
@@ -456,15 +462,55 @@ function checkUsers()
   return true;
 }
 
-function obtenerUsuarios()
+function getUsers()
 {
+  $db             = $GLOBALS['db'];
+  $users_per_page = @$_GET['pp'] ? $_GET['pp'] : USERS_PER_PAGE;
+  $curret_page    = @$_GET['p'] ? $_GET['p'] : 1;
+  $offset         = ($curret_page - 1) * $users_per_page;
+  $sql            = 'SELECT * FROM (SELECT usuario.id, usuario.nombre, usuario.apellido, usuario.rut, usuario.email, usuario.direccion, usuario.telefono, usuario.celular, usuario.departamento, usuario.ciudad, usuario.administrador, SUM(pedido.total) AS total_pedidos FROM pedido RIGHT JOIN usuario ON pedido.usuario_id = usuario.id WHERE pedido.estado = 1 OR pedido.usuario_id IS NULL GROUP BY usuario.id UNION SELECT usuario.id, usuario.nombre, usuario.apellido, usuario.rut, usuario.email, usuario.direccion, usuario.telefono, usuario.celular, usuario.departamento, usuario.ciudad, usuario.administrador, NULL AS total_pedidos FROM pedido RIGHT JOIN usuario ON pedido.usuario_id = usuario.id WHERE pedido.estado != 1 GROUP BY usuario.id) AS usuarios GROUP BY usuarios.id ORDER BY `usuarios`.`total_pedidos` DESC';
+  $sql           .= " LIMIT $offset, $users_per_page";
+  $users          = $db->getObjects($sql);
 
-  $db = $GLOBALS['db'];
-  $sql = 'SELECT * FROM (SELECT usuario.id, usuario.nombre, usuario.apellido, usuario.rut, usuario.email, usuario.direccion, usuario.telefono, usuario.celular, usuario.departamento, usuario.ciudad, SUM(pedido.total) AS total_pedidos FROM pedido RIGHT JOIN usuario ON pedido.usuario_id = usuario.id WHERE pedido.estado = 1 OR pedido.usuario_id IS NULL GROUP BY usuario.id UNION SELECT usuario.id, usuario.nombre, usuario.apellido, usuario.rut, usuario.email, usuario.direccion, usuario.telefono, usuario.celular, usuario.departamento, usuario.ciudad, NULL AS total_pedidos FROM pedido RIGHT JOIN usuario ON pedido.usuario_id = usuario.id WHERE pedido.estado != 1 GROUP BY usuario.id) AS usuarios GROUP BY usuarios.id ORDER BY `usuarios`.`total_pedidos` DESC';
+  if (!$users || count($users) == 0) {
+    $curret_page = 1;
+    $offset      = ($curret_page - 1) * $users_per_page;
+    $sql         = "SELECT `id`, `nombre`, `codigo`, `descripcion_breve`, `descripcion`, `imagenes_url`, `categoria_id`, `nuevo`, `agotado`, `oferta`, `precio`, `precio_oferta`, `orden` FROM `articulo` ORDER BY `orden` ASC";
+    $sql        .= " LIMIT $offset, $users_per_page";
+    $users       = $db->getObjects($sql);
+  }
 
-  $r = $db->getObjects($sql);
+  return ($users && count($users) > 0) ? $users : array();
+}
 
-  return $r;
+function paginateUsers()
+{
+  $db             = $GLOBALS['db'];
+  $users_per_page = @$_GET['pp'] ? $_GET['pp'] : USERS_PER_PAGE;
+  $curret_page    = @$_GET['p'] ? $_GET['p'] : 1;
+  $users_count    = $db->countOfAll('usuario');
+  $pages_count    = ceil($users_count / $users_per_page);
+  $url            = $_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : '?p={{page}}&pp={{per_page}}';
+  $url            = preg_replace('/pp=\d+/i', 'pp={{per_page}}', $url);
+  $url            = preg_replace('/p=\d+/i', 'p={{page}}', $url);
+  $url            = str_replace('{{per_page}}', $users_per_page, $url);
+?>
+  <?php if ($pages_count > 1) : ?>
+    <div class="pagination">
+      <a href="<?php echo str_replace('{{page}}', $curret_page > 1 ? $curret_page - 1 : $pages_count, $url) ?>"><i class="fas fa-arrow-left"></i></a>
+      <?php for ($i = 1; $i <= $pages_count; $i++) : ?>
+        <a class="<?php echo $i == $curret_page ? 'active' : '' ?>" href="<?php echo str_replace('{{page}}', $i, $url) ?>"><?php echo $i ?></a>
+      <?php endfor ?>
+      <a href="<?php echo str_replace('{{page}}', $curret_page < $pages_count ? $curret_page + 1 : 1, $url) ?>"><i class="fas fa-arrow-right"></i></a>
+    </div>
+  <?php endif ?>
+  <div class="per-page">
+    <span>Mostrar:</span>
+    <a class="<?php echo $users_per_page == 10 ? 'active' : '' ?>" href="?p=1&pp=10">10</a>
+    <a class="<?php echo $users_per_page == 20 ? 'active' : '' ?>" href="?p=1&pp=20">20</a>
+    <a class="<?php echo $users_per_page == 30 ? 'active' : '' ?>" href="?p=1&pp=30">30</a>
+  </div>
+<?php
 }
 
 function obtenerTotalUsuarios()
@@ -477,7 +523,7 @@ function obtenerTotalUsuarios()
   return $r;
 }
 
-function obtenerUsuariosPaginados($cantidadPorPagina = 20, $pagina = 1)
+function getUsersPaginados($cantidadPorPagina = 20, $pagina = 1)
 {
   $db = $GLOBALS['db'];
   $sql = 'SELECT * FROM `usuario` LIMIT ' . ($cantidadPorPagina * ($pagina - 1)) . ',' . $cantidadPorPagina;
@@ -538,7 +584,7 @@ function obtenerOrdenesPaginadas($id_usuario = null, $estado = NULL, $cantidadPo
   return $pedidos;
 }
 
-function obtenerUsuariosExportacion()
+function getUsersExportacion()
 {
   $db = $GLOBALS['db'];
   $sql = 'SELECT * FROM (SELECT usuario.id, usuario.nombre, usuario.apellido, usuario.rut, usuario.email, usuario.direccion, usuario.telefono, usuario.celular, usuario.departamento, usuario.ciudad, SUM(pedido.total) AS total_pedidos FROM pedido RIGHT JOIN usuario ON pedido.usuario_id = usuario.id WHERE pedido.estado = 1 OR pedido.usuario_id IS NULL GROUP BY usuario.id UNION SELECT usuario.id, usuario.nombre, usuario.apellido, usuario.rut, usuario.email, usuario.direccion, usuario.telefono, usuario.celular, usuario.departamento, usuario.ciudad, NULL AS total_pedidos FROM pedido RIGHT JOIN usuario ON pedido.usuario_id = usuario.id WHERE pedido.estado != 1 GROUP BY usuario.id) AS usuarios GROUP BY usuarios.id ORDER BY `usuarios`.`total_pedidos` DESC';
@@ -757,7 +803,6 @@ function searchForArticles($busqueda = NULL)
   return (count($arts) > 0) ? $arts : array();
 }
 
-// @TODO - Paginate Articles
 function paginateArticles()
 {
   $db                = $GLOBALS['db'];

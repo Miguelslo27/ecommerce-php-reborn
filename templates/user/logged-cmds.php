@@ -13,8 +13,8 @@
     </div>
   </div>
   <?php if (isAdmin()) : ?>
-    <a href="/administrar-pedidos" class="access-menu normal-tab">Pedidos</a>
-    <a href="/administrar-usuarios" class="access-menu normal-tab">Usuarios</a>
+    <a href="/admin/ordenes" class="access-menu normal-tab">Pedidos</a>
+    <a href="/admin/usuarios" class="access-menu normal-tab">Usuarios</a>
   <?php endif ?>
   <?php if (!isAdmin()) : ?>
     <a href="/pedido" class="access-menu normal-tab">

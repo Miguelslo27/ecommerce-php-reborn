@@ -6,18 +6,18 @@ require '../core/common.php';
 $userStats = saveUser();
 $appPlace = 'home';
 $appSubPlace = 'register';
-$templatesPath = $GLOBALS['config']['templatesPath'];
+$template_path = getTemplatePath();
 
 startDocument();
-include($templatesPath . 'header.php');
+include($template_path . 'header.php');
 
 ?>
 <div class="container">
-	<?php include($templatesPath . 'components/forms/register.php') ?>
+	<?php include($template_path . 'components/forms/register.php') ?>
 </div>
 <?php
 
-include($templatesPath . 'footer.php');
+include($template_path . 'footer.php');
 endDocument();
 
 ?>

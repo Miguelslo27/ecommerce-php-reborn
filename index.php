@@ -6,22 +6,22 @@ include('./core/common.php');
 $userStats     = loadUser();
 $appPlace      = 'home';
 $appSubPlace   = '';
-$templatesPath = $GLOBALS['config']['templatesPath'];
+$template_path = getTemplatePath();
 
 startDocument();
-include($templatesPath . 'header.php');
+include($template_path . 'header.php');
 
 ?>
 <div class="container home">
   <?php
-  include($templatesPath . 'components/hero.php');
-  include($templatesPath . 'components/categories/featuredCategories.php');
-  include($templatesPath . 'components/articles/newArticles.php');
-  include($templatesPath . 'components/articles/featuredArticles.php');
+  include($template_path . 'components/hero.php');
+  include($template_path . 'components/categories/featuredCategories.php');
+  include($template_path . 'components/articles/newArticles.php');
+  include($template_path . 'components/articles/featuredArticles.php');
   ?>
 </div>
 <?php
 
-include($templatesPath . 'footer.php');
+include($template_path . 'footer.php');
 endDocument();
 ?>
