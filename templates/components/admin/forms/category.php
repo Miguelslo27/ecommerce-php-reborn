@@ -42,7 +42,7 @@ $catid      = isset($_GET['cid']) ? $_GET['cid'] : null;
     </div>
     <div class="form-actions">
       <button type="submit">Guardar</button>
-      <button type="reset">Cancelar</button>
+      <a href="/categorias" class="button secondary">Cancelar</a>
     </div>
   </form>
 </div>

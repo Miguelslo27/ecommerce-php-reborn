@@ -64,7 +64,7 @@ $artid      = isset($_GET['aid']) ? $_GET['aid'] : null;
     </div>
     <div class="form-actions">
       <button type="submit">Guardar</button>
-      <button type="reset">Cancelar</button>
+      <a href="/categorias" class="button secondary">Cancelar</a>
     </div>
   </form>
 </div>
