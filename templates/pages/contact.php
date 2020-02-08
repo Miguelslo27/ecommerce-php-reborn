@@ -93,7 +93,7 @@
       </div>
       <div class="form-actions">
         <button type="submit" name="submit">Enviar</button>
-        <button type="reset" name="submit">Regresar</button>
+        <a href="/" class="button secondary">Cancelar</a>
       </div>
     </form>
   </div>

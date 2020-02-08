@@ -628,10 +628,19 @@ form .form-actions {
 
 form .form-line button,
 form .form-group button,
-form .form-actions button {
+form .form-actions button,
+form .form-line a.button,
+form .form-group a.button,
+form .form-actions a.button {
   width: 49%;
   padding: 1rem;
-  font-weight: bold;
+  background-color: rgb(240, 240, 240);
+  color: #000;
+  font-family: Arial;
+  font-size: .85rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
   text-transform: uppercase;
   border-radius: 50px;
   box-shadow: 0 4px 6px -4px #b52299;
@@ -643,7 +652,13 @@ form .form-line button[type=reset]:focus,
 form .form-group button[type=submit]:focus,
 form .form-group button[type=reset]:focus,
 form .form-actions button[type=submit]:focus,
-form .form-actions button[type=reset]:focus {
+form .form-actions button[type=reset]:focus,
+form .form-line a.button.primary:active,
+form .form-line a.button.secondary:active,
+form .form-group a.button.primary:active,
+form .form-group a.button.secondary:active,
+form .form-actions a.button.primary:active,
+form .form-actions a.button.secondary:active {
   border: 2px solid #FFF;
   box-shadow:
     0 0px 2px #b52299,
@@ -656,7 +671,10 @@ form .form-actions button:disabled {}
 
 form .form-line button[type=submit],
 form .form-group button[type=submit],
-form .form-actions button[type=submit] {
+form .form-actions button[type=submit],
+form .form-line a.button.primary,
+form .form-group a.button.primary,
+form .form-actions a.button.primary {
   background: #930077;
   border: 2px solid #930077;
   color: #FFF;
@@ -666,7 +684,10 @@ form .form-actions button[type=submit]:disabled {}
 
 form .form-line button[type=reset],
 form .form-group button[type=reset],
-form .form-actions button[type=reset] {
+form .form-actions button[type=reset],
+form .form-line a.button.secondary,
+form .form-group a.button.secondary,
+form .form-actions a.button.secondary {
   border: 2px solid #930077;
 }
 

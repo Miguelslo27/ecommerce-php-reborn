@@ -54,9 +54,9 @@ $artid      = isset($_GET['aid']) ? $_GET['aid'] : null;
     <div class="form-group">
       <label for="categoria_id">Categoría</label>
       <select name="categoria_id" id="categoria_id">
-        <option value="0" <?php echo ($article->id == 0) ? 'selected' : ''; ?>>-- Sin Categoría --</option>
+        <option value="0" <?php echo (isset($article) && $article->id == 0) ? 'selected' : ''; ?>>-- Sin Categoría --</option>
         <?php foreach ($categories as $cat) : ?>
-          <option value="<?php echo $cat->id; ?>" <?php echo ($article->categoria_id == $cat->id) ? 'selected' : ''; ?>><?php echo $cat->titulo; ?></option>
+          <option value="<?php echo $cat->id; ?>" <?php echo (isset($article) && $article->categoria_id == $cat->id) ? 'selected' : ''; ?>><?php echo $cat->titulo; ?></option>
         <?php endforeach ?>
       </select>
       <label for="orden" class="align-center">Posición</label>
@@ -64,7 +64,7 @@ $artid      = isset($_GET['aid']) ? $_GET['aid'] : null;
     </div>
     <div class="form-actions">
       <button type="submit">Guardar</button>
-      <button type="reset">Cancelar</button>
+      <a href="/categorias" class="button secondary">Cancelar</a>
     </div>
   </form>
 </div>
