@@ -4,8 +4,8 @@ $relative = '../..';
 require '../../core/common.php';
 
 $userStats     = loadUser();
-$appPlace      = 'category';
-$appSubPlace   = 'delete';
+$appPlace      = 'article';
+$appSubPlace   = 'new';
 $templatesPath = $GLOBALS['config']['templatesPath'];
 
 protectFromNotAdminUsers();
@@ -14,7 +14,7 @@ loadSection("header", $userStats);
 
 ?>
 <div class="container">
-  <?php include($templatesPath . 'components/admin/forms/delete-category.php') ?>
+  <?php include($templatesPath . 'components/admin/forms/article.php') ?>
 </div>
 <?php
 

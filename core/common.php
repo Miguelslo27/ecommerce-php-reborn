@@ -648,6 +648,15 @@ function paginateCategories()
 	<?php
 }
 
+function getArticle()
+{
+	$db  = $GLOBALS['db'];
+	$aid = $_GET['aid'];
+	$sql = "SELECT `id`, `nombre`, `codigo`, `descripcion_breve`, `descripcion`, `imagenes_url`, `categoria_id`, `nuevo`, `agotado`, `oferta`, `precio`, `precio_oferta`, `orden` FROM `articulo` WHERE id = $aid";
+	$art = $db->getObject($sql);
+	return $art;
+}
+
 function getArticles($parentId = NULL)
 {
 	$db                = $GLOBALS['db'];
@@ -887,7 +896,6 @@ function saveArticle()
 
 			$relative      = $GLOBALS['relative'];
 			$db            = $GLOBALS['db'];
-			// $sql        = 'INSERT INTO `articulo` (`nombre`, `codigo`, `descripcion_breve`, `descripcion`, `talle`, `talle_surtido`, `adaptable`, `colores_url`, `colores_surtidos_url`, `packs`, `categoria_id`, `imagenes_url`, `estado`, `nuevo`, `agotado`, `oferta`, `surtido`, `precio`, `precio_oferta`, `precio_surtido`, `precio_oferta_surtido`, `orden`) VALUES ("' . $_POST['nombre'] . '","' . $_POST['codigo'] . '","' . $_POST['descripcion_breve'] . '","' . $_POST['descripcion'] . '","' . $_POST['talle'] . '","' . $_POST['talle_surtido'] . '","0","' . $colorsLocation . '","' . $colorsSurtLocation . '","' . $_POST['packs'] . '","' . $_POST['categoria_id'] . '","' . $imagesLocation . '", 1, "' . @($_POST['nuevo'] == "on" ? 1 : 0) . '", "' . @($_POST['agotado'] == "on" ? 1 : 0) . '", "' . @($_POST['oferta'] == "on" ? 1 : 0) . '", "' . @($_POST['surtido'] == "on" ? 1 : 0) . '", "' . $_POST['precio'] . '", "' . $_POST['precio_oferta'] . '", "' . $_POST['precio_surtido'] . '", "' . $_POST['precio_oferta_surtido'] . '", ' . $_POST['orden'] . ')';
 			$sql           = 'INSERT INTO `articulo` (`nombre`,`codigo`,`descripcion_breve`,`descripcion`,`categoria_id`,`nuevo`,`agotado`,`oferta`,`precio`,`precio_oferta`,`orden`) VALUES ("' . $_POST['nombre'] . '","' . $_POST['codigo'] . '","' . $_POST['descripcion_breve'] . '","' . $_POST['descripcion'] . '","' . $_POST['categoria_id'] . '","' . (@$_POST['nuevo'] == "on" ? 1 : 0) . '","' . (@$_POST['agotado'] == "on" ? 1 : 0) . '","' . (@$_POST['oferta'] == "on" ? 1 : 0) . '","' . $_POST['precio'] . '","' . $_POST['precio_oferta'] . '","' . $_POST['orden'] . '")';
 			$cid           = $db->insert($sql);
 			$imageLocation = ($_FILES['imagen']['error'] == 0) ? '/statics/images/articles/' . $cid . '/' : '';
@@ -922,104 +930,32 @@ function updateArticle($id)
 	if (!isAdmin()) return;
 	if (!$id) return;
 
-	$db = $GLOBALS['db'];
-	$imageLoc     = '/statics/images/articles/{id}/';
-	$colorLoc     = '/statics/images/articles/{id}/colors/';
-	$colorSurtLoc = '/statics/images/articles/{id}/colors/surtidos/';
+	$relative      = $GLOBALS['relative'];
+	$db            = $GLOBALS['db'];
+	$sql           = 'UPDATE `articulo` SET `nombre`="' . $_POST['nombre'] . '", `codigo`="' . $_POST['codigo'] . '", `descripcion_breve`="' . $_POST['descripcion_breve'] . '", `descripcion`="' . $_POST['descripcion'] . '", `categoria_id`="' . $_POST['categoria_id'] . '", `orden`=' . $_POST['orden'] . ', `nuevo`=' . (@$_POST['nuevo'] == "on" ? 1 : 0) . ', `agotado`=' . (@$_POST['agotado'] == "on" ? 1 : 0) . ', `oferta`=' . (@$_POST['oferta'] == "on" ? 1 : 0) . ', `precio`="' . $_POST['precio'] . '", `precio_oferta`=' . (isset($_POST['precio_oferta']) ? $_POST['precio_oferta'] : 0) . ' WHERE `id`=' . $id;
+	$imageLocation = ($_FILES['imagen']['error'] == 0) ? '/statics/images/articles/' . $id . '/' : '';
 
-	$sql = 'UPDATE `articulo` SET `nombre`="' . $_POST['nombre'] . '", `codigo`="' . $_POST['codigo'] . '", `descripcion_breve`="' . $_POST['descripcion_breve'] . '", `descripcion`="' . $_POST['descripcion'] . '", `talle`="' . $_POST['talle'] . '", `talle_surtido`="' . $_POST['talle_surtido'] . '", `adaptable`="' . @($_POST['adaptable'] == "on" ? 1 : 0) . '", `colores_url` = "' . $colorLoc . '", `colores_surtidos_url` = "' . $colorSurtLoc . '", `packs`="' . $_POST['packs'] . '", `categoria_id`="' . $_POST['categoria_id'] . '", `imagenes_url` = "' . $imageLoc . '", `orden`=' . $_POST['orden'] . ', `nuevo`=' . ($_POST['nuevo'] == "on" ? 1 : 0) . ', `agotado`=' . ($_POST['agotado'] == "on" ? 1 : 0) . ', `oferta`=' . ($_POST['oferta'] == "on" ? 1 : 0) . ', `surtido`=' . ($_POST['surtido'] == "on" ? 1 : 0) . ', `precio`="' . $_POST['precio'] . '", `precio_oferta`=' . (isset($_POST['precio_oferta']) ? $_POST['precio_oferta'] : 0) . ', `precio_surtido`=' . (isset($_POST['precio_surtido']) ? $_POST['precio_surtido'] : 0) . ', `precio_oferta_surtido`=' . (isset($_POST['precio_oferta_surtido']) ? $_POST['precio_oferta_surtido'] : 0) . ' WHERE `id`=' . $id;
+	$db->insert($sql);
 
-	$cid = $db->insert($sql);
-
-	$relative          = $GLOBALS['relative'];
-	$imageLocation     = $relative . '/statics/images/articles/' . $id . '/';
-	$colorLocation     = $relative . '/statics/images/articles/' . $id . '/colors/';
-	$colorSurtLocation = $relative . '/statics/images/articles/' . $id . '/colors/surtidos/';
-
-	// creo la carpeta para las imagenes de este artículo
+	// creo la carpeta para las imagenes de este articulo
 	@mkdir($imageLocation);
 
-	if ($_FILES['imagen']['error'] == 0) {
+	// Elimino la imagen anterior
+	@unlink($relative . $imageLocation . '/thumbnail.jpg');
 
-		// salvar imagen
-		@unlink($imageLocation . '/thumbnail.jpg');
-		$img = new \Verot\Upload\Upload($_FILES['imagen']);
-		
-		if ($img->uploaded) {
-			$img->file_new_name_body = 'thumbnail';
-			$img->image_resize       = true;
-			$img->image_x            = 500;
-			$img->image_ratio_y      = true;
-			$img->image_convert      = 'webp';
-			$img->process($imageLocation);
-		}
-	}
+	// salvar imagen
+	$img = new \Verot\Upload\Upload($_FILES['imagen']);
 
-	if ($_FILES['colores']['error'][0] == 0) {
-		// salvar colores
-		@unlink($imageLocation . '/colors.jpg');
-		$oldColors = glob($colorLocation . '*'); // get all file names
+	if ($img->uploaded) {
+		$img->file_new_name_body = 'thumbnail';
+		$img->image_resize       = true;
+		$img->image_x            = 500;
+		$img->image_ratio_y      = true;
+		$img->image_convert      = 'webp';
+		$img->process($relative . $imageLocation);
 
-		foreach ($oldColors as $oldColor) {
-			unlink($oldColor);
-		}
-
-		// salvar colores
-		$colorsNum = count($_FILES['colores']['name']);
-
-		for ($i = 0; $i < $colorsNum; $i++) {
-
-			$currentColor			  = array();
-			$currentColor['name']	  = $_FILES['colores']['name'][$i];
-			$currentColor['type']     = $_FILES['colores']['type'][$i];
-			$currentColor['tmp_name'] = $_FILES['colores']['tmp_name'][$i];
-			$currentColor['error']    = $_FILES['colores']['error'][$i];
-			$currentColor['size']     = $_FILES['colores']['size'][$i];
-
-			$colorName = (string) $i + 1;
-			$colorName = (strlen($colorName) < 2 ? '0' . $colorName : $colorName);
-
-			@$color = new \Verot\Upload\Upload($currentColor);
-			
-			if ($color->uploaded) {
-				$color->file_new_name_body = $colorName;
-				$color->image_convert = 'jpg';
-				@$color->process($colorLocation);
-			}
-		}
-	}
-
-	if ($_FILES['colores_surtidos']['error'][0] == 0) {
-		// salvar colores
-		$oldSColors = glob($colorSurtLocation . '*'); // get all file names
-
-		foreach ($oldSColors as $oldSColor) {
-			unlink($oldSColor);
-		}
-
-		// salvar colores
-		$colorsSNum = count($_FILES['colores_surtidos']['name']);
-
-		for ($i = 0; $i < $colorsSNum; $i++) {
-
-			$currentSColor			  = array();
-			$currentSColor['name']	  = $_FILES['colores_surtidos']['name'][$i];
-			$currentSColor['type']     = $_FILES['colores_surtidos']['type'][$i];
-			$currentSColor['tmp_name'] = $_FILES['colores_surtidos']['tmp_name'][$i];
-			$currentSColor['error']    = $_FILES['colores_surtidos']['error'][$i];
-			$currentSColor['size']     = $_FILES['colores_surtidos']['size'][$i];
-
-			$colorSName = (string) $i + 1;
-			$colorSName = (strlen($colorSName) < 2 ? '0' . $colorSName : $colorSName);
-
-			@$colorS = new \Verot\Upload\Upload($currentSColor);
-			if ($colorS->uploaded) {
-
-				$colorS->file_new_name_body = $colorSName;
-				$colorS->image_convert = 'jpg';
-				@$colorS->process($colorSurtLocation);
-			}
-		}
+		$sql = 'UPDATE `articulo` SET `imagenes_url` = "' . $imageLocation . $img->file_dst_name . '" WHERE `id`=' . $id;
+		$db->insert($sql);
 	}
 }
 

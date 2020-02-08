@@ -4,15 +4,15 @@
     <span class="title">Artículos</span>
   </h1>
 
-  <?php if (count($articles) > 0) : ?>
-    <?php if (@$userStats['user']->administrador == 1) : ?>
-      <div class="list-actions">
-        <div class="admin-actions">
-          <a href="/producto/nuevo">Nuevo artículo +</a>
-        </div>
+  <?php if (@$userStats['user']->administrador == 1) : ?>
+    <div class="list-actions">
+      <div class="admin-actions">
+        <a href="/producto/nuevo">Nuevo artículo +</a>
       </div>
-    <?php endif ?>
+    </div>
+  <?php endif ?>
 
+  <?php if (count($articles) > 0) : ?>
     <div class="list-actions">
       <?php paginateArticles() ?>
     </div>
@@ -51,10 +51,11 @@
             <div class="actions">
               <a href="<?php echo $article->id ?>">Agregar al carrito +</a>
             </div>
+
             <?php if (@$userStats['user']->administrador == 1) : ?>
               <div class="admin-article-controls">
-                <a href="/producto/editar/?cid=<?php echo $article->id ?>"><i class="far fa-edit"></i></a>
-                <a href="/producto/eliminar/?cid=<?php echo $article->id ?>"><i class="far fa-trash-alt"></i></a>
+                <a href="/producto/editar/?aid=<?php echo $article->id ?>"><i class="far fa-edit"></i></a>
+                <a href="/producto/eliminar/?aid=<?php echo $article->id ?>"><i class="far fa-trash-alt"></i></a>
               </div>
             <?php endif ?>
           </article>
@@ -62,14 +63,6 @@
       <?php endforeach ?>
     </ul>
   <?php else : ?>
-    <?php if (@$userStats['user']->administrador == 1) : ?>
-      <div class="list-actions">
-        <div class="admin-actions">
-          <a href="/producto/nuevo">Nuevo artículo +</a>
-        </div>
-      </div>
-    <?php endif ?>
-
     <div class="empty-list">
       <h2 class>No se encontraron artículos</h2>
     </div>
