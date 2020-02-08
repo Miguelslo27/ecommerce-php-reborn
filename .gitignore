@@ -1,5 +1,16 @@
+# Dependencies Managers snd System ignored files
+.DS_Store
+Thumbs.db
+npm-debug.log
+/bower_components
+/node_modules
+/vendor
+
+# Project ignored files
 statics/images/articles
 statics/images/categories
 statics/images/catalogos
+
+# Debuging ignored files
 error_log
 error.*
