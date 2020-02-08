@@ -19,7 +19,7 @@ if (!isAdmin() ) {
 
 include_once '../core/phpexcel/PHPExcel.php';
 
-$todosLosUsuarios = obtenerUsuarios(isset($_GET['id']) ? $_GET['id'] : null);
+$todosLosUsuarios = getUsers(isset($_GET['id']) ? $_GET['id'] : null);
 // echo '<pre>';
 // print_r($todosLosUsuarios);
 // echo '</pre>';

@@ -8,7 +8,7 @@ $appPlace = 'catalogs';
 $appSubPlace = '';
 
 startDocument();
-include($templatesPath . 'header.php');
+include($template_path . 'header.php');
 
 ?>
 	<style>
@@ -222,7 +222,7 @@ include($templatesPath . 'header.php');
 
 <?php
 
-include($templatesPath . 'footer.php');
+include($template_path . 'footer.php');
 endDocument();
 
 ?>

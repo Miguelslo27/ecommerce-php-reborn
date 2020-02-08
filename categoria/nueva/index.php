@@ -6,18 +6,18 @@ require '../../core/common.php';
 $userStats     = loadUser();
 $appPlace      = 'category';
 $appSubPlace   = 'new';
-$templatesPath = $GLOBALS['config']['templatesPath'];
+$template_path = getTemplatePath();
 
 protectFromNotAdminUsers();
 startDocument();
-include($templatesPath . 'header.php');
+include($template_path . 'header.php');
 
 ?>
 <div class="container">
-  <?php include($templatesPath . 'components/admin/forms/category.php') ?>
+  <?php include($template_path . 'components/admin/forms/category.php') ?>
 </div>
 <?php
 
-include($templatesPath . 'footer.php');
+include($template_path . 'footer.php');
 endDocument();
 ?>

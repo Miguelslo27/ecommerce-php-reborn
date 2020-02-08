@@ -6,18 +6,18 @@ require '../core/common.php';
 $userStats = loadUser();
 $appPlace = 'contact';
 $appSubPlace = '';
-$templatesPath = $GLOBALS['config']['templatesPath'];
+$template_path = getTemplatePath();
 
 startDocument();
-include($templatesPath . 'header.php');
+include($template_path . 'header.php');
 
 ?>
 <div class="container">
-	<?php include($templatesPath . 'pages/contact.php') ?>
+	<?php include($template_path . 'pages/contact.php') ?>
 </div>
 <?php
 
-include($templatesPath . 'footer.php');
+include($template_path . 'footer.php');
 endDocument();
 
 ?>

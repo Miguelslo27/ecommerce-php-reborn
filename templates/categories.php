@@ -99,7 +99,7 @@
 						}
 						if (isAdmin()) {
 
-							include($templatesPath . '/user/admin-cmds.php');
+							include($template_path . '/user/admin-cmds.php');
 
 						}
 						?>

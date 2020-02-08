@@ -8,9 +8,9 @@
     </h2>
     <?php
 
-    include($templatesPath . 'components/forms/search.php');
-    include($templatesPath . 'components/categories/featuredCategories.php');
-    include($templatesPath . 'components/articles/featuredArticles.php');
+    include($template_path . 'components/forms/search.php');
+    include($template_path . 'components/categories/featuredCategories.php');
+    include($template_path . 'components/articles/featuredArticles.php');
 
     ?>
   </div>

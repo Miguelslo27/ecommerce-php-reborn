@@ -4,15 +4,15 @@
     <span class="title">Categorías</span>
   </h1>
 
-  <?php if (count($categories) > 0) : ?>
-    <?php if (isAdmin()) : ?>
-      <div class="list-actions">
-        <div class="admin-actions">
-          <a href="/categoria/nueva">Nueva categoría +</a>
-        </div>
+  <?php if (isAdmin()) : ?>
+    <div class="list-actions">
+      <div class="admin-actions">
+        <a href="/categoria/nueva">Nueva categoría +</a>
       </div>
-    <?php endif ?>
+    </div>
+  <?php endif ?>
 
+  <?php if (count($categories) > 0) : ?>
     <div class="list-actions">
       <?php paginateCategories() ?>
     </div>
@@ -39,13 +39,6 @@
       <?php endforeach; ?>
     </ul>
   <?php else : ?>
-    <?php if (isAdmin()) : ?>
-      <div class="list-actions">
-        <div class="admin-actions">
-          <a href="/categoria/nueva">Nueva categoría +</a>
-        </div>
-      </div>
-    <?php endif ?>
     <div class="empty-list">
       <h2 class>No se encontraron categorías</h2>
     </div>

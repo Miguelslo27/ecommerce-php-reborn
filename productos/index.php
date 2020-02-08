@@ -6,21 +6,21 @@ require '../core/common.php';
 $userStats     = loadUser();
 $appPlace      = 'articles';
 $appSubPlace   = 'list';
-$templatesPath = $GLOBALS['config']['templatesPath'];
+$template_path = getTemplatePath();
 
 $articleSaved  = saveArticle();
 $categories    = getCategories(0);
 $articles      = getArticles();
 
 startDocument();
-include($templatesPath . 'header.php');
+include($template_path . 'header.php');
 
 ?>
 <div class="container">
-	<?php include($templatesPath . 'components/articles/articles.php') ?>
+	<?php include($template_path . 'components/articles/articles.php') ?>
 </div>
 <?php
 
-include($templatesPath . 'footer.php');
+include($template_path . 'footer.php');
 endDocument();
 ?>

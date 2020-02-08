@@ -6,10 +6,10 @@ require '../core/common.php';
 $userStats = loadUser();
 $appPlace = 'hoy-to-buy';
 $appSubPlace = '';
-$templatesPath = $GLOBALS['config']['templatesPath'];
+$template_path = getTemplatePath();
 
 startDocument();
-include($templatesPath . 'header.php');
+include($template_path . 'header.php');
 
 ?>
 
@@ -110,7 +110,7 @@ include($templatesPath . 'header.php');
 
 <?php
 
-include($templatesPath . 'footer.php');
+include($template_path . 'footer.php');
 endDocument();
 
 ?>
