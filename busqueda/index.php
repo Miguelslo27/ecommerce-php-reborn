@@ -9,7 +9,7 @@ $appSubPlace = '';
 $templatesPath = $GLOBALS['config']['templatesPath'];
 
 startDocument();
-loadSection("header", $userStats);
+include($templatesPath . 'header.php');
 
 $resultado = searchForArticles($_GET['clave']);
 $categories = getCategories(0);
@@ -39,7 +39,7 @@ $categories = getCategories(0);
 
 				include($templatesPath . 'search-result.php');
 
-loadSection("footer", $userStats);
+include($templatesPath . 'footer.php');
 endDocument();
 
 ?>

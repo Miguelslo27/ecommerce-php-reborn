@@ -20,7 +20,7 @@ $categories = getCategories(0, 2);
               <span>0 articulos<?php // articles in the category 
                                 ?></span>
             </div>
-            <?php if (@$userStats['user']->administrador == 1) : ?>
+            <?php if (isAdmin()) : ?>
               <div class="admin-category-controls">
                 <a href="/categoria/editar/?cid=<?php echo $category->id ?>"><i class="far fa-edit"></i></a>
                 <a href="/categoria/eliminar/?cid=<?php echo $category->id ?>"><i class="far fa-trash-alt"></i></a>

@@ -8,7 +8,7 @@ $appPlace = 'home';
 $appSubPlace = 'pedido-actual';
 
 startDocument();
-loadSection("header", $userStats);
+include($templatesPath . 'header.php');
 
 ?>
 	<style>
@@ -44,7 +44,7 @@ loadSection("header", $userStats);
 				
 <?php
 
-loadSection("footer", $userStats);
+include($templatesPath . 'footer.php');
 endDocument();
 
 ?>

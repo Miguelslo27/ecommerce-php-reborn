@@ -36,7 +36,7 @@
 
 			<?php
 			
-			if (@$userStats['user']->administrador == 1) {
+			if (isAdmin()) {
 
 				include($templatesPath . '/user/admin-cmds.php');
 
@@ -96,7 +96,7 @@
 						}
 						?>
 						<?php
-						if (@$userStats['user']->administrador == 1) {
+						if (isAdmin()) {
 
 							?>
 

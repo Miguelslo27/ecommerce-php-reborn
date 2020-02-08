@@ -4,7 +4,7 @@ $relative = '..';
 require '../core/common.php';
 
 $userStats = loadUser();
-if (@$userStats['user']->administrador == 0 ) {
+if (!isAdmin() ) {
 
 	echo "Acceso restringido!";
 	return;
@@ -21,7 +21,7 @@ $pagina            = isset($_GET['p']) ? (int) $_GET['p'] : 1;
 $ordenes           = obtenerOrdenesPaginadas(NULL, isset($_GET['estado']) ? $_GET['estado'] : 1, $cantidadPorPagina, $pagina);
 
 startDocument();
-loadSection("header", $userStats);
+include($templatesPath . 'header.php');
 ?>
 
 	<style>
@@ -219,7 +219,7 @@ loadSection("header", $userStats);
 // print_r($ordenes);
 // echo '</pre>';
 
-loadSection("footer", $userStats);
+include($templatesPath . 'footer.php');
 endDocument();
 
 ?>

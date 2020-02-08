@@ -9,7 +9,7 @@ $appSubPlace = '';
 $templatesPath = $GLOBALS['config']['templatesPath'];
 
 startDocument();
-loadSection("header", $userStats);
+include($templatesPath . 'header.php');
 
 ?>
 
@@ -110,7 +110,7 @@ loadSection("header", $userStats);
 
 <?php
 
-loadSection("footer", $userStats);
+include($templatesPath . 'footer.php');
 endDocument();
 
 ?>

@@ -8,9 +8,9 @@ $appPlace = 'online-history';
 $appSubPlace = '';
 
 startDocument();
-loadSection("header", $userStats);
-loadSection("content", $userStats);
-loadSection("footer", $userStats);
+include($templatesPath . 'header.php');
+include($templatesPath . 'content.php');
+include($templatesPath . 'footer.php');
 endDocument();
 
 ?>
