@@ -1,0 +1,11 @@
+{
+    "name": "mike/ecommerce-php-reborn",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Mike",
+            "email": "miguelmail2006@gmail.com"
+        }
+    ],
+    "require": {}
+}
