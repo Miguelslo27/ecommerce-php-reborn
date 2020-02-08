@@ -5,7 +5,7 @@
   </h1>
 
   <?php if (count($categories) > 0) : ?>
-    <?php if (@$userStats['user']->administrador == 1) : ?>
+    <?php if (isAdmin()) : ?>
       <div class="list-actions">
         <div class="admin-actions">
           <a href="/categoria/nueva">Nueva categoría +</a>
@@ -28,7 +28,7 @@
               <span>0 articulos<?php // articles in the category 
                                 ?></span>
             </div>
-            <?php if (@$userStats['user']->administrador == 1) : ?>
+            <?php if (isAdmin()) : ?>
               <div class="admin-category-controls">
                 <a href="/categoria/editar/?cid=<?php echo $category->id ?>"><i class="far fa-edit"></i></a>
                 <a href="/categoria/eliminar/?cid=<?php echo $category->id ?>"><i class="far fa-trash-alt"></i></a>
@@ -39,7 +39,7 @@
       <?php endforeach; ?>
     </ul>
   <?php else : ?>
-    <?php if (@$userStats['user']->administrador == 1) : ?>
+    <?php if (isAdmin()) : ?>
       <div class="list-actions">
         <div class="admin-actions">
           <a href="/categoria/nueva">Nueva categoría +</a>

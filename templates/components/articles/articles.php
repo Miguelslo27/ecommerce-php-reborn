@@ -4,7 +4,7 @@
     <span class="title">Artículos</span>
   </h1>
 
-  <?php if (@$userStats['user']->administrador == 1) : ?>
+  <?php if (isAdmin()) : ?>
     <div class="list-actions">
       <div class="admin-actions">
         <a href="/producto/nuevo">Nuevo artículo +</a>
@@ -52,7 +52,7 @@
               <a href="<?php echo $article->id ?>">Agregar al carrito +</a>
             </div>
 
-            <?php if (@$userStats['user']->administrador == 1) : ?>
+            <?php if (isAdmin()) : ?>
               <div class="admin-article-controls">
                 <a href="/producto/editar/?aid=<?php echo $article->id ?>"><i class="far fa-edit"></i></a>
                 <a href="/producto/eliminar/?aid=<?php echo $article->id ?>"><i class="far fa-trash-alt"></i></a>

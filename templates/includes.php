@@ -42,7 +42,7 @@ switch ($place) {
 		}
 
 		// estilos que solo se usaran en paginas de administrador
-		if (@$userStats['user']->administrador == 1) {
+		if (isAdmin()) {
 			?>
 			<link rel="stylesheet" href="/statics/css/administrador.css?<?php echo $revision; ?>">
 		<?php
@@ -159,7 +159,7 @@ switch ($place) {
 		}
 
 		// scripts que solo se usaran en paginas de administrador
-		if (@$userStats['user']->administrador == 1) {
+		if (isAdmin()) {
 			?>
 
 			<!-- <script src="/statics/js/administrador.js?<?php echo $revision; ?>"></script> -->

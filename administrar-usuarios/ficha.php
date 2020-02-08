@@ -4,7 +4,7 @@ $relative = '..';
 require '../core/common.php';
 
 $userStats = loadUser();
-if (@$userStats['user']->administrador == 0 ) {
+if (!isAdmin() ) {
 
 	echo "Acceso restringido!";
 	return;

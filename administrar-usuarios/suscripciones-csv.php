@@ -13,7 +13,7 @@ header('Cache-Control: max-age=0');
 $output = fopen('php://output', 'w');
 
 $userStats = loadUser();
-if (@$userStats['user']->administrador == 0 ) {
+if (!isAdmin() ) {
 	echo "Acceso restringido!";
 	exit;
 }

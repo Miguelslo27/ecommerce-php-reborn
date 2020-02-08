@@ -1621,6 +1621,18 @@ function isAdmin()
   return @$GLOBALS['userStats']['user']->administrador;
 }
 
+function isLoggedIn() {
+  return @$GLOBALS['userStats']['status'] === 'LOGGED';
+}
+
+function getUserName() {
+  return @$GLOBALS['userStats']['user']->nombre;
+}
+
+function getUserId() {
+  return @$GLOBALS['userStats']['user']->id;
+}
+
 function protectFromNotAdminUsers()
 {
   if (!isAdmin()) {
