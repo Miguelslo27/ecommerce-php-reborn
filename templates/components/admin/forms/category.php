@@ -8,7 +8,7 @@ $catid      = isset($_GET['cid']) ? $_GET['cid'] : null;
   <h1>Agregar Categoría</h1>
   <form action="/categorias/" enctype="multipart/form-data" method="POST">
     <input type="hidden" name="type" id="type" value="category">
-    <input type="hidden" name="id" id="id" <?php echo $catid ? 'value="' . $catid . '"' : '' ?>>
+    <input type="hidden" name="id" id="id" value="<?php echo $artid ? $article->nombre : '' ?>">
     <input type="hidden" name="save" id="save">
     <div class="form-line">
       <label class="file">
