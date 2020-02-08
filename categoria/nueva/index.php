@@ -10,7 +10,7 @@ $templatesPath = $GLOBALS['config']['templatesPath'];
 
 protectFromNotAdminUsers();
 startDocument();
-loadSection("header", $userStats);
+include($templatesPath . 'header.php');
 
 ?>
 <div class="container">
@@ -18,6 +18,6 @@ loadSection("header", $userStats);
 </div>
 <?php
 
-loadSection("footer", $userStats);
+include($templatesPath . 'footer.php');
 endDocument();
 ?>

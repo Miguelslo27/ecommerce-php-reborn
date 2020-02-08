@@ -16,7 +16,7 @@ $appPlace = 'online-history';
 $appSubPlace = 'administrar-pedidos';
 
 startDocument();
-loadSection("header", $userStats);
+include($templatesPath . 'header.php');
 
 ?>
 
@@ -251,7 +251,7 @@ loadSection("header", $userStats);
 // print_r($orden);
 // echo '</pre>';
 
-loadSection("footer", $userStats);
+include($templatesPath . 'footer.php');
 endDocument();
 
 ?>

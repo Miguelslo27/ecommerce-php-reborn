@@ -22,7 +22,7 @@ $pagina            = isset($_GET['p']) ? (int) $_GET['p'] : 1;
 $usuarios          = obtenerUsuariosPaginados($cantidadPorPagina, $pagina);
 
 startDocument();
-loadSection("header", $userStats);
+include($templatesPath . 'header.php');
 
 ?>
 
@@ -125,7 +125,7 @@ loadSection("header", $userStats);
 
 <?php
 
-loadSection("footer", $userStats);
+include($templatesPath . 'footer.php');
 endDocument();
 
 ?>

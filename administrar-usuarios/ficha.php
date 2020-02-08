@@ -16,6 +16,6 @@ $appPlace = 'online-history';
 $appSubPlace = 'administrar-usuarios';
 
 startDocument();
-loadSection("header", $userStats);
+include($templatesPath . 'header.php');
 
 ?>

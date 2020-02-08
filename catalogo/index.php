@@ -8,7 +8,7 @@ $appPlace = 'catalogs';
 $appSubPlace = '';
 
 startDocument();
-loadSection("header", $userStats);
+include($templatesPath . 'header.php');
 
 ?>
 	<section id="body">
@@ -104,7 +104,7 @@ loadSection("header", $userStats);
 
 <?php
 
-loadSection("footer", $userStats);
+include($templatesPath . 'footer.php');
 endDocument();
 
 ?>

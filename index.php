@@ -9,19 +9,19 @@ $appSubPlace   = '';
 $templatesPath = $GLOBALS['config']['templatesPath'];
 
 startDocument();
-loadSection("header", $userStats);
+include($templatesPath . 'header.php');
 
 ?>
 <div class="container home">
-	<?php
-	include($templatesPath . 'components/hero.php');
-	include($templatesPath . 'components/categories/featuredCategories.php');
-	include($templatesPath . 'components/articles/newArticles.php');
-	include($templatesPath . 'components/articles/featuredArticles.php');
-	?>
+  <?php
+  include($templatesPath . 'components/hero.php');
+  include($templatesPath . 'components/categories/featuredCategories.php');
+  include($templatesPath . 'components/articles/newArticles.php');
+  include($templatesPath . 'components/articles/featuredArticles.php');
+  ?>
 </div>
 <?php
 
-loadSection("footer", $userStats);
+include($templatesPath . 'footer.php');
 endDocument();
 ?>
