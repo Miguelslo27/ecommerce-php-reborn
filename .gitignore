@@ -1,5 +1,6 @@
 statics/images/articles
 statics/images/categories
 statics/images/catalogos
+logfile.txt
 error_log
 error.*
