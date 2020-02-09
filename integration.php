@@ -37,7 +37,10 @@ $request = json_decode(file_get_contents("php://input"), true);
 
 printRecursively($request);
 
+exec('git checkout -- .', $commandOutput);
 exec('git pull', $commandOutput);
+exec('chmod -R 755 ./');
+
 error_log("----------------------------------------------\n", 3, 'logfile.txt');
 
 printRecursively($commandOutput);
