@@ -2,7 +2,7 @@
   <div class="header-inner">
     <div class="site-nav">
       <div class="logo">
-        ECOMMERCE
+        DEMO
       </div>
     </div>
 
