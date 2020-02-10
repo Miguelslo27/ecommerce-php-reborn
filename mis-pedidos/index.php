@@ -4,7 +4,7 @@ $relative = '..';
 require '../core/common.php';
 
 $userStats = loadUser();
-$appPlace = 'online-history';
+$page = 'online-history';
 $appSubPlace = '';
 
 startDocument();

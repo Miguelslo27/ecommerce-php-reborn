@@ -10,7 +10,7 @@ if (!isAdmin() ) {
 	return;
 
 }
-$appPlace = 'online-history';
+$page = 'online-history';
 $appSubPlace = 'administrar-pedidos';
 
 // Paginador

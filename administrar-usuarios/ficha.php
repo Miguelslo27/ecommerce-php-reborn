@@ -12,7 +12,7 @@ if (!isAdmin() ) {
 }
 // $cartItems = $userStats['cart'] ? obtenerPedido($userStats['cart']->id) : NULL;
 $usuario = getUsers(isset($_GET['id']) ? $_GET['id'] : null);
-$appPlace = 'online-history';
+$page = 'online-history';
 $appSubPlace = 'administrar-usuarios';
 
 startDocument();

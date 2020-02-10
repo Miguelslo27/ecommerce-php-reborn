@@ -4,7 +4,7 @@ $relative = '..';
 require '../core/common.php';
 
 $userStats = saveUser();
-$appPlace = 'home';
+$page = 'home';
 $appSubPlace = 'register';
 $template_path = getTemplatePath();
 

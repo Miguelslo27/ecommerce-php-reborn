@@ -2,7 +2,7 @@
 	<div class="modal-cont">
 <?php
 
-$appPlace      = $GLOBALS['appPlace'];
+$page      = $GLOBALS['page'];
 $appSubPlace   = $GLOBALS['appSubPlace'];
 $userStats     = $GLOBALS['userStats'];
 $template_path = getTemplatePath();
@@ -29,7 +29,7 @@ switch($appSubPlace) {
 	break;
 }
 
-switch($appPlace) {
+switch($page) {
 	case 'search':
 	case 'categories':
 		if (isAdmin()) {

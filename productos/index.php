@@ -4,7 +4,7 @@ $relative = '..';
 require '../core/common.php';
 
 $userStats     = loadUser();
-$appPlace      = 'articles';
+$page      = 'articles';
 $appSubPlace   = 'list';
 $template_path = getTemplatePath();
 
