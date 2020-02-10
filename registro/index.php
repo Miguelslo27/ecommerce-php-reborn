@@ -1,6 +1,6 @@
 <?php
 
-$relative = '..';
+$relative = '../';
 require '../core/common.php';
 
 $userStats     = saveUser();

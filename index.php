@@ -1,6 +1,6 @@
 <?php
 
-$relative = '.';
+$relative = './';
 include('./core/common.php');
 
 $userStats     = loadUser();

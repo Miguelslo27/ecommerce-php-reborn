@@ -18,7 +18,7 @@
 			}
 			?>
 			</ul>
-			<a class="categoria-ofertas" href="/categorias?ofertas=1"><img src="/statics/images/ofertas.jpg?<?php echo $revision ?>" alt="Ofertas eCommerce"></a>
+			<a class="categoria-ofertas" href="/categorias?ofertas=1"><img src="/statics/images/ofertas.jpg?" alt="Ofertas eCommerce"></a>
 		</div>
 
 		<div class="lista-articulos">
@@ -73,24 +73,24 @@
 							$current_image_url = '/statics/images/noimage.jpg';
 						}
 						?>
-						<img src="<?php echo $current_image_url.'?'.$revision; ?>">
+						<img src="<?php echo $current_image_url.'?'; ?>">
 						<?php
 						if ($art->oferta == 1 && $art->agotado != 1) {
 
 						?>
-						<span><img src="/statics/images/oferta.png?<?php echo $revision ?>"></span>
+						<span><img src="/statics/images/oferta.png?"></span>
 						<?php
 
 						} elseif ($art->nuevo == 1 && $art->agotado != 1) {
 
 						?>
-						<span><img src="/statics/images/nuevo.png?<?php echo $revision ?>"></span>
+						<span><img src="/statics/images/nuevo.png?"></span>
 						<?php
 
 						} elseif ($art->agotado == 1) {
 							
 						?>
-						<span><img src="/statics/images/agotado.png?<?php echo $revision ?>"></span>
+						<span><img src="/statics/images/agotado.png?"></span>
 						<?php
 
 						}

@@ -1,12 +1,13 @@
 <?php
 
-$relative = '..';
+$relative = '../';
 require '../core/common.php';
 
-$userStats = loadUser();
-$cartItems = $userStats['cart'] ? obtenerPedido($userStats['cart']->id) : NULL;
-$page      = 'online-history';
-$sub_page  = 'pedido-actual';
+$userStats     = loadUser();
+$page          = 'online-history';
+$sub_page      = 'pedido-actual';
+$template_path = getTemplatePath();
+$cartItems     = $userStats['cart'] ? obtenerPedido($userStats['cart']->id) : NULL;
 
 startDocument();
 include($template_path . 'header.php');
@@ -123,12 +124,12 @@ include($template_path . 'header.php');
 															if (!is_dir($colorsDir.$color)) {
 																if(file_exists($colorsDir.$color.'.jpg')) {
 																	?>
-																	<li style="display: inline-block;"><span style="border-radius: 8px; border: 2px solid #ccc; height: 14px; width: 14px; display: inline-block; position: relative; bottom: -3px;"><img src="<?php echo $colorsDir.$color.'.jpg?'.$revision; ?>" style="border-radius: 7px; width: 14px;"	></span></li>
+																	<li style="display: inline-block;"><span style="border-radius: 8px; border: 2px solid #ccc; height: 14px; width: 14px; display: inline-block; position: relative; bottom: -3px;"><img src="<?php echo $colorsDir.$color.'.jpg?'; ?>" style="border-radius: 7px; width: 14px;"	></span></li>
 																	<?php
 																} else {
 																	$colorsDir = $relative.str_replace("{id}", $articulo->id, $articulo->colores_url);
 																	?>
-																	<li style="display: inline-block;"><span style="border-radius: 8px; border: 2px solid #ccc; height: 14px; width: 14px; display: inline-block; position: relative; bottom: -3px;"><img src="<?php echo $colorsDir.$color.'.jpg?'.$revision; ?>" style="border-radius: 7px; width: 14px;"	></span></li>
+																	<li style="display: inline-block;"><span style="border-radius: 8px; border: 2px solid #ccc; height: 14px; width: 14px; display: inline-block; position: relative; bottom: -3px;"><img src="<?php echo $colorsDir.$color.'.jpg?'; ?>" style="border-radius: 7px; width: 14px;"	></span></li>
 																	<?php
 																}
 															}

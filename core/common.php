@@ -8,79 +8,60 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 
-define('CATEGORIES_PER_PAGE', 6);
-define('ARTICLES_PER_PAGE', 6);
-define('USERS_PER_PAGE', 10);
-
-if (isset($_GET['debug'])) {
-  $_SESSION['debug'] = $_GET['debug'];
-}
-
-if (isset($_SESSION['debug'])) {
-
-?>
-
-  <!doctype html>
-  <html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv=”Expires” content=”0″>
-    <meta http-equiv=”Last-Modified” content=”0″>
-    <meta http-equiv=”Cache-Control” content=”no-cache, mustrevalidate”>
-    <meta http-equiv=”Pragma” content=”no-cache”>
-
-    <title>eCommerce - En reparación</title>
-
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-        text-align: center;
-      }
-    </style>
-  </head>
-
-  <body>
-    <img src="/statics/images/enconstruccion.png">
-  </body>
-
-  </html>
-
-<?php
-  exit();
-}
-
 require_once('db.class.php');
 require_once('class.upload.php');
-require_once($relative . '/config.php');
-include('mailer/PHPMailerAutoload.php');
+require_once('mailer/PHPMailerAutoload.php');
+require_once('config.php');
 
-switch ($_SERVER['HTTP_HOST']) {
-  default:
-    $db_dbase  = getenv('DB_NAME');
-    $dbaseHost = getenv('DB_HOST');
-    $dbaseUser = getenv('DB_USER');
-    $dbasePass = getenv('DB_PASS');
-    break;
+function setGlobal($varname, $value)
+{
+  $GLOBALS[$varname] = $value;
 }
 
-// config
-$config = array(
-  'templatePath' => $relative . '/template/',
-  'db_dbase'      => $db_dbase,
-  'db_host'       => $dbaseHost,
-  'db_user'       => $dbaseUser,
-  'db_pass'       => $dbasePass
-);
-
-$revision = 1; // 'revision='.rand(1,3000);
-
-$db = new DB($config['db_dbase'], $config['db_host'], $config['db_user'], $config['db_pass']);
+function getGlobal($varname)
+{
+  return $GLOBALS[$varname];
+}
 
 function getTemplatePath()
 {
-  return $GLOBALS['config']['templatePath'];
+  return TEMPLATE;
+}
+
+function getDBConnection()
+{
+  return new DB(DB_NAME, DB_HOST, DB_USER, DB_PASS);
+}
+
+function loadSite()
+{
+  // @To-Do
+  return '';
+}
+
+// @To-Do
+function newDocument($page_name, $sub_page_name, $includes, $actions = null)
+{
+  setGlobal('site', loadSite());
+  setGlobal('user', loadUser());
+  setGlobal('page', $page_name);
+  setGlobal('sub_page', $sub_page_name);
+
+  startDocument();
+  include(getTemplatePath() . 'header.php');
+  ?>
+  <div class="container <?php echo $page_name ?><?php echo $sub_page_name !== '' && '__' . $sub_page_name ?>">
+  <?php
+  
+  foreach ($includes as $file) {
+    include(getTemplatePath() . $file . '.php');
+  }
+
+  ?>
+  </div>
+  <?php
+  include($template_path . 'footer.php');
+  endDocument();
 }
 
 /* USUARIO */
@@ -153,7 +134,7 @@ function loginUser($email = NULL, $pass = NULL, $forzarLogin = false)
   }
 
   // cargar el usuario por email y pass y retornar los valores
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
 
   if ($forzarLogin) {
     $sql = 'SELECT `id`, `nombre`, `apellido`, `rut`, `email`, `direccion`, `telefono`, `celular`, `departamento`, `ciudad`, `administrador` FROM `usuario` WHERE `email` = "' . $email . '"';
@@ -203,7 +184,7 @@ function checkEmail($email = NULL)
     return false;
   }
 
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
   // $sql = 'SELECT `email`, `codigo` FROM `dev_usuario` WHERE `email` = "' . $email . '"';
   $sql = 'SELECT `email`, `codigo` FROM `usuario` WHERE `email` = "' . $email . '"';
   $usuario = $db->getObject($sql);
@@ -220,7 +201,7 @@ function checkSuscription($email = NULL)
     return false;
   }
 
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
   $sql = 'SELECT `email` FROM `suscripciones` WHERE `email` = "' . $email . '"';
   $sus = $db->getObject($sql);
 
@@ -243,7 +224,7 @@ function suscribir($email)
       $suscribed = true;
     } else {
       // Si no existe, lo suscribo
-      $db  = $GLOBALS['db'];
+      $db  = getDBConnection();
       $sql = 'INSERT INTO `suscripciones` (`email`) VALUES ("' . $email . '")';
       $sus = $db->insert($sql);
 
@@ -293,7 +274,7 @@ function checkCodigoDeValidacion($codigo = NULL)
     return false;
   }
 
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
   // $sql = 'SELECT `email`, `codigo` FROM `dev_usuario` WHERE `codigo` = "' . $codigo . '"';
   $sql = 'SELECT `email`, `codigo` FROM `usuario` WHERE `codigo` = "' . $codigo . '"';
   $usuario = $db->getObject($sql);
@@ -321,7 +302,7 @@ function actualizarClave($clave = NULL)
   if (!$clave) return false;
   $email = str_replace(" ", "", strtolower($_SESSION['email-de-recuperacion']));
 
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
   // $sql = 'UPDATE `dev_usuario` SET `clave`="' . md5($clave . $email) . '" WHERE `email`="' . $email .'"';
   $sql = 'UPDATE `usuario` SET `clave`="' . md5($clave . $email) . '" WHERE `email`="' . $email . '"';
 
@@ -354,7 +335,7 @@ function saveUser()
     return array('user' => NULL, 'cart' => NULL,  'status' => 'PASSWORD_NOT_SETTED');
   }
 
-  $db    = $GLOBALS['db'];
+  $db    = getDBConnection();
   $email = str_replace(" ", "", strtolower($_POST['email']));
 
   if (!preg_match('/^[a-z0-9]+[a-z0-cribir9_.-]+@[a-z0-9_.-]{3,}.[a-z0-9_.-]{1,}.$/', $email)) {
@@ -434,7 +415,7 @@ function saveUser()
 function checkCurrentUser($email)
 {
 
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
   // $sql = 'SELECT COUNT(id) AS usuarios FROM `dev_usuario` WHERE `email` = "' . $email . '"';
   $sql = 'SELECT COUNT(id) AS usuarios FROM `usuario` WHERE `email` = "' . $email . '"';
   $r = $db->getObject($sql);
@@ -450,7 +431,7 @@ function checkCurrentUser($email)
 function checkUsers()
 {
 
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
   // $sql = 'SELECT COUNT(id) AS usuarios FROM `dev_usuario`';
   $sql = 'SELECT COUNT(id) AS usuarios FROM `usuario`';
   $r = $db->getObject($sql);
@@ -465,7 +446,7 @@ function checkUsers()
 
 function getUsers()
 {
-  $db             = $GLOBALS['db'];
+  $db             = getDBConnection();
   $users_per_page = @$_GET['pp'] ? $_GET['pp'] : USERS_PER_PAGE;
   $curret_page    = @$_GET['p'] ? $_GET['p'] : 1;
   $offset         = ($curret_page - 1) * $users_per_page;
@@ -486,7 +467,7 @@ function getUsers()
 
 function paginateUsers()
 {
-  $db             = $GLOBALS['db'];
+  $db             = getDBConnection();
   $users_per_page = @$_GET['pp'] ? $_GET['pp'] : USERS_PER_PAGE;
   $curret_page    = @$_GET['p'] ? $_GET['p'] : 1;
   $users_count    = $db->countOfAll('usuario');
@@ -516,7 +497,7 @@ function paginateUsers()
 
 function obtenerTotalUsuarios()
 {
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
   $sql = 'SELECT COUNT(`id`) as `total` FROM `usuario`';
 
   $r = $db->getObject($sql);
@@ -526,7 +507,7 @@ function obtenerTotalUsuarios()
 
 function getUsersPaginados($cantidadPorPagina = 20, $pagina = 1)
 {
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
   $sql = 'SELECT * FROM `usuario` LIMIT ' . ($cantidadPorPagina * ($pagina - 1)) . ',' . $cantidadPorPagina;
 
   $r = $db->getObjects($sql);
@@ -536,7 +517,7 @@ function getUsersPaginados($cantidadPorPagina = 20, $pagina = 1)
 
 function obtenerTotalOrdenes($id_usuario = null, $estado = NULL)
 {
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
   $sql = 'SELECT COUNT(`id`) as `total` FROM `pedido`';
 
   if ($id_usuario) {
@@ -561,7 +542,7 @@ function obtenerTotalOrdenes($id_usuario = null, $estado = NULL)
 
 function obtenerOrdenesPaginadas($id_usuario = null, $estado = NULL, $cantidadPorPagina = 20, $pagina = 1)
 {
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
   $sql = 'SELECT `pedido`.*, `usuario`.`nombre`, `usuario`.`apellido`, `usuario`.`rut`, `usuario`.`telefono`, `usuario`.`celular`, `usuario`.`email` FROM `pedido` JOIN `usuario` ON `pedido`.`usuario_id`=`usuario`.`id`';
 
   if ($id_usuario) {
@@ -587,7 +568,7 @@ function obtenerOrdenesPaginadas($id_usuario = null, $estado = NULL, $cantidadPo
 
 function getUsersExportacion()
 {
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
   $sql = 'SELECT * FROM (SELECT usuario.id, usuario.nombre, usuario.apellido, usuario.rut, usuario.email, usuario.direccion, usuario.telefono, usuario.celular, usuario.departamento, usuario.ciudad, SUM(pedido.total) AS total_pedidos FROM pedido RIGHT JOIN usuario ON pedido.usuario_id = usuario.id WHERE pedido.estado = 1 OR pedido.usuario_id IS NULL GROUP BY usuario.id UNION SELECT usuario.id, usuario.nombre, usuario.apellido, usuario.rut, usuario.email, usuario.direccion, usuario.telefono, usuario.celular, usuario.departamento, usuario.ciudad, NULL AS total_pedidos FROM pedido RIGHT JOIN usuario ON pedido.usuario_id = usuario.id WHERE pedido.estado != 1 GROUP BY usuario.id) AS usuarios GROUP BY usuarios.id ORDER BY `usuarios`.`total_pedidos` DESC';
 
   $r = $db->getObjects($sql);
@@ -598,7 +579,7 @@ function getUsersExportacion()
 function obtenerSuscripciones()
 {
 
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
   $sql = 'SELECT * FROM `suscripciones`';
 
   $r = $db->getObjects($sql);
@@ -609,7 +590,7 @@ function obtenerSuscripciones()
 function getCategory()
 {
   if (isset($_GET['cid']) && $_GET['cid'] != 'new' && $_GET['cid'] != 'save') {
-    $db  = $GLOBALS['db'];
+    $db  = getDBConnection();
     $sql = 'SELECT `id`, `titulo`, `descripcion_breve`, `descripcion`, `imagen_url`, `categoria_id`, `estado`, `orden` FROM `categoria` WHERE id = ' . $_GET['cid'] . ' AND `estado` = 1';
     $cat = $db->getObject($sql);
   } elseif (isset($_GET['ofertas']) && $_GET['ofertas'] == 1) {
@@ -640,7 +621,7 @@ function getCategory()
 
 function getCategories($parentId = NULL, $limit = null)
 {
-  $db                  = $GLOBALS['db'];
+  $db                  = getDBConnection();
   $categories_per_page = @$_GET['pp'] ? $_GET['pp'] : CATEGORIES_PER_PAGE;
   $curret_page         = @$_GET['p'] ? $_GET['p'] : 1;
   $offset              = ($curret_page - 1) * $categories_per_page;
@@ -661,7 +642,7 @@ function getCategories($parentId = NULL, $limit = null)
 
 function paginateCategories()
 {
-  $db                  = $GLOBALS['db'];
+  $db                  = getDBConnection();
   $categories_per_page = @$_GET['pp'] ? $_GET['pp'] : CATEGORIES_PER_PAGE;
   $curret_page         = @$_GET['p'] ? $_GET['p'] : 1;
   $categories_count    = $db->countOf('categoria', '`estado` = 1');
@@ -693,7 +674,7 @@ function getArticle()
 {
   if (!isset($_GET['aid'])) return;
   
-  $db  = $GLOBALS['db'];
+  $db  = getDBConnection();
   $aid = $_GET['aid'];
   $sql = "SELECT `id`, `nombre`, `codigo`, `descripcion_breve`, `descripcion`, `imagenes_url`, `categoria_id`, `nuevo`, `agotado`, `oferta`, `precio`, `precio_oferta`, `orden` FROM `articulo` WHERE id = $aid";
   $art = $db->getObject($sql);
@@ -702,7 +683,7 @@ function getArticle()
 
 function getArticles($parentId = NULL)
 {
-  $db                = $GLOBALS['db'];
+  $db                = getDBConnection();
   $articles_per_page = @$_GET['pp'] ? $_GET['pp'] : ARTICLES_PER_PAGE;
   $curret_page       = @$_GET['p'] ? $_GET['p'] : 1;
   $offset            = ($curret_page - 1) * $articles_per_page;
@@ -797,7 +778,7 @@ function searchForArticles($busqueda = NULL)
   }
 
   $busqueda_ = implode(" ", $resultado_);
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
   $sql = 'SELECT `id`, `nombre`, `codigo`, `descripcion_breve`, `descripcion`, `talle`, `talle_surtido`, `adaptable`, `colores_url`, `colores_surtidos_url`, `packs`, `imagenes_url`, `categoria_id`, `estado`, `nuevo`, `agotado`, `oferta`, `surtido`, `precio`, `precio_oferta`, `precio_surtido`, `precio_oferta_surtido`, `orden` FROM `articulo` WHERE `codigo` LIKE "%' . $busqueda_ . '%" OR `nombre` LIKE "%' . $busqueda_ . '%" ORDER BY `orden` ASC';
   $arts = $db->getObjects($sql);
 
@@ -806,7 +787,7 @@ function searchForArticles($busqueda = NULL)
 
 function paginateArticles()
 {
-  $db                = $GLOBALS['db'];
+  $db                = getDBConnection();
   $articles_per_page = @$_GET['pp'] ? $_GET['pp'] : ARTICLES_PER_PAGE;
   $curret_page       = @$_GET['p'] ? $_GET['p'] : 1;
   $articles_count    = $db->countOf('articulo', '`estado` = 1');
@@ -847,7 +828,7 @@ function saveCategory()
       }
 
       $relative      = $GLOBALS['relative'];
-      $db            = $GLOBALS['db'];
+      $db            = getDBConnection();
       $sql           = 'INSERT INTO `categoria` (`titulo`, `descripcion_breve`, `descripcion`, `categoria_id`, `estado`, `orden`) VALUES ("' . $_POST['titulo'] . '", "' . $_POST['descripcion_breve'] . '", "' . $_POST['descripcion'] . '", "' . $_POST['categoria_id'] . '", 1, ' . $_POST['orden'] . ')';
       $cid           = $db->insert($sql);
       $imageLocation = ($_FILES['imagen']['error'] == 0) ? '/statics/images/categories/' . $cid . '/' : '';
@@ -885,7 +866,7 @@ function updateCategory($id = NULL)
   if (!$id) return;
 
   $relative      = $GLOBALS['relative'];
-  $db            = $GLOBALS['db'];
+  $db            = getDBConnection();
   $sql           = 'UPDATE `categoria` SET `titulo`="' . $_POST['titulo'] . '", `descripcion_breve`="' . $_POST['descripcion_breve'] . '", `descripcion`="' . $_POST['descripcion'] . '", `categoria_id`=' . $_POST['categoria_id'] . ', `orden` = ' . $_POST['orden'] . ' WHERE `id`=' . $id;
   $imageLocation = ($_FILES['imagen']['error'] == 0) ? '/statics/images/categories/' . $id . '/' : '';
 
@@ -919,7 +900,7 @@ function deleteCategory($id = NULL)
   if (!$id) return;
 
   $relative = $GLOBALS['relative'];
-  $db       = $GLOBALS['db'];
+  $db       = getDBConnection();
   $sql      = 'DELETE FROM `categoria` WHERE `id`=' . $id;
 
   delTree($relative . '/statics/images/categories/' . $id);
@@ -938,7 +919,7 @@ function saveArticle()
       }
 
       $relative      = $GLOBALS['relative'];
-      $db            = $GLOBALS['db'];
+      $db            = getDBConnection();
       $sql           = 'INSERT INTO `articulo` (`nombre`,`codigo`,`descripcion_breve`,`descripcion`,`categoria_id`,`nuevo`,`agotado`,`oferta`,`precio`,`precio_oferta`,`orden`) VALUES ("' . $_POST['nombre'] . '","' . $_POST['codigo'] . '","' . $_POST['descripcion_breve'] . '","' . $_POST['descripcion'] . '","' . $_POST['categoria_id'] . '","' . (@$_POST['nuevo'] == "on" ? 1 : 0) . '","' . (@$_POST['agotado'] == "on" ? 1 : 0) . '","' . (@$_POST['oferta'] == "on" ? 1 : 0) . '","' . $_POST['precio'] . '","' . $_POST['precio_oferta'] . '","' . $_POST['orden'] . '")';
       $cid           = $db->insert($sql);
       $imageLocation = ($_FILES['imagen']['error'] == 0) ? '/statics/images/articles/' . $cid . '/' : '';
@@ -974,7 +955,7 @@ function updateArticle($id)
   if (!$id) return;
 
   $relative      = $GLOBALS['relative'];
-  $db            = $GLOBALS['db'];
+  $db            = getDBConnection();
   $sql           = 'UPDATE `articulo` SET `nombre`="' . $_POST['nombre'] . '", `codigo`="' . $_POST['codigo'] . '", `descripcion_breve`="' . $_POST['descripcion_breve'] . '", `descripcion`="' . $_POST['descripcion'] . '", `categoria_id`="' . $_POST['categoria_id'] . '", `orden`=' . $_POST['orden'] . ', `nuevo`=' . (@$_POST['nuevo'] == "on" ? 1 : 0) . ', `agotado`=' . (@$_POST['agotado'] == "on" ? 1 : 0) . ', `oferta`=' . (@$_POST['oferta'] == "on" ? 1 : 0) . ', `precio`="' . $_POST['precio'] . '", `precio_oferta`=' . (isset($_POST['precio_oferta']) ? $_POST['precio_oferta'] : 0) . ' WHERE `id`=' . $id;
   $imageLocation = ($_FILES['imagen']['error'] == 0) ? '/statics/images/articles/' . $id . '/' : '';
 
@@ -1007,7 +988,7 @@ function deleteArticle($id)
   if (!isAdmin()) return;
   if (!$id) return;
 
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
   $sql = 'DELETE FROM `articulo` WHERE `id`=' . $id;
   $cid = $db->insert($sql);
 }
@@ -1041,7 +1022,7 @@ function addToCart($id, $cantidad, $esPack = 'true', $talle = NULL, $color = NUL
   // checar si hay un pedido abierto (1 : pendiente, 2 : cancelado, 3 : aprobado, 4 : abierto, 5 : cerrado)
   $estafecha = time() - (2 * 24 * 60 * 60);
   $esPack    = $esPack == 'true' ? true : false;
-  $db        = $GLOBALS['db'];
+  $db        = getDBConnection();
   $sql_reuse = 'SELECT `id`, `fecha`, `total`, `cantidad`, `estado` FROM `pedido` WHERE `usuario_id` = "' . $userid . '" AND `estado` = 4 AND `fecha` >= "' . date('Y/m/d', $estafecha) . '"';
   $pedido    = $db->getObject($sql_reuse);
   $pedidoId  = NULL;
@@ -1147,7 +1128,7 @@ function addToCart($id, $cantidad, $esPack = 'true', $talle = NULL, $color = NUL
 function eliminarDelPedido($idpedido, $itemid, $pedidoid, $precioitem, $cantidaditem, $totalpedido, $cantidaditemstotal)
 {
 
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
   $sql = 'DELETE FROM `articulo_pedido` WHERE `pedido_id`=' . $pedidoid . ' AND `articulo_id`=' . $itemid . ' AND `id`=' . $idpedido;
   $db->insert($sql);
 
@@ -1171,7 +1152,7 @@ function obtenerPedido($idPedido)
 {
   $pedidoCompleto = array('articulos' => NULL, 'pedido' => NULL);
 
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
   $sql = 'SELECT `pedido`.*, `usuario`.`nombre`, `usuario`.`apellido`, `usuario`.`rut`, `usuario`.`telefono`, `usuario`.`celular`, `usuario`.`email` FROM `pedido` JOIN `usuario` ON `pedido`.`usuario_id` = `usuario`.`id` WHERE `pedido`.`id`=' . $idPedido;
   $pedidoCompleto['pedido'] = $db->getObject($sql);
 
@@ -1193,7 +1174,7 @@ function obtenerPedidoAbierto($id_usuario = null)
 
   $estafecha = time() - (2 * 24 * 60 * 60);
   // obtengo el pedido abierto
-  $db        = $GLOBALS['db'];
+  $db        = getDBConnection();
   $sql       = 'SELECT * FROM `pedido` WHERE `estado` = 4 AND `usuario_id`=' . $id_us . ' AND `fecha` >= "' . date('Y/m/d', $estafecha) . '"';
   $pedido    = $db->getObject($sql);
 
@@ -1203,7 +1184,7 @@ function obtenerPedidoAbierto($id_usuario = null)
 function obtenerPedidos($id_usuario = null, $estado = NULL)
 {
 
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
   // de momento selecciono todos los pedidos
   $sql = 'SELECT `pedido`.*, `usuario`.`nombre`, `usuario`.`apellido`, `usuario`.`rut`, `usuario`.`telefono`, `usuario`.`celular`, `usuario`.`email` FROM `pedido` JOIN `usuario` ON `pedido`.`usuario_id`=`usuario`.`id`';
   if ($id_usuario) {
@@ -1233,7 +1214,7 @@ function obtenerPedidos($id_usuario = null, $estado = NULL)
 
 function obtenerUltimoPedido()
 {
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
   $sql = 'SELECT `pedido`.*, `usuario`.`nombre`, `usuario`.`apellido`, `usuario`.`rut`, `usuario`.`telefono`, `usuario`.`celular`, `usuario`.`email` FROM `pedido` JOIN `usuario` ON `pedido`.`usuario_id`=`usuario`.`id` WHERE `estado` = 1 AND `notificado` != 1 ORDER BY `fecha` DESC';
 
   $pedido = $db->getObject($sql);
@@ -1243,7 +1224,7 @@ function obtenerUltimoPedido()
 
 function actualizarUltimoPedido()
 {
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
   // Update last order with a flag
   $sql = 'UPDATE `pedido` SET `notificado` = 1';
   $db->insert($sql);
@@ -1257,7 +1238,7 @@ function completarPedido($idPedido)
     // var_dump($currentUser['user']->email);
   }
 
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
 
   $lugar = ($_POST['lugar_compra'] == 'envio_interior' ? 'Interior' : ($_POST['lugar_compra'] == 'envio_montevideo' ? 'Montevideo' : ''));
   $retira = $_POST['retira_agencia'] == 'true' || $_POST['retira_local'] == 'true' ? 1 : 0;
@@ -1356,7 +1337,7 @@ function completarPedido($idPedido)
       '<td>';
 
     $surtido           = $articulo->surtido == 0 ? false : true;
-    $relative          = '../../..';
+    $relative          = '../../../';
     $colorsAuxDir      = '';
     $colorsDir         = '';
     $colorsDirForEmail = 'http://' . $_SERVER['SERVER_NAME'];
@@ -1474,7 +1455,7 @@ function completarPedido($idPedido)
 function aprobarPedido($idPedido)
 {
 
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
 
   // agregar direccion del usuario, agencia de entrega y forma de pago al pedido
   // $sql = 'UPDATE `dev_pedido` SET `estado`=2 WHERE `id`=' . $idPedido;
@@ -1489,7 +1470,7 @@ function cancelarPedido($idPedido)
   if (!isAdmin()) return;
   if (!$idPedido) return;
 
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
 
   // agregar direccion del usuario, agencia de entrega y forma de pago al pedido
   // $sql = 'UPDATE `dev_pedido` SET `estado`=3 WHERE `id`=' . $idPedido;
@@ -1502,7 +1483,7 @@ function cancelarPedido($idPedido)
 function posponerPedido($idPedido)
 {
 
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
 
   // agregar direccion del usuario, agencia de entrega y forma de pago al pedido
   // $sql = 'UPDATE `dev_pedido` SET `estado`=1 WHERE `id`=' . $idPedido;
@@ -1514,7 +1495,7 @@ function posponerPedido($idPedido)
 
 function cerrarPedido($idPedido)
 {
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
 
   // agregar direccion del usuario, agencia de entrega y forma de pago al pedido
   // $sql = 'UPDATE `dev_pedido` SET `estado`=1 WHERE `id`=' . $idPedido;
@@ -1526,7 +1507,7 @@ function cerrarPedido($idPedido)
 
 function cambiarPertenenciaDelPedido($pedidoid, $idNuevoUsuario, $idViejoUsuario)
 {
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
 
   // Cambio el id temporal de usuario del prepedido por el id del usuario logueado
   $sql = 'UPDATE `pedido` SET `usuario_id` = ' . $idNuevoUsuario . ' WHERE `id` = ' . $pedidoid . ' AND `usuario_id`=' . $idViejoUsuario;
@@ -1542,7 +1523,7 @@ function cambiarPertenenciaDelPedido($pedidoid, $idNuevoUsuario, $idViejoUsuario
 
 function combinarPedidos($pedido, $prepedido)
 {
-  $db = $GLOBALS['db'];
+  $db = getDBConnection();
 
   $pedido_cantidad = $pedido->cantidad;
   $pedido_total    = $pedido->total;

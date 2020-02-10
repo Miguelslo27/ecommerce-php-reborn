@@ -2,7 +2,6 @@
 // $userStats   = $GLOBALS['userStats'];
 $page     = $GLOBALS['page'];
 $sub_page = $GLOBALS['sub_page'];
-$revision = 'revision=' . rand(1, 3000);
 
 // @TODO
 /* Replace all switches with ifs for more readability */
@@ -19,8 +18,8 @@ switch ($place) {
 
 		<!-- css -->
 		<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Muli'>
-		<link rel="stylesheet" href="/statics/css/layout.css?<?php echo $revision; ?>">
-		<link rel="stylesheet" href="/statics/css/frameworks/fontawesome/font-awesome.min.css?<?php echo $revision; ?>">
+		<link rel="stylesheet" href="/statics/css/layout.css">
+		<link rel="stylesheet" href="/statics/css/frameworks/fontawesome/font-awesome.min.css">
 
 		<?php
 
@@ -28,14 +27,14 @@ switch ($place) {
 			case 'home':
 		?>
 				<!-- home css -->
-				<link rel="stylesheet" href="/statics/css/home.css?<?php echo $revision; ?>">
+				<link rel="stylesheet" href="/statics/css/home.css">
 			<?php
 				break;
 			case 'search':
 			case 'categories':
 			?>
 				<!-- home css -->
-				<link rel="stylesheet" href="/statics/css/categories.css?<?php echo $revision; ?>">
+				<link rel="stylesheet" href="/statics/css/categories.css">
 			<?php
 				break;
 		}
@@ -43,7 +42,7 @@ switch ($place) {
 		// estilos que solo se usaran en paginas de administrador
 		if (isAdmin()) {
 			?>
-			<link rel="stylesheet" href="/statics/css/administrador.css?<?php echo $revision; ?>">
+			<link rel="stylesheet" href="/statics/css/administrador.css">
 		<?php
 		}
 		?>
@@ -54,9 +53,9 @@ switch ($place) {
 	?>
 
 		<!-- plugin scripts -->
-		<!-- <script src="/statics/js/plugins/jquery-1.11.0.js?<?php echo $revision; ?>"></script>
-		<script src="/statics/js/plugins/backstretch.js?<?php echo $revision; ?>"></script>
-		<script src="/statics/js/generals.js?<?php echo $revision; ?>"></script> -->
+		<!-- <script src="/statics/js/plugins/jquery-1.11.0.js"></script>
+		<script src="/statics/js/plugins/backstretch.js"></script>
+		<script src="/statics/js/generals.js"></script> -->
 
 		<?php
 		switch ($page) {
@@ -64,7 +63,7 @@ switch ($place) {
 		?>
 
 				<!-- site scripts -->
-				<!-- <script src="/statics/js/home.js?<?php echo $revision; ?>"></script> -->
+				<!-- <script src="/statics/js/home.js"></script> -->
 
 			<?php
 				break;
@@ -73,14 +72,14 @@ switch ($place) {
 			?>
 
 				<!-- site scripts -->
-				<!-- <script src="/statics/js/categorias.js?<?php echo $revision; ?>"></script> -->
+				<!-- <script src="/statics/js/categorias.js"></script> -->
 
 			<?php
 				break;
 			case 'catalogs':
 			?>
 
-				<!-- <script src="/statics/js/jquery.blueimp-gallery.min.js?<?php echo $revision; ?>"></script>
+				<!-- <script src="/statics/js/jquery.blueimp-gallery.min.js"></script>
 			<script>
 			var catalogo = blueimp.Gallery(document.getElementById('links').getElementsByTagName('a'), {
 				container: '#blueimp-image-carousel',
@@ -96,7 +95,7 @@ switch ($place) {
 			case 'pedido-actual':
 			?>
 
-				<!-- <script src="/statics/js/carrito.js?<?php echo $revision; ?>"></script> -->
+				<!-- <script src="/statics/js/carrito.js"></script> -->
 
 			<?php
 				break;
@@ -161,7 +160,7 @@ switch ($place) {
 		if (isAdmin()) {
 			?>
 
-			<!-- <script src="/statics/js/administrador.js?<?php echo $revision; ?>"></script> -->
+			<!-- <script src="/statics/js/administrador.js"></script> -->
 
 		<?php
 		}
@@ -173,5 +172,5 @@ switch ($place) {
 ?>
 
 <?php if ($page == '404') : ?>
-	<link rel="stylesheet" href="/statics/css/404.css?<?php echo $revision; ?>">
+	<link rel="stylesheet" href="/statics/css/404.css">
 <?php endif ?>

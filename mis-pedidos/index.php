@@ -1,11 +1,12 @@
 <?php
 
-$relative = '..';
+$relative = '../';
 require '../core/common.php';
 
-$userStats = loadUser();
-$page      = 'online-history';
-$sub_page  = '';
+$userStats     = loadUser();
+$page          = 'online-history';
+$sub_page      = '';
+$template_path = getTemplatePath();
 
 startDocument();
 include($template_path . 'header.php');

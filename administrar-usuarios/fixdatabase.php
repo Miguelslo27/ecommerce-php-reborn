@@ -4,7 +4,7 @@ require '../core/common.php';
 
 function obtenerTodosLosUsuarios() {
 
-	$db = $GLOBALS['db'];
+	$db = getDBConnection();
 	$sql = 'SELECT `email`, `id`, `nombre`, `apellido`, `clave`, `codigo` FROM `usuario` ORDER BY `email` ASC';
 
 	$r = $db->getObjects($sql);
@@ -15,7 +15,7 @@ function obtenerTodosLosUsuarios() {
 
 function envioEmail($nombredeusuario, $email, $clavederecuperacion) {
 
-	$db = $GLOBALS['db'];
+	$db = getDBConnection();
 
 	$asunto = 'eCommerce - Recuperación de cuenta';
 
@@ -58,7 +58,7 @@ function envioEmail($nombredeusuario, $email, $clavederecuperacion) {
 
 if($_GET['auth'] && $_GET['auth'] == "miguelmail2006@gmail.com:buitres2") {
 	
-	$db = $GLOBALS['db'];
+	$db = getDBConnection();
 	$usuarios = obtenerTodosLosUsuarios();
 	
 	foreach($usuarios as $usuario) {

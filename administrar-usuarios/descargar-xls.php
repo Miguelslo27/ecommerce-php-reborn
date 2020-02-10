@@ -2,7 +2,7 @@
 
 ini_set("memory_limit","500M");
 
-$relative = '..';
+$relative = '../';
 require '../core/common.php';
 
 header('Content-type: application/vnd.ms-excel');

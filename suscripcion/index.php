@@ -1,6 +1,6 @@
 <?php
 
-$relative = '..';
+$relative = '../';
 require '../core/common.php';
 
 $userStats   = array('user' => NULL, 'cart' => $pedido,  'status' => 'READY_TO_LOGIN');

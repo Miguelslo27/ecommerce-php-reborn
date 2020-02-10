@@ -53,9 +53,9 @@
       <div class="user-actions">
         <?php
         if (isLoggedIn()) {
-          include($template_path . 'user/logged-cmds.php');
+          include(getTemplatePath() . 'user/logged-cmds.php');
         } else {
-          include($template_path . 'user/not-logged-cmds.php');
+          include(getTemplatePath() . 'user/not-logged-cmds.php');
         }
         ?>
       </div>

@@ -3,7 +3,7 @@
 ini_set("memory_limit","500M");
 set_time_limit(0);
 
-$relative = '..';
+$relative = '../';
 require '../core/common.php';
 
 header('Content-type: text/csv');

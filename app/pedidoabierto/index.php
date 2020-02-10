@@ -1,6 +1,6 @@
 <?php
 
-$relative = '../..';
+$relative = '../../';
 require '../../core/common.php';
 header('Content-type: application/json');
 
