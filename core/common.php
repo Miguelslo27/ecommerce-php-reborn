@@ -1013,7 +1013,7 @@ function deleteArticle($id)
 }
 
 /* PEDIDOS */
-function agregarAlPedido($id, $cantidad, $esPack = 'true', $talle = NULL, $color = NULL)
+function addToCart($id, $cantidad, $esPack = 'true', $talle = NULL, $color = NULL)
 {
   $user = loadUser();
 

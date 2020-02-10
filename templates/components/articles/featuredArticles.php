@@ -41,7 +41,7 @@ $articles = getArticles();
             </div>
             <hr>
             <div class="actions">
-              <a href="<?php echo $article->id ?>">Agregar al carrito +</a>
+              <a href="/producto/al-carrito?id=<?php echo $article->id ?>&q=1">Agregar al carrito +</a>
             </div>
             <?php if (isAdmin()) : ?>
               <div class="admin-article-controls">
