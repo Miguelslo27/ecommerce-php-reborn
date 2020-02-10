@@ -1,6 +1,7 @@
 statics/images/articles
 statics/images/categories
 statics/images/catalogos
+.htaccess
 logfile.txt
 error_log
 error.*

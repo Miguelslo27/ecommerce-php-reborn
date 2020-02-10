@@ -53,14 +53,15 @@ if (isset($_SESSION['debug'])) {
 
 require_once('db.class.php');
 require_once('class.upload.php');
+require_once($relative . '/config.php');
 include('mailer/PHPMailerAutoload.php');
 
 switch ($_SERVER['HTTP_HOST']) {
   default:
-    $db_dbase  = 'ecommerce_db';
-    $dbaseHost = 'localhost';
-    $dbaseUser = 'root';
-    $dbasePass = '';
+    $db_dbase  = getenv('DB_NAME');
+    $dbaseHost = getenv('DB_HOST');
+    $dbaseUser = getenv('DB_USER');
+    $dbasePass = getenv('DB_PASS');
     break;
 }
 
