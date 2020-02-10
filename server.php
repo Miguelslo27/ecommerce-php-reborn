@@ -1,6 +1,3 @@
 <?php
 
-echo 'testing server'."\n";
-// echo $_ENV;
-var_dump($_ENV);
-var_dump($_SERVER);
+var_dump(getenv('ENV_VAR_NAME'));

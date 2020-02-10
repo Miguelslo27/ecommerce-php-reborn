@@ -57,10 +57,10 @@ include('mailer/PHPMailerAutoload.php');
 
 switch ($_SERVER['HTTP_HOST']) {
   default:
-    $db_dbase  = 'ecomuy_demo';
-    $dbaseHost = 'localhost';
-    $dbaseUser = 'ecomuy_demo-admi';
-    $dbasePass = 'u79@;9iLHGpV';
+    $db_dbase  = getenv('DB_NAME');
+    $dbaseHost = getenv('DB_HOST');
+    $dbaseUser = getenv('DB_USER');
+    $dbasePass = getenv('DB_PASS');
     break;
 }
 
