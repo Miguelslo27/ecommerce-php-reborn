@@ -22,6 +22,8 @@ function printRecursively($object)
   }
 }
 
+// Chequear si el eveno de git es push
+// De no ser así, salir del programa
 // Chequear si el cliente tiene configurado la integración continua
 // De no ser así, salir del programa
 
