@@ -1,6 +1,6 @@
 <?php
-$userStats   = $GLOBALS['userStats'];
-$appPlace    = $GLOBALS['appPlace'];
+// $userStats   = $GLOBALS['userStats'];
+$page    = $GLOBALS['page'];
 $appSubPlace = $GLOBALS['appSubPlace'];
 $revision    = 'revision=' . rand(1, 3000);
 
@@ -10,7 +10,6 @@ switch ($place) {
 	case 'head':
 ?>
 		<meta charset="UTF-8">
-
 		<meta http-equiv=”Expires” content=”0″>
 		<meta http-equiv=”Last-Modified” content=”0″>
 		<meta http-equiv=”Cache-Control” content=”no-cache, mustrevalidate”>
@@ -25,7 +24,7 @@ switch ($place) {
 
 		<?php
 
-		switch ($appPlace) {
+		switch ($page) {
 			case 'home':
 		?>
 				<!-- home css -->
@@ -60,7 +59,7 @@ switch ($place) {
 		<script src="/statics/js/generals.js?<?php echo $revision; ?>"></script> -->
 
 		<?php
-		switch ($appPlace) {
+		switch ($page) {
 			case 'home':
 		?>
 
@@ -173,6 +172,6 @@ switch ($place) {
 }
 ?>
 
-<?php if ($appPlace == '404') : ?>
+<?php if ($page == '404') : ?>
 	<link rel="stylesheet" href="/statics/css/404.css?<?php echo $revision; ?>">
 <?php endif ?>

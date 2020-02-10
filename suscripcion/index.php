@@ -5,7 +5,7 @@ require '../core/common.php';
 
 $userStats   = array('user' => NULL, 'cart' => $pedido,  'status' => 'READY_TO_LOGIN');
 $suscripcion = suscribir($_POST['email']);
-$appPlace    = 'home';
+$page    = 'home';
 $appSubPlace = 'subscription';
 
 if (!$suscripcion) {

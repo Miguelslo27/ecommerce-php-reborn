@@ -11,7 +11,7 @@ if (!isAdmin() ) {
 
 }
 
-$appPlace          = 'online-history';
+$page          = 'online-history';
 $appSubPlace       = 'administrar-usuarios';
 
 // Paginador

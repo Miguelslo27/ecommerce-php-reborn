@@ -5,7 +5,7 @@ require '../core/common.php';
 
 $userStats = loadUser();
 $cartItems = $userStats['cart'] ? obtenerPedido($userStats['cart']->id) : NULL;
-$appPlace = 'online-history';
+$page = 'online-history';
 $appSubPlace = 'pedido-actual';
 
 startDocument();

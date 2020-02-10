@@ -4,7 +4,7 @@ $relative = '..';
 require '../core/common.php';
 
 $userStats = loadUser();
-$appPlace = 'catalogs';
+$page = 'catalogs';
 $appSubPlace = '';
 
 startDocument();

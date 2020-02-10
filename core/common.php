@@ -67,7 +67,7 @@ switch ($_SERVER['HTTP_HOST']) {
 
 // config
 $config = array(
-  'templatesPath' => $relative . '/templates/',
+  'templatePath' => $relative . '/template/',
   'db_dbase'      => $db_dbase,
   'db_host'       => $dbaseHost,
   'db_user'       => $dbaseUser,
@@ -80,7 +80,7 @@ $db = new DB($config['db_dbase'], $config['db_host'], $config['db_user'], $confi
 
 function getTemplatePath()
 {
-  return $GLOBALS['config']['templatesPath'];
+  return $GLOBALS['config']['templatePath'];
 }
 
 /* USUARIO */
@@ -1579,16 +1579,16 @@ function combinarPedidos($pedido, $prepedido)
 function startDocument()
 {
   echo "<!doctype html>\n<html lang=\"es\">\n<head>\n";
-  $place = 'head';
-  include($GLOBALS['config']['templatesPath'] . 'includes.php');
+  echo "<title>Demo Site - e-Com.uy</title>";
+  include(getTemplatePath() . 'include_metatags.php');
+  include(getTemplatePath() . 'include_css.php');
   createAppObjects();
   echo "\n</head>\n<body>\n";
 }
 
 function endDocument()
 {
-  $place = 'body-end';
-  include($GLOBALS['config']['templatesPath'] . 'includes.php');
+  include(getTemplatePath() . 'include_js.php');
   echo "</body>\n</html>";
 }
 

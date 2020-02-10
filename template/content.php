@@ -4,12 +4,12 @@
 				
 <?php
 
-$appPlace      = $GLOBALS['appPlace'];
+$page      = $GLOBALS['page'];
 $appSubPlace   = isset($GLOBALS['appSubPlace']) ? $GLOBALS['appSubPlace'] : NULL;
 $userStats     = $GLOBALS['userStats'];
 $template_path = getTemplatePath();
 
-switch($appPlace) {
+switch($page) {
 case 'categories':
 	$categories = getCategories(0);
 	$category   = getCategory();

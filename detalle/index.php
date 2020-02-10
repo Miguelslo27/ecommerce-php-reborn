@@ -12,7 +12,7 @@ if (!isAdmin() ) {
 }
 // $cartItems = $userStats['cart'] ? obtenerPedido($userStats['cart']->id) : NULL;
 $orden = obtenerPedido($_GET['id']);
-$appPlace = 'online-history';
+$page = 'online-history';
 $appSubPlace = 'administrar-pedidos';
 
 startDocument();

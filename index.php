@@ -4,7 +4,7 @@ $relative = '.';
 include('./core/common.php');
 
 $userStats     = loadUser();
-$appPlace      = 'home';
+$page      = 'home';
 $appSubPlace   = '';
 $template_path = getTemplatePath();
 
