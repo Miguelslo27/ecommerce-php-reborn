@@ -53,6 +53,7 @@ if (isset($_SESSION['debug'])) {
 
 require_once('db.class.php');
 require_once('class.upload.php');
+require_once($relative . '/config.php');
 include('mailer/PHPMailerAutoload.php');
 
 switch ($_SERVER['HTTP_HOST']) {
