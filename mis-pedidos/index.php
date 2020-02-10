@@ -4,8 +4,8 @@ $relative = '..';
 require '../core/common.php';
 
 $userStats = loadUser();
-$page = 'online-history';
-$appSubPlace = '';
+$page      = 'online-history';
+$sub_page  = '';
 
 startDocument();
 include($template_path . 'header.php');

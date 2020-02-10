@@ -11,9 +11,9 @@ if (!isAdmin() ) {
 
 }
 // $cartItems = $userStats['cart'] ? obtenerPedido($userStats['cart']->id) : NULL;
-$orden = obtenerPedido($_GET['id']);
-$page = 'online-history';
-$appSubPlace = 'administrar-pedidos';
+$orden    = obtenerPedido($_GET['id']);
+$page     = 'online-history';
+$sub_page = 'administrar-pedidos';
 
 startDocument();
 include($template_path . 'header.php');

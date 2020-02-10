@@ -11,9 +11,9 @@ if (!isAdmin() ) {
 
 }
 // $cartItems = $userStats['cart'] ? obtenerPedido($userStats['cart']->id) : NULL;
-$usuario = getUsers(isset($_GET['id']) ? $_GET['id'] : null);
-$page = 'online-history';
-$appSubPlace = 'administrar-usuarios';
+$usuario  = getUsers(isset($_GET['id']) ? $_GET['id'] : null);
+$page     = 'online-history';
+$sub_page = 'administrar-usuarios';
 
 startDocument();
 include($template_path . 'header.php');

@@ -2,8 +2,8 @@
 	<div class="modal-cont">
 <?php
 
-$page      = $GLOBALS['page'];
-$appSubPlace   = $GLOBALS['appSubPlace'];
+$page          = $GLOBALS['page'];
+$sub_page      = $GLOBALS['sub_page'];
 $userStats     = $GLOBALS['userStats'];
 $template_path = getTemplatePath();
 
@@ -19,7 +19,7 @@ switch($userStats['status']) {
 	break;
 }
 
-switch($appSubPlace) {
+switch($sub_page) {
 	case 'register':
 		include($template_path . 'modals/login.php');
 	break;

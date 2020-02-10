@@ -11,7 +11,7 @@ if (!isAdmin() ) {
 
 }
 $page = 'online-history';
-$appSubPlace = 'administrar-pedidos';
+$sub_page = 'administrar-pedidos';
 
 // Paginador
 $totalOrdenes      = obtenerTotalOrdenes(NULL, isset($_GET['estado']) ? $_GET['estado'] : 1);

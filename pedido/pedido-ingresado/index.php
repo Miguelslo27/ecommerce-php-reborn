@@ -4,8 +4,8 @@ $relative = '../..';
 require '../../core/common.php';
 
 $userStats = loadUser();
-$page = 'home';
-$appSubPlace = 'pedido-actual';
+$page      = 'home';
+$sub_page  = 'pedido-actual';
 
 startDocument();
 include($template_path . 'header.php');

@@ -11,8 +11,8 @@ if (!isAdmin() ) {
 
 }
 
-$page          = 'online-history';
-$appSubPlace       = 'administrar-usuarios';
+$page              = 'online-history';
+$sub_page          = 'administrar-usuarios';
 
 // Paginador
 $totalUsuarios     = obtenerTotalUsuarios();

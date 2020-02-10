@@ -4,8 +4,8 @@
 				
 <?php
 
-$page      = $GLOBALS['page'];
-$appSubPlace   = isset($GLOBALS['appSubPlace']) ? $GLOBALS['appSubPlace'] : NULL;
+$page          = $GLOBALS['page'];
+$sub_page      = isset($GLOBALS['sub_page']) ? $GLOBALS['sub_page'] : NULL;
 $userStats     = $GLOBALS['userStats'];
 $template_path = getTemplatePath();
 

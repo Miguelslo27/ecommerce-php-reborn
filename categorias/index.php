@@ -4,8 +4,8 @@ $relative = '..';
 require '../core/common.php';
 
 $userStats     = loadUser();
-$page      = 'categories';
-$appSubPlace   = 'list';
+$page          = 'categories';
+$sub_page      = 'list';
 $template_path = getTemplatePath();
 
 $categorySaved = saveCategory();

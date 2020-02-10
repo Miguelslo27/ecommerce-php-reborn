@@ -20,23 +20,23 @@
 /* GENERALS */
 @font-face {
 	font-family: 'ARBERKLEY';
-	src: url('/statics/fonts/ARBERKLEY.ttf');
+	src: url('/template/statics/fonts/ARBERKLEY.ttf');
 }
 @font-face {
 	font-family: 'ArialNarrow';
-	src: url('/statics/fonts/arial-narrow.ttf');
+	src: url('/template/statics/fonts/arial-narrow.ttf');
 }
 @font-face {
 	font-family: 'Bitter';
-	src: url('/statics/fonts/Bitter-Regular.otf');
+	src: url('/template/statics/fonts/Bitter-Regular.otf');
 }
 @font-face {
 	font-family: 'ProximaNova';
-	src: url('/statics/fonts/proximanova-light-webfont.ttf') format("truetype");
+	src: url('/template/statics/fonts/proximanova-light-webfont.ttf') format("truetype");
 }
 @font-face {
 	font-family: 'ProximaNovaIEOTF';
-	src: url('/statics/fonts/ProximaNova-Light.otf') format("truetype");
+	src: url('/template/statics/fonts/ProximaNova-Light.otf') format("truetype");
 }
 img {
 	border: none;

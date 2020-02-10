@@ -1,8 +1,8 @@
 <?php
 
-$page        = $GLOBALS['page'];
-$appSubPlace = $GLOBALS['appSubPlace'];
-$revision    = 'revision=' . rand(1, 3000);
+$page     = $GLOBALS['page'];
+$sub_page = $GLOBALS['sub_page'];
+$revision = 'revision=' . rand(1, 3000);
 
 ?>
 
@@ -16,4 +16,8 @@ $revision    = 'revision=' . rand(1, 3000);
 
 <?php if ($page === 'categories') : ?>
 <link rel="stylesheet" href="/template/statics/css/categories.css?<?php echo $revision; ?>">
+<?php endif ?>
+
+<?php if (isAdmin()) : ?>
+<link rel="stylesheet" href="/template/statics/css/administrador.css?<?php echo $revision; ?>">
 <?php endif ?>

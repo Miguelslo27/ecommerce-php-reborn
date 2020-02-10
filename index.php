@@ -4,8 +4,8 @@ $relative = '.';
 include('./core/common.php');
 
 $userStats     = loadUser();
-$page      = 'home';
-$appSubPlace   = '';
+$page          = 'home';
+$sub_page      = '';
 $template_path = getTemplatePath();
 
 startDocument();

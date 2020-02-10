@@ -5,8 +5,8 @@ require '../core/common.php';
 
 $userStats = loadUser();
 $cartItems = $userStats['cart'] ? obtenerPedido($userStats['cart']->id) : NULL;
-$page = 'online-history';
-$appSubPlace = 'pedido-actual';
+$page      = 'online-history';
+$sub_page  = 'pedido-actual';
 
 startDocument();
 include($template_path . 'header.php');

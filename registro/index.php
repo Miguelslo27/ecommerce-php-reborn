@@ -3,9 +3,9 @@
 $relative = '..';
 require '../core/common.php';
 
-$userStats = saveUser();
-$page = 'home';
-$appSubPlace = 'register';
+$userStats     = saveUser();
+$page          = 'home';
+$sub_page      = 'register';
 $template_path = getTemplatePath();
 
 startDocument();

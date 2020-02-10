@@ -4,8 +4,8 @@ $relative = '../..';
 require '../../core/common.php';
 
 $userStats     = loadUser();
-$page      = 'category';
-$appSubPlace   = 'delete';
+$page          = 'category';
+$sub_page      = 'delete';
 $template_path = getTemplatePath();
 
 protectFromNotAdminUsers();

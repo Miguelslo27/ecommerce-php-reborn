@@ -3,9 +3,9 @@
 $relative = '..';
 include('../core/common.php');
 
-$userStats = loadUser();
-$page = '404';
-$appSubPlace = '';
+$userStats     = loadUser();
+$page          = '404';
+$sub_page      = '';
 $template_path = getTemplatePath();
 
 startDocument();
