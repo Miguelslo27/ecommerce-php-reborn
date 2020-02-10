@@ -1,6 +1,5 @@
 <?php
 
-$page    = $GLOBALS['page'];
-$appSubPlace = $GLOBALS['appSubPlace'];
-$revision    = 'revision=' . rand(1, 3000);
+$page     = $GLOBALS['page'];
+$sub_page = $GLOBALS['sub_page'];
 

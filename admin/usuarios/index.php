@@ -1,11 +1,11 @@
 <?php
 
-$relative = '../..';
+$relative = '../../';
 require '../../core/common.php';
 
 $userStats     = loadUser();
-$page      = 'admin';
-$appSubPlace   = 'users';
+$page          = 'admin';
+$sub_page      = 'users';
 $template_path = getTemplatePath();
 
 protectFromNotAdminUsers();

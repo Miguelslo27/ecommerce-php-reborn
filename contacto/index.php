@@ -1,11 +1,11 @@
 <?php
 
-$relative = '..';
+$relative = '../';
 require '../core/common.php';
 
-$userStats = loadUser();
-$page = 'contact';
-$appSubPlace = '';
+$userStats     = loadUser();
+$page          = 'contact';
+$sub_page      = '';
 $template_path = getTemplatePath();
 
 startDocument();

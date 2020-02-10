@@ -1,11 +1,12 @@
 <?php
 
-$relative = '../..';
+$relative = '../../';
 require '../../core/common.php';
 
-$userStats = loadUser();
-$page = 'home';
-$appSubPlace = 'pedido-actual';
+$userStats     = loadUser();
+$page          = 'home';
+$sub_page      = 'pedido-actual';
+$template_path = getTemplatePath();
 
 startDocument();
 include($template_path . 'header.php');

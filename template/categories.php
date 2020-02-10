@@ -120,7 +120,7 @@
 										$current_image_url = '/statics/images/noimage.jpg';
 									}
 									?>
-									<a href="/categorias?c=<?php echo $cat->id; ?>"><img src="<?php echo $current_image_url.'?'.$revision; ?>"></a>
+									<a href="/categorias?c=<?php echo $cat->id; ?>"><img src="<?php echo $current_image_url.'?'; ?>"></a>
 								</div>
 								<?php
 								if (isAdmin()) {

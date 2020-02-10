@@ -1,12 +1,12 @@
 <?php
 
-$relative = '..';
+$relative = '../';
 require '../core/common.php';
 
 $userStats   = array('user' => NULL, 'cart' => $pedido,  'status' => 'READY_TO_LOGIN');
 $suscripcion = suscribir($_POST['email']);
-$page    = 'home';
-$appSubPlace = 'subscription';
+$page        = 'home';
+$sub_page    = 'subscription';
 
 if (!$suscripcion) {
 	header('Location: /?subscription=error');

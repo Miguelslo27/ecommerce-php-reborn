@@ -24,24 +24,24 @@
 										$current_image_url = '/statics/images/noimage.jpg';
 									}
 									?>
-									<img src="<?php echo $current_image_url.'?'.$revision; ?>">
+									<img src="<?php echo $current_image_url.'?'; ?>">
 									<?php
 									if ($art->oferta == 1 && $art->agotado != 1) {
 
 									?>
-									<span><img src="/statics/images/oferta.png?<?php echo $revision ?>"></span>
+									<span><img src="/statics/images/oferta.png?"></span>
 									<?php
 
 									} elseif ($art->nuevo == 1 && $art->agotado != 1) {
 
 									?>
-									<span><img src="/statics/images/nuevo.png?<?php echo $revision ?>"></span>
+									<span><img src="/statics/images/nuevo.png?"></span>
 									<?php
 
 									} elseif ($art->agotado == 1) {
 										
 									?>
-									<span><img src="/statics/images/agotado.png?<?php echo $revision ?>"></span>
+									<span><img src="/statics/images/agotado.png?"></span>
 									<?php
 
 									}

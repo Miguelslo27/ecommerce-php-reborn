@@ -1,11 +1,11 @@
 <?php
 
-$relative = '..';
+$relative = '../';
 require '../core/common.php';
 
-$userStats = loadUser();
-$page = 'home';
-$appSubPlace = 'password-recovery';
+$userStats     = loadUser();
+$page          = 'home';
+$sub_page      = 'password-recovery';
 $template_path = getTemplatePath();
 
 $checkEmail = checkEmail(@$_POST['email']);
