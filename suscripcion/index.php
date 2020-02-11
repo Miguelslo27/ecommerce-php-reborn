@@ -3,7 +3,7 @@
 $relative = '../';
 require '../core/common.php';
 
-$userStats   = array('user' => NULL, 'cart' => $pedido,  'status' => 'READY_TO_LOGIN');
+$userStats   = array('user' => NULL, 'cart' => $order,  'status' => 'READY_TO_LOGIN');
 $suscripcion = suscribir($_POST['email']);
 $page        = 'home';
 $sub_page    = 'subscription';

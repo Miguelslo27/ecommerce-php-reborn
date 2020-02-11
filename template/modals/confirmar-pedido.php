@@ -37,14 +37,14 @@ $userStats = $GLOBALS['userStats'];
 							<tbody>
 								<?php
 								if ($cartItems) {
-									foreach ($cartItems['articulos'] as $articulo) {
+									foreach ($cartItems['articulos'] as $article) {
 									?>
 									<tr>
-										<td class="codigo"><?php echo $articulo->codigo; ?></td>
-										<td class="articulo"><?php echo $articulo->nombre; ?></td>
-										<!-- <td class="talles"><?php echo $articulo->talle; ?></td> -->
-										<td class="cantidad"><?php echo $articulo->cantidad; ?></td>
-										<td class="subtotal">$ <?php echo $articulo->subtotal; ?></td>
+										<td class="codigo"><?php echo $article->codigo; ?></td>
+										<td class="articulo"><?php echo $article->nombre; ?></td>
+										<!-- <td class="talles"><?php echo $article->talle; ?></td> -->
+										<td class="cantidad"><?php echo $article->cantidad; ?></td>
+										<td class="subtotal">$ <?php echo $article->subtotal; ?></td>
 									</tr>
 									<?php
 									}

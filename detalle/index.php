@@ -164,33 +164,33 @@ include($template_path . 'header.php');
 							</thead>
 							<tbody>
 <?php
-							foreach($orden['articulos'] as $articulo) {
+							foreach($orden['articulos'] as $article) {
 
 ?>
 								<tr>
-									<td width="20%"><?php echo $articulo->codigo; ?></td>
+									<td width="20%"><?php echo $article->codigo; ?></td>
 									<td width="40%">
-										<?php echo $articulo->nombre; ?>
+										<?php echo $article->nombre; ?>
 										<div>
-											<strong>Talles: </strong><?php echo $articulo->talle; ?>
+											<strong>Talles: </strong><?php echo $article->talle; ?>
 											<strong>Colores:</strong>
 											<?php
-											$surtido    = $articulo->surtido == 0 ? false : true;
+											$surtido    = $article->surtido == 0 ? false : true;
 											$colorsDir  = '';
-											$colores    = explode(',', $articulo->color);
+											$colores    = explode(',', $article->color);
 
-											if($articulo->colores_url == $articulo->imagenes_url) {
+											if($article->colores_url == $article->imagenes_url) {
 												?>
-												<img style="margin: 0 0 -5px;" src="<?php echo $relative.str_replace("{id}", $articulo->id, $articulo->imagenes_url); ?>colors.jpg">
+												<img style="margin: 0 0 -5px;" src="<?php echo $relative.str_replace("{id}", $article->id, $article->imagenes_url); ?>colors.jpg">
 												<?php
 											} else {
 												if($surtido) {
-													$colorsDir = $relative.str_replace("{id}", $articulo->id, $articulo->colores_surtidos_url);
+													$colorsDir = $relative.str_replace("{id}", $article->id, $article->colores_surtidos_url);
 													if(!file_exists($colorsDir)) {
-														$colorsDir = $relative.str_replace("{id}", $articulo->id, $articulo->colores_url);
+														$colorsDir = $relative.str_replace("{id}", $article->id, $article->colores_url);
 													}
 												} else {
-													$colorsDir = $relative.str_replace("{id}", $articulo->id, $articulo->colores_url);
+													$colorsDir = $relative.str_replace("{id}", $article->id, $article->colores_url);
 												}
 												
 												if(file_exists($colorsDir)) {
@@ -204,7 +204,7 @@ include($template_path . 'header.php');
 																	<li style="display: inline-block;"><span style="border-radius: 8px; border: 2px solid #ccc; height: 14px; width: 14px; display: inline-block; position: relative; bottom: -3px;"><img src="<?php echo $colorsDir.$color.'.jpg?'; ?>" style="border-radius: 7px; width: 14px;"	></span></li>
 																	<?php
 																} else {
-																	$colorsDir = $relative.str_replace("{id}", $articulo->id, $articulo->colores_url);
+																	$colorsDir = $relative.str_replace("{id}", $article->id, $article->colores_url);
 																	?>
 																	<li style="display: inline-block;"><span style="border-radius: 8px; border: 2px solid #ccc; height: 14px; width: 14px; display: inline-block; position: relative; bottom: -3px;"><img src="<?php echo $colorsDir.$color.'.jpg?'; ?>" style="border-radius: 7px; width: 14px;"	></span></li>
 																	<?php
@@ -215,12 +215,12 @@ include($template_path . 'header.php');
 													</ul>
 													<?php
 												} else {
-													$colorsDir = $relative.str_replace("{id}", $articulo->id, $articulo->imagenes_url);
+													$colorsDir = $relative.str_replace("{id}", $article->id, $article->imagenes_url);
 													$colors    = $colorsDir.'colors.jpg';
 
 													if(file_exists($colors)) {
 													?>
-													<img style="margin: 0 0 -5px;" src="<?php echo $relative.str_replace("{id}", $articulo->id, $articulo->imagenes_url); ?>colors.jpg">
+													<img style="margin: 0 0 -5px;" src="<?php echo $relative.str_replace("{id}", $article->id, $article->imagenes_url); ?>colors.jpg">
 													<?php
 													} else {
 													?>
@@ -232,8 +232,8 @@ include($template_path . 'header.php');
 											?>
 										</div>
 									</td>
-									<td width="20%"><?php echo $articulo->cantidad; ?></td>
-									<td width="20%">$ <?php echo $articulo->subtotal; ?>,00</td>
+									<td width="20%"><?php echo $article->cantidad; ?></td>
+									<td width="20%">$ <?php echo $article->subtotal; ?>,00</td>
 								</tr>
 <?php
 
