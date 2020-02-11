@@ -1067,8 +1067,8 @@ class PHPExcel_Calculation_MathTrig {
 		// Calculate
 		 $subtotal = array_shift($aArgs);
 
-		if ((is_numeric($subtotal_for_article)) && (!is_string($subtotal_for_article))) {
-			switch($subtotal_for_article) {
+		if ((is_numeric($subtotal)) && (!is_string($subtotal))) {
+			switch($subtotal) {
 				case 1	:
 					return PHPExcel_Calculation_Statistical::AVERAGE($aArgs);
 					break;
