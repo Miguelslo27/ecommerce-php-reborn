@@ -16,10 +16,10 @@ $sub_page          = 'administrar-usuarios';
 
 // Paginador
 $totalUsuarios     = obtenerTotalUsuarios();
-$cantidadPorPagina = isset($_GET['cpp']) ? (int) $_GET['cpp'] : 50;
-$totalPaginas      = ceil($totalUsuarios->total / $cantidadPorPagina);
+$quantityPorPagina = isset($_GET['cpp']) ? (int) $_GET['cpp'] : 50;
+$totalPaginas      = ceil($totalUsuarios->total / $quantityPorPagina);
 $pagina            = isset($_GET['p']) ? (int) $_GET['p'] : 1;
-$usuarios          = getUsersPaginados($cantidadPorPagina, $pagina);
+$usuarios          = getUsersPaginados($quantityPorPagina, $pagina);
 
 startDocument();
 include($template_path . 'header.php');
@@ -53,7 +53,7 @@ include($template_path . 'header.php');
 					-
 					<strong>Página <?php echo $pagina; ?> de <?php echo $totalPaginas; ?></strong>
 					-
-					<strong>Registros por página:</strong> <a class="paginador-pagina <?php echo ($cantidadPorPagina == 50 ? 'activa' : ''); ?>" href="?p=1&cpp=50">50</a> | <a class="paginador-pagina <?php echo ($cantidadPorPagina == 100 ? 'activa' : ''); ?>" href="?p=1&cpp=100">100</a> | <a class="paginador-pagina <?php echo ($cantidadPorPagina == 500 ? 'activa' : ''); ?>" href="?p=1&cpp=500">500</a>
+					<strong>Registros por página:</strong> <a class="paginador-pagina <?php echo ($quantityPorPagina == 50 ? 'activa' : ''); ?>" href="?p=1&cpp=50">50</a> | <a class="paginador-pagina <?php echo ($quantityPorPagina == 100 ? 'activa' : ''); ?>" href="?p=1&cpp=100">100</a> | <a class="paginador-pagina <?php echo ($quantityPorPagina == 500 ? 'activa' : ''); ?>" href="?p=1&cpp=500">500</a>
 				</div>
 				<div>
 					<?php

@@ -1065,7 +1065,7 @@ class PHPExcel_Calculation_MathTrig {
 		$aArgs = PHPExcel_Calculation_Functions::flattenArray(func_get_args());
 
 		// Calculate
-		$subtotal = array_shift($aArgs);
+		 $subtotal = array_shift($aArgs);
 
 		if ((is_numeric($subtotal)) && (!is_string($subtotal))) {
 			switch($subtotal) {

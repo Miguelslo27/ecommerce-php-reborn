@@ -15,10 +15,10 @@ $sub_page = 'administrar-pedidos';
 
 // Paginador
 $totalOrdenes      = obtenerTotalOrdenes(NULL, isset($_GET['estado']) ? $_GET['estado'] : 1);
-$cantidadPorPagina = isset($_GET['cpp']) ? (int) $_GET['cpp'] : 50;
-$totalPaginas      = ceil($totalOrdenes->total / $cantidadPorPagina);
+$quantityPorPagina = isset($_GET['cpp']) ? (int) $_GET['cpp'] : 50;
+$totalPaginas      = ceil($totalOrdenes->total / $quantityPorPagina);
 $pagina            = isset($_GET['p']) ? (int) $_GET['p'] : 1;
-$ordenes           = obtenerOrdenesPaginadas(NULL, isset($_GET['estado']) ? $_GET['estado'] : 1, $cantidadPorPagina, $pagina);
+$ordenes           = obtenerOrdenesPaginadas(NULL, isset($_GET['estado']) ? $_GET['estado'] : 1, $quantityPorPagina, $pagina);
 
 startDocument();
 include($template_path . 'header.php');
@@ -58,7 +58,7 @@ include($template_path . 'header.php');
 					-
 					<strong>Página <?php echo $pagina; ?> de <?php echo $totalPaginas; ?></strong>
 					-
-					<strong>Registros por página:</strong> <a class="paginador-pagina <?php echo ($cantidadPorPagina == 50 ? 'activa' : ''); ?>" href="?p=1&cpp=50<?php echo (isset($_GET['estado']) ? '&estado='.$_GET['estado'] : ''); ?>">50</a> | <a class="paginador-pagina <?php echo ($cantidadPorPagina == 100 ? 'activa' : ''); ?>" href="?p=1&cpp=100<?php echo (isset($_GET['estado']) ? '&estado='.$_GET['estado'] : ''); ?>">100</a> | <a class="paginador-pagina <?php echo ($cantidadPorPagina == 500 ? 'activa' : ''); ?>" href="?p=1&cpp=500">500</a>
+					<strong>Registros por página:</strong> <a class="paginador-pagina <?php echo ($quantityPorPagina == 50 ? 'activa' : ''); ?>" href="?p=1&cpp=50<?php echo (isset($_GET['estado']) ? '&estado='.$_GET['estado'] : ''); ?>">50</a> | <a class="paginador-pagina <?php echo ($quantityPorPagina == 100 ? 'activa' : ''); ?>" href="?p=1&cpp=100<?php echo (isset($_GET['estado']) ? '&estado='.$_GET['estado'] : ''); ?>">100</a> | <a class="paginador-pagina <?php echo ($quantityPorPagina == 500 ? 'activa' : ''); ?>" href="?p=1&cpp=500">500</a>
 				</div>
 				<div class="paginador-paginas">
 					<?php

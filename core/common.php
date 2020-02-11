@@ -13,6 +13,8 @@ require_once('class.upload.php');
 require_once('mailer/PHPMailerAutoload.php');
 require_once('config.php');
 
+processRequests();
+
 function setGlobal($varname, $value)
 {
   $GLOBALS[$varname] = $value;
@@ -33,19 +35,72 @@ function getDBConnection()
   return new DB(DB_NAME, DB_HOST, DB_USER, DB_PASS);
 }
 
-function loadSite()
+// @To-Do
+function getCurrentUrl()
 {
-  // @To-Do
-  return '';
+  throw new Error('Not implemented');
 }
 
 // @To-Do
-function newDocument($page_name, $sub_page_name, $includes, $actions = null)
+function getCurrentPath()
 {
-  setGlobal('site', loadSite());
+  throw new Error('Not implemented');
+}
+
+// @To-Do
+function getQueryParams($additions = null)
+{
+  $params     = $_SERVER['QUERY_STRING'];
+  $paramsList = [];
+  $paramsObj  = [];
+  $returnList = [];
+
+  if (trim($params) != '') {
+    $paramsList = explode('&', $params);
+  }
+
+  foreach ($paramsList as $value) {
+    $paramKeyValue        = explode('=', $value);
+    $paramKey             = $paramKeyValue[0];
+    $parmaValue           = isset($paramKeyValue[1]) ? $paramKeyValue[1] : 'true';
+    $paramsObj[$paramKey] = $parmaValue;
+  }
+
+  if ($additions) {
+    foreach ($additions as $addition => $value) {
+      if ($value) {
+        $paramsObj[$addition] = $value;
+      } else {
+        unset($paramsObj[$addition]);
+      }
+    }
+  }
+
+  foreach ($paramsObj as $param => $value) {
+    $returnList[] = "$param=$value";
+  }
+
+  return implode('&', $returnList);
+}
+
+// @To-Do
+function loadSite()
+{
+  throw new Error('Not implemented');
+}
+
+// @To-Do
+function newDocument($page_name, $sub_page_name, $includes, $getbefore = null)
+{
+  // @To-Do
+  // setGlobal('site', loadSite());
   setGlobal('user', loadUser());
   setGlobal('page', $page_name);
   setGlobal('sub_page', $sub_page_name);
+
+  // @To-Do
+  // $getbefore();
+
   startNewDocument();
 
   $classes = ['container'];
@@ -102,9 +157,9 @@ function loadUser($login = NULL)
 {
   if (isset($_SESSION['temp_userid'])) {
     $tempuserid = $_SESSION['temp_userid'];
-    $pedido     = obtenerPedidoAbierto($tempuserid);
+    $order     = obtenerPedidoAbierto($tempuserid);
   } else {
-    $pedido = NULL;
+    $order = NULL;
   }
 
   // si no hay usuario ingresado
@@ -115,36 +170,36 @@ function loadUser($login = NULL)
       $pass  = isset($_POST['pass']) ? $_POST['pass'] : '';
 
       if ((!$email || !$pass) && $login == "login") {
-        return array('user' => NULL, 'cart' => $pedido,  'status' => 'ERROR_EMAIL_OR_PASS');
+        return array('user' => NULL, 'cart' => $order,  'status' => 'ERROR_EMAIL_OR_PASS');
       } elseif (!$email && !$pass) {
-        return array('user' => NULL, 'cart' => $pedido,  'status' => 'READY_TO_LOGIN');
+        return array('user' => NULL, 'cart' => $order,  'status' => 'READY_TO_LOGIN');
       }
 
       return loginUser($email, $pass);
     } else {
       // muestro formulario de registro
-      return array('user' => NULL, 'cart' => $pedido,  'status' => 'NO_USERS');
+      return array('user' => NULL, 'cart' => $order,  'status' => 'NO_USERS');
     }
   } else {
     $usuario = JSON_decode($_SESSION['usuario']);
 
     if (checkCurrentUser($usuario->email)) {
-      $pedido = obtenerPedidoAbierto($usuario->id);
+      $order = obtenerPedidoAbierto($usuario->id);
 
       return
         array(
           'user' => $usuario,
-          'cart' => $pedido,
+          'cart' => $order,
           'status' => 'LOGGED'
         );
     } elseif (!checkUsers()) {
-      return array('user' => NULL, 'cart' => $pedido,  'status' => 'NO_USERS');
+      return array('user' => NULL, 'cart' => $order,  'status' => 'NO_USERS');
     } else {
       $email = isset($_POST['email']) ? $_POST['email'] : '';
       $pass = isset($_POST['pass']) ? $_POST['pass'] : '';
 
       if (!$email || !$pass) {
-        return array('user' => NULL, 'cart' => $pedido,  'status' => 'ERROR_EMAIL_OR_PASS');
+        return array('user' => NULL, 'cart' => $order,  'status' => 'ERROR_EMAIL_OR_PASS');
       }
 
       loginUser($email, $pass);
@@ -179,7 +234,7 @@ function loginUser($email = NULL, $pass = NULL, $forzarLogin = false)
 
   if ($usuario) {
     // Obtengo el pedido abierto del usuario
-    $pedido    = obtenerPedidoAbierto($usuario->id);
+    $order    = obtenerPedidoAbierto($usuario->id);
     $prepedido = false;
 
     // Si hay un id temporal
@@ -194,14 +249,14 @@ function loginUser($email = NULL, $pass = NULL, $forzarLogin = false)
     }
 
     // Si hay pedido y prepedido, los combino en el pedido abierto del usuario
-    if ($pedido && $prepedido) {
-      $pedido = combinarPedidos($pedido, $prepedido);
+    if ($order && $prepedido) {
+      $order = combinarPedidos($order, $prepedido);
     } else {
-      $pedido = $prepedido;
+      $order = $prepedido;
     }
 
     $_SESSION['usuario'] = JSON_encode($usuario);
-    $_SESSION['pedido'] = JSON_encode($pedido);
+    $_SESSION['pedido'] = JSON_encode($order);
 
     // Redireccionar a la última página visitada donde se cargarán los datos del usuario
     header('Location: ' . $_SERVER['HTTP_REFERER']);
@@ -538,10 +593,10 @@ function obtenerTotalUsuarios()
   return $r;
 }
 
-function getUsersPaginados($cantidadPorPagina = 20, $pagina = 1)
+function getUsersPaginados($quantityPorPagina = 20, $pagina = 1)
 {
   $db = getDBConnection();
-  $sql = 'SELECT * FROM `usuario` LIMIT ' . ($cantidadPorPagina * ($pagina - 1)) . ',' . $cantidadPorPagina;
+  $sql = 'SELECT * FROM `usuario` LIMIT ' . ($quantityPorPagina * ($pagina - 1)) . ',' . $quantityPorPagina;
 
   $r = $db->getObjects($sql);
 
@@ -573,7 +628,7 @@ function obtenerTotalOrdenes($id_usuario = null, $estado = NULL)
   return $r;
 }
 
-function obtenerOrdenesPaginadas($id_usuario = null, $estado = NULL, $cantidadPorPagina = 20, $pagina = 1)
+function obtenerOrdenesPaginadas($id_usuario = null, $estado = NULL, $quantityPorPagina = 20, $pagina = 1)
 {
   $db = getDBConnection();
   $sql = 'SELECT `pedido`.*, `usuario`.`nombre`, `usuario`.`apellido`, `usuario`.`rut`, `usuario`.`telefono`, `usuario`.`celular`, `usuario`.`email` FROM `pedido` JOIN `usuario` ON `pedido`.`usuario_id`=`usuario`.`id`';
@@ -593,10 +648,10 @@ function obtenerOrdenesPaginadas($id_usuario = null, $estado = NULL, $cantidadPo
     $sql .= ' `estado`=' . $estado;
   }
 
-  $sql .= ' ORDER BY `fecha` DESC LIMIT ' . ($cantidadPorPagina * ($pagina - 1)) . ',' . $cantidadPorPagina;
+  $sql .= ' ORDER BY `fecha` DESC LIMIT ' . ($quantityPorPagina * ($pagina - 1)) . ',' . $quantityPorPagina;
 
-  $pedidos = $db->getObjects($sql);
-  return $pedidos;
+  $orders = $db->getObjects($sql);
+  return $orders;
 }
 
 function getUsersExportacion()
@@ -1027,177 +1082,115 @@ function deleteArticle($id)
 }
 
 /* PEDIDOS */
-function addToCart($id, $cantidad, $esPack = 'true', $talle = NULL, $color = NULL)
+// function addToCart($id, $quantity, $esPack = 'true', $talle = NULL, $color = NULL)
+function addToCart($id = null, $quantity = 1)
 {
+  if (getRequestParam('addtocart')) $id = getRequestParam('addtocart');
+  if (getRequestParam('add')) $quantity = getRequestParam('add');
+  if (!isset($id)) return null;
+
   $user = loadUser();
 
   if ((!$user || $user['user'] == "") && !isset($_SESSION['temp_userid'])) {
-    // Algoritmo del temp_userid
-    $ipToNumber = (int) implode('', explode('.', getRealIP()));
-    $timeLength = time();
-
-    // Guardo un user id temporal igual al timestam actual
+    $ipToNumber  = (int) implode('', explode('.', getRealIP()));
+    $timeLength  = time();
     $temp_userid = $ipToNumber + $timeLength;
 
-    // Guardo ese user id temporal en la sesión
     $_SESSION['temp_userid'] = $temp_userid;
   } else {
     if (!$user || $user['user'] == "") {
-      // Guardo el user ID para guardar el pedido
       $temp_userid = $_SESSION['temp_userid'];
     } else {
       $temp_userid = $user['user']->id;
     }
   }
 
-  $userid = $temp_userid;
+  $userid       = $temp_userid;
+  $from2daysago = time() - (2 * 24 * 60 * 60);
+  $db           = getDBConnection();
+  $sql_reuse    = 'SELECT `id`, `fecha`, `total`, `cantidad`, `estado` FROM `pedido` WHERE `usuario_id` = "' . $userid . '" AND `estado` = 4 AND `fecha` >= "' . date('Y/m/d', $from2daysago) . '"';
+  $order        = $db->getObject($sql_reuse);
+  $orderId      = NULL;
 
-  // checar si hay un pedido abierto (1 : pendiente, 2 : cancelado, 3 : aprobado, 4 : abierto, 5 : cerrado)
-  $estafecha = time() - (2 * 24 * 60 * 60);
-  $esPack    = $esPack == 'true' ? true : false;
-  $db        = getDBConnection();
-  $sql_reuse = 'SELECT `id`, `fecha`, `total`, `cantidad`, `estado` FROM `pedido` WHERE `usuario_id` = "' . $userid . '" AND `estado` = 4 AND `fecha` >= "' . date('Y/m/d', $estafecha) . '"';
-  $pedido    = $db->getObject($sql_reuse);
-  $pedidoId  = NULL;
-
-  if ($pedido) {
-    // si hay pedido
-    // guardo el id de este pedido
-    $pedidoId = $pedido->id;
+  if ($order) {
+    $orderId = $order->id;
   } else {
-    // creo el pedido con estado abierto
-    $h = "-3";
-    $hm = $h * 60;
-    $ms = $hm * 60;
-    $gmdate = gmdate("Y-m-d H:i:s", time() + ($ms));
-
-    $sql = 'INSERT INTO `pedido` (`usuario_id`, `fecha`, `total`, `cantidad`, `estado`) VALUES ("' . $userid . '", "' . $gmdate . '", 0, 0, 4)';
-    $pedidoId = $db->insert($sql);
-
-    // controlar pedido, si no existe retornar error
-    if (!$pedidoId) {
-      return array('status' => 'error', 'error' => 'INVOICE_DOESNT_EXIST');
-    }
-
-    $pedido = $db->getObject($sql_reuse);
+    $h       = "-3";
+    $hm      = $h * 60;
+    $ms      = $hm * 60;
+    $gmdate  = gmdate("Y-m-d H:i:s", time() + ($ms));
+    $sql     = 'INSERT INTO `pedido` (`usuario_id`, `fecha`, `total`, `cantidad`, `estado`) VALUES ("' . $userid . '", "' . $gmdate . '", 0, 0, 4)';
+    $orderId = $db->insert($sql);
+    $order   = $db->getObject($sql_reuse);
   }
 
-  // obtengo el articulo para extraer los datos necesarios para el pedido
-  $sql = 'SELECT `packs`, `colores_url`, `colores_surtidos_url`, `talle`, `talle_surtido`, `oferta`, `surtido`, `precio`, `precio_oferta`, `precio_surtido`, `precio_oferta_surtido` FROM `articulo` WHERE `id`=' . $id;
-  $articulo = $db->getObject($sql);
+  $sql     = 'SELECT `oferta`, `surtido`, `precio`, `precio_oferta` FROM `articulo` WHERE `id`=' . $id;
+  $article = $db->getObject($sql);
 
-  // controlar articulo, si no existe retornar error
-  if (!$articulo) {
-    return array('status' => 'error', 'error' => 'ITEM_DOESNT_EXIST');
+  if (!$article) {
+    // return array('status' => 'error', 'error' => 'ITEM_DOESNT_EXIST');
+    return 'Hubo un error agregando el artículo al carrito';
   }
 
-  // Chequeo el precio si es pack o surtido y lo actualizo en el pedido
-  if ($esPack) {
-    $articulo_precio = (($articulo->oferta == 1 && $articulo->precio_oferta > 0) ? $articulo->precio_oferta : $articulo->precio);
-    $surtido = 0;
-
-    // guardar todos los colores en $colors
-    $colorsDir  = '../../..' . str_replace("{id}", $id, $articulo->colores_url);
-
-    if (!is_dir($colorsDir)) {
-      $colors = '0';
-    } else {
-      $colorsFiles = opendir($colorsDir);
-      $colorsList = array();
-
-      if (!$colorsFiles) {
-        $colors = '0';
-      } else {
-        $auxColors = array();
-        while ($col = readdir($colorsFiles)) {
-          if (!is_dir($colorsDir . $col)) {
-            // $colorsList[] = $col;
-            $auxColors[] = basename($col, '.jpg');
-          }
-        }
-
-        $colors = implode(',', $auxColors);
-      }
-    }
-  } else {
-    $articulo_precio = 0;
-    if ($articulo->oferta == 1) {
-      $articulo_precio = ($articulo->precio_oferta_surtido > 0 ? $articulo->precio_oferta_surtido : ($articulo->precio_surtido > 0 ? $articulo->precio_surtido : ($articulo->precio_oferta > 0 ? $articulo->precio_oferta : $articulo->precio)));
-    } else {
-      $articulo_precio = ($articulo->precio_surtido > 0 ? $articulo->precio_surtido : $articulo->precio);
-    }
-    // TODO - Error
-    // $colors = str_replace('color-'.$id.'-', '', $color);
-    $colors = $color;
-    $surtido = 1;
-  }
-
-  $pack        = $esPack ? (int) str_replace(array("pack x", "pack x ", "X", "x", "X ", "x ", "packs x", "packs x ", "Packs X", "Packs X ", "PACKS X", "PACKS X ", "Pack x", "Pack x "), "", $articulo->packs) : 1;
-  $subtotalArt = $articulo_precio * $pack * $cantidad;
-  $totalPedido = $pedido->total + ($articulo_precio * $pack * $cantidad);
-  $talle       = $esPack ? $articulo->talle : $talle;
-
-  $sql = 'UPDATE `pedido` SET `total`=' . $totalPedido . ', `cantidad`=' . ($pedido->cantidad + 1) . ' WHERE `id`=' . $pedidoId;
-  $sql_update_pedido = $sql;
+  $article_price        = $article->oferta ? $article->precio_oferta : $article->precio;
+  $subtotal_for_article = $article_price * $quantity;
+  $total_for_order      = $order->total + $subtotal_for_article;
+  $sql                  = 'UPDATE `pedido` SET `total`=' . $total_for_order . ', `cantidad`=' . ($order->cantidad + 1) . ' WHERE `id`=' . $orderId;
   $db->insert($sql);
 
-  // TODO WORKING ON
-  // return array('userid' => $userid, 'articulo' => $articulo, 'articulo_precio' => $articulo_precio, 'sql_update_pedido' => $sql_update_pedido);
-
-  // Guardo el articulo relacionado al pedido, en la tabla articulo_pedido
-  $sql = 'INSERT INTO `articulo_pedido` (`pedido_id`, `articulo_id`, `precio_actual`, `surtido`, `talle`, `color`, `cantidad`, `subtotal`) VALUES (' . $pedidoId . ', ' . $id . ', ' . $articulo_precio . ', ' . $surtido . ', "' . $talle . '", "' . $colors . '", ' . ($pack * $cantidad) . ', ' . $subtotalArt  . ')';
-  $rId = $db->insert($sql);
-
-
-  $pedido = $db->getObject($sql_reuse);
+  $sql   = 'INSERT INTO `articulo_pedido` (`pedido_id`, `articulo_id`, `precio_actual`, `cantidad`, `subtotal`) VALUES (' . $orderId . ', ' . $id . ', ' . $article_price . ', ' . $quantity . ', ' . $subtotal_for_article  . ')';
+  $rId   = $db->insert($sql);
+  $order = $db->getObject($sql_reuse);
 
   if ($rId) {
-    return array('status' => 'ok', 'pedido' => $pedido);
+    // return array('status' => 'ok', 'pedido' => $order);
+    return 'El artículo se agregó al cartito';
   } else {
-    return array('status' => 'error', 'error' => 'DB_ERROR');
+    // return array('status' => 'error', 'error' => 'DB_ERROR');
+    return 'Hubo un error agregando el artículo al carrito';
   }
 }
 
-function eliminarDelPedido($idpedido, $itemid, $pedidoid, $precioitem, $cantidaditem, $totalpedido, $cantidaditemstotal)
+function eliminarDelPedido($idpedido, $itemid, $orderid, $precioitem, $quantityitem, $total_for_order, $quantityitemstotal)
 {
 
   $db = getDBConnection();
-  $sql = 'DELETE FROM `articulo_pedido` WHERE `pedido_id`=' . $pedidoid . ' AND `articulo_id`=' . $itemid . ' AND `id`=' . $idpedido;
+  $sql = 'DELETE FROM `articulo_pedido` WHERE `pedido_id`=' . $orderid . ' AND `articulo_id`=' . $itemid . ' AND `id`=' . $idpedido;
   $db->insert($sql);
 
-  $sql = 'SELECT COUNT(*) AS `cantidad_en_pedido`, SUM(`subtotal`) AS `total_en_pedido` FROM `articulo_pedido` WHERE `pedido_id`=' . $pedidoid;
-  $articulos = $db->getObject($sql);
+  $sql = 'SELECT COUNT(*) AS `cantidad_en_pedido`, SUM(`subtotal`) AS `total_en_pedido` FROM `articulo_pedido` WHERE `pedido_id`=' . $orderid;
+  $articles = $db->getObject($sql);
 
-  if ($articulos->cantidad_en_pedido > 0) {
+  if ($articles->cantidad_en_pedido > 0) {
 
-    $sql = 'UPDATE `pedido` SET `total`=' . $articulos->total_en_pedido . ', `cantidad`=' . $articulos->cantidad_en_pedido . ' WHERE `id`=' . $pedidoid;
+    $sql = 'UPDATE `pedido` SET `total`=' . $articles->total_en_pedido . ', `cantidad`=' . $articles->cantidad_en_pedido . ' WHERE `id`=' . $orderid;
   } else {
 
-    $sql = 'DELETE FROM `pedido` WHERE `id`=' . $pedidoid;
+    $sql = 'DELETE FROM `pedido` WHERE `id`=' . $orderid;
   }
 
   $db->insert($sql);
 
-  return array('status' => 'DELTE_SUCCESSFUL', 'articulos' => $articulos->cantidad_en_pedido, 'total' => $articulos->total_en_pedido);
+  return array('status' => 'DELTE_SUCCESSFUL', 'articulos' => $articles->cantidad_en_pedido, 'total' => $articles->total_en_pedido);
 }
 
 function obtenerPedido($idPedido)
 {
-  $pedidoCompleto = array('articulos' => NULL, 'pedido' => NULL);
+  $orderCompleto = array('articulos' => NULL, 'pedido' => NULL);
 
   $db = getDBConnection();
   $sql = 'SELECT `pedido`.*, `usuario`.`nombre`, `usuario`.`apellido`, `usuario`.`rut`, `usuario`.`telefono`, `usuario`.`celular`, `usuario`.`email` FROM `pedido` JOIN `usuario` ON `pedido`.`usuario_id` = `usuario`.`id` WHERE `pedido`.`id`=' . $idPedido;
-  $pedidoCompleto['pedido'] = $db->getObject($sql);
+  $orderCompleto['pedido'] = $db->getObject($sql);
 
-  if (empty($pedidoCompleto['pedido'])) {
+  if (empty($orderCompleto['pedido'])) {
     $sql = 'SELECT `pedido`.* FROM `pedido` WHERE `pedido`.`id`=' . $idPedido;
-    $pedidoCompleto['pedido'] = $db->getObject($sql);
+    $orderCompleto['pedido'] = $db->getObject($sql);
   }
 
   $sql = 'SELECT `articulo_pedido`.`id` AS `id_pedido`, `articulo_pedido`.`cantidad`, `articulo_pedido`.`subtotal`, `articulo`.`id`, `articulo`.`nombre`, `articulo`.`codigo`, `articulo_pedido`.`surtido`, `articulo_pedido`.`talle`, `articulo_pedido`.`color`, `articulo`.`colores_url`, `articulo`.`colores_surtidos_url`, `articulo`.`imagenes_url` FROM `articulo_pedido` JOIN `articulo` ON `articulo_pedido`.`articulo_id`=`articulo`.`id` WHERE `articulo_pedido`.`pedido_id`=' . $idPedido;
-  $pedidoCompleto['articulos'] = $db->getObjects($sql);
+  $orderCompleto['articulos'] = $db->getObjects($sql);
 
-  return $pedidoCompleto;
+  return $orderCompleto;
 }
 
 // @To-Do
@@ -1213,13 +1206,13 @@ function obtenerPedidoAbierto($id_usuario = null)
 
   $id_us     = $id_usuario ? $id_usuario : JSON_decode($_SESSION['usuario'])->id;
 
-  $estafecha = time() - (2 * 24 * 60 * 60);
+  $from2daysago = time() - (2 * 24 * 60 * 60);
   // obtengo el pedido abierto
   $db        = getDBConnection();
-  $sql       = 'SELECT * FROM `pedido` WHERE `estado` = 4 AND `usuario_id`=' . $id_us . ' AND `fecha` >= "' . date('Y/m/d', $estafecha) . '"';
-  $pedido    = $db->getObject($sql);
+  $sql       = 'SELECT * FROM `pedido` WHERE `estado` = 4 AND `usuario_id`=' . $id_us . ' AND `fecha` >= "' . date('Y/m/d', $from2daysago) . '"';
+  $order    = $db->getObject($sql);
 
-  return $pedido;
+  return $order;
 }
 
 function obtenerPedidos($id_usuario = null, $estado = NULL)
@@ -1249,8 +1242,8 @@ function obtenerPedidos($id_usuario = null, $estado = NULL)
 
   $sql .= ' ORDER BY `estado` ASC';
 
-  $pedidos = $db->getObjects($sql);
-  return $pedidos;
+  $orders = $db->getObjects($sql);
+  return $orders;
 }
 
 function obtenerUltimoPedido()
@@ -1258,9 +1251,9 @@ function obtenerUltimoPedido()
   $db = getDBConnection();
   $sql = 'SELECT `pedido`.*, `usuario`.`nombre`, `usuario`.`apellido`, `usuario`.`rut`, `usuario`.`telefono`, `usuario`.`celular`, `usuario`.`email` FROM `pedido` JOIN `usuario` ON `pedido`.`usuario_id`=`usuario`.`id` WHERE `estado` = 1 AND `notificado` != 1 ORDER BY `fecha` DESC';
 
-  $pedido = $db->getObject($sql);
+  $order = $db->getObject($sql);
 
-  return $pedido;
+  return $order;
 }
 
 function actualizarUltimoPedido()
@@ -1294,8 +1287,8 @@ function completarPedido($idPedido)
   $usuarioSQL = 'SELECT * FROM `usuario` WHERE `id`=' . $ordenOBJ->usuario_id;
   $usuarioOBJ = $db->getObject($usuarioSQL);
 
-  $pedidoSQL = 'SELECT `articulo_pedido`.`id`, `articulo_pedido`.`articulo_id`, `articulo_pedido`.`precio_actual`, `articulo_pedido`.`cantidad`, `articulo_pedido`.`subtotal`, `articulo`.`codigo`, `articulo`.`nombre`,`articulo_pedido`.`talle`, `articulo_pedido`.`surtido`, `articulo_pedido`.`color`, `articulo`.`colores_url`, `articulo`.`colores_surtidos_url`, `articulo`.`imagenes_url` FROM `articulo_pedido` JOIN `articulo` ON `articulo_pedido`.`articulo_id`=`articulo`.`id` WHERE `pedido_id`=' . $idPedido;
-  $pedidoOBJ = $db->getObjects($pedidoSQL);
+  $orderSQL = 'SELECT `articulo_pedido`.`id`, `articulo_pedido`.`articulo_id`, `articulo_pedido`.`precio_actual`, `articulo_pedido`.`cantidad`, `articulo_pedido`.`subtotal`, `articulo`.`codigo`, `articulo`.`nombre`,`articulo_pedido`.`talle`, `articulo_pedido`.`surtido`, `articulo_pedido`.`color`, `articulo`.`colores_url`, `articulo`.`colores_surtidos_url`, `articulo`.`imagenes_url` FROM `articulo_pedido` JOIN `articulo` ON `articulo_pedido`.`articulo_id`=`articulo`.`id` WHERE `pedido_id`=' . $idPedido;
+  $orderOBJ = $db->getObjects($orderSQL);
 
   $asunto = '(eCommerce - Pedido) Orden N. ' . $idPedido;
   $mensaje = '' .
@@ -1367,36 +1360,36 @@ function completarPedido($idPedido)
     '</tr>' .
     '</thead>' .
     '<tbody>';
-  foreach ($pedidoOBJ as $articulo) {
+  foreach ($orderOBJ as $article) {
 
     $mensaje .=
       '<tr>' .
-      '<td>' . $articulo->codigo . '</td>' .
-      '<td>' . $articulo->nombre . '</td>' .
-      '<td>' . ($articulo->surtido == 0 ? 'No' : 'Si') . '</td>' .
-      '<td>' . $articulo->talle . '</td>' .
+      '<td>' . $article->codigo . '</td>' .
+      '<td>' . $article->nombre . '</td>' .
+      '<td>' . ($article->surtido == 0 ? 'No' : 'Si') . '</td>' .
+      '<td>' . $article->talle . '</td>' .
       '<td>';
 
-    $surtido           = $articulo->surtido == 0 ? false : true;
+    $surtido           = $article->surtido == 0 ? false : true;
     $relative          = '../../../';
     $colorsAuxDir      = '';
     $colorsDir         = '';
     $colorsDirForEmail = 'http://' . $_SERVER['SERVER_NAME'];
-    $colores           = explode(',', $articulo->color);
+    $colores           = explode(',', $article->color);
 
-    if ($articulo->colores_url == $articulo->imagenes_url) {
-      $mensaje .= '<img src="http://' . $_SERVER['SERVER_NAME'] . str_replace("{id}", $articulo->articulo_id, $articulo->imagenes_url) . 'colors.jpg" />';
+    if ($article->colores_url == $article->imagenes_url) {
+      $mensaje .= '<img src="http://' . $_SERVER['SERVER_NAME'] . str_replace("{id}", $article->articulo_id, $article->imagenes_url) . 'colors.jpg" />';
     } else {
       if ($surtido) {
-        $colorsDir    = str_replace("{id}", $articulo->articulo_id, $articulo->colores_surtidos_url);
-        $colorsAuxDir = $relative . str_replace("{id}", $articulo->articulo_id, $articulo->colores_surtidos_url);
+        $colorsDir    = str_replace("{id}", $article->articulo_id, $article->colores_surtidos_url);
+        $colorsAuxDir = $relative . str_replace("{id}", $article->articulo_id, $article->colores_surtidos_url);
         if (!file_exists($colorsAuxDir)) {
-          $colorsDir    = str_replace("{id}", $articulo->articulo_id, $articulo->colores_url);
-          $colorsAuxDir = $relative . str_replace("{id}", $articulo->articulo_id, $articulo->colores_url);
+          $colorsDir    = str_replace("{id}", $article->articulo_id, $article->colores_url);
+          $colorsAuxDir = $relative . str_replace("{id}", $article->articulo_id, $article->colores_url);
         }
       } else {
-        $colorsDir    = str_replace("{id}", $articulo->articulo_id, $articulo->colores_url);
-        $colorsAuxDir = $relative . str_replace("{id}", $articulo->articulo_id, $articulo->colores_url);
+        $colorsDir    = str_replace("{id}", $article->articulo_id, $article->colores_url);
+        $colorsAuxDir = $relative . str_replace("{id}", $article->articulo_id, $article->colores_url);
       }
 
       if (file_exists($colorsAuxDir)) {
@@ -1413,7 +1406,7 @@ function completarPedido($idPedido)
           </span>
         </li>';
             } else {
-              $colorsDir         = str_replace("{id}", $articulo->articulo_id, $articulo->colores_url);
+              $colorsDir         = str_replace("{id}", $article->articulo_id, $article->colores_url);
               $colorsDirForEmail = 'http://' . $_SERVER['SERVER_NAME'] . $colorsDir;
               $mensaje .=
                 '<li style="display:inline-block;">
@@ -1427,11 +1420,11 @@ function completarPedido($idPedido)
         $mensaje .=
           '</ul>';
       } else {
-        $colorsDir = $relative . str_replace("{id}", $articulo->articulo_id, $articulo->imagenes_url);
+        $colorsDir = $relative . str_replace("{id}", $article->articulo_id, $article->imagenes_url);
         $colors    = $colorsDir . 'colors.jpg';
 
         if (file_exists($colors)) {
-          $mensaje .= '<img src="http://' . $_SERVER['SERVER_NAME'] . str_replace("{id}", $articulo->articulo_id, $articulo->imagenes_url) . 'colors.jpg" />';
+          $mensaje .= '<img src="http://' . $_SERVER['SERVER_NAME'] . str_replace("{id}", $article->articulo_id, $article->imagenes_url) . 'colors.jpg" />';
         } else {
           $mensaje .= '<span>No hay colores</span>';
         }
@@ -1440,8 +1433,8 @@ function completarPedido($idPedido)
 
     $mensaje .=
       '</td>' .
-      '<td>' . $articulo->cantidad . '</td>' .
-      '<td>$ ' . $articulo->subtotal . ',00</td>' .
+      '<td>' . $article->cantidad . '</td>' .
+      '<td>$ ' . $article->subtotal . ',00</td>' .
       '</tr>';
   }
 
@@ -1546,28 +1539,28 @@ function cerrarPedido($idPedido)
   return array('status' => 'STATUS_UPDATED_SUCCESSFUL');
 }
 
-function cambiarPertenenciaDelPedido($pedidoid, $idNuevoUsuario, $idViejoUsuario)
+function cambiarPertenenciaDelPedido($orderid, $idNuevoUsuario, $idViejoUsuario)
 {
   $db = getDBConnection();
 
   // Cambio el id temporal de usuario del prepedido por el id del usuario logueado
-  $sql = 'UPDATE `pedido` SET `usuario_id` = ' . $idNuevoUsuario . ' WHERE `id` = ' . $pedidoid . ' AND `usuario_id`=' . $idViejoUsuario;
+  $sql = 'UPDATE `pedido` SET `usuario_id` = ' . $idNuevoUsuario . ' WHERE `id` = ' . $orderid . ' AND `usuario_id`=' . $idViejoUsuario;
   $db->insert($sql);
 
   // Obtengo el pedido
-  $sql_p   = 'SELECT * FROM `pedido` WHERE `id` = ' . $pedidoid;
-  $pedido  = $db->getObject($sql_p);
+  $sql_p   = 'SELECT * FROM `pedido` WHERE `id` = ' . $orderid;
+  $order  = $db->getObject($sql_p);
 
   // Lo retorno
-  return $pedido;
+  return $order;
 }
 
-function combinarPedidos($pedido, $prepedido)
+function combinarPedidos($order, $prepedido)
 {
   $db = getDBConnection();
 
-  $pedido_cantidad = $pedido->cantidad;
-  $pedido_total    = $pedido->total;
+  $order_cantidad = $order->cantidad;
+  $order_total    = $order->total;
 
   // Obtengo los artículos del pre pedido
   $sql_prearticulos    = 'SELECT `articulo_pedido`.`id` AS `id_pedido`, `articulo_pedido`.`cantidad`, `articulo_pedido`.`subtotal`, `articulo`.`id`, `articulo`.`nombre`, `articulo`.`codigo`, `articulo_pedido`.`surtido`, `articulo_pedido`.`talle`, `articulo_pedido`.`color`, `articulo`.`colores_url`, `articulo`.`colores_surtidos_url`, `articulo`.`imagenes_url` FROM `articulo_pedido` JOIN `articulo` ON `articulo_pedido`.`articulo_id`=`articulo`.`id` WHERE `articulo_pedido`.`pedido_id`=' . $prepedido->id;
@@ -1576,25 +1569,25 @@ function combinarPedidos($pedido, $prepedido)
   // Recorro los articulos pre pedidos
   foreach ($prearticulospedidos as $art_pedido) {
     // actualizo el total y la cantidad en el pedido
-    $pedido_cantidad = $pedido_cantidad + 1;
-    $pedido_total    = $pedido_total + $art_pedido->subtotal;
+    $order_cantidad = $order_cantidad + 1;
+    $order_total    = $order_total + $art_pedido->subtotal;
   }
 
   // Cambio el id de los articulos pre pedidos por los del pedido
-  $sql_ap = 'UPDATE `articulo_pedido` SET `pedido_id` = ' . $pedido->id . ' WHERE `pedido_id` = ' . $prepedido->id;
+  $sql_ap = 'UPDATE `articulo_pedido` SET `pedido_id` = ' . $order->id . ' WHERE `pedido_id` = ' . $prepedido->id;
   $db->insert($sql_ap);
 
   // Actualizo la cantidad y el total al pedido principal
-  $sql_p = 'UPDATE `pedido` SET `cantidad` = ' . $pedido_cantidad . ', `total` = ' . $pedido_total . ' WHERE `id` = ' . $pedido->id;
+  $sql_p = 'UPDATE `pedido` SET `cantidad` = ' . $order_cantidad . ', `total` = ' . $order_total . ' WHERE `id` = ' . $order->id;
   $db->insert($sql_p);
 
   // Elimino el prepedido
   $sql_dp = 'DELETE FROM `pedido` WHERE `id` = ' . $prepedido->id;
   $db->insert($sql_dp);
 
-  $pedido_actualizado = obtenerPedidoAbierto($pedido->usuario_id);
+  $order_actualizado = obtenerPedidoAbierto($order->usuario_id);
 
-  return $pedido_actualizado;
+  return $order_actualizado;
 }
 
 /* GENERAL */
@@ -1719,4 +1712,29 @@ function delTree($dir)
   return rmdir($dir);
 }
 
-?>
+function getRequestParam($param) {
+  if (!isset($_REQUEST[$param])) {
+    return null;
+  }
+
+  return $_REQUEST[$param];
+}
+
+function processRequests()
+{
+  // User
+  // saveUser();
+  // loginUser();
+  // logoutUser();
+  if ($message = addToCart()) {
+  ?>
+  <div class='floating-notification'>
+    <?php echo $message ?>
+  </div>
+  <?php
+  }
+
+  // Admin
+  // saveArticle();
+  // saveCategory();
+}

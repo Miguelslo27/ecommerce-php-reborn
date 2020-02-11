@@ -83,37 +83,37 @@ include($template_path . 'header.php');
 						<tbody>
 							<?php
 							if ($cartItems) {
-								foreach ($cartItems['articulos'] as $articulo) {
+								foreach ($cartItems['articulos'] as $article) {
 								?>
 								<tr>
 									<td class="imagen">
-										<img src="<?php echo ($articulo->imagenes_url != '' ? str_replace('{id}', $articulo->id, $articulo->imagenes_url) . 'thumbnail.jpg' : '/statics/images/noimage.jpg') ?>">
+										<img src="<?php echo ($article->imagenes_url != '' ? str_replace('{id}', $article->id, $article->imagenes_url) . 'thumbnail.jpg' : '/statics/images/noimage.jpg') ?>">
 									</td>
-									<td class="codigo"><?php echo $articulo->codigo; ?></td>
+									<td class="codigo"><?php echo $article->codigo; ?></td>
 									<td class="articulo">
-										<?php echo $articulo->nombre; ?><br /><br />
+										<?php echo $article->nombre; ?><br /><br />
 										<span style="font-size: 13px;">
-											<strong>Surtido: </strong><span class="valor-surtido"><?php echo $articulo->surtido == 0 ? 'No' : 'Si'; ?></span> -
-											<strong>Talles: </strong><?php echo $articulo->talle; ?>
+											<strong>Surtido: </strong><span class="valor-surtido"><?php echo $article->surtido == 0 ? 'No' : 'Si'; ?></span> -
+											<strong>Talles: </strong><?php echo $article->talle; ?>
 											<br />
 											<strong>Colores: </strong>
 											<?php
-											$surtido    = $articulo->surtido == 0 ? false : true;
+											$surtido    = $article->surtido == 0 ? false : true;
 											$colorsDir  = '';
-											$colores    = explode(',', $articulo->color);
+											$colores    = explode(',', $article->color);
 
-											if($articulo->colores_url == $articulo->imagenes_url) {
+											if($article->colores_url == $article->imagenes_url) {
 												?>
-												<img style="margin: 0 0 -5px;" src="..<?php echo str_replace("{id}", $articulo->id, $articulo->imagenes_url); ?>colors.jpg">
+												<img style="margin: 0 0 -5px;" src="..<?php echo str_replace("{id}", $article->id, $article->imagenes_url); ?>colors.jpg">
 												<?php
 											} else {
 												if($surtido) {
-													$colorsDir = $relative.str_replace("{id}", $articulo->id, $articulo->colores_surtidos_url);
+													$colorsDir = $relative.str_replace("{id}", $article->id, $article->colores_surtidos_url);
 													if(!file_exists($colorsDir)) {
-														$colorsDir = $relative.str_replace("{id}", $articulo->id, $articulo->colores_url);
+														$colorsDir = $relative.str_replace("{id}", $article->id, $article->colores_url);
 													}
 												} else {
-													$colorsDir = $relative.str_replace("{id}", $articulo->id, $articulo->colores_url);
+													$colorsDir = $relative.str_replace("{id}", $article->id, $article->colores_url);
 												}
 												
 												if(file_exists($colorsDir)) {
@@ -127,7 +127,7 @@ include($template_path . 'header.php');
 																	<li style="display: inline-block;"><span style="border-radius: 8px; border: 2px solid #ccc; height: 14px; width: 14px; display: inline-block; position: relative; bottom: -3px;"><img src="<?php echo $colorsDir.$color.'.jpg?'; ?>" style="border-radius: 7px; width: 14px;"	></span></li>
 																	<?php
 																} else {
-																	$colorsDir = $relative.str_replace("{id}", $articulo->id, $articulo->colores_url);
+																	$colorsDir = $relative.str_replace("{id}", $article->id, $article->colores_url);
 																	?>
 																	<li style="display: inline-block;"><span style="border-radius: 8px; border: 2px solid #ccc; height: 14px; width: 14px; display: inline-block; position: relative; bottom: -3px;"><img src="<?php echo $colorsDir.$color.'.jpg?'; ?>" style="border-radius: 7px; width: 14px;"	></span></li>
 																	<?php
@@ -138,12 +138,12 @@ include($template_path . 'header.php');
 													</ul>
 													<?php
 												} else {
-													$colorsDir = $relative.str_replace("{id}", $articulo->id, $articulo->imagenes_url);
+													$colorsDir = $relative.str_replace("{id}", $article->id, $article->imagenes_url);
 													$colors    = $colorsDir.'colors.jpg';
 													
 													if(file_exists($colors)) {
 													?>
-													<img style="margin: 0 0 -5px;" src="<?php echo $relative.str_replace("{id}", $articulo->id, $articulo->imagenes_url); ?>colors.jpg">
+													<img style="margin: 0 0 -5px;" src="<?php echo $relative.str_replace("{id}", $article->id, $article->imagenes_url); ?>colors.jpg">
 													<?php
 													} else {
 													?>
@@ -155,14 +155,14 @@ include($template_path . 'header.php');
 											?>
 										</span>
 									</td>
-									<td class="cantidad"><?php echo $articulo->cantidad; ?></td>
+									<td class="cantidad"><?php echo $article->cantidad; ?></td>
 									<td class="subtotal">
 										<div class="subtotal-wrapper">
-										$ <?php echo $articulo->subtotal; ?>,00
+										$ <?php echo $article->subtotal; ?>,00
 										</div>
 									</td>
 									<td class="acciones">
-										<a alt="Eliminar del pedido" title="Eliminar del pedido" class="acciones-carrito accion-eliminar" data-idpedido="<?php echo $articulo->id_pedido; ?>" data-itemid="<?php echo $articulo->id; ?>" data-pedidoid="<?php echo $cartItems['pedido']->id; ?>" data-precioitem="<?php echo $articulo->subtotal; ?>" data-cantidaditem="1" data-totalpedido="<?php echo $cartItems['pedido']->total; ?>" data-totalitems="<?php echo $cartItems['pedido']->cantidad; ?>">+</a>
+										<a alt="Eliminar del pedido" title="Eliminar del pedido" class="acciones-carrito accion-eliminar" data-idpedido="<?php echo $article->id_pedido; ?>" data-itemid="<?php echo $article->id; ?>" data-pedidoid="<?php echo $cartItems['pedido']->id; ?>" data-precioitem="<?php echo $article->subtotal; ?>" data-cantidaditem="1" data-totalpedido="<?php echo $cartItems['pedido']->total; ?>" data-totalitems="<?php echo $cartItems['pedido']->cantidad; ?>">+</a>
 									</td>
 								</tr>
 								<?php
