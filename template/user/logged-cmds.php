@@ -12,14 +12,16 @@
       </a>
     </div>
   </div>
+
   <?php if (isAdmin()) : ?>
     <a href="/admin/ordenes" class="access-menu normal-tab">Pedidos</a>
     <a href="/admin/usuarios" class="access-menu normal-tab">Usuarios</a>
   <?php endif ?>
+
   <?php if (!isAdmin()) : ?>
     <a href="/pedido" class="access-menu normal-tab">
       <i class="fas fa-shopping-cart"></i>
-      <span class="access-menu normal-tab">Mi pedido: $<?php echo $userStats['cart'] ? $userStats['cart']->cantidad : 0; ?></span>
+      <span class="access-menu normal-tab">Mi pedido: $<?php echo getCart()->total ?></span>
     </a>
   <?php endif ?>
 </div>

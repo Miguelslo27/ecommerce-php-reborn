@@ -46,11 +46,19 @@ function newDocument($page_name, $sub_page_name, $includes, $actions = null)
   setGlobal('user', loadUser());
   setGlobal('page', $page_name);
   setGlobal('sub_page', $sub_page_name);
+  startNewDocument();
 
-  startDocument();
-  include(getTemplatePath() . 'header.php');
+  $classes = ['container'];
+  if (isset($page_name) && trim($page_name) !== '') {
+    $classes[] = $page_name;
+  }
+
+  if (isset($sub_page_name) && trim($sub_page_name) !== '') {
+    $classes[] = $sub_page_name;
+  }
+
   ?>
-  <div class="container <?php echo $page_name ?><?php echo $sub_page_name !== '' && '__' . $sub_page_name ?>">
+  <div class="<?php echo implode(' ', $classes) ?>">
   <?php
   
   foreach ($includes as $file) {
@@ -60,8 +68,33 @@ function newDocument($page_name, $sub_page_name, $includes, $actions = null)
   ?>
   </div>
   <?php
-  include($template_path . 'footer.php');
-  endDocument();
+
+  endNewDocument();
+}
+
+function startNewDocument()
+{
+  ?>
+  <!doctype html>
+  <html lang="es">
+  <head>
+    <title>Demo Site - e-Com.uy</title>
+    <?php include(getTemplatePath() . 'include_metatags.php') ?>
+    <?php include(getTemplatePath() . 'include_css.php') ?>
+  </head>
+  <body class="page_<?php echo getGlobal('page') ?>">
+    <?php include(getTemplatePath() . 'header.php') ?>
+  <?php
+}
+
+function endNewDocument()
+{
+  ?>
+    <?php include(getTemplatePath() . 'footer.php') ?>
+    <?php include(getTemplatePath() . 'include_js.php') ?>
+  </body>
+  </html>
+  <?php
 }
 
 /* USUARIO */
@@ -1165,6 +1198,14 @@ function obtenerPedido($idPedido)
   $pedidoCompleto['articulos'] = $db->getObjects($sql);
 
   return $pedidoCompleto;
+}
+
+// @To-Do
+function getCart()
+{
+  $cart = new stdClass();
+  $cart->total = 0;
+  return $cart;
 }
 
 function obtenerPedidoAbierto($id_usuario = null)
