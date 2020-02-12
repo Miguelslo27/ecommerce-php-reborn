@@ -20,7 +20,7 @@
 
 		<div class="form-line">
 			<label for="rut">RUT (opcional)</label>
-			<input type="text" id="rut" name="rut" value="<?php echo ($userStats['user'] ? $userStats['user']->rut : ''); ?>">
+			<input type="text" id="rut" name="rut" value="<?php echo (getCurrentUser() ? getCurrentUser()->rut : ''); ?>">
 		</div>
 
 		<div class="form-line">
@@ -31,7 +31,7 @@
 			<label for="telefono">Teléfono</label>
 			<input type="text" id="telefono" name="telefono">
 			<label for="celular" class="align-center">Celular</label>
-			<input type="text" data-label="Celular" id="celular" name="celular" value="<?php echo ($userStats['user'] ? $userStats['user']->celular : ''); ?>">
+			<input type="text" data-label="Celular" id="celular" name="celular" value="<?php echo (getCurrentUser() ? getCurrentUser()->celular : ''); ?>">
 		</div>
 		<div class="form-group">
 			<label for="departamento">Departamento</label>

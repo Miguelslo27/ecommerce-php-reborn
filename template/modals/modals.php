@@ -2,9 +2,9 @@
 	<div class="modal-cont">
 <?php
 
-$page          = $GLOBALS['page'];
+$page          = getGlobal('page');
 $sub_page      = $GLOBALS['sub_page'];
-$userStats     = $GLOBALS['userStats'];
+$userStats     = getGlobal('user');
 $template_path = getTemplatePath();
 
 switch($userStats['status']) {
@@ -40,7 +40,7 @@ switch($page) {
 			include($template_path . 'modals/new-article.php');
 			include($template_path . 'modals/delete-category.php');
 			include($template_path . 'modals/delete-article.php');
-		} else if (!$userStats['user']) {
+		} else if (!getCurrentUser()) {
 			include($template_path . 'modals/accesso-restringido.php');
 		} else {
 			include($template_path . 'modals/mensaje-nueva-forma-compra.php');

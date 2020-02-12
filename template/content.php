@@ -4,9 +4,9 @@
 				
 <?php
 
-$page          = $GLOBALS['page'];
+$page          = getGlobal('page');
 $sub_page      = isset($GLOBALS['sub_page']) ? $GLOBALS['sub_page'] : NULL;
-$userStats     = $GLOBALS['userStats'];
+$userStats     = getGlobal('user');
 $template_path = getTemplatePath();
 
 switch($page) {

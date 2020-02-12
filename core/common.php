@@ -99,17 +99,19 @@ function newDocument($page_name, $sub_page_name, $includes, $getbefore = null)
   setGlobal('sub_page', $sub_page_name);
 
   // @To-Do
-  // $getbefore();
+  if (isset($getbefore) && gettype($getbefore) === 'object') {
+    $getbefore();
+  }
 
   startNewDocument();
 
   $classes = ['container'];
   if (isset($page_name) && trim($page_name) !== '') {
-    $classes[] = $page_name;
+    $classes[] = '__' . $page_name . '__';
   }
 
   if (isset($sub_page_name) && trim($sub_page_name) !== '') {
-    $classes[] = $sub_page_name;
+    $classes[] = '__' . $sub_page_name . '__';
   }
 
   ?>
@@ -217,7 +219,7 @@ function loginUser($email = NULL, $pass = NULL, $forzarLogin = false)
   $email = str_replace(" ", "", strtolower($email));
 
   if ((!$email || !$pass) && !$forzarLogin) {
-    exit;
+    // exit;
     return array('user' => NULL, 'cart' => NULL,  'status' => 'ERROR_EMAIL_OR_PASS');
   }
 
@@ -1611,7 +1613,7 @@ function createAppObjects()
 {
   echo "\t<script>\n";
   echo "\n";
-  echo "\tvar userStats = " . JSON_encode($GLOBALS['userStats']) . ";";
+  echo "\tvar userStats = " . JSON_encode(getGlobal('user')) . ";";
   echo "\n\n";
   echo "\t</script>\n";
 }
@@ -1677,21 +1679,30 @@ function header_log($data)
   header('log_' . $file . '#' . $caller['line'] . ': ' . json_encode($data));
 }
 
+function getCurrentUser()
+{
+  return getGlobal('user')['user'];
+}
+
 function isAdmin()
 {
-  return @$GLOBALS['userStats']['user']->administrador;
+  if (!getCurrentUser()) {
+    return false;
+  }
+
+  return getCurrentUser()->administrador;
 }
 
 function isLoggedIn() {
-  return @$GLOBALS['userStats']['status'] === 'LOGGED';
+  return getGlobal('user')['status'] === 'LOGGED';
 }
 
 function getUserName() {
-  return @$GLOBALS['userStats']['user']->nombre;
+  return getCurrentUser()->nombre;
 }
 
 function getUserId() {
-  return @$GLOBALS['userStats']['user']->id;
+  return getCurrentUser()->id;
 }
 
 function protectFromNotAdminUsers()
@@ -1724,8 +1735,9 @@ function processRequests()
 {
   // User
   // saveUser();
-  // loginUser();
+  loginUser();
   // logoutUser();
+  
   if ($message = addToCart()) {
   ?>
   <div class='floating-notification'>

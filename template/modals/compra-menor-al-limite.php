@@ -1,7 +1,7 @@
 <!-- COMPRA MENOR AL LIMITE -->
 <?php
 $cartItems = $GLOBALS['cartItems'];
-$userStats = $GLOBALS['userStats'];
+$userStats = getGlobal('user');
 ?>
 <style>
 #compra-menor-al-limite {

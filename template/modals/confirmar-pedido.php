@@ -1,6 +1,6 @@
 <?php
 $cartItems = $GLOBALS['cartItems'];
-$userStats = $GLOBALS['userStats'];
+$userStats = getGlobal('user');
 ?>
 	<div class="modal" id="completar-pedido">
 		<div class="modal-title">
@@ -18,8 +18,8 @@ $userStats = $GLOBALS['userStats'];
 					<p>Debajo se detallan tus datos y tu pedido, por favor, verifica que todo es correcto, también en los datos de entrega, agencia de preferencia y forma de pago.</p>
 					<p>
 						<strong>Fecha:</strong> <?php echo date('d/m/Y'); ?><br>
-						<strong>Nombre:</strong> <?php echo $userStats['user']->nombre . ' ' . $userStats['user']->apellido; ?><br>
-						<strong>Dirección:</strong> <?php echo $userStats['user']->direccion . ', ' . $userStats['user']->departamento . ', ' . $userStats['user']->ciudad; ?>
+						<strong>Nombre:</strong> <?php echo getCurrentUser()->nombre . ' ' . getCurrentUser()->apellido; ?><br>
+						<strong>Dirección:</strong> <?php echo getCurrentUser()->direccion . ', ' . getCurrentUser()->departamento . ', ' . getCurrentUser()->ciudad; ?>
 					</p>
 
 					<form action="/" id="form-confirmar-pedido">
@@ -115,7 +115,7 @@ $userStats = $GLOBALS['userStats'];
 							<div id="direccion-entrega-interior-form" class="formulario-oculto">
 								<div class="form-line">
 									<label for="direccion-entrega-interior-input" class="label">Direccion</label>
-									<input type="text" class="input" id="direccion-entrega-interior-input" name="direccion-entrega-interior-input" value="<?php echo $userStats['user']->direccion . ', ' . $userStats['user']->departamento . ', ' . $userStats['user']->ciudad; ?>">
+									<input type="text" class="input" id="direccion-entrega-interior-input" name="direccion-entrega-interior-input" value="<?php echo getCurrentUser()->direccion . ', ' . getCurrentUser()->departamento . ', ' . getCurrentUser()->ciudad; ?>">
 								</div>
 								<div class="form-line">
 									<label for="agencia-entrega-input" class="label">Agencia</label>
@@ -156,7 +156,7 @@ $userStats = $GLOBALS['userStats'];
 							<div id="direccion-entrega-montevideo-form" class="formulario-oculto">
 								<div class="form-line">
 									<label for="direccion-entrega-montevideo-input" class="label">Direccion</label>
-									<input type="text" class="input" id="direccion-entrega-montevideo-input" name="direccion-entrega-montevideo-input" value="<?php echo $userStats['user']->direccion . ', ' . $userStats['user']->departamento . ', ' . $userStats['user']->ciudad; ?>">
+									<input type="text" class="input" id="direccion-entrega-montevideo-input" name="direccion-entrega-montevideo-input" value="<?php echo getCurrentUser()->direccion . ', ' . getCurrentUser()->departamento . ', ' . getCurrentUser()->ciudad; ?>">
 								</div>
 							</div>
 							<!-- final de Direccion de entrega formulario -->
