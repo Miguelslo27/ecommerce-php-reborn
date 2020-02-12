@@ -8,10 +8,10 @@
 
     <div class="store-nav">
       <nav class="navigation">
-        <a href="/" class="access-menu normal-tab <?php if ($GLOBALS['page'] == "home") echo 'is-active'; ?>">Home</a>
+        <a href="/" class="access-menu normal-tab <?php if (getGlobal('page') == "home") echo 'is-active'; ?>">Home</a>
 
         <div class="dropdown-nav">
-          <a href="/categorias" class="access-menu dropdown-tab <?php if ($GLOBALS['page'] == "categories") echo 'is-active'; ?>">
+          <a href="/categorias" class="access-menu dropdown-tab <?php if (getGlobal('page') == "categories") echo 'is-active'; ?>">
             <i class="fas fa-bars"></i>
             <span>Categorías</span>
           </a>
@@ -27,18 +27,18 @@
 
         <?php if (isAdmin()) : ?>
           <div class="dropdown-nav">
-            <a href="/productos" class="access-menu dropdown-tab <?php if ($GLOBALS['page'] == "articles") echo 'is-active'; ?>">
+            <a href="/articulos" class="access-menu dropdown-tab <?php if (getGlobal('page') == "articles") echo 'is-active'; ?>">
               <i class="fas fa-bars"></i>
               <span>Productos</span>
             </a>
             <div class="dropdown">
-              <a href="/producto/nuevo" class="access-menu dropdown-item">Nuevo</a>
+              <a href="/articulo/nuevo" class="access-menu dropdown-item">Nuevo</a>
             </div>
           </div>
         <?php else : ?>
-          <a href="/productos" class="access-menu normal-tab <?php if ($GLOBALS['page'] == "articles") echo 'is-active'; ?>">Productos</a>
+          <a href="/articulos" class="access-menu normal-tab <?php if (getGlobal('page') == "articles") echo 'is-active'; ?>">Productos</a>
         <?php endif ?>
-        <a href="/contacto" class="access-menu normal-tab <?php if ($GLOBALS['page'] == "contact") echo 'is-active'; ?>">Contacto</a>
+        <a href="/contacto" class="access-menu normal-tab <?php if (getGlobal('page') == "contact") echo 'is-active'; ?>">Contacto</a>
       </nav>
 
       <div class="search-box">

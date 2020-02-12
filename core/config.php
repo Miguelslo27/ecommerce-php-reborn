@@ -1,6 +1,6 @@
 <?php
 
-define('APP_VERSION', '0.6.2');
+define('APP_VERSION', '0.6.3');
 
 define('TEMPLATE', $relative . 'template/');
 define('CATEGORIES_PER_PAGE', 6);

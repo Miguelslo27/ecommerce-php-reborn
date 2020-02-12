@@ -7,17 +7,17 @@
   <?php if (isAdmin()) : ?>
   <div class="list-actions">
     <div class="admin-actions">
-      <a href="/producto/nuevo">Nuevo artículo +</a>
+      <a href="/articulo/nuevo">Nuevo artículo +</a>
     </div>
   </div>
   <?php endif ?>
 
-  <?php if (count($articles) > 0) : ?>
+  <?php if (count(getGlobal('articles')) > 0) : ?>
   <div class="list-actions">
     <?php paginateArticles() ?>
   </div>
   <ul class="articles">
-    <?php foreach ($articles as $article) : ?>
+    <?php foreach (getGlobal('articles') as $article) : ?>
     <li>
       <?php include(getTemplatePath() . 'components/articles/article.php') ?>
     </li>

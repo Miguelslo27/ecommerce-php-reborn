@@ -3,8 +3,9 @@
 $relative = '../';
 require '../core/common.php';
 
-newDocument('categories', 'list', [
-  'components/categories/categories'
+newDocument('articles', 'list', [
+  'components/articles/articles'
 ], function () {
   setGlobal('categories', getCategories(0));
+  setGlobal('articles', getArticles());
 });

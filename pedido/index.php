@@ -193,7 +193,7 @@ include($template_path . 'header.php');
 						<a href="/categorias" class="cart-cmd black btn-style">Seguir Comprando</a>
 						<?php
 						if ($cartItems) {
-							if ($userStats['user']) {
+							if (getCurrentUser()) {
 							?>
 							<a class="cart-cmd black btn-style completar-pedido" data-id="<?php echo $cartItems['pedido']->id; ?>">Finalizar Pedido</a>
 							<?php

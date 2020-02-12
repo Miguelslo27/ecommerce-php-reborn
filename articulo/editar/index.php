@@ -3,10 +3,9 @@
 $relative = '../../';
 require '../../core/common.php';
 
-newDocument('admin', 'orders', [
-  'components/admin/collections/orders',
+newDocument('article', 'edit', [
+  'components/admin/forms/article'
 ], function ()
 {
   protectFromNotAdminUsers();
-  setGlobal('users', getUsers());
 });

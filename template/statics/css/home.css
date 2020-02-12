@@ -1,14 +1,14 @@
 /* HOME */
-.home .content {
+.__home__ .content {
 	margin: auto;
 	max-width: 1200px;
 }
 
-.home p {
+.__home__ p {
 	text-align: center;
 }
 
-.home .is-empty-message {
+.__home__ .is-empty-message {
 	padding: 10px;
 	background: #999;
 	color: #FFF;

@@ -32,8 +32,8 @@ $class = 'spent';
 
   <?php if (isAdmin()) : ?>
     <div class="admin-article-controls">
-      <a href="/producto/editar/?cid=<?php echo $article->id ?>"><i class="far fa-edit"></i></a>
-      <a href="/producto/eliminar/?cid=<?php echo $article->id ?>"><i class="far fa-trash-alt"></i></a>
+      <a href="/articulo/editar/?aid=<?php echo $article->id ?>"><i class="far fa-edit"></i></a>
+      <a href="/articulo/eliminar/?aid=<?php echo $article->id ?>"><i class="far fa-trash-alt"></i></a>
     </div>
   <?php endif ?>
 </article>

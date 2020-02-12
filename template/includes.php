@@ -1,6 +1,6 @@
 <?php
-// $userStats   = $GLOBALS['userStats'];
-$page     = $GLOBALS['page'];
+// $userStats   = getGlobal('user');
+$page     = getGlobal('page');
 $sub_page = $GLOBALS['sub_page'];
 
 // @TODO

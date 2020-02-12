@@ -7,7 +7,7 @@
 	</style>
 	<div class="modal" id="mensaje-nueva-forma-compra">
 		<div class="modal-title">
-			<h2><?php echo $userStats['user']->nombre ?> ¡Ahora podés comprar Surtido!</h2>
+			<h2><?php echo getCurrentUser()->nombre ?> ¡Ahora podés comprar Surtido!</h2>
 			<a href="#" class="modal-close action-close"><span class="modal-close-left"></span><span class="modal-close-right"></span></a>
 			<span class="line-h">&nbsp;</span>
 		</div>

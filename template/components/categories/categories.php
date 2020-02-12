@@ -12,13 +12,13 @@
     </div>
   <?php endif ?>
 
-  <?php if (count($categories) > 0) : ?>
+  <?php if (count(getGlobal('categories')) > 0) : ?>
     <div class="list-actions">
       <?php paginateCategories() ?>
     </div>
 
     <ul class="categories">
-      <?php foreach ($categories as $category) : ?>
+      <?php foreach (getGlobal('categories') as $category) : ?>
         <li>
           <article>
             <img src="<?php echo $category->imagen_url ?>" alt="<?php echo $category->titulo ?>">
