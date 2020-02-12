@@ -20,9 +20,9 @@
 				Recúerdame en este equipo
 			</label>
 		</div>
-		<div class="form-actions">
+		<div class="form-line">
 			<button type="submit">Ingresar</button>
-			<button type="reset">Regresar</button>
+			<!-- <button type="reset">Regresar</button> -->
 		</div>
 	</form>
 </div>

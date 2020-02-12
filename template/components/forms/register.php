@@ -39,9 +39,8 @@
 			<label for="ciudad" class="align-center">Localidad</label>
 			<input type="text" id="ciudad" name="ciudad">
 		</div>
-		<div class="form-actions">
+		<div class="form-line">
 			<button type="submit">Registrarme</button>
-			<button type="reset">Regresar</button>
 		</div>
 	</form>
 </div>
