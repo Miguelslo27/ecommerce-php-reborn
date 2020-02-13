@@ -1,4 +1,5 @@
 <?php
+// @TODO - Move this to the dependencies in the index where the componente is used
 $categories = getCategories(0);
 $category   = getCategory();
 $catid      = isset($_GET['cid']) ? $_GET['cid'] : null;
