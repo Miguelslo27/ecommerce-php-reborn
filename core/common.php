@@ -98,7 +98,6 @@ function newDocument($page_name, $sub_page_name, $includes, $getbefore = null)
   setGlobal('page', $page_name);
   setGlobal('sub_page', $sub_page_name);
 
-  // @To-Do
   if (isset($getbefore) && gettype($getbefore) === 'object') {
     $getbefore();
   }
@@ -1205,8 +1204,19 @@ function obtenerPedido($idPedido)
 // @To-Do
 function getCart()
 {
+  $uid  = getUserId();
   $cart = new stdClass();
+  
+  var_dump($uid);
+  
+  // $from2daysago = time() - (2 * 24 * 60 * 60);
+  // // obtengo el pedido abierto
+  // $db        = getDBConnection();
+  // $sql       = 'SELECT * FROM `pedido` WHERE `estado` = 4 AND `usuario_id`=' . $id_us . ' AND `fecha` >= "' . date('Y/m/d', $from2daysago) . '"';
+  // $order    = $db->getObject($sql);
+  
   $cart->total = 0;
+  
   return $cart;
 }
 
@@ -1625,23 +1635,6 @@ function createAppObjects()
   echo "\t</script>\n";
 }
 
-function custom_error_log($msg = null, $line = null, $file = null, $function = null)
-{
-  // echo date('d/m/Y H:i:s').' :: '.$file.' :: '.$function.' :: '.$line.': '.$msg."\n";
-
-  if (empty($msg)) {
-    error_log(date('d/m/Y H:i:s') . ' :: ' . __FILE__ . ' :: ' . __FUNCTION__ . ' :: ' . __LINE__ . ': $msg is null or empty' . "\n", 3, "../../error.txt");
-  }
-  if (empty($line)) {
-    error_log(date('d/m/Y H:i:s') . ' :: ' . __FILE__ . ' :: ' . __FUNCTION__ . ' :: ' . __LINE__ . ': $line is null or empty' . "\n", 3, "../../error.txt");
-  }
-  if (empty($file)) {
-    error_log(date('d/m/Y H:i:s') . ' :: ' . __FILE__ . ' :: ' . __FUNCTION__ . ' :: ' . __LINE__ . ': $line is null or empty' . "\n", 3, "../../error.txt");
-  }
-
-  error_log(date('d/m/Y H:i:s') . ' :: ' . $file . ' :: ' . $function . ' :: ' . $line . ': ' . $msg . "\n", 3, "../../error.txt");
-}
-
 function getRealIP()
 {
   if (isset($_SERVER["HTTP_CLIENT_IP"])) {
@@ -1657,33 +1650,6 @@ function getRealIP()
   } else {
     return $_SERVER["REMOTE_ADDR"];
   }
-}
-
-function consoleLog($line, $var)
-{
-  echo '<script>console.log("PHP#' . $line . '-->", "' . $var . '");</script>';
-}
-
-function debug($variable)
-{
-  $bt = debug_backtrace();
-  $caller = array_shift($bt);
-  $file = @array_pop(explode('/', $caller['file']));
-  header_log($variable);
-?>
-  <pre class="floating-debug-section">
-<strong><?php echo $file . '#' . $caller['line'] . ':' ?></strong>
-<?php var_dump($variable); ?>
-</pre>
-<?php
-}
-
-function header_log($data)
-{
-  $bt = debug_backtrace();
-  $caller = array_shift($bt);
-  $file = @array_pop(explode('/', $caller['file']));
-  header('log_' . $file . '#' . $caller['line'] . ': ' . json_encode($data));
 }
 
 function getCurrentUser()
