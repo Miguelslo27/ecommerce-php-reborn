@@ -13,38 +13,6 @@ startDocument();
 include($template_path . 'header.php');
 ?>
 
-	<style>
-	h1 {
-		border: 3px solid #1A1A1A;
-	    border-radius: 20px;
-	    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.65);
-	    float: left;
-	    height: 40px;
-	    line-height: 40px;
-	    margin-left: 15px;
-	    margin-top: 20px;
-	    padding-left: 15px;
-	}
-	h1 .title-icon {
-		background: url("/statics/images/iconos.png") no-repeat scroll -88px -9px #FFFFFF;
-	    border: 3px solid #000000;
-	    border-radius: 35px;
-	    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.65);
-	    display: inline-block;
-	    height: 60px;
-	    left: -30px;
-	    position: relative;
-	    top: -13px;
-	    width: 60px;
-	}
-	h1 span.title {
-		font-size: 24px;
-	    font-weight: normal;
-	    left: -18px;
-	    position: relative;
-	    top: -35px;
-	}
-	</style>
 	<section id="body">
 		<div class="body-inner">
 				<h1><span class="title-icon"></span><span class="title">Pedido actual</span></h1>

@@ -19,9 +19,9 @@
   <?php endif ?>
 
   <?php if (!isAdmin()) : ?>
-    <a href="/pedido" class="access-menu normal-tab">
+    <a href="/carrito" class="access-menu normal-tab">
       <i class="fas fa-shopping-cart"></i>
-      <span class="access-menu normal-tab">Mi pedido: $<?php echo getCart()->total ?></span>
+      <span class="access-menu normal-tab">Carrito: $<?php echo getCart()->total ?></span>
     </a>
   <?php endif ?>
 </div>
