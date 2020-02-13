@@ -159,7 +159,7 @@ function loadUser($login = NULL)
 {
   if (isset($_SESSION['temp_userid'])) {
     $tempuserid = $_SESSION['temp_userid'];
-    $order     = obtenerPedidoAbierto($tempuserid);
+    $order      = obtenerPedidoAbierto($tempuserid);
   } else {
     $order = NULL;
   }
@@ -410,32 +410,48 @@ function logout()
 
 function saveUser()
 {
-  $user = loadUser();
+  if (empty($_POST['save'])) return;
+  if (empty($_POST['type'])) return;
+  if ($_POST['type'] !== 'user') return;
 
-  if ($user['user'] && !isset($_POST['id'])) {
-    $user['status'] = 'LOGGED';
-    return $user;
-  }
-
-  if (!isset($_POST['email'])) {
-    return array('user' => NULL, 'cart' => NULL, 'status' => 'EMAIL_NOT_SETTED');
-  }
-
-  if (!isset($_POST['pass'])) {
-    return array('user' => NULL, 'cart' => NULL,  'status' => 'PASSWORD_NOT_SETTED');
-  }
-
+  $user  = loadUser();
   $db    = getDBConnection();
-  $email = str_replace(" ", "", strtolower($_POST['email']));
+  $email = str_replace(" ", "", strtolower($_POST['reg_email']));
+
+  if ($user['user'] && empty($_POST['id'])) {
+    $user['status'] = 'LOGGED';
+    return 'Ya ingresaste';
+  }
+
+  if (empty($email)) {
+    return 'Error: El email no puede ser vacío';
+  }
 
   if (!preg_match('/^[a-z0-9]+[a-z0-cribir9_.-]+@[a-z0-9_.-]{3,}.[a-z0-9_.-]{1,}.$/', $email)) {
-    return array('user' => NULL, 'cart' => NULL,  'status' => 'EMAIL_MALFORMED');
+    return 'Error: El email no tiene el formato correcto';
   }
 
-  if (!isset($_POST['id']) && isset($_POST['isadmin']) && $_POST['isadmin']) {
-    $sql = 'INSERT INTO `usuario` (`nombre`, `apellido`, `email`, `clave`, `codigo`, `administrador`) VALUES ("' . $_POST['nombre'] . '", "' . $_POST['apellido'] . '", "' . $email . '", "' . md5($_POST['pass'] . $email) . '", "' . md5($email) . '", 1)';
-  } elseif (!isset($_POST['id'])) {
-    $sql = 'INSERT INTO `usuario` (`nombre`, `apellido`, `rut`, `email`, `clave`, `codigo`, `direccion`, `telefono`, `celular`, `departamento`, `ciudad`, `administrador`) VALUES ("' . $_POST['nombre'] . '","' . $_POST['apellido'] . '","' . $_POST['rut'] . '","' . $email . '","' . md5($_POST['pass'] . $email) . '","' . md5($email) . '","' . $_POST['direccion'] . '","' . $_POST['telefono'] . '","' . $_POST['celular'] . '","' . $_POST['departamento'] . '","' . $_POST['ciudad'] . '",0)';
+  if (empty($_POST['id']) && empty($_POST['reg_pass'])) {
+    return 'Error: La contraseña no puede ser vacía';
+  }
+
+  if (empty($_POST['id']) && (empty($_POST['pass2']) || $_POST['reg_pass'] !== $_POST['pass2'])) {
+    return 'Error: Las contraseñas deben coincidir';
+  }
+
+  if (empty($_POST['id']) && checkCurrentUser($email)) {
+    return 'Error: El email ya se encuentra registrado';
+  }
+
+  if (
+    empty($_POST['id'])
+    && !empty($_POST['isadmin'])
+    && $_POST['isadmin']
+    && isAdmin()
+  ) {
+    $sql = 'INSERT INTO `usuario` (`nombre`, `apellido`, `email`, `clave`, `codigo`, `administrador`) VALUES ("' . $_POST['nombre'] . '", "' . $_POST['apellido'] . '", "' . $email . '", "' . md5($_POST['reg_pass'] . $email) . '", "' . md5($email) . '", 1)';
+  } elseif (empty($_POST['id'])) {
+    $sql = 'INSERT INTO `usuario` (`nombre`, `apellido`, `rut`, `email`, `clave`, `codigo`, `direccion`, `telefono`, `celular`, `departamento`, `ciudad`) VALUES ("' . $_POST['nombre'] . '","' . $_POST['apellido'] . '","' . $_POST['rut'] . '","' . $email . '","' . md5($_POST['reg_pass'] . $email) . '","' . md5($email) . '","' . $_POST['direccion'] . '","' . $_POST['telefono'] . '","' . $_POST['celular'] . '","' . $_POST['departamento'] . '","' . $_POST['ciudad'] . '")';
   } else {
     $sql = 'UPDATE `usuario` SET ';
 
@@ -451,12 +467,12 @@ function saveUser()
       $sql .= '`rut` = "' . $_POST['rut'] . '",';
     }
 
-    if (isset($_POST['email']) && $_POST['email'] != "") {
+    if (isset($email) && $email != "") {
       $sql .= '`email` = "' . $email . '",';
     }
 
-    if (isset($_POST['pass']) && $_POST['pass'] != "") {
-      $sql .= '`clave` = "' . md5($_POST['pass'] . $email) . '",';
+    if (isset($_POST['reg_pass']) && $_POST['reg_pass'] != "") {
+      $sql .= '`clave` = "' . md5($_POST['reg_pass'] . $email) . '",';
     }
 
     if (isset($_POST['direccion']) && $_POST['direccion'] != "") {
@@ -483,23 +499,14 @@ function saveUser()
     $sql .= ' WHERE `id` = ' . $_POST['id'];
   }
 
-  if (!isset($_POST['id']) && checkCurrentUser($_POST['email'])) {
-    return array('user' => NULL, 'cart' => NULL,  'status' => 'DUPLICATE_EMAIL');
+  $uid = $db->insert($sql);
+
+  if ($uid || isset($_POST['id'])) {
+    loginUser($email, $_POST['reg_pass'], true);
+    return 'Usuario registrado';
   }
 
-  $cid = $db->insert($sql);
-
-  if ($cid || isset($_POST['id'])) {
-    // cargar el usuario registrado y retornar los valores
-    $res = loginUser($email, $_POST['pass'], true);
-
-    // redirecciono a pedidos
-    header('Location: ' . $_SERVER['HTTP_REFERER'], true, 302);
-
-    return $res;
-  }
-
-  return array('user' => NULL, 'cart' => NULL,  'status' => 'ERROR_SAVING');
+  return 'Hubo un error al registrarte';
 }
 
 function checkCurrentUser($email)
@@ -1734,8 +1741,15 @@ function getRequestParam($param) {
 function processRequests()
 {
   // User
-  // saveUser();
-  loginUser();
+  if ($message = saveUser()) {
+  ?>
+  <div class='floating-notification'>
+    <?php echo $message ?>
+  </div>
+  <?php
+  }
+
+  // if ($message = loginUser();
   // logoutUser();
   
   if ($message = addToCart()) {
