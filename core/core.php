@@ -1,33 +1,43 @@
 <?php
 
+session_start();
+
 require_once('class.upload.php');
 require_once('mailer/PHPMailerAutoload.php');
 require_once('config.php');
-require_once('helpers.php');
-require_once('document.php');
-require_once('auth.php');
-require_once('user.php');
-require_once('cart.php');
-require_once('category.php');
-require_once('article.php');
+require_once(CORE_LOCATION . '/api/helpers.php');
+require_once(CORE_LOCATION . '/api/site.php');
+require_once(CORE_LOCATION . '/api/document.php');
+require_once(CORE_LOCATION . '/api/auth.php');
+require_once(CORE_LOCATION . '/api/user.php');
+require_once(CORE_LOCATION . '/api/cart.php');
+require_once(CORE_LOCATION . '/api/category.php');
+require_once(CORE_LOCATION . '/api/article.php');
 
 init();
 
 function init()
 {
-  // @To-Do
-  // setGlobal('site', loadSite());
-  // setGlobal('user', loadUser());
-  // setGlobal('cart', loadCart());
+  logToConsole('APP Version: ' . APP_VERSION);
+  logToConsole('API Version: ' . API_VERSION);
+  debug('App Starts here =====>', __FILE__, __FUNCTION__, __LINE__);
 
-  // setGlobal('page', $page_name);
-  // setGlobal('sub_page', $sub_page_name);
+  // @To-Do
+  setGlobal('site', loadSite());
+  setGlobal('user', getCurrentUser());
+  setGlobal('cart', getCurrentCart());
+
+  debug('global:site = ' . json_encode(getGlobal('site')), __FILE__, __FUNCTION__, __LINE__);
+  debug('global:user = ' . json_encode(getGlobal('user')), __FILE__, __FUNCTION__, __LINE__);
+  debug('global:cart = ' . json_encode(getGlobal('car')), __FILE__, __FUNCTION__, __LINE__);
 
   processRequests();
 }
 
 function processRequests()
 {
+  debug('request:action = ' . getRequestData('action'), __FILE__, __FUNCTION__, __LINE__);
+
   if (getRequestData('action') === ACTION_LOGIN) {
     // @TODO
   }

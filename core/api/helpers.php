@@ -1,6 +1,6 @@
 <?php
 
-require_once('db.class.php');
+require_once(CORE_LOCATION . '/db.class.php');
 
 function getDB()
 {
@@ -67,5 +67,65 @@ function getPostData($var)
 /* Templating */
 function getTemplatePath()
 {
-  return TEMPLATE;
+  return TEMPLATE_PATH;
+}
+
+function getTemplate($template)
+{
+  include(getTemplatePath() . $template . '.php');
+}
+
+function getQueryParams($additions = null)
+{
+  $params     = getServer('QUERY_STRING');
+  $paramsList = [];
+  $paramsObj  = [];
+  $returnList = [];
+
+  if (trim($params) != '') {
+    $paramsList = explode('&', $params);
+  }
+
+  foreach ($paramsList as $value) {
+    $paramKeyValue        = explode('=', $value);
+    $paramKey             = $paramKeyValue[0];
+    $parmaValue           = isset($paramKeyValue[1]) ? $paramKeyValue[1] : 'true';
+    $paramsObj[$paramKey] = $parmaValue;
+  }
+
+  if ($additions) {
+    foreach ($additions as $addition => $value) {
+      if ($value) {
+        $paramsObj[$addition] = $value;
+      } else {
+        unset($paramsObj[$addition]);
+      }
+    }
+  }
+
+  foreach ($paramsObj as $param => $value) {
+    $returnList[] = "$param=$value";
+  }
+
+  return implode('&', $returnList);
+}
+
+function bind($var)
+{
+  echo $var;
+}
+
+/* Debugging  */
+function logToConsole($message, $file = null, $function = null, $line = null)
+{
+?>
+<script>
+  console.log('#PHP:<?php echo !empty($file) ? '[' . $file . ']' : '' ?><?php echo !empty($function) ? '::[' . $function . ']' : '' ?>:<?php echo !empty($line) ? $line : '' ?>', '<?php echo $message ?>');
+</script>
+<?php
+}
+
+function debug($message, $file, $function, $line)
+{
+  if (DEBUG) logToConsole($message, $file, $function, $line);
 }

@@ -1,11 +1,18 @@
 <?php
 
+define('DEBUG', true);
+
 define('APP_VERSION', '0.6.4');
-define('TEMPLATE', $_SERVER['DOCUMENT_ROOT'] . '/template/');
+define('API_VERSION', '0.1.0');
+define('TEMPLATE_PATH', $_SERVER['DOCUMENT_ROOT'] . '/template/');
+define('CORE_LOCATION', $_SERVER['DOCUMENT_ROOT'] . '/core/');
 
 define('CATEGORIES_PER_PAGE', 6);
 define('ARTICLES_PER_PAGE', 6);
 define('USERS_PER_PAGE', 10);
+define('DEFAULT_DOCUMENT_TITLE', 'Untitled document');
+define('DEFAULT_PAGE_NAME', null);
+define('DEFAULT_SUB_PAGE_NAME', null);
 
 define('DB_NAME', getenv('DB_NAME'));
 define('DB_HOST', getenv('DB_HOST'));
