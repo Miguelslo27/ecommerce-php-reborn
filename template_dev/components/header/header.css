@@ -1,0 +1,137 @@
+/* HEADER */
+header {
+  position: relative;
+  z-index: 10;
+  background: #222;
+  box-shadow: 0 -5px 5px 5px #000;
+  color: #FFF;
+}
+
+header .header-inner .site-nav {
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid #555;
+}
+
+header .logo {
+  font-size: 2rem;
+  color: #b52299;
+}
+
+/* NAVIGATION */
+header .header-inner .store-nav {
+  display: flex;
+  flex-direction: row;
+  padding: 8px;
+}
+
+.store-nav>* {
+  flex: 1;
+}
+
+.store-nav .navigation {
+  display: flex;
+  flex-direction: row;
+}
+
+.store-nav .navigation a.access-menu {
+  display: block;
+  padding: 0 12px;
+  height: 2.5rem;
+  color: #FFF;
+  font-size: .8rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  line-height: 2.5rem;
+}
+
+.store-nav .navigation a.access-menu:hover {
+  color: #b52299;
+  border-bottom: 2px solid #b52299;
+}
+
+.store-nav .navigation a.access-menu .fas,
+.store-nav .navigation a.access-menu .far {
+  font-size: 1rem;
+}
+
+.store-nav .navigation a.access-menu:not(:last-child) {
+  border-right: 1px solid #555;
+}
+
+/* DROPDOWN NAVIGATION */
+.store-nav .navigation .dropdown-nav {
+  display: inline-block;
+  position: relative;
+}
+
+.store-nav .navigation .dropdown {
+  display: none;
+  position: absolute;
+  width: auto;
+  min-width: calc(100% + 1px);
+  left: -1px;
+  border-left: 1px solid #555;
+  border-right: 1px solid #555;
+  border-bottom: 1px solid #555;
+  background: #222;
+}
+
+.store-nav .navigation .dropdown hr {
+  margin: 0;
+}
+
+.store-nav .navigation .dropdown a {
+  display: block;
+  border: none !important;
+}
+
+.store-nav .navigation .dropdown-nav .dropdown:hover,
+.store-nav .navigation .dropdown-nav:hover .dropdown {
+  display: block;
+}
+
+/* SEARCH FORM */
+.store-nav .search-box form {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  border-radius: 0;
+  box-shadow: unset;
+}
+
+.store-nav .search-box form .search-input,
+.store-nav .search-box form .search-button {
+  height: 2.2rem;
+  line-height: 2.2rem;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: #fff;
+  outline: none;
+}
+
+.store-nav .search-box form .search-input {
+  width: 75%;
+  padding: 0 1rem;
+  border-radius: 0;
+  border-top-left-radius: 1.1rem;
+  border-bottom-left-radius: 1.1rem;
+}
+
+.store-nav .search-box form .search-button {
+  padding: 0 .6rem;
+  border-radius: 0;
+  border-top-right-radius: 1.1rem;
+  border-bottom-right-radius: 1.1rem;
+  color: #b52299;
+}
+
+/* USER ACTIONS */
+.store-nav .user-actions .user-links {
+  justify-content: flex-end;
+}

@@ -15,7 +15,7 @@ function setGlobal($var, $value)
 
 function getGlobal($var)
 {
-  if (empty($GLOBALS[$var])) return null;
+  if (!isset($GLOBALS[$var])) return null;
   return $GLOBALS[$var];
 }
 
@@ -27,7 +27,7 @@ function setSession($var, $value)
 
 function getSession($var)
 {
-  if (empty($_SESSION[$var])) return null;
+  if (!isset($_SESSION[$var])) return null;
   return $_SESSION[$var];
 }
 
@@ -39,28 +39,28 @@ function setServer($var, $value)
 
 function getServer($var)
 {
-  if (empty($_SERVER[$var])) return null;
+  if (!isset($_SERVER[$var])) return null;
   return $_SERVER[$var];
 }
 
 /* General Requests */
 function getRequestData($var)
 {
-  if (empty($_REQUEST[$var])) return null;
+  if (!isset($_REQUEST[$var])) return null;
   return $_REQUEST[$var];
 }
 
 /* Get Requests */
 function getGetData($var)
 {
-  if (empty($_GET[$var])) return null;
+  if (!isset($_GET[$var])) return null;
   return $_GET[$var];
 }
 
 /* Post Requests */
 function getPostData($var)
 {
-  if (empty($_POST[$var])) return null;
+  if (!isset($_POST[$var])) return null;
   return $_POST[$var];
 }
 
@@ -126,7 +126,7 @@ function logToConsole($message, $file = null, $function = null, $line = null)
 {
 ?>
 <script>
-  console.log('#PHP:<?php echo !empty($file) ? '[' . $file . ']' : '' ?><?php echo !empty($function) ? '::[' . $function . ']' : '' ?>:<?php echo !empty($line) ? $line : '' ?>', '<?php echo $message ?>');
+  console.log('#PHP:<?php echo isset($file) ? '[' . $file . ']' : '' ?><?php echo isset($function) ? '::[' . $function . ']' : '' ?>:<?php echo isset($line) ? $line : '' ?>', '<?php echo $message ?>');
 </script>
 <?php
 }

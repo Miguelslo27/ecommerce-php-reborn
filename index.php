@@ -1,11 +1,20 @@
 <?php
 
-$relative = '';
-require_once('core/common.php');
+require_once './core/core.php';
 
-newDocument('home', '', [
-  'components/hero',
-  'components/categories/featuredCategories',
-  'components/articles/newArticles',
-  'components/articles/featuredArticles'
+newDocument([
+  'title' => 'eCommerce Demo App',
+  'page' => 'home',
+  'components' => [
+    'components/header/header',
+    'components/lists/categories/categories',
+    'components/footer/footer'
+  ],
+  'stylesheets' => [
+    'css/layout.css'
+  ],
+  'callbefore' => function () {
+    setGlobal('categories', []);
+  },
+  'scripts' => []
 ]);
