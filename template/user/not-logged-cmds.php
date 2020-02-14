@@ -9,6 +9,6 @@
   </a>
   <a href="/carrito" class="access-menu normal-tab">
     <i class="fas fa-shopping-cart"></i>
-    <span class="access-menu normal-tab">Carrito: $<?php echo getCart()->total ?></span>
+    <span class="access-menu normal-tab">Carrito: $<?php echo getCurrentCart() ? getCurrentCart()->total : 0 ?></span>
   </a>
 </div>

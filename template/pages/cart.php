@@ -1,2 +1,2 @@
-<?php var_dump(getGlobal('cart')) ?>
+<?php var_dump(getCurrentCart()) ?>
 <h1>Carrito</h1>

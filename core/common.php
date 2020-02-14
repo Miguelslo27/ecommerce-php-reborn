@@ -22,6 +22,7 @@ function setGlobal($varname, $value)
 
 function getGlobal($varname)
 {
+  if (empty($GLOBALS[$varname])) return null;
   return $GLOBALS[$varname];
 }
 
@@ -33,6 +34,47 @@ function getTemplatePath()
 function getDBConnection()
 {
   return new DB(DB_NAME, DB_HOST, DB_USER, DB_PASS);
+}
+
+function getCurrentUser()
+{
+  return getGlobal('user');
+}
+
+function isAdmin()
+{
+  if (!getCurrentUser()) {
+    return false;
+  }
+
+  return getCurrentUser()->administrador;
+}
+
+function isLoggedIn() {
+  return getGlobal('user') ? true : false;
+}
+
+function getUserName() {
+  if (!getCurrentUser()) return null;
+  return getCurrentUser()->nombre;
+}
+
+function getUserId() {
+  if (!getCurrentUser()) return null;
+  return getCurrentUser()->id;
+}
+
+// @To-Do
+function getCurrentCart()
+{
+  return getGlobal('cart');
+}
+
+function protectFromNotAdminUsers()
+{
+  if (!isAdmin()) {
+    header('Location: /404');
+  }
 }
 
 // @To-Do
@@ -94,7 +136,10 @@ function newDocument($page_name, $sub_page_name, $includes, $getbefore = null)
 {
   // @To-Do
   // setGlobal('site', loadSite());
-  setGlobal('user', loadUser());
+  // setGlobal('user', getCurrentUser());
+  // @To-Do
+  // setGlobal('cart', getCurrentCart());
+  
   setGlobal('page', $page_name);
   setGlobal('sub_page', $sub_page_name);
 
@@ -154,73 +199,73 @@ function endNewDocument()
 }
 
 /* USUARIO */
+// FORGET THIS METHOD
+// IT SHOULDN'T EVEN EXIST
 function loadUser($login = NULL)
 {
-  if (isset($_SESSION['temp_userid'])) {
-    $tempuserid = $_SESSION['temp_userid'];
-    $order      = obtenerPedidoAbierto($tempuserid);
-  } else {
-    $order = NULL;
-  }
+  // if(!getCurrentUser()) {
+  //   if (checkUsers()) {
+  //     $email = isset($_POST['email']) ? $_POST['email'] : '';
+  //     $pass  = isset($_POST['pass']) ? $_POST['pass'] : '';
 
-  // si no hay usuario ingresado
-  if (!isset($_SESSION['usuario'])) {
-    // chequeo si hay usuarios en la base de datos (solo la primera vez)
-    if (checkUsers()) {
-      $email = isset($_POST['email']) ? $_POST['email'] : '';
-      $pass  = isset($_POST['pass']) ? $_POST['pass'] : '';
+  //     if ((!$email || !$pass) && $login == "login") {
+  //       return array('user' => NULL, 'cart' => $order,  'status' => 'ERROR_EMAIL_OR_PASS');
+  //     } elseif (!$email && !$pass) {
+  //       return array('user' => NULL, 'cart' => $order,  'status' => 'READY_TO_LOGIN');
+  //     }
 
-      if ((!$email || !$pass) && $login == "login") {
-        return array('user' => NULL, 'cart' => $order,  'status' => 'ERROR_EMAIL_OR_PASS');
-      } elseif (!$email && !$pass) {
-        return array('user' => NULL, 'cart' => $order,  'status' => 'READY_TO_LOGIN');
-      }
+  //     return loginUser($email, $pass);
+  //   } else {
+  //     // muestro formulario de registro
+  //     return array('user' => NULL, 'cart' => $order,  'status' => 'NO_USERS');
+  //   }
+  // } else {
+  //   $usuario = JSON_decode($_SESSION['usuario']);
 
-      return loginUser($email, $pass);
-    } else {
-      // muestro formulario de registro
-      return array('user' => NULL, 'cart' => $order,  'status' => 'NO_USERS');
-    }
-  } else {
-    $usuario = JSON_decode($_SESSION['usuario']);
+  //   if (checkCurrentUser($usuario->email)) {
+  //     $order = obtenerPedidoAbierto($usuario->id);
 
-    if (checkCurrentUser($usuario->email)) {
-      $order = obtenerPedidoAbierto($usuario->id);
+  //     return
+  //       array(
+  //         'user' => $usuario,
+  //         'cart' => $order,
+  //         'status' => 'LOGGED'
+  //       );
+  //   } elseif (!checkUsers()) {
+  //     return array('user' => NULL, 'cart' => $order,  'status' => 'NO_USERS');
+  //   } else {
+  //     $email = isset($_POST['email']) ? $_POST['email'] : '';
+  //     $pass = isset($_POST['pass']) ? $_POST['pass'] : '';
 
-      return
-        array(
-          'user' => $usuario,
-          'cart' => $order,
-          'status' => 'LOGGED'
-        );
-    } elseif (!checkUsers()) {
-      return array('user' => NULL, 'cart' => $order,  'status' => 'NO_USERS');
-    } else {
-      $email = isset($_POST['email']) ? $_POST['email'] : '';
-      $pass = isset($_POST['pass']) ? $_POST['pass'] : '';
+  //     if (!$email || !$pass) {
+  //       return array('user' => NULL, 'cart' => $order,  'status' => 'ERROR_EMAIL_OR_PASS');
+  //     }
 
-      if (!$email || !$pass) {
-        return array('user' => NULL, 'cart' => $order,  'status' => 'ERROR_EMAIL_OR_PASS');
-      }
-
-      loginUser($email, $pass);
-    }
-  }
+  //     loginUser($email, $pass);
+  //   }
+  // }
 }
+// -- --
 
-function loginUser($email = NULL, $pass = NULL, $forzarLogin = false)
+function loginUser($email = null, $pass = null, $forzarLogin = false)
 {
+  if (!isset($_POST['login'])) return;
+  
   if (!$email && !$pass) {
-    $email = isset($_POST['email']) ? $_POST['email'] : '';
-    $pass  = isset($_POST['pass']) ? $_POST['pass'] : '';
+    $email = !empty($_POST['email']) ? $_POST['email'] : '';
+    $pass  = !empty($_POST['pass']) ? $_POST['pass'] : '';
   }
 
   $email = str_replace(" ", "", strtolower($email));
 
-  if ((!$email || !$pass) && !$forzarLogin) {
-    // exit;
-    return array('user' => NULL, 'cart' => NULL,  'status' => 'ERROR_EMAIL_OR_PASS');
+  if (empty($email) || empty($pass)) {
+    return 'Email o password incorrecto';
   }
+
+  // if ((!$email || !$pass) && !$forzarLogin) {
+  //   // exit;
+  //   return array('user' => NULL, 'cart' => NULL,  'status' => 'ERROR_EMAIL_OR_PASS');
+  // }
 
   // cargar el usuario por email y pass y retornar los valores
   $db = getDBConnection();
@@ -235,7 +280,7 @@ function loginUser($email = NULL, $pass = NULL, $forzarLogin = false)
 
   if ($usuario) {
     // Obtengo el pedido abierto del usuario
-    $order    = obtenerPedidoAbierto($usuario->id);
+    $order     = obtenerPedidoAbierto($usuario->id);
     $prepedido = false;
 
     // Si hay un id temporal
@@ -256,13 +301,18 @@ function loginUser($email = NULL, $pass = NULL, $forzarLogin = false)
       $order = $prepedido;
     }
 
-    $_SESSION['usuario'] = JSON_encode($usuario);
-    $_SESSION['pedido'] = JSON_encode($order);
+    // $_SESSION['usuario'] = JSON_encode($usuario);
+    // $_SESSION['pedido'] = JSON_encode($order);
+    $_SESSION['usuario'] = $usuario;
+    $_SESSION['pedido'] = $order;
 
+    setGlobal('user', $_SESSION['usuario']);
+    setGlobal('cart', $_SESSION['pedido']);
     // Redireccionar a la última página visitada donde se cargarán los datos del usuario
-    header('Location: ' . $_SERVER['HTTP_REFERER']);
+    // header('Location: ' . $_SERVER['HTTP_REFERER']);
+    return 'Ingresaste con éxito';
   } else {
-    return array('user' => NULL, 'cart' => NULL, 'status' => 'ERROR_EMAIL_OR_PASS');
+    return 'Email o password incorrecto';
   }
 }
 
@@ -1202,22 +1252,12 @@ function obtenerPedido($idPedido)
 }
 
 // @To-Do
-function getCart()
-{
-  $uid  = getUserId();
-  $cart = new stdClass();
-  
-  var_dump($uid);
-  
-  // $from2daysago = time() - (2 * 24 * 60 * 60);
-  // // obtengo el pedido abierto
-  // $db        = getDBConnection();
-  // $sql       = 'SELECT * FROM `pedido` WHERE `estado` = 4 AND `usuario_id`=' . $id_us . ' AND `fecha` >= "' . date('Y/m/d', $from2daysago) . '"';
-  // $order    = $db->getObject($sql);
-  
-  $cart->total = 0;
-  
-  return $cart;
+function loadCart() {
+  $from2daysago = time() - (2 * 24 * 60 * 60);
+  $db           = getDBConnection();
+  $sql          = 'SELECT * FROM `pedido` WHERE `estado` = 4 AND `usuario_id`=' . (getUserId() ? getUserId() : $_SESSION['temp_userid']) . ' AND `fecha` >= "' . date('Y/m/d', $from2daysago) . '"';
+  $cart         = $db->getObject($sql);
+  setGlobal('cart', $cart);
 }
 
 function obtenerPedidoAbierto($id_usuario = null)
@@ -1652,39 +1692,6 @@ function getRealIP()
   }
 }
 
-function getCurrentUser()
-{
-  return getGlobal('user')['user'];
-}
-
-function isAdmin()
-{
-  if (!getCurrentUser()) {
-    return false;
-  }
-
-  return getCurrentUser()->administrador;
-}
-
-function isLoggedIn() {
-  return getGlobal('user')['status'] === 'LOGGED';
-}
-
-function getUserName() {
-  return getCurrentUser()->nombre;
-}
-
-function getUserId() {
-  return getCurrentUser()->id;
-}
-
-function protectFromNotAdminUsers()
-{
-  if (!isAdmin()) {
-    header('Location: /404');
-  }
-}
-
 function delTree($dir)
 {
   $files = array_diff(scandir($dir), array('.', '..'));
@@ -1715,8 +1722,20 @@ function processRequests()
   <?php
   }
 
-  // if ($message = loginUser();
+  if ($message = loginUser()) {
+  ?>
+  <div class='floating-notification'>
+    <?php echo $message ?>
+  </div>
+  <?php  
+  }
+
+  // @To-Do
   // logoutUser();
+
+  if (getUserId() || $_SESSION['temp_userid']) {
+    loadCart();
+  }
   
   if ($message = addToCart()) {
   ?>
