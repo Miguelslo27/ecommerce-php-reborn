@@ -6,7 +6,7 @@ require '../core/common.php';
 $userStats     = loadUser();
 $page          = 'home';
 $sub_page      = 'password-recovery';
-$template_path = getTemplatePath();
+$template_path = getTemplateAbsolutePath();
 
 $checkEmail = checkEmail(@$_POST['email']);
 

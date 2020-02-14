@@ -11,7 +11,7 @@ $articles = getArticles();
   <ul class="articles new">
     <?php foreach ($articles as $article) : ?>
     <li>
-      <?php include(getTemplatePath() . 'components/articles/article.php') ?>
+      <?php include(getTemplateAbsolutePath() . 'components/articles/article.php') ?>
     </li>
     <?php endforeach ?>
   </ul>

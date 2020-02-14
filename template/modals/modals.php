@@ -5,7 +5,7 @@
 $page          = getGlobal('page');
 $sub_page      = $GLOBALS['sub_page'];
 $userStats     = getGlobal('user');
-$template_path = getTemplatePath();
+$template_path = getTemplateAbsolutePath();
 
 switch($userStats['status']) {
 	case 'NO_USERS':
