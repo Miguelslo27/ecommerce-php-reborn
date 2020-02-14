@@ -3,7 +3,7 @@
 define('DEBUG', false);
 
 define('APP_VERSION', '0.6.4');
-define('API_VERSION', '0.2.0');
+define('API_VERSION', '0.2.1');
 define('TEMPLATE_PATH', '/template_dev/');
 define('TEMPLATE_ROUTE', $_SERVER['DOCUMENT_ROOT'] . TEMPLATE_PATH);
 define('CORE_LOCATION', $_SERVER['DOCUMENT_ROOT'] . '/core/');

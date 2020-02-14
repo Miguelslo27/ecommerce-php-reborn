@@ -1,1 +1,100 @@
+footer {
+  background: #222;
+}
 
+footer .footer-columns {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  padding: 20px;
+  max-width: 1200px;
+}
+
+footer .footer-columns>section {
+  flex: 1;
+  padding: 0 20px;
+  color: #FFF;
+}
+
+footer .footer-columns>section h3 {
+  font-weight: normal;
+}
+
+footer .footer-columns>section p {
+  line-height: 1.5rem;
+}
+
+footer .footer-columns>section ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5rem;
+}
+
+footer .footer-columns>section .links li::before {
+  content: "\f0da";
+  display: inline-block;
+  margin-right: 10px;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+footer .footer-columns .subscribe form {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: unset;
+}
+
+/* SUBSCRIBE FORM */
+footer .footer-columns .subscribe form .subscribe-input,
+footer .footer-columns .subscribe form .subscribe-button {
+  height: 2.2rem;
+  line-height: 2.2rem;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: #fff;
+  outline: none;
+}
+
+footer .footer-columns .subscribe form .subscribe-input {
+  width: 50%;
+  padding: 0 1rem;
+  border-top-left-radius: 1.1rem;
+  border-bottom-left-radius: 1.1rem;
+}
+
+footer .footer-columns .subscribe form .subscribe-button {
+  padding: 0 .6rem;
+  border-top-right-radius: 1.1rem;
+  border-bottom-right-radius: 1.1rem;
+  background: #930077;
+  font-size: .6rem;
+  text-transform: uppercase;
+  color: #FFF;
+}
+
+/* COPYRIGHTS */
+footer .rights {
+  position: relative;
+  margin: 0;
+  margin-top: 20px;
+  padding: 20px;
+  font-size: .8rem;
+  line-height: 1.2rem;
+  text-align: center;
+  color: #FFF;
+  background: #333;
+}
+
+footer .rights::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border-top: 1px solid #555;
+}

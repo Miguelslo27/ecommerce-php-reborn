@@ -51,6 +51,8 @@
     </section>
   </div>
   <p class="rights">
-    Copyright ©2020 - Todos los derechos reservados | e-com.uy | <strong>Versión: <?php echo APP_VERSION ?></strong>
+    Copyright ©2020 - Todos los derechos reservados | e-com.uy
+    <br>
+    Versión: App <?php bind(APP_VERSION) ?> | Api <?php bind(API_VERSION) ?>
   </p>
 </footer>
