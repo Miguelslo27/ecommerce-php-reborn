@@ -26,7 +26,7 @@ function getGlobal($varname)
   return $GLOBALS[$varname];
 }
 
-function getTemplatePath()
+function getTemplateAbsolutePath()
 {
   return TEMPLATE;
 }
@@ -163,7 +163,7 @@ function newDocument($page_name, $sub_page_name, $includes, $getbefore = null)
   <?php
   
   foreach ($includes as $file) {
-    include(getTemplatePath() . $file . '.php');
+    include(getTemplateAbsolutePath() . $file . '.php');
   }
 
   ?>
@@ -180,19 +180,19 @@ function startNewDocument()
   <html lang="es">
   <head>
     <title>Demo Site - e-Com.uy</title>
-    <?php include(getTemplatePath() . 'include_metatags.php') ?>
-    <?php include(getTemplatePath() . 'include_css.php') ?>
+    <?php include(getTemplateAbsolutePath() . 'include_metatags.php') ?>
+    <?php include(getTemplateAbsolutePath() . 'include_css.php') ?>
   </head>
   <body class="page_<?php echo getGlobal('page') ?>">
-    <?php include(getTemplatePath() . 'header.php') ?>
+    <?php include(getTemplateAbsolutePath() . 'header.php') ?>
   <?php
 }
 
 function endNewDocument()
 {
   ?>
-    <?php include(getTemplatePath() . 'footer.php') ?>
-    <?php include(getTemplatePath() . 'include_js.php') ?>
+    <?php include(getTemplateAbsolutePath() . 'footer.php') ?>
+    <?php include(getTemplateAbsolutePath() . 'include_js.php') ?>
   </body>
   </html>
   <?php
@@ -1654,15 +1654,15 @@ function startDocument()
 {
   echo "<!doctype html>\n<html lang=\"es\">\n<head>\n";
   echo "<title>Demo Site - e-Com.uy</title>";
-  include(getTemplatePath() . 'include_metatags.php');
-  include(getTemplatePath() . 'include_css.php');
+  include(getTemplateAbsolutePath() . 'include_metatags.php');
+  include(getTemplateAbsolutePath() . 'include_css.php');
   createAppObjects();
   echo "\n</head>\n<body>\n";
 }
 
 function endDocument()
 {
-  include(getTemplatePath() . 'include_js.php');
+  include(getTemplateAbsolutePath() . 'include_js.php');
   echo "</body>\n</html>";
 }
 

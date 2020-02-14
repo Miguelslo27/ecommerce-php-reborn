@@ -6,7 +6,7 @@ require '../../core/common.php';
 $userStats     = loadUser();
 $page          = 'home';
 $sub_page      = 'pedido-actual';
-$template_path = getTemplatePath();
+$template_path = getTemplateAbsolutePath();
 
 startDocument();
 include($template_path . 'header.php');

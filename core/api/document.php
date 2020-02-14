@@ -1,23 +1,41 @@
 <?php
 
-// @To-Do
+/**
+ * New Document
+ */
 function newDocument($settings)
 {
-  debug('settings = ' . json_encode($settings), __FILE__, __FUNCTION__, __FUNCTION__, __LINE__);
-
   $title         = isset($settings['title']) ? $settings['title'] : DEFAULT_DOCUMENT_TITLE;
   $page_name     = isset($settings['page']) ? $settings['page'] : DEFAULT_PAGE_NAME;
   $sub_page_name = isset($settings['sub_page']) ? $settings['sub_page'] : DEFAULT_SUB_PAGE_NAME;
-  $includes      = isset($settings['components']) ? $settings['components'] : null;
-  $callbefore    = isset($settings['callbefore']) ? $settings['callbefore'] : null;
+  
+  setGlobal('title', $title);
+  setGlobal('page', $page_name);
+  setGlobal('sub_page', $sub_page_name);
 
-  debug('$title = ' . $title, __FILE__, __FUNCTION__, __LINE__);
-  debug('$page_name = ' . $page_name, __FILE__, __FUNCTION__, __LINE__);
-  debug('$sub_page_name = ' . $sub_page_name, __FILE__, __FUNCTION__, __LINE__);
-  debug('$components = ' . json_encode($includes), __FILE__, __FUNCTION__, __LINE__);
-  debug('$callbefore = ' . json_encode($callbefore), __FILE__, __FUNCTION__, __LINE__);
+  callBeforeFunction($settings);
+  renderDocument($settings);
+}
 
-  if (empty($includes)) {
+/**
+ * Handle Call Before Function
+ */
+function callBeforeFunction($settings) {
+  $callbefore = isset($settings['callbefore']) ? $settings['callbefore'] : null;
+
+  if (isset($callbefore) && gettype($callbefore) === 'object') {
+    $callbefore();
+  }
+}
+
+/**
+ * Render Document
+ */
+function renderDocument($settings)
+{
+  $components = isset($settings['components']) ? $settings['components'] : null;
+
+  if (empty($components)) {
     if (DEBUG) {
       debug('ERROR: newDocument(): [components] list is required to render the document', __FILE__, __FUNCTION__, __LINE__);
     } else {
@@ -25,30 +43,20 @@ function newDocument($settings)
     }
   }
 
-  setGlobal('title', $title);
-  setGlobal('page', $page_name);
-  setGlobal('sub_page', $sub_page_name);
-
-  debug('getGlobal(title) = ' . getGlobal('title'), __FILE__, __FUNCTION__, __LINE__);
-  debug('getGlobal(page) = ' . getGlobal('page'), __FILE__, __FUNCTION__, __LINE__);
-  debug('getGlobal(sub_page) = ' . getGlobal('sub_page'), __FILE__, __FUNCTION__, __LINE__);
-
-  if (isset($callbefore) && gettype($callbefore) === 'object') {
-    $callbefore();
+  startNewDocument($settings);
+  foreach ($components as $file) {
+    include(getTemplateAbsolutePath() . $file . '.php');
   }
-
-  startNewDocument();
-
-  foreach ($includes as $file) {
-    include(getTemplatePath() . $file . '.php');
-  }
-
-  endNewDocument();
+  endNewDocument($settings);
 }
 
-function startNewDocument()
+/**
+ * Render the beginning of the Document
+ */
+function startNewDocument($settings)
 {
   $classes = ['container'];
+
   if (getGlobal('page') && trim(getGlobal('page')) !== '') {
     $classes[] = '__' . getGlobal('page') . '__';
   }
@@ -57,27 +65,75 @@ function startNewDocument()
     $classes[] = '__' . getGlobal('sub_page') . '__';
   }
 
-  debug('$classes = ' . json_encode($classes), __FILE__, __FUNCTION__, __LINE__);
-
   ?>
-  <!doctype html>
-  <html lang="es">
-  <head>
-    <title><?php bind(getGlobal('title')) ?></title>
-    <?php getTemplate('include_metatags') ?>
-    <?php getTemplate('include_css') ?>
-  </head>
-  <body class="page_<?php bind(getGlobal('page')) ?>">
-    <?php getTemplate('header') ?>
+<!doctype html>
+<html lang="es">
+<head>
+  <title><?php bind(getGlobal('title')) ?></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
+  <?php getStyleSheets($settings) ?>
+</head>
+<body class="page_<?php bind(getGlobal('page')) ?>">
   <?php
 }
 
-function endNewDocument()
+/**
+ * Render the end of the Document
+ */
+function endNewDocument($settings)
 {
+  getJavaScript($settings)
   ?>
-    <?php getTemplate('footer') ?>
-    <?php getTemplate('include_js') ?>
-  </body>
-  </html>
+</body>
+</html>
   <?php
+}
+
+/**
+ * Render the Stylesheets
+ */
+function getStyleSheets($settings) {
+  $stylesheets = isset($settings['stylesheets']) ? $settings['stylesheets'] : null;
+  $components  = isset($settings['components']) ? $settings['components'] : null;
+
+  foreach ($stylesheets as $style) {
+    if (file_exists(getTemplateAbsolutePath() . $style)) {
+    ?>
+      <link rel="stylesheet" href="<?php bind(getTemplateRelativePath() . $style) ?>">
+    <?php
+    }
+  }
+
+  foreach ($components as $style) {
+    if (file_exists(getTemplateAbsolutePath() . $style . '.css')) {
+    ?>
+      <link rel="stylesheet" href="<?php bind(getTemplateRelativePath() . $style . '.css') ?>">
+    <?php
+    }
+  }
+}
+
+/**
+ * Render the JavaScript
+ */
+function getJavaScript($settings) {
+  $scripts    = isset($settings['scripts']) ? $settings['scripts'] : null;
+  $components = isset($settings['components']) ? $settings['components'] : null;
+
+  foreach ($scripts as $script) {
+    if (file_exists(getTemplateAbsolutePath() . $script)) {
+    ?>
+      <script src="<?php bind(getTemplateRelativePath() . $script) ?>"></script>
+    <?php
+    }
+  }
+
+  foreach ($components as $script) {
+    if (file_exists(getTemplateAbsolutePath() . $script . 'js')) {
+    ?>
+      <script src="<?php bind(getTemplateRelativePath() . $script . '.js') ?>"></script>
+    <?php
+    }
+  }
 }

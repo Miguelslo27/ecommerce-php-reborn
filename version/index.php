@@ -5,8 +5,12 @@ require_once '../core/core.php';
 newDocument([
   'title' => 'eCommerce Demo App',
   'page' => 'home',
-  // 'callbefore' => function () {
-  //   // var_dump('callbefore');
-  // },
-  'components' => []
+  'components' => [
+    'components/header/header',
+    'components/footer/footer'
+  ],
+  'stylesheets' => [
+    'css/layout.css'
+  ],
+  'scripts' => []
 ]);

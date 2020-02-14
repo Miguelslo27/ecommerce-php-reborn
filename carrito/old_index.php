@@ -6,7 +6,7 @@ require '../core/common.php';
 $userStats     = loadUser();
 $page          = 'online-history';
 $sub_page      = 'pedido-actual';
-$template_path = getTemplatePath();
+$template_path = getTemplateAbsolutePath();
 $cartItems     = $userStats['cart'] ? obtenerPedido($userStats['cart']->id) : NULL;
 
 startDocument();

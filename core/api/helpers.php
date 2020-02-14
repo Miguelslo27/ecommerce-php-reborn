@@ -65,14 +65,20 @@ function getPostData($var)
 }
 
 /* Templating */
-function getTemplatePath()
+function getTemplateAbsolutePath()
 {
+  return TEMPLATE_ROUTE;
+}
+
+function getTemplateRelativePath()
+{
+  $template = getGlobal('dev_template');
   return TEMPLATE_PATH;
 }
 
-function getTemplate($template)
+function getTemplate($template, $includepath = true, $includeextension = true)
 {
-  include(getTemplatePath() . $template . '.php');
+  include(($includepath ? getTemplateAbsolutePath() : '') . $template . ($includeextension ? '.php' : ''));
 }
 
 function getQueryParams($additions = null)
