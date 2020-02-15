@@ -6,7 +6,7 @@ require '../core/common.php';
 $userStats     = loadUser();
 $page          = 'search';
 $sub_page      = '';
-$template_path = getTemplatePath();
+$template_path = getTemplateAbsolutePath();
 
 startDocument();
 include($template_path . 'header.php');

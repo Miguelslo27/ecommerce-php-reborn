@@ -7,7 +7,7 @@
 $page          = getGlobal('page');
 $sub_page      = isset($GLOBALS['sub_page']) ? $GLOBALS['sub_page'] : NULL;
 $userStats     = getGlobal('user');
-$template_path = getTemplatePath();
+$template_path = getTemplateAbsolutePath();
 
 switch($page) {
 case 'categories':

@@ -1,0 +1,638 @@
+/* GENERALS */
+/* FONTS */
+@font-face {
+  font-family: 'ARBERKLEY';
+  src: url('/template/statics/fonts/ARBERKLEY.ttf');
+}
+
+@font-face {
+  font-family: 'ArialNarrow';
+  src: url('/template/statics/fonts/arial-narrow.ttf');
+}
+
+@font-face {
+  font-family: 'Bitter';
+  src: url('/template/statics/fonts/Bitter-Regular.otf');
+}
+
+@font-face {
+  font-family: 'ProximaNova';
+  src: url('/template/statics/fonts/proximanova-light-webfont.ttf') format("truetype");
+}
+
+@font-face {
+  font-family: 'ProximaNovaIEOTF';
+  src: url('/template/statics/fonts/ProximaNova-Light.otf') format("truetype");
+}
+
+/* GENERICS */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "ProximaNova", "ProximaNovaIEOTF";
+  color: #222;
+  /* background-color: #fafafa; */
+}
+
+h1 {
+  text-align: center;
+}
+
+img {
+  display: inline-block;
+  border: none;
+}
+
+hr {
+  height: 1px;
+  border: 0;
+  background: #555;
+}
+
+a {
+  color: #b52299;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+i.fas+*,
+i.far+*,
+i.fab+* {
+  margin-left: 5px;
+}
+
+/* COMMONS */
+.floating-notification {
+  padding: 1rem;
+  position: fixed;
+  z-index: 11;
+  right: 1rem;
+  bottom: 1rem;
+  background-color: rgba(63,191,63,.9);
+  border-radius: .5rem;
+  color: #FFF;
+  text-align: center;
+}
+
+.align-center,
+.align-right {
+  display: block !important;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.inner {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.list-actions {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rem;
+}
+
+.list-actions>div {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+
+.list-actions>div span,
+.list-actions>div a {
+  display: block;
+  padding: .5rem 1rem;
+}
+
+.list-actions>div span {
+  font-weight: bold;
+}
+
+.list-actions>div a.active {
+  background-color: #b52299;
+  color: #fff;
+}
+
+.list-actions>div a:not(:last-child) {
+  border-right: 1px solid;
+}
+
+.list-actions .per-page {
+  justify-content: flex-end;
+}
+
+.shadowed-title {
+  position: relative;
+  margin: 2em 0;
+  text-align: center;
+}
+
+.shadowed-title span {
+  white-space: nowrap;
+}
+
+.shadowed-title .title-shadow {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  color: rgba(147, 0, 119, .1);
+  font-size: 3em;
+  font-weight: bold;
+}
+
+.shadowed-title .title {
+  position: relative;
+}
+
+.empty-list {
+  text-align: center;
+}
+
+.empty-list {}
+
+/* CONTENTS */
+/* GRIDS */
+/* CATEGORIES */
+.articles,
+.categories {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 2rem;
+}
+
+.categories {
+  justify-content: space-between;	
+}
+
+.articles {
+  align-items: flex-start;
+}
+
+.articles li,
+.categories li {
+  margin-bottom: 1.8rem;
+  box-shadow: 0 0 15px rgba(147, 0, 119, .15);
+  transition: box-shadow .3s ease;
+}
+
+.categories li {
+  width: 49%;
+}
+
+.articles li {
+  width: 32%;
+}
+
+.articles li:nth-child(3n-1) {
+  margin: 0 2%;
+}
+
+.categories li:hover,
+.articles li:hover {
+  box-shadow: 0 0px 25px 0 rgba(147, 0, 119, .5);
+}
+
+.categories li article,
+.articles li article {
+  position: relative;
+}
+
+.categories li article {
+  height: 200px;
+}
+
+.articles li article {
+  overflow: hidden;
+}
+
+.categories li article img,
+.articles li article img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* @TODO */
+/* .articles li img {
+  transition: transform .3s ease;
+}
+.articles li:hover img {
+  transform: scale(1.2);
+} */
+
+.categories li article img {
+  float: right;
+}
+
+.categories li article .cat-info {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 60%;
+  padding: 2rem;
+  transform: translateY(-50%);
+}
+
+.categories li article .cat-info *,
+.articles li article .article-info * {
+  display: block;
+}
+
+.categories li article .cat-info span,
+.articles li article .article-info span {
+  font-size: 1rem;
+}
+
+.categories li article .cat-info span:last-child {
+  font-weight: bold;
+}
+
+.categories li article .cat-info a,
+.articles li article .article-info a {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  line-height: 2rem;
+}
+
+.articles li {
+  box-shadow: 0 0 25px rgba(147, 0, 119, .15);
+  background: #FFF;
+}
+
+.articles li article.new::before,
+.articles li article.featured::before,
+.articles li article.offer::before,
+.articles li article.spent::before {
+  position: absolute;
+  color: #FFF;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  top: 1rem;
+  left: 1rem;
+}
+
+.articles li article.new::before {
+  content: "Nuevo";
+  background: orange;
+}
+
+.articles li article.featured::before {
+  content: "Destacado";
+  background: blueviolet;
+}
+
+.articles li article.offer::before {
+  content: "Oferta";
+  background: greenyellow;
+}
+
+.articles li article.spent::before {
+  content: "spent";
+  background: grey;
+}
+
+.articles li article hr,
+.articles li article.new hr,
+.articles li article.featured hr {
+  width: 84%;
+  height: 1px;
+  background: #930077;
+}
+
+.articles li article .article-info,
+.articles li article.new .article-info,
+.articles li article.featured .article-info,
+.articles li article.offer .article-info,
+.articles li article.spent .article-info,
+.articles li article .actions,
+.articles li article.new .actions,
+.articles li article.featured .actions,
+.articles li article.offer .actions,
+.articles li article.spent .actions {
+  padding: 8%;
+}
+
+/* .articles li article.new .actions,
+featured .articles li article.new .actions {
+  padding: 8%;
+} */
+.articles li article .article-info .price,
+.articles li article.new .article-info .price,
+.articles li article.featured .article-info .price,
+.articles li article.offer .article-info .price,
+.articles li article.spent .article-info .price {
+  display: inline-block;
+  margin-right: 1rem;
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+
+.articles li article .article-info .price.before,
+.articles li article.new .article-info .price.before,
+.articles li article.featured .article-info .price.before,
+.articles li article.offer .article-info .price.before,
+.articles li article.spent .article-info .price.before {
+  font-size: 1.3rem;
+  font-weight: normal;
+  text-decoration: line-through;
+}
+
+/* FORMS */
+form {
+  width: 100%;
+  max-width: 900px;
+  padding: 2rem;
+  margin: auto;
+  margin-bottom: 2rem;
+  box-shadow: 0 0 15px rgba(147, 0, 119, .15);
+}
+
+form label,
+form button {
+  cursor: pointer;
+}
+
+form hr {
+  margin: 1rem;
+}
+
+form .form-line,
+form .form-group,
+form .form-actions,
+form .help-line {
+  display: flex;
+  padding: 1rem;
+}
+
+form .form-line>*,
+form .form-group>* {
+  flex: 1;
+}
+
+form .form-line>*:not(button),
+form .form-group>*:not(button) {
+  flex: 1;
+  height: 3rem;
+  line-height: 2rem;
+  padding: .5rem;
+}
+
+form .form-group label:first-child {
+  padding-left: 0;
+  padding-right: 1rem;
+}
+
+form .form-line label {
+  flex-grow: 1;
+  padding-left: 0;
+}
+
+form .form-line input:not([type=checkbox]),
+form .form-group input:not([type=checkbox]),
+form .form-line label.file,
+form .form-group label.file,
+form .form-line textarea,
+form .form-group textarea,
+form .form-line select,
+form .form-group select {
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 6px -4px #b52299;
+  transition:
+    border .15s ease,
+    border-radius .15s ease;
+}
+
+form .form-line input,
+form .form-line label.file,
+form .form-line textarea,
+form .form-line select,
+form .form-group {
+  flex-grow: 3;
+}
+
+form .form-line input {}
+
+form .form-line label.file {
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  border: 2px dotted #b52299;
+}
+
+form .form-line label.file span {
+  font-weight: bold;
+}
+
+form .form-line label.file [type=file] {
+  display: block;
+  min-height: 100%;
+  min-width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+
+form .form-line textarea {
+  height: initial;
+}
+
+form .form-line select {}
+
+form .form-line:hover {}
+
+form .form-line:hover label {}
+
+form .form-line:hover input {}
+
+form .form-line:hover textarea {}
+
+form .form-line:hover select {}
+
+form .form-line input:focus,
+form .form-group input:focus,
+form .form-line label.file:focus,
+form .form-group label.file:focus,
+form .form-line textarea:focus,
+form .form-group textarea:focus,
+form .form-line select:focus,
+form .form-group select:focus {
+  outline: none;
+  border: 2px solid #b52299;
+  border-radius: .5rem;
+}
+
+form .form-actions {
+  justify-content: space-between;
+}
+
+form .form-line button,
+form .form-group button,
+form .form-actions button,
+form .form-line a.button,
+form .form-group a.button,
+form .form-actions a.button {
+  width: 49%;
+  padding: 1rem;
+  background-color: rgb(240, 240, 240);
+  color: #000;
+  font-family: Arial;
+  font-size: .85rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-radius: 50px;
+  box-shadow: 0 4px 6px -4px #b52299;
+  outline: none;
+}
+
+form .form-line button[type=submit]:focus,
+form .form-line button[type=reset]:focus,
+form .form-group button[type=submit]:focus,
+form .form-group button[type=reset]:focus,
+form .form-actions button[type=submit]:focus,
+form .form-actions button[type=reset]:focus,
+form .form-line a.button.primary:active,
+form .form-line a.button.secondary:active,
+form .form-group a.button.primary:active,
+form .form-group a.button.secondary:active,
+form .form-actions a.button.primary:active,
+form .form-actions a.button.secondary:active {
+  border: 2px solid #FFF;
+  box-shadow:
+    0 0px 2px #b52299,
+    0 4px 6px -4px #b52299;
+}
+
+form .form-line button:disabled,
+form .form-group button:disabled,
+form .form-actions button:disabled {}
+
+form .form-line button[type=submit],
+form .form-group button[type=submit],
+form .form-actions button[type=submit],
+form .form-line a.button.primary,
+form .form-group a.button.primary,
+form .form-actions a.button.primary {
+  background: #930077;
+  border: 2px solid #930077;
+  color: #FFF;
+}
+
+form .form-actions button[type=submit]:disabled {}
+
+form .form-line button[type=reset],
+form .form-group button[type=reset],
+form .form-actions button[type=reset],
+form .form-line a.button.secondary,
+form .form-group a.button.secondary,
+form .form-actions a.button.secondary {
+  border: 2px solid #930077;
+}
+
+form .form-actions button[type=reset]:disabled {}
+
+/* TABLES */
+.table {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  box-shadow: 0 0 25px rgba(147, 0, 119, .15);
+}
+
+.table .row.headline {
+  background-color: #eaeaea;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.table .row {
+  display: flex;
+  padding: 1rem;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #fff;
+}
+
+.table .row:hover {
+  background-color: #f9f9f9;
+}
+
+.table .row:not(:first-child):not(:last-child) {
+  border-bottom: 1px solid #eaeaea;
+}
+
+.table .row .cell,
+.table .row .cell.span-1 {
+  flex: 1;
+}
+
+.table .row .cell.span-2 {
+  flex-grow: 2;
+}
+
+.table .row .cell.span-3 {
+  flex-grow: 3;
+}
+
+.table .row .cell.span-4 {
+  flex-grow: 4;
+}
+
+.table .row .cell.span-5 {
+  flex-grow: 5;
+}
+
+.table .row .cell.span-6 {
+  flex-grow: 6;
+}
+
+.table .row .cell.span-7 {
+  flex-grow: 7;
+}
+
+.table .row .cell.span-8 {
+  flex-grow: 8;
+}
+
+.table .row .cell.span-9 {
+  flex-grow: 9;
+}
+
+.table .row .cell.span-10 {
+  flex-grow: 10;
+}
+
+.table .row .cell.span-11 {
+  flex-grow: 11;
+}
+
+.table .row .cell.span-12 {
+  flex-grow: 12;
+}
+
