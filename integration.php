@@ -41,6 +41,7 @@ printRecursively($request);
 
 exec('git checkout -- .', $commandOutput);
 exec('git pull', $commandOutput);
+exec('cp ~/_setup_/.htaccess ./');
 exec('chmod -R 755 ./');
 
 error_log("----------------------------------------------\n", 3, 'logfile.txt');
