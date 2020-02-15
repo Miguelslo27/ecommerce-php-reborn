@@ -94,8 +94,8 @@ function endNewDocument($settings)
  * Render the Stylesheets
  */
 function getStyleSheets($settings) {
-  $stylesheets = isset($settings['stylesheets']) ? $settings['stylesheets'] : null;
-  $components  = isset($settings['components']) ? $settings['components'] : null;
+  $stylesheets = oneOf(@$settings['stylesheets'], []);
+  $components  = oneOf(@$settings['components'], []);
 
   foreach ($stylesheets as $style) {
     if (file_exists(getTemplateAbsolutePath() . $style)) {
@@ -118,8 +118,8 @@ function getStyleSheets($settings) {
  * Render the JavaScript
  */
 function getJavaScript($settings) {
-  $scripts    = isset($settings['scripts']) ? $settings['scripts'] : null;
-  $components = isset($settings['components']) ? $settings['components'] : null;
+  $scripts    = oneOf(@$settings['scripts'], []);
+  $components = oneOf(@$settings['components'], []);
 
   foreach ($scripts as $script) {
     if (file_exists(getTemplateAbsolutePath() . $script)) {

@@ -628,27 +628,6 @@ function getCategory()
   return $cat;
 }
 
-function getCategories($parentId = NULL, $limit = null)
-{
-  $db                  = getDBConnection();
-  $categories_per_page = @$_GET['pp'] ? $_GET['pp'] : CATEGORIES_PER_PAGE;
-  $curret_page         = @$_GET['p'] ? $_GET['p'] : 1;
-  $offset              = ($curret_page - 1) * $categories_per_page;
-  $sql                 = "SELECT `id`, `titulo`, `descripcion_breve`, `descripcion`, `imagen_url`, `categoria_id`, `estado`, `orden` FROM `categoria` WHERE `categoria_id` = $parentId AND `estado` = 1 ORDER BY `orden` ASC";
-  $sql                .= " LIMIT $offset, $categories_per_page";
-  $cats                = $db->getObjects($sql);
-
-  if (!$cats || count($cats) == 0) {
-    $curret_page = 1;
-    $offset      = ($curret_page - 1) * $categories_per_page;
-    $sql         = "SELECT `id`, `titulo`, `descripcion_breve`, `descripcion`, `imagen_url`, `categoria_id`, `estado`, `orden` FROM `categoria` WHERE `categoria_id` = $parentId AND `estado` = 1 ORDER BY `orden` ASC";
-    $sql        .= " LIMIT $offset, $categories_per_page";
-    $cats        = $db->getObjects($sql);
-  }
-
-  return ($cats && count($cats) > 0) ? $cats : array();
-}
-
 function paginateCategories()
 {
   $db                  = getDBConnection();
@@ -688,27 +667,6 @@ function getArticle()
   $sql = "SELECT `id`, `nombre`, `codigo`, `descripcion_breve`, `descripcion`, `imagenes_url`, `categoria_id`, `nuevo`, `agotado`, `oferta`, `precio`, `precio_oferta`, `orden` FROM `articulo` WHERE id = $aid";
   $art = $db->getObject($sql);
   return $art;
-}
-
-function getArticles($parentId = NULL)
-{
-  $db                = getDBConnection();
-  $articles_per_page = @$_GET['pp'] ? $_GET['pp'] : ARTICLES_PER_PAGE;
-  $curret_page       = @$_GET['p'] ? $_GET['p'] : 1;
-  $offset            = ($curret_page - 1) * $articles_per_page;
-  $sql               = "SELECT `id`, `nombre`, `codigo`, `descripcion_breve`, `descripcion`, `imagenes_url`, `categoria_id`, `nuevo`, `agotado`, `oferta`, `precio`, `precio_oferta`, `orden` FROM `articulo` ORDER BY `orden` ASC";
-  $sql              .= " LIMIT $offset, $articles_per_page";
-  $arts              = $db->getObjects($sql);
-
-  if (!$arts || count($arts) == 0) {
-    $curret_page = 1;
-    $offset      = ($curret_page - 1) * $articles_per_page;
-    $sql         = "SELECT `id`, `nombre`, `codigo`, `descripcion_breve`, `descripcion`, `imagenes_url`, `categoria_id`, `nuevo`, `agotado`, `oferta`, `precio`, `precio_oferta`, `orden` FROM `articulo` ORDER BY `orden` ASC";
-    $sql        .= " LIMIT $offset, $articles_per_page";
-    $arts        = $db->getObjects($sql);
-  }
-
-  return ($arts && count($arts) > 0) ? $arts : array();
 }
 
 function searchForArticles($busqueda = NULL)

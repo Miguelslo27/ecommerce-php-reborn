@@ -121,6 +121,11 @@ function bind($var)
   echo $var;
 }
 
+function oneOf($var1, $var2)
+{
+  return $var1 ? $var1 : $var2;
+}
+
 /* Debugging  */
 function logToConsole($message, $file = null, $function = null, $line = null)
 {
