@@ -1,6 +1,6 @@
 <?php
 
-define('DEBUG', false);
+define('DEBUG', true);
 
 /* TEMPLATE */
 define('TEMPLATE_PATH', '/template_dev/');

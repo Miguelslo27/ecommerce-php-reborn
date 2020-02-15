@@ -13,8 +13,8 @@ newDocument([
   'stylesheets' => [
     'css/layout.css'
   ],
-  'callbefore' => function () {
-    $featuredCategories    = getCategories(0, 4);
+  'beforeRender' => function () {
+    $featuredCategories    = getCategories('`estado` = 1', 0, 4);
     $recentlyAddedArticles = getArticles(3, 3);
     $featuredArticles      = getArticles(0, 3);
 
