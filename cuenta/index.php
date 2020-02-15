@@ -1,4 +1,4 @@
 <?php
 
 require_once '../core/core.php';
-getTemplate(REGISTER_TEMPLATE);
+getTemplate(ACCOUNT_TEMPLATE);

@@ -21,10 +21,10 @@ function newDocument($settings)
  * Handle Call Before Function
  */
 function callBeforeFunction($settings) {
-  $callbefore = isset($settings['callbefore']) ? $settings['callbefore'] : null;
+  $beforeRender = isset($settings['beforeRender']) ? $settings['beforeRender'] : null;
 
-  if (isset($callbefore) && gettype($callbefore) === 'object') {
-    $callbefore();
+  if (isset($beforeRender) && gettype($beforeRender) === 'object') {
+    $beforeRender();
   }
 }
 

@@ -14,7 +14,9 @@
 
   <?php if (count(getGlobal('categories')) > 0) : ?>
   <div class="list-actions">
-    <?php // paginateCategories() ?>
+    <?php setGlobal('pager', getGlobal('categories_pager')) ?>
+    <?php setGlobal('pager_per_page', CATEGORIES_PER_PAGE) ?>
+    <?php getTemplate('components/lists/pager/pager') ?>
   </div>
 
   <ul class="categories">

@@ -1,18 +1,27 @@
 <?php
 
-require_once(CORE_LOCATION . '/db.class.php');
+require_once(CORE_LOCATION . 'lib/db.class.php');
 
+/**
+ * Get DB connection
+ */
 function getDB()
 {
   return new DB(DB_NAME, DB_HOST, DB_USER, DB_PASS);
 }
 
 /* Globals */
+/**
+ * Set Global variable
+ */
 function setGlobal($var, $value)
 {
   $GLOBALS[$var] = $value;
 }
 
+/**
+ * Get Global variable
+ */
 function getGlobal($var)
 {
   if (!isset($GLOBALS[$var])) return null;
@@ -20,11 +29,17 @@ function getGlobal($var)
 }
 
 /* Session */
+/**
+ * Set Session variable
+ */
 function setSession($var, $value)
 {
   $_SESSION[$var] = $value;
 }
 
+/**
+ * Get Session variable
+ */
 function getSession($var)
 {
   if (!isset($_SESSION[$var])) return null;
@@ -32,11 +47,18 @@ function getSession($var)
 }
 
 /* Server */
+/**
+ * Set Server variable
+ * ** Can we?? **
+ */
 function setServer($var, $value)
 {
   $_SERVER[$var] = $value;
 }
 
+/**
+ * Get Server variable
+ */
 function getServer($var)
 {
   if (!isset($_SERVER[$var])) return null;
@@ -44,20 +66,27 @@ function getServer($var)
 }
 
 /* General Requests */
+/**
+ * Get Request Data variable
+ */
 function getRequestData($var)
 {
   if (!isset($_REQUEST[$var])) return null;
   return $_REQUEST[$var];
 }
 
-/* Get Requests */
+/**
+ * Get GET request variable
+ */
 function getGetData($var)
 {
   if (!isset($_GET[$var])) return null;
   return $_GET[$var];
 }
 
-/* Post Requests */
+/**
+ * Get POST request variable
+ */
 function getPostData($var)
 {
   if (!isset($_POST[$var])) return null;
@@ -65,22 +94,34 @@ function getPostData($var)
 }
 
 /* Templating */
+/**
+ * Get Template Absolute Path
+ */
 function getTemplateAbsolutePath()
 {
   return TEMPLATE_ROUTE;
 }
 
+/**
+ * Get Template Relative Path
+ */
 function getTemplateRelativePath()
 {
   $template = getGlobal('dev_template');
   return TEMPLATE_PATH;
 }
 
+/**
+ * Get Template
+ */
 function getTemplate($template, $includepath = true, $includeextension = true)
 {
   include(($includepath ? getTemplateAbsolutePath() : '') . $template . ($includeextension ? '.php' : ''));
 }
 
+/**
+ * Get Query Parammeters
+ */
 function getQueryParams($additions = null)
 {
   $params     = getServer('QUERY_STRING');
@@ -116,11 +157,78 @@ function getQueryParams($additions = null)
   return implode('&', $returnList);
 }
 
+/**
+ * Get Pagination
+ */
+function getPagination($model, $where, $perpage) {
+  $collectionCount    = getDB()->countOf($model, $where);
+  $pager              = new stdClass();
+  $per_page_param     = $model . '_per_page';
+  $active_page_param  = $model . '_page';
+  $pager->model       = $model;
+  $pager->per_page    = intval(oneOf(getGetData($per_page_param), $perpage));
+  $pager->active      = intval(oneOf(getGetData($active_page_param), 1));
+  $pager->offset      = intval(($pager->active - 1) * $pager->per_page);
+  $pager->pages       = intval(ceil($collectionCount / $pager->per_page));
+  $pager->items_count = $collectionCount;
+  $pager->url         = constructPagerUrl($pager->per_page, $per_page_param, $active_page_param);
+
+  return $pager;
+}
+
+/**
+ * Construct Pager URL
+ */
+function constructPagerUrl($perpage, $perpage_param, $page_param)
+{
+  $url = $_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : '?' . $perpage_param .  '={{per_page}}&' . $page_param . '={{page}}';
+  $url = preg_replace('/' . $perpage_param . '=\d+/i', $perpage_param . '={{per_page}}', $url);
+  $url = preg_replace('/' . $page_param . '=\d+/i', $page_param . '={{page}}', $url);
+  $url = str_replace('{{per_page}}', $perpage, $url);
+
+  return $url;
+}
+
+/**
+ * Get Previous Page URL
+ */
+function getPrevPageUrl($pager) {
+  if ($pager->active > 1) {
+    return str_replace('{{page}}', ($pager->active - 1), $pager->url);
+  }
+
+  return str_replace('{{page}}', $pager->pages, $pager->url);
+}
+
+/**
+ * Get Next Page URL
+ */
+function getNextPageUrl($pager) {
+  if ($pager->active < $pager->pages) {
+    return str_replace('{{page}}', ($pager->active + 1), $pager->url);
+  }
+
+  return str_replace('{{page}}', 1, $pager->url);
+}
+
+/**
+ * Get Page URL
+ */
+function getPageUrl($pager, $page) {
+  return str_replace('{{page}}', $page, $pager->url);
+}
+
+/**
+ * Bind Variable in template
+ */
 function bind($var)
 {
   echo $var;
 }
 
+/**
+ * Select Variable 2 if Variable 1 is not set
+ */
 function oneOf($var1, $var2)
 {
   return $var1 ? $var1 : $var2;

@@ -1,8 +1,4 @@
 <?php
 
-$relative = '../';
-require '../core/common.php';
-
-newDocument('order', null, [
-  'pages/cart'
-]);
+require_once '../core/core.php';
+getTemplate(CART_TEMPLATE);

@@ -1,8 +1,4 @@
 <?php
 
-$relative = '../';
-require '../core/common.php';
-
-newDocument('login', null, [
-  'components/forms/login'
-]);
+require_once '../core/core.php';
+getTemplate(LOGIN_TEMPLATE);
