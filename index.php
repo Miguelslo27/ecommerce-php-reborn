@@ -8,20 +8,20 @@ newDocument([
   'components' => [
     'components/header/header',
     'components/lists/categories/featured-categories',
-    'components/lists/articles/featured-articles',
     'components/lists/articles/recently-added-articles',
+    'components/lists/articles/featured-articles',
     'components/footer/footer'
   ],
   'stylesheets' => [
     'css/layout.css'
   ],
   'callbefore' => function () {
-    $featuredCategories    = getCategories(0, 2);
-    $featuredArticles      = getArticles(0, 3);
+    $featuredCategories    = getCategories(0, 4);
     $recentlyAddedArticles = getArticles(3, 3);
+    $featuredArticles      = getArticles(0, 3);
 
     setGlobal('featuredCategories', oneOf($featuredCategories, []));
-    setGlobal('featuredArticles', oneOf($featuredArticles, []));
     setGlobal('recentlyAddedArticles', oneOf($recentlyAddedArticles, []));
+    setGlobal('featuredArticles', oneOf($featuredArticles, []));
   }
 ]);
