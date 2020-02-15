@@ -25,7 +25,10 @@
   ?>" href="?<?php
     bind(
       getQueryParams(
-        [getGlobal('pager')->model . '_per_page' => getGlobal('pager_per_page')]
+        [
+          getGlobal('pager')->model . '_per_page' => getGlobal('pager_per_page'),
+          getGlobal('pager')->model . '_page' => 1
+        ]
       )
     )
   ?>"><?php bind(intval(getGlobal('pager_per_page'))) ?></a>
@@ -41,7 +44,10 @@
   ?>" href="?<?php
     bind(
       getQueryParams(
-        [getGlobal('pager')->model . '_per_page' => getGlobal('pager_per_page') * 2]
+        [
+          getGlobal('pager')->model . '_per_page' => getGlobal('pager_per_page') * 2,
+          getGlobal('pager')->model . '_page' => 1
+        ]
       )
     )
   ?>"><?php bind(getGlobal('pager_per_page') * 2) ?></a>
@@ -57,7 +63,10 @@
   ?>" href="?<?php
     bind(
       getQueryParams(
-        [getGlobal('pager')->model . '_per_page' => getGlobal('pager_per_page') * 4]
+        [
+          getGlobal('pager')->model . '_per_page' => getGlobal('pager_per_page') * 4,
+          getGlobal('pager')->model . '_page' => 1
+        ]
       )
     )
   ?>"><?php bind(getGlobal('pager_per_page') * 4) ?></a>
