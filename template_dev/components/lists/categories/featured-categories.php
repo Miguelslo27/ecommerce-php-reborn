@@ -28,7 +28,7 @@
   </ul>
   <?php else : ?>
   <div class="empty-list">
-    <h2 class>No se encontraron categorías</h2>
+    <h2 class>No se encontraron categorías destacadas</h2>
     <?php if (isAdmin()) : ?>
     <div class="list-actions">
       <div class="admin-actions">

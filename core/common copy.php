@@ -669,27 +669,6 @@ function getArticle()
   return $art;
 }
 
-function getArticles($parentId = NULL)
-{
-  $db                = getDBConnection();
-  $articles_per_page = @$_GET['pp'] ? $_GET['pp'] : ARTICLES_PER_PAGE;
-  $curret_page       = @$_GET['p'] ? $_GET['p'] : 1;
-  $offset            = ($curret_page - 1) * $articles_per_page;
-  $sql               = "SELECT `id`, `nombre`, `codigo`, `descripcion_breve`, `descripcion`, `imagenes_url`, `categoria_id`, `nuevo`, `agotado`, `oferta`, `precio`, `precio_oferta`, `orden` FROM `articulo` ORDER BY `orden` ASC";
-  $sql              .= " LIMIT $offset, $articles_per_page";
-  $arts              = $db->getObjects($sql);
-
-  if (!$arts || count($arts) == 0) {
-    $curret_page = 1;
-    $offset      = ($curret_page - 1) * $articles_per_page;
-    $sql         = "SELECT `id`, `nombre`, `codigo`, `descripcion_breve`, `descripcion`, `imagenes_url`, `categoria_id`, `nuevo`, `agotado`, `oferta`, `precio`, `precio_oferta`, `orden` FROM `articulo` ORDER BY `orden` ASC";
-    $sql        .= " LIMIT $offset, $articles_per_page";
-    $arts        = $db->getObjects($sql);
-  }
-
-  return ($arts && count($arts) > 0) ? $arts : array();
-}
-
 function searchForArticles($busqueda = NULL)
 {
 

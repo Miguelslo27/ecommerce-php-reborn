@@ -8,6 +8,7 @@ newDocument([
   'components' => [
     'components/header/header',
     'components/lists/categories/featured-categories',
+    'components/lists/articles/featured-articles',
     'components/footer/footer'
   ],
   'stylesheets' => [
@@ -15,11 +16,11 @@ newDocument([
   ],
   'callbefore' => function () {
     $featuredCategories    = getCategories(0, 2);
-    // $featuredArticles      = getArticles();
-    // $recentlyAddedArticles = getArticles());
+    $featuredArticles      = getArticles(0, 3);
+    // $recentlyAddedArticles = getArticles(0, 3);
 
     setGlobal('featuredCategories', oneOf($featuredCategories, []));
-    // setGlobal('featuredArticles', oneOf($featuredArticles, []));
+    setGlobal('featuredArticles', oneOf($featuredArticles, []));
     // setGlobal('recentlyAddedArticles', oneOf($recentlyAddedArticles, []));
   }
 ]);
