@@ -1,7 +1,7 @@
 <?php
 
 $relative = '../';
-require '../core/common.php';
+require_once '../core/common.php';
 
 $userStats   = array('user' => NULL, 'cart' => $order,  'status' => 'READY_TO_LOGIN');
 $suscripcion = suscribir($_POST['email']);

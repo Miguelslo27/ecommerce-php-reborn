@@ -1,0 +1,1 @@
+<h1>Payment template</h1>

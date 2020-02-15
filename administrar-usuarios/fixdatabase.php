@@ -1,6 +1,6 @@
 <?php
 // /administrar-usuarios/fixdatabase.php?auth=miguelmail2006@gmail.com:buitres2
-require '../core/common.php';
+require_once '../core/common.php';
 
 function obtenerTodosLosUsuarios() {
 

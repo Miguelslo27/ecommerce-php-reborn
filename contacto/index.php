@@ -1,8 +1,4 @@
 <?php
 
-$relative = '../';
-require '../core/common.php';
-
-newDocument('contact', null, [
-	'pages/contact'
-]);
+require_once '../core/core.php';
+getTemplate(CONTACT_TEMPLATE);

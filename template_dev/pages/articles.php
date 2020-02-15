@@ -1,0 +1,1 @@
+<h1>Articles template</h1>

@@ -1,0 +1,1 @@
+<h1>Cart template</h1>

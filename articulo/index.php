@@ -1,1 +1,4 @@
-<h1>Articulo</h1>
+<?php
+
+require_once '../core/core.php';
+getTemplate(ARTICLE_TEMPLATE);

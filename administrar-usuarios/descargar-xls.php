@@ -3,7 +3,7 @@
 ini_set("memory_limit","500M");
 
 $relative = '../';
-require '../core/common.php';
+require_once '../core/common.php';
 
 header('Content-type: application/vnd.ms-excel');
 header('Content-Disposition: attachment;filename="Usuarios eCommerce.xls"');

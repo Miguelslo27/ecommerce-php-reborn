@@ -1,8 +1,4 @@
 <?php
 
-$relative = '../';
-require '../core/common.php';
-
-newDocument('register', null, [
-  'components/forms/register'
-]);
+require_once '../core/core.php';
+getTemplate(REGISTER_TEMPLATE);

@@ -1,1 +1,4 @@
-<h1>Categoria</h1>
+<?php
+
+require_once '../core/core.php';
+getTemplate(CATEGORY_TEMPLATE);

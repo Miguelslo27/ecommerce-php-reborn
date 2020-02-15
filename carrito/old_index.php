@@ -1,7 +1,7 @@
 <?php
 
 $relative = '../';
-require '../core/common.php';
+require_once '../core/common.php';
 
 $userStats     = loadUser();
 $page          = 'online-history';
