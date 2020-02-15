@@ -99,7 +99,7 @@ i.fab+* {
   text-align: right;
 }
 
-.container .inner {
+.inner {
   max-width: 1200px;
   margin: auto;
 }

@@ -1,24 +1,12 @@
-<section class="inner categories-component">
+<section class="inner">
   <h1 class="shadowed-title">
-    <span class="title-shadow">Categorías</span>
-    <span class="title">Categorías</span>
+    <span class="title-shadow">Categorías destacadas</span>
+    <span class="title">Categorías destacadas</span>
   </h1>
 
-  <?php if (isAdmin()) : ?>
-  <div class="list-actions">
-    <div class="admin-actions">
-      <a href="/categoria/nueva">Nueva categoría +</a>
-    </div>
-  </div>
-  <?php endif ?>
-
-  <?php if (count(getGlobal('categories')) > 0) : ?>
-  <div class="list-actions">
-    <?php // paginateCategories() ?>
-  </div>
-
+  <?php if (count(getGlobal('featuredCategories')) > 0) : ?>
   <ul class="categories">
-    <?php foreach (getGlobal('categories') as $category) : ?>
+    <?php foreach (getGlobal('featuredCategories') as $category) : ?>
     <li>
       <article>
         <img src="<?php bind($category->imagen_url) ?>" alt="<?php bind($category->titulo) ?>">
@@ -41,6 +29,13 @@
   <?php else : ?>
   <div class="empty-list">
     <h2 class>No se encontraron categorías</h2>
+    <?php if (isAdmin()) : ?>
+    <div class="list-actions">
+      <div class="admin-actions">
+        <a href="/categoria/nueva">Nueva categoría +</a>
+      </div>
+    </div>
+    <?php endif ?>
   </div>
   <?php endif ?>
 </section>

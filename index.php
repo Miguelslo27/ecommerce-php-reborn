@@ -7,14 +7,19 @@ newDocument([
   'page' => 'home',
   'components' => [
     'components/header/header',
-    'components/lists/categories/categories',
+    'components/lists/categories/featured-categories',
     'components/footer/footer'
   ],
   'stylesheets' => [
     'css/layout.css'
   ],
   'callbefore' => function () {
-    setGlobal('categories', []);
-  },
-  'scripts' => []
+    $featuredCategories    = getCategories(0, 2);
+    // $featuredArticles      = getArticles();
+    // $recentlyAddedArticles = getArticles());
+
+    setGlobal('featuredCategories', oneOf($featuredCategories, []));
+    // setGlobal('featuredArticles', oneOf($featuredArticles, []));
+    // setGlobal('recentlyAddedArticles', oneOf($recentlyAddedArticles, []));
+  }
 ]);
