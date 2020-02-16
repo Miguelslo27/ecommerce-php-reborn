@@ -1,5 +1,5 @@
 .page_category>section>header {
-  margin-bottom: 2rem;
+  border-bottom: 2px solid #930077;
   box-shadow: 0 -10px 35px #930077;
   position: relative;
   overflow: hidden;
@@ -15,12 +15,12 @@
 }
 
 .cat-info {
-  max-width: 50%;
+  width: 100%;
+  max-width: 1200px;
   position: absolute;
   top: 50%;
-  left: 0;
-  padding: 2rem 3rem;
-  transform: translateY(-50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .cat-info>p,
@@ -37,4 +37,23 @@
 .cat-info>h1 {
   text-transform: uppercase;
   font-size: 2.2rem;
+}
+
+.page_category>section>section.inner {
+  display: flex;
+  flex-direction: row;
+}
+
+.page_category>section>section.inner>aside,
+.page_category>section>section.inner>section {
+  flex: 1;
+}
+
+.page_category>section>section.inner>aside {
+  flex-grow: 1;
+}
+
+.page_category>section>section.inner>section {
+  flex-grow: 3;
+  padding: 2rem 0;
 }

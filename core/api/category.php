@@ -33,7 +33,7 @@ function getCategories($where = null, $offset = null, $perpage = null)
 
 function getCategoriesByParentId($cid)
 {
-  // @TODO
+  return getCategories("`categoria_id` = '$cid'");
 }
 
 function getCurrentCategory()

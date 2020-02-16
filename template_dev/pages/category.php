@@ -10,18 +10,22 @@ newDocument([
   ],
   'stylesheets' => [
     'css/fontawesome/css/all.min.css',
-    'css/layout.css'
+    'css/layout.css',
+    'components/lists/sidebar/sidebar.css'
   ],
   'beforeRender' => function () {
     $currentCategory = getCurrentCategory();
-    $articles        = getArticles();
     
     if (empty($currentCategory)) {
       header('Location: 404');
       exit;
     }
-    
+
+    $categories = getCategories('`categoria_id` = 0 AND `estado` = 1');
+    $articles   = getArticles();
+
     setGlobal('currentCategory', $currentCategory);
+    setGlobal('categories', $categories);
     setGlobal('articles', $articles);
   }
 ]);
