@@ -1,16 +1,12 @@
 .page_category>section>header {
   margin-bottom: 2rem;
-  background-color: #f6f6f6;
-  box-shadow: 0 -10px 25px #930077;
-}
-
-.page_category>section>header>.inner {
+  box-shadow: 0 -10px 35px #930077;
   position: relative;
   overflow: hidden;
-  height: 250px;
+  height: 220px;
 }
 
-.page_category>section>header>.inner>img {
+.page_category>section>header>img {
   position: relative;
   top: 50%;
   float: right;
@@ -23,7 +19,7 @@
   position: absolute;
   top: 50%;
   left: 0;
-  padding: 2rem;
+  padding: 2rem 3rem;
   transform: translateY(-50%);
 }
 
@@ -34,11 +30,11 @@
 }
 
 .cat-info>p {
-  font-size: 1.2rem;
-  line-height: 2rem;
+  font-size: 1.1rem;
+  line-height: 1.5rem;
 }
 
 .cat-info>h1 {
   text-transform: uppercase;
-  font-size: 2.5rem;
+  font-size: 2.2rem;
 }
