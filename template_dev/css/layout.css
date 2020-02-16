@@ -2,27 +2,17 @@
 /* FONTS */
 @font-face {
   font-family: 'ARBERKLEY';
-  src: url('/template/statics/fonts/ARBERKLEY.ttf');
+  src: url('fonts/ARBERKLEY.ttf');
 }
 
 @font-face {
   font-family: 'ArialNarrow';
-  src: url('/template/statics/fonts/arial-narrow.ttf');
-}
-
-@font-face {
-  font-family: 'Bitter';
-  src: url('/template/statics/fonts/Bitter-Regular.otf');
-}
-
-@font-face {
-  font-family: 'ProximaNova';
-  src: url('/template/statics/fonts/proximanova-light-webfont.ttf') format("truetype");
+  src: url('fonts/arial-narrow.ttf');
 }
 
 @font-face {
   font-family: 'ProximaNovaIEOTF';
-  src: url('/template/statics/fonts/ProximaNova-Light.otf') format("truetype");
+  src: url('fonts/ProximaNova-Light.otf') format("truetype");
 }
 
 /* GENERICS */
@@ -38,9 +28,8 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: "ProximaNova", "ProximaNovaIEOTF";
+  font-family: "ProximaNovaIEOTF", "Arial", sans-serif;
   color: #222;
-  /* background-color: #fafafa; */
 }
 
 h1 {

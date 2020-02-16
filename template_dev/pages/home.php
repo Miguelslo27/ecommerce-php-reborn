@@ -11,6 +11,7 @@ newDocument([
     'components/footer/footer'
   ],
   'stylesheets' => [
+    'css/fontawesome/css/all.min.css',
     'css/layout.css'
   ],
   'beforeRender' => function () {

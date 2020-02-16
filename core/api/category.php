@@ -32,7 +32,30 @@ function getCategories($where = null, $offset = null, $perpage = null)
 }
 
 function getCategoriesByParentId($cid)
-{}
+{
+  return getCategories("`categoria_id` = '$cid'");
+}
+
+function getCurrentCategory()
+{
+  return getCategoryById(getGetData('cid'));
+}
 
 function getCategoryById($cid)
-{}
+{
+  $sql = (
+    "SELECT
+      `id`,
+      `titulo`,
+      `descripcion_breve`,
+      `descripcion`,
+      `imagen_url`,
+      `categoria_id`,
+      `estado`,
+      `orden`
+    FROM `categoria`
+    WHERE `id` = $cid"
+  );
+
+  return getDB()->getObject($sql);
+}

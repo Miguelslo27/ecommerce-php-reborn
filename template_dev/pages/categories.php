@@ -9,11 +9,13 @@ newDocument([
     'components/footer/footer'
   ],
   'stylesheets' => [
+    'css/fontawesome/css/all.min.css',
     'css/layout.css'
   ],
   'beforeRender' => function () {
-    $pager      = getPagination('categoria', '`estado` = 1', CATEGORIES_PER_PAGE);
-    $categories = getCategories('`estado` = 1', $pager->offset, $pager->per_page);
+    $where      = '`categoria_id` = 0 AND `estado` = 1';
+    $pager      = getPagination('categoria', $where, CATEGORIES_PER_PAGE);
+    $categories = getCategories($where, $pager->offset, $pager->per_page);
 
     setGlobal('categories_pager', $pager);
     setGlobal('categories', oneOf($categories, []));

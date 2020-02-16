@@ -1,5 +1,5 @@
 /* HEADER */
-header {
+body>header {
   position: relative;
   z-index: 10;
   background: #222;
@@ -7,19 +7,19 @@ header {
   color: #FFF;
 }
 
-header .header-inner .site-nav {
+body>header .header-inner .site-nav {
   padding: 20px;
   text-align: center;
   border-bottom: 1px solid #555;
 }
 
-header .logo {
+body>header .logo {
   font-size: 2rem;
   color: #b52299;
 }
 
 /* NAVIGATION */
-header .header-inner .store-nav {
+body>header .header-inner .store-nav {
   display: flex;
   flex-direction: row;
   padding: 8px;

@@ -28,6 +28,14 @@ function getGlobal($var)
   return $GLOBALS[$var];
 }
 
+/**
+ * Get all Global variables
+ */
+function getGlobals()
+{
+  return $GLOBALS;
+}
+
 /* Session */
 /**
  * Set Session variable

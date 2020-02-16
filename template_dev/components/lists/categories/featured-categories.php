@@ -7,22 +7,11 @@
   <?php if (count(getGlobal('featuredCategories')) > 0) : ?>
   <ul class="categories">
     <?php foreach (getGlobal('featuredCategories') as $category) : ?>
-    <li>
-      <article>
-        <img src="<?php bind($category->imagen_url) ?>" alt="<?php bind($category->titulo) ?>">
-        <div class="cat-info">
-          <span><?php bind($category->descripcion_breve) ?></span>
-          <a href="/categories/?c=<?php bind($category->id) ?>"><?php bind($category->titulo) ?></a>
-          <!-- articles in the category -->
-          <span>0 articulos</span>
-        </div>
-        <?php if (isAdmin()) : ?>
-          <div class="admin-category-controls">
-            <a href="/categoria/editar/?cid=<?php bind($category->id) ?>"><i class="far fa-edit"></i></a>
-            <a href="/categoria/eliminar/?cid=<?php bind($category->id) ?>"><i class="far fa-trash-alt"></i></a>
-          </div>
-        <?php endif ?>
-      </article>
+      <li>
+      <?php
+      setGlobal('category', $category);
+      getTemplate('components/lists/categories/category');
+      ?>
     </li>
     <?php endforeach ?>
   </ul>
