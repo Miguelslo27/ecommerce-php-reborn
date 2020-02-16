@@ -1,15 +1,14 @@
-<pre style="display: none;">
-<?php
-  var_dump(getGlobal('currentCategory'));
-?>
-</pre>
 <section>
   <header>
-    <img src="<?php bind(getGlobal('currentCategory')->imagen_url) ?>" alt="<?php bind(getGlobal('currentCategory')->titulo) ?>">
+    <?php if (isset(getGlobal('currentCategory')->imagen_url)) : ?>
+      <img src="<?php bind(getGlobal('currentCategory')->imagen_url) ?>" alt="<?php bind(getGlobal('currentCategory')->titulo) ?>">
+    <?php endif ?>
     <div class="cat-info">
-      <p><?php bind(getGlobal('currentCategory')->descripcion_breve) ?></p>
+      <?php if (isset(getGlobal('currentCategory')->descripcion_breve)) : ?>
+        <p><?php bind(getGlobal('currentCategory')->descripcion_breve) ?></p>
+      <?php endif ?>
+
       <h1><?php bind(getGlobal('currentCategory')->titulo) ?></h1>
-      <!-- articles in the category -->
       <p>0 articulos</p>
     </div>
   </header>

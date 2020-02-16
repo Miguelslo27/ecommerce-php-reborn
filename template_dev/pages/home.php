@@ -16,8 +16,8 @@ newDocument([
   ],
   'beforeRender' => function () {
     $featuredCategories    = getCategories('`estado` = 1', 0, 4);
-    $recentlyAddedArticles = getArticles(3, 3);
-    $featuredArticles      = getArticles(0, 3);
+    $recentlyAddedArticles = getArticles('`estado` = 1', 3, 3);
+    $featuredArticles      = getArticles('`estado` = 1', 0, 3);
 
     setGlobal('featuredCategories', oneOf($featuredCategories, []));
     setGlobal('recentlyAddedArticles', oneOf($recentlyAddedArticles, []));
