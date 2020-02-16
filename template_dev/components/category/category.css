@@ -1,17 +1,13 @@
-/* .page_category {} */
-.page_category>section {}
-
 .page_category>section>header {
   margin-bottom: 2rem;
-  background-color: #fafafa;
-  border-bottom: 1px solid #930077;
-  box-shadow: 0 -5px 5px 5px #930077;
+  background-color: #f6f6f6;
+  box-shadow: 0 -10px 25px #930077;
 }
 
 .page_category>section>header>.inner {
   position: relative;
   overflow: hidden;
-  height: 300px;
+  height: 250px;
 }
 
 .page_category>section>header>.inner>img {
@@ -33,6 +29,7 @@
 
 .cat-info>p,
 .cat-info>h1 {
+  margin: 1rem 0;
   text-align: left;
 }
 

@@ -14,6 +14,7 @@ newDocument([
   ],
   'beforeRender' => function () {
     $currentCategory = getCurrentCategory();
+    $articles        = getArticles();
     
     if (empty($currentCategory)) {
       header('Location: 404');
@@ -21,5 +22,6 @@ newDocument([
     }
     
     setGlobal('currentCategory', $currentCategory);
+    setGlobal('articles', $articles);
   }
 ]);

@@ -21,5 +21,6 @@
   </aside>
   <section>
     <!-- @TODO Show list of articles, reuse current component -->
+    <?php getTemplate('components/lists/articles/articles') ?>
   </section>
 </section>
