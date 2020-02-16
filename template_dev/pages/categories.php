@@ -14,7 +14,7 @@ newDocument([
   ],
   'beforeRender' => function () {
     $where      = '`categoria_id` = 0 AND `estado` = 1';
-    $pager      = getPagination('categoria', $where, CATEGORIES_PER_PAGE);
+    $pager      = getPager('categoria', $where, CATEGORIES_PER_PAGE);
     $categories = getCategories($where, $pager->offset, $pager->per_page);
 
     setGlobal('categories_pager', $pager);

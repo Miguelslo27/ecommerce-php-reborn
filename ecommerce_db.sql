@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `articulo` (
   `orden` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `codigo` varchar(20) NOT NULL,
-  `descripcion_breve` varbinary(255) NOT NULL,
+  `descripcion_breve` varchar(255) NOT NULL,
   `descripcion` tinytext NOT NULL,
   `precio` double NOT NULL,
   `talle` varchar(20) NOT NULL,

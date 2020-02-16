@@ -168,7 +168,7 @@ function getQueryParams($additions = null)
 /**
  * Get Pagination
  */
-function getPagination($model, $where, $perpage) {
+function getPager($model, $where, $perpage) {
   $collectionCount    = getDB()->countOf($model, $where);
   $pager              = new stdClass();
   $per_page_param     = $model . '_per_page';

@@ -3,7 +3,7 @@
 /**
  * Get all active categories
  */
-function getArticles($offset = null, $perpage = null)
+function getArticles($where = null, $offset = null, $perpage = null)
 {
   $sql = (
     "SELECT
@@ -20,10 +20,14 @@ function getArticles($offset = null, $perpage = null)
       `precio`,
       `precio_oferta`,
       `orden`
-    FROM `articulo`
-    ORDER BY `orden`
-    ASC"
+    FROM `articulo`"
   );
+
+  if (isset($where)) {
+    $sql .= " WHERE $where";
+  }
+
+  $sql .= " ORDER BY `orden` ASC";
 
   if (isset($offset) && isset($perpage)) {
     $sql .= " LIMIT $offset, $perpage";

@@ -1,4 +1,5 @@
-.page_category>section>header {
+.page_category>section>header,
+.page_articles>section>header {
   border-bottom: 2px solid #930077;
   box-shadow: 0 -10px 35px #930077;
   position: relative;
@@ -6,7 +7,12 @@
   height: 220px;
 }
 
-.page_category>section>header>img {
+.page_articles>section>header {
+  height: 150px;
+}
+
+.page_category>section>header>img,
+.page_articles>section>header>img {
   position: relative;
   top: 50%;
   float: right;
@@ -39,21 +45,26 @@
   font-size: 2.2rem;
 }
 
-.page_category>section>section.inner {
+.page_category>section>section.inner,
+.page_articles>section>section.inner {
   display: flex;
   flex-direction: row;
 }
 
 .page_category>section>section.inner>aside,
-.page_category>section>section.inner>section {
+.page_articles>section>section.inner>aside,
+.page_category>section>section.inner>section,
+.page_articles>section>section.inner>section {
   flex: 1;
 }
 
-.page_category>section>section.inner>aside {
+.page_category>section>section.inner>aside,
+.page_articles>section>section.inner>aside {
   flex-grow: 1;
 }
 
-.page_category>section>section.inner>section {
+.page_category>section>section.inner>section,
+.page_articles>section>section.inner>section {
   flex-grow: 3;
   padding: 2rem 0;
 }

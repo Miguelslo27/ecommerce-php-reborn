@@ -22,10 +22,13 @@ newDocument([
     }
 
     $categories = getCategories('`categoria_id` = 0 AND `estado` = 1');
-    $articles   = getArticles();
+    $where      = '`categoria_id` = ' . $currentCategory->id . ' AND `estado` = 1';
+    $pager      = getPager('articulo', $where, ARTICLES_PER_PAGE);
+    $articles   = getArticles($where, $pager->offset, $pager->per_page);
 
     setGlobal('currentCategory', $currentCategory);
-    setGlobal('categories', $categories);
-    setGlobal('articles', $articles);
+    setGlobal('categories', oneOf($categories, []));
+    setGlobal('articles_pager', $pager);
+    setGlobal('articles', oneOf($articles, []));
   }
 ]);
