@@ -11,5 +11,15 @@ newDocument([
   'stylesheets' => [
     'css/fontawesome/css/all.min.css',
     'css/layout.css'
-  ]
+  ],
+  'beforeRender' => function () {
+    $currentCategory = getCurrentCategory();
+    
+    if (empty($currentCategory)) {
+      header('Location: 404');
+      exit;
+    }
+    
+    setGlobal('currentCategory', $currentCategory);
+  }
 ]);

@@ -11,16 +11,6 @@
 }
 
 @font-face {
-  font-family: 'Bitter';
-  src: url('fonts/Bitter-Regular.otf');
-}
-
-@font-face {
-  font-family: 'ProximaNova';
-  src: url('fonts/proximanova-light-webfont.ttf') format("truetype");
-}
-
-@font-face {
   font-family: 'ProximaNovaIEOTF';
   src: url('fonts/ProximaNova-Light.otf') format("truetype");
 }
@@ -38,7 +28,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: "ProximaNova", "ProximaNovaIEOTF";
+  font-family: "ProximaNovaIEOTF", "Arial", sans-serif;
   color: #222;
 }
 
