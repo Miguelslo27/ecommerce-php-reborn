@@ -1,3 +1,6 @@
+/* https://fonts.googleapis.com/css?family=Lato|Montserrat&display=swap */
+@import url('https://fonts.googleapis.com/css?family=Lato|Montserrat&display=swap');
+
 /* GENERALS */
 /* FONTS */
 @font-face {
@@ -28,8 +31,12 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: "ProximaNovaIEOTF", "Arial", sans-serif;
+  font-family: "Montserrat", "Arial", sans-serif;
   color: #222;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Lato", "Arial", sans-serif
 }
 
 h1 {

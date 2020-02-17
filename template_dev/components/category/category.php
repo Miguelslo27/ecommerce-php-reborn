@@ -9,7 +9,7 @@
       <?php endif ?>
 
       <h1><?php bind(getGlobal('currentCategory')->titulo) ?></h1>
-      <p>0 articulos</p>
+      <p><?php bind(count(getGlobal('articles'))) ?> articulos</p>
     </div>
   </header>
   <section class="inner">
