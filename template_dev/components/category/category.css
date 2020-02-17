@@ -49,7 +49,6 @@
 .page_articles>section>section.inner {
   display: flex;
   flex-direction: row;
-  margin-bottom: 2rem;
 }
 
 .page_category>section>section.inner>aside,

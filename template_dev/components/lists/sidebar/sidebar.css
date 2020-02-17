@@ -1,5 +1,6 @@
 .categories_sidebar {
   margin-right: 2rem;
+  background: #eee;
 }
 
 .categories_sidebar h2 {
@@ -10,29 +11,13 @@
   text-transform: uppercase;
   color: #FFF;
   background-color: #930077;
-  border-left: 1px solid #ffccff;
-  border-right: 1px solid #ffccff;
 }
 
 .categories_sidebar ul {
   list-style: none;
   margin: 0;
   padding: 0;
-  background-color: #f9f9f9;
-  border-left: 1px solid #ffccff;
-  border-bottom: 1px solid #ffccff;
-  border-right: 1px solid #ffccff;
-  border-bottom-left-radius: 1rem;
-  border-bottom-right-radius: 1rem;
 }
-
-.categories_sidebar ul li:last-child,
-.categories_sidebar ul li:last-child a {
-  border-bottom-left-radius: 1rem;
-  border-bottom-right-radius: 1rem;
-}
-
-.categories_sidebar ul li {}
 
 .categories_sidebar ul li a {
   display: block;
@@ -47,14 +32,9 @@
   font-size: .6rem;
 }
 
-.categories_sidebar ul li:hover,
-.categories_sidebar ul li.active {
-  background-color: #ffccff;
-}
-
 .categories_sidebar ul li:hover a,
 .categories_sidebar ul li.active a {
-  border-left: 2px solid #930077;
+  border-left: 4px solid #930077;
 }
 
 .categories_sidebar ul li.subcategory a {
