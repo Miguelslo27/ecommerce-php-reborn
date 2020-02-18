@@ -83,6 +83,7 @@ function startNewDocument($settings)
  */
 function endNewDocument($settings)
 {
+  getTemplate('components/notifications/notifications');
   getJavaScript($settings)
   ?>
 </body>
@@ -94,7 +95,7 @@ function endNewDocument($settings)
  * Render the Stylesheets
  */
 function getStyleSheets($settings) {
-  $stylesheets = oneOf(@$settings['stylesheets'], []);
+  $stylesheets = oneOf(@$settings['styles'], []);
   $components  = oneOf(@$settings['components'], []);
 
   foreach ($stylesheets as $style) {

@@ -8,7 +8,7 @@ newDocument([
     'components/lists/categories/categories',
     'components/footer/footer'
   ],
-  'stylesheets' => [
+  'styles' => [
     'css/fontawesome/css/all.min.css',
     'css/layout.css'
   ],

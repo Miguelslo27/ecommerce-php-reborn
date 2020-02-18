@@ -70,16 +70,54 @@ i.fab+* {
 }
 
 /* COMMONS */
-.floating-notification {
-  padding: 1rem;
+.floating-messages {
   position: fixed;
   z-index: 11;
   right: 1rem;
-  bottom: 1rem;
-  background-color: rgba(63,191,63,.9);
+  bottom: 0;
+}
+
+.floating-messages .message {
+  position: relative;
+  width: 300px;
+  padding: 1rem;
+  margin-bottom: 1rem;
   border-radius: .5rem;
   color: #FFF;
   text-align: center;
+  animation:
+    showMessage .5s ease,
+    hideMessage .5s ease 10s forwards;
+}
+
+.floating-messages .message.succeed {
+  background-color: rgba(63,191,63,.85);
+}
+
+.floating-messages .message.warning {
+  background-color: rgba(255,165,0,.85);
+}
+
+.floating-messages .message.error {
+  background-color: rgba(255,0,0,.85);
+}
+
+@keyframes showMessage {
+  from {
+    right: -120%;
+  }
+  to {
+    right: 0;
+  }
+}
+
+@keyframes hideMessage {
+  from {
+    right: 0;
+  }
+  to {
+    right: -120%;
+  }
 }
 
 .align-center,
@@ -355,203 +393,6 @@ featured .articles li article.new .actions {
   font-weight: normal;
   text-decoration: line-through;
 }
-
-/* FORMS */
-form {
-  width: 100%;
-  max-width: 900px;
-  padding: 2rem;
-  margin: auto;
-  margin-bottom: 2rem;
-  box-shadow: 0 0 15px rgba(147, 0, 119, .15);
-}
-
-form label,
-form button {
-  cursor: pointer;
-}
-
-form hr {
-  margin: 1rem;
-}
-
-form .form-line,
-form .form-group,
-form .form-actions,
-form .help-line {
-  display: flex;
-  padding: 1rem;
-}
-
-form .form-line>*,
-form .form-group>* {
-  flex: 1;
-}
-
-form .form-line>*:not(button),
-form .form-group>*:not(button) {
-  flex: 1;
-  height: 3rem;
-  line-height: 2rem;
-  padding: .5rem;
-}
-
-form .form-group label:first-child {
-  padding-left: 0;
-  padding-right: 1rem;
-}
-
-form .form-line label {
-  flex-grow: 1;
-  padding-left: 0;
-}
-
-form .form-line input:not([type=checkbox]),
-form .form-group input:not([type=checkbox]),
-form .form-line label.file,
-form .form-group label.file,
-form .form-line textarea,
-form .form-group textarea,
-form .form-line select,
-form .form-group select {
-  border: 1px solid #ddd;
-  box-shadow: 0 4px 6px -4px #b52299;
-  transition:
-    border .15s ease,
-    border-radius .15s ease;
-}
-
-form .form-line input,
-form .form-line label.file,
-form .form-line textarea,
-form .form-line select,
-form .form-group {
-  flex-grow: 3;
-}
-
-form .form-line input {}
-
-form .form-line label.file {
-  overflow: hidden;
-  position: relative;
-  text-align: center;
-  border: 2px dotted #b52299;
-}
-
-form .form-line label.file span {
-  font-weight: bold;
-}
-
-form .form-line label.file [type=file] {
-  display: block;
-  min-height: 100%;
-  min-width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  cursor: inherit;
-}
-
-form .form-line textarea {
-  height: initial;
-}
-
-form .form-line select {}
-
-form .form-line:hover {}
-
-form .form-line:hover label {}
-
-form .form-line:hover input {}
-
-form .form-line:hover textarea {}
-
-form .form-line:hover select {}
-
-form .form-line input:focus,
-form .form-group input:focus,
-form .form-line label.file:focus,
-form .form-group label.file:focus,
-form .form-line textarea:focus,
-form .form-group textarea:focus,
-form .form-line select:focus,
-form .form-group select:focus {
-  outline: none;
-  border: 2px solid #b52299;
-  border-radius: .5rem;
-}
-
-form .form-actions {
-  justify-content: space-between;
-}
-
-form .form-line button,
-form .form-group button,
-form .form-actions button,
-form .form-line a.button,
-form .form-group a.button,
-form .form-actions a.button {
-  width: 49%;
-  padding: 1rem;
-  background-color: rgb(240, 240, 240);
-  color: #000;
-  font-family: Arial;
-  font-size: .85rem;
-  font-weight: 600;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  border-radius: 50px;
-  box-shadow: 0 4px 6px -4px #b52299;
-  outline: none;
-}
-
-form .form-line button[type=submit]:focus,
-form .form-line button[type=reset]:focus,
-form .form-group button[type=submit]:focus,
-form .form-group button[type=reset]:focus,
-form .form-actions button[type=submit]:focus,
-form .form-actions button[type=reset]:focus,
-form .form-line a.button.primary:active,
-form .form-line a.button.secondary:active,
-form .form-group a.button.primary:active,
-form .form-group a.button.secondary:active,
-form .form-actions a.button.primary:active,
-form .form-actions a.button.secondary:active {
-  border: 2px solid #FFF;
-  box-shadow:
-    0 0px 2px #b52299,
-    0 4px 6px -4px #b52299;
-}
-
-form .form-line button:disabled,
-form .form-group button:disabled,
-form .form-actions button:disabled {}
-
-form .form-line button[type=submit],
-form .form-group button[type=submit],
-form .form-actions button[type=submit],
-form .form-line a.button.primary,
-form .form-group a.button.primary,
-form .form-actions a.button.primary {
-  background: #930077;
-  border: 2px solid #930077;
-  color: #FFF;
-}
-
-form .form-actions button[type=submit]:disabled {}
-
-form .form-line button[type=reset],
-form .form-group button[type=reset],
-form .form-actions button[type=reset],
-form .form-line a.button.secondary,
-form .form-group a.button.secondary,
-form .form-actions a.button.secondary {
-  border: 2px solid #930077;
-}
-
-form .form-actions button[type=reset]:disabled {}
 
 /* TABLES */
 .table {

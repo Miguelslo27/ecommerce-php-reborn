@@ -10,7 +10,7 @@ newDocument([
     'components/lists/articles/featured-articles',
     'components/footer/footer'
   ],
-  'stylesheets' => [
+  'styles' => [
     'css/fontawesome/css/all.min.css',
     'css/layout.css'
   ],

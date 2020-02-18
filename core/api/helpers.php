@@ -242,12 +242,20 @@ function oneOf($var1, $var2)
   return $var1 ? $var1 : $var2;
 }
 
+function executeJavaScript($sentence) {
+?>
+<script>
+  <?php echo $sentence ?>;
+</script>
+<?php
+}
+
 /* Debugging  */
 function logToConsole($message, $file = null, $function = null, $line = null)
 {
 ?>
 <script>
-  console.log('#PHP:<?php echo isset($file) ? '[' . $file . ']' : '' ?><?php echo isset($function) ? '::[' . $function . ']' : '' ?>:<?php echo isset($line) ? $line : '' ?>', '<?php echo $message ?>');
+  console.log('#PHP:<?php echo isset($file) ? '[' . addslashes($file) . ']' : '' ?><?php echo isset($function) ? '::[' . $function . ']' : '' ?>:<?php echo isset($line) ? $line : '' ?>', '<?php echo $message ?>');
 </script>
 <?php
 }

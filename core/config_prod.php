@@ -24,6 +24,7 @@ define('DB_PASS', getenv('DB_PASS'));
 /* CONSTANTS FOR COMMON USE */
 define('ACTION_LOGIN', 'login');
 define('ACTION_USER_REGISTRATION', 'user_registration');
+define('ACTION_USER_EDITION', 'user_edition');
 define('ACTION_SAVE_CATEGORY', 'save_category');
 define('ACTION_SAVE_ARTICLE', 'save_article');
 define('ACTION_ADD_TO_CART', 'add_to_cart');
