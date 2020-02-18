@@ -114,6 +114,11 @@ function registerNewUser_checkIncomingData()
     }
   }
 
+  if (empty(getPostData('rut'))) {
+    $status->fieldsWithErrors['rut'] = true;
+    $status->errors[]                = 'Ingresa el RUT de tu empresa o tu número de documento';
+  }
+
   if (
     empty(getPostData('direccion'))
     || empty(getPostData('departamento'))

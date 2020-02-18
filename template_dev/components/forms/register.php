@@ -1,5 +1,9 @@
 <div class="inner form-register">
-  <h1>Registro de Usuario</h1>
+  <h1 class="shadowed-title">
+    <span class="title-shadow">Registro de Usuario</span>
+    <span class="title">Registro de Usuario</span>
+  </h1>
+
   <form action="" method="POST">
     <input type="hidden" name="id" value="<?php getGlobal('getPreFormData')('id') ?>">
     <input type="hidden" name="action" value="<?php bind(getCurrentUser() ? ACTION_USER_EDITION : ACTION_USER_REGISTRATION) ?>">
@@ -23,8 +27,8 @@
       <input type="password" class="<?php getGlobal('classesHandler')('pass2', 'error') ?>" name="pass2" id="pass2" value="<?php getGlobal('getPreFormData')('pass2') ?>">
     </div>
 
-    <div class="form-line">
-      <label for="rut">Documento (RUT o CI)</label>
+    <div class="form-line <?php getGlobal('classesHandler')('rut', 'error') ?>">
+      <label for="rut">Documento (RUT o CI) * </label>
       <input type="text" name="rut" id="rut" value="<?php getGlobal('getPreFormData')('rut') ?>">
     </div>
 
@@ -47,9 +51,14 @@
       <input type="text" class="<?php getGlobal('classesHandler')('celular', 'error') ?>" name="celular" id="celular" value="<?php getGlobal('getPreFormData')('celular') ?>">
     </div>
 
-    <div class="<?php echo getCurrentUser() ? 'form-actions' : 'form-line' ?>">
-      <button type="submit"><?php echo getCurrentUser() ? 'Guardar' : 'Registrarme' ?></button>
-      <?php echo getCurrentUser() ? '<button type="reset">Cancelar</button>' : '' ?>
+    <div class="form-actions">
+      <?php if (getCurrentUser()) : ?>
+      <button type="submit">Guardar</button>
+      <button type="reset">Revertir cambios</button>
+      <?php else : ?>
+      <button type="submit">Registrarme</button>
+      <a href="/login" class="button secondary">Ingresar</a>
+      <?php endif ?>
     </div>
   </form>
 </div>

@@ -16,9 +16,9 @@ newDocument([
   'beforeRender' => function ()
   {
     $requestMessages = getGlobal('request_' . ACTION_USER_REGISTRATION . '_messages');
+    setSession('request_messages', $requestMessages);
 
     if (@$requestMessages->succeeded) {
-      setSession('request_messages', $requestMessages);
       executeJavaScript('window.location.href = "/"');
     }
 

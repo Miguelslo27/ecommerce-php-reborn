@@ -42,7 +42,7 @@ function processRequests()
   ) {
     setGlobal(
       'request_' . ACTION_USER_REGISTRATION . '_messages',
-      $messages = registerNewUser()
+      registerNewUser()
     );
   }
 
