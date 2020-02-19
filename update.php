@@ -39,9 +39,11 @@ $request = json_decode(file_get_contents("php://input"), true);
 
 printRecursively($request);
 
+sleep(10);
+
 exec('git checkout -- .', $commandOutput);
 exec('git pull', $commandOutput);
-exec('cp ~/_setup_/.htaccess ./');
+// exec('cp ~/_setup_/.htaccess ./');
 exec('chmod -R 755 ./');
 
 error_log("----------------------------------------------\n", 3, 'logfile.txt');
