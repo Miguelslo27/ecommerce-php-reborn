@@ -80,7 +80,7 @@ function getServer($var)
 function getRequestData($var)
 {
   if (!isset($_REQUEST[$var])) return null;
-  return $_REQUEST[$var];
+  return htmlspecialchars(trim($_REQUEST[$var]));
 }
 
 /**
@@ -89,7 +89,7 @@ function getRequestData($var)
 function getGetData($var)
 {
   if (!isset($_GET[$var])) return null;
-  return $_GET[$var];
+  return htmlspecialchars(trim($_GET[$var]));
 }
 
 /**
@@ -98,7 +98,7 @@ function getGetData($var)
 function getPostData($var)
 {
   if (!isset($_POST[$var])) return null;
-  return $_POST[$var];
+  return htmlspecialchars(trim($_POST[$var]));
 }
 
 /* Templating */
@@ -137,7 +137,7 @@ function getQueryParams($additions = null)
   $paramsObj  = [];
   $returnList = [];
 
-  if (trim($params) != '') {
+  if (htmlspecialchars(trim($params)) != '') {
     $paramsList = explode('&', $params);
   }
 
