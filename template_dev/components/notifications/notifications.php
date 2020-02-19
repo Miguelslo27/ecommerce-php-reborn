@@ -23,4 +23,3 @@
   <?php endif ?>
   </div>
 <?php endif ?>
-<?php setSession('request_messages', null) ?>

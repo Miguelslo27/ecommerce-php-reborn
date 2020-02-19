@@ -14,7 +14,8 @@ newDocument([
     'css/fontawesome/css/all.min.css',
     'css/layout.css'
   ],
-  'beforeRender' => function () {
+  'beforeRender' => function ()
+  {
     $featuredCategories    = getCategories('`estado` = 1', 0, 4);
     $recentlyAddedArticles = getArticles('`estado` = 1', 3, 3);
     $featuredArticles      = getArticles('`estado` = 1', 0, 3);
@@ -22,5 +23,11 @@ newDocument([
     setGlobal('featuredCategories', oneOf($featuredCategories, []));
     setGlobal('recentlyAddedArticles', oneOf($recentlyAddedArticles, []));
     setGlobal('featuredArticles', oneOf($featuredArticles, []));
+  },
+  'afterRender' => function ()
+  {
+    if (!empty(getSession('request_messages'))) {
+      setSession('request_messages', null);
+    }
   }
 ]);
