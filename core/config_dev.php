@@ -1,6 +1,6 @@
 <?php
 
-define('DEBUG', true);
+define('DEBUG', false);
 
 /* TEMPLATE */
 define('TEMPLATE_PATH', '/template_dev/');
@@ -24,9 +24,13 @@ define('DB_PASS', getenv('DB_PASS'));
 /* CONSTANTS FOR COMMON USE */
 define('ACTION_LOGIN', 'login');
 define('ACTION_USER_REGISTRATION', 'user_registration');
+define('ACTION_USER_EDITION', 'user_edition');
 define('ACTION_SAVE_CATEGORY', 'save_category');
 define('ACTION_SAVE_ARTICLE', 'save_article');
 define('ACTION_ADD_TO_CART', 'add_to_cart');
+
+/* REGULAR EXPRESSIONS */
+define('REG_EXP_EMAIL_FORMAT', '/^[a-z0-9]+[a-z0-cribir9_.-]+@[a-z0-9_.-]{3,}.[a-z0-9_.-]{1,}.$/');
 
 /* DEFAULT REQUIRED TEMPLATES PATHS */
 define('ERROR_404_TEMPLATE', 'pages/404');

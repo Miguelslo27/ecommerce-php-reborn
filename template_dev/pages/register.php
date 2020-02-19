@@ -1,1 +1,53 @@
-<h1>Register template</h1>
+<?php
+
+newDocument([
+  'title' => 'eCommerce - Registro',
+  'page' => 'register',
+  'components' => [
+    'components/header/header',
+    'components/forms/register',
+    'components/footer/footer'
+  ],
+  'styles' => [
+    'css/fontawesome/css/all.min.css',
+    'css/layout.css',
+    'css/forms.css'
+  ],
+  'beforeRender' => function ()
+  {
+    $requestMessages = getGlobal('request_' . ACTION_USER_REGISTRATION . '_messages');
+    setSession('request_messages', $requestMessages);
+
+    if (@$requestMessages->succeeded) {
+      executeJavaScript('window.location.href = "/"');
+    }
+
+    $classesHandler = function ($field, $class)
+    {
+      bind(
+        !empty(getGlobal('request_messages'))
+        && isset(getGlobal('request_messages')->fieldsWithErrors[$field])
+        && getGlobal('request_messages')->fieldsWithErrors[$field]
+          ? $class
+          : ''
+      );
+    };
+
+    $getPreFormData = function ($data)
+    {
+      if (getPostData($data)) {
+        bind(getPostData($data));
+        return;
+      }
+
+      if (getCurrentUser()) {
+        bind(getCurrentUser()->id);
+        return;
+      }
+    };
+
+    setGlobal('classesHandler', $classesHandler);
+    setGlobal('getPreFormData', $getPreFormData);
+    setGlobal('request_messages', $requestMessages);
+  }
+]);

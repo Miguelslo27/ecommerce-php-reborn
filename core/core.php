@@ -31,19 +31,26 @@ function init()
 
 function processRequests()
 {
-  if (getRequestData('action') === ACTION_LOGIN) {
+  if (getPostData('action') === ACTION_LOGIN) {
     // @TODO
   }
 
-  if (getRequestData('action') === ACTION_USER_REGISTRATION) {
+  if (
+    getPostData('action') === ACTION_USER_REGISTRATION
+    && !empty(getServer('REQUEST_METHOD'))
+    && strtolower(getServer('REQUEST_METHOD')) == 'post'
+  ) {
+    setGlobal(
+      'request_' . ACTION_USER_REGISTRATION . '_messages',
+      registerNewUser()
+    );
+  }
+
+  if (getPostData('action') === ACTION_SAVE_CATEGORY) {
     // @TODO
   }
 
-  if (getRequestData('action') === ACTION_SAVE_CATEGORY) {
-    // @TODO
-  }
-
-  if (getRequestData('action') === ACTION_SAVE_ARTICLE) {
+  if (getPostData('action') === ACTION_SAVE_ARTICLE) {
     // @TODO
   }
 }

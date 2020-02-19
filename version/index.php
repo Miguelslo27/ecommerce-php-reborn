@@ -9,7 +9,7 @@ newDocument([
     'components/header/header',
     'components/footer/footer'
   ],
-  'stylesheets' => [
+  'styles' => [
     'css/layout.css'
   ],
   'scripts' => []

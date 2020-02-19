@@ -13,18 +13,33 @@ function newDocument($settings)
   setGlobal('page', $page_name);
   setGlobal('sub_page', $sub_page_name);
 
-  callBeforeFunction($settings);
+  call_beforeRender_function($settings);
   renderDocument($settings);
+  call_afterRender_function($settings);
 }
 
 /**
- * Handle Call Before Function
+ * Handle Call Before Render Function
  */
-function callBeforeFunction($settings) {
+function call_beforeRender_function($settings)
+{
   $beforeRender = isset($settings['beforeRender']) ? $settings['beforeRender'] : null;
 
   if (isset($beforeRender) && gettype($beforeRender) === 'object') {
     $beforeRender();
+  }
+}
+
+/**
+ * Handle Call After Render Function
+ */
+function call_afterRender_function($settings)
+{
+  // TODO
+  $afterRender = isset($settings['afterRender']) ? $settings['afterRender'] : null;
+
+  if (isset($afterRender) && gettype($afterRender) === 'object') {
+    $afterRender();
   }
 }
 
@@ -45,7 +60,7 @@ function renderDocument($settings)
 
   startNewDocument($settings);
   foreach ($components as $file) {
-    include(getTemplateAbsolutePath() . $file . '.php');
+    getTemplate($file);
   }
   endNewDocument($settings);
 }
@@ -83,6 +98,7 @@ function startNewDocument($settings)
  */
 function endNewDocument($settings)
 {
+  getTemplate('components/notifications/notifications');
   getJavaScript($settings)
   ?>
 </body>
@@ -94,7 +110,7 @@ function endNewDocument($settings)
  * Render the Stylesheets
  */
 function getStyleSheets($settings) {
-  $stylesheets = oneOf(@$settings['stylesheets'], []);
+  $stylesheets = oneOf(@$settings['styles'], []);
   $components  = oneOf(@$settings['components'], []);
 
   foreach ($stylesheets as $style) {

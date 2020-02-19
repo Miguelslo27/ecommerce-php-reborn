@@ -6,7 +6,7 @@
 function getCategories($where = null, $offset = null, $perpage = null)
 {
   $sql = (
-    "SELECT
+    'SELECT
       `id`,
       `titulo`,
       `descripcion_breve`,
@@ -15,14 +15,14 @@ function getCategories($where = null, $offset = null, $perpage = null)
       `categoria_id`,
       `estado`,
       `orden`
-    FROM `categoria`"
+    FROM `categoria`'
   );
 
   if (isset($where)) {
     $sql .= " WHERE $where";
   }
 
-  $sql .= " ORDER BY `orden` ASC";
+  $sql .= ' ORDER BY `orden` ASC';
 
   if (isset($offset) && isset($perpage)) {
     $sql .= " LIMIT $offset, $perpage";
