@@ -268,14 +268,6 @@ i.fab+* {
   max-height: 100%;
 }
 
-/* @TODO */
-/* .articles li img {
-  transition: transform .3s ease;
-}
-.articles li:hover img {
-  transform: scale(1.2);
-} */
-
 .categories li article img {
   float: right;
 }
