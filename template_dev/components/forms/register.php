@@ -5,9 +5,8 @@
   </h1>
 
   <form action="" method="POST">
-    <input type="hidden" name="id" value="<?php getGlobal('getPreFormData')('id') ?>">
     <input type="hidden" name="action" value="<?php bind(getCurrentUser() ? ACTION_USER_EDITION : ACTION_USER_REGISTRATION) ?>">
-    
+
     <div class="form-group">
       <label for="nombre">Nombre</label>
       <input type="text" name="nombre" id="nombre" value="<?php getGlobal('getPreFormData')('nombre') ?>">
