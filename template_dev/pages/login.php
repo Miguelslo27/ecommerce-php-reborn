@@ -39,11 +39,6 @@ newDocument([
         bind(getPostData($data));
         return;
       }
-
-      if (getCurrentUser()) {
-        bind(getCurrentUser()->id);
-        return;
-      }
     };
 
     setGlobal('classesHandler', $classesHandler);

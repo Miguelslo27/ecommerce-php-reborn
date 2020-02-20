@@ -41,7 +41,7 @@ newDocument([
       }
 
       if (getCurrentUser()) {
-        bind(getCurrentUser()->id);
+        bind(getCurrentUser()->{$data});
         return;
       }
     };
