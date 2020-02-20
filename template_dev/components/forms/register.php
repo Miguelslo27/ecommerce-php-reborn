@@ -1,4 +1,4 @@
-<div class="inner form-register">
+<section class="inner form-register">
   <h1 class="shadowed-title">
     <span class="title-shadow">Registro de Usuario</span>
     <span class="title">Registro de Usuario</span>
@@ -9,9 +9,9 @@
 
     <div class="form-group">
       <label for="nombre">Nombre</label>
-      <input type="text" name="nombre" id="nombre" value="<?php getGlobal('getPreFormData')('nombre') ?>">
+      <input type="text" class="<?php getGlobal('classesHandler')('nombre', 'error') ?>" name="nombre" id="nombre" value="<?php getGlobal('getPreFormData')('nombre') ?>">
       <label for="apellido" class="align-center">Apellido</label>
-      <input type="text" name="apellido" id="apellido" value="<?php getGlobal('getPreFormData')('apellido') ?>">
+      <input type="text" class="<?php getGlobal('classesHandler')('apellido', 'error') ?>" name="apellido" id="apellido" value="<?php getGlobal('getPreFormData')('apellido') ?>">
     </div>
 
     <div class="form-line <?php getGlobal('classesHandler')('reg_email', 'error') ?>">
@@ -31,16 +31,16 @@
       <input type="text" name="rut" id="rut" value="<?php getGlobal('getPreFormData')('rut') ?>">
     </div>
 
-    <div class="form-line">
+    <div class="form-line <?php getGlobal('classesHandler')('direccion', 'error') ?>">
       <label for="direccion">Dirección completa</label>
       <input type="text" name="direccion" id="direccion" value="<?php getGlobal('getPreFormData')('direccion') ?>">
     </div>
     
     <div class="form-group">
-      <label for="departamento">Departamento</label>
-      <input type="text" name="departamento" id="departamento" value="<?php getGlobal('getPreFormData')('departamento') ?>">
-      <label for="ciudad" class="align-center">Localidad</label>
-      <input type="text" name="ciudad" id="ciudad" value="<?php getGlobal('getPreFormData')('ciudad') ?>">
+      <label for="departamento" class="<?php getGlobal('classesHandler')('departamento', 'error') ?>">Departamento</label>
+      <input type="text" class="<?php getGlobal('classesHandler')('departamento', 'error') ?>" name="departamento" id="departamento" value="<?php getGlobal('getPreFormData')('departamento') ?>">
+      <label for="ciudad" class="align-center <?php getGlobal('classesHandler')('ciudad', 'error') ?>">Localidad</label>
+      <input type="text" class="<?php getGlobal('classesHandler')('ciudad', 'error') ?>" name="ciudad" id="ciudad" value="<?php getGlobal('getPreFormData')('ciudad') ?>">
     </div>
 
     <div class="form-group">
@@ -60,4 +60,4 @@
       <?php endif ?>
     </div>
   </form>
-</div>
+</section>
