@@ -5,7 +5,7 @@ newDocument([
   'page' => 'login',
   'components' => [
     'components/header/header',
-    'components/forms/login',
+    'components/forms/login/login',
     'components/footer/footer'
   ],
   'styles' => [

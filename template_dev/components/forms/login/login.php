@@ -8,23 +8,23 @@
     <input type="hidden" name="action" value="<?php bind(ACTION_LOGIN) ?>">
 
     <div class="form-line">
-      <label for="email">E-Mail</label>
-      <input type="text" class="input" id="email" name="email">
+      <label for="email" class="icon-label"><i class="fas fa-at"></i></label>
+      <input type="text" class="input" id="email" name="email" placeholder="Correo electrónico">
     </div>
     <div class="form-line">
-      <label for="pass">Contraseña</label>
-      <input type="password" class="input" id="pass" name="pass">
+      <label for="pass" class="icon-label"><i class="fas fa-key"></i></label>
+      <input type="password" class="input" id="pass" name="pass" placeholder="Contraseña">
     </div>
-    <div class="help-line align-right">
-      <a href="/recuperar-clave/">He olvidado mi contraseña</a>
-      <span>|</span>
-      <a href="/registro/">Soy nuevo, deseo registrarme</a>
-    </div>
-    <div class="form-line">
+    <div class="form-line align-center remember">
       <label for="rememberme">
         <input type="checkbox" id="rememberme" name="rememberme" checked="true">
         Recúerdame en este equipo
       </label>
+    </div>
+    <div class="help-line align-center">
+      <a href="/recuperar-clave/">He olvidado mi contraseña</a>
+      <span>|</span>
+      <a href="/registro/">Soy nuevo, deseo registrarme</a>
     </div>
     <div class="form-line">
       <button type="submit">Ingresar</button>
