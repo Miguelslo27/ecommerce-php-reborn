@@ -31,8 +31,15 @@ function init()
 
 function processRequests()
 {
-  if (getPostData('action') === ACTION_LOGIN) {
-    // @TODO
+  if (
+    getPostData('action') === ACTION_LOGIN
+    && !empty(getServer('REQUEST_METHOD'))
+    && strtolower(getServer('REQUEST_METHOD')) == 'post'
+  ) {
+    setGlobal(
+      'request_' . ACTION_LOGIN . '_messages',
+      runLogin()
+    );
   }
 
   if (

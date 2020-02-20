@@ -7,11 +7,11 @@
   <form action="" method="POST">
     <input type="hidden" name="action" value="<?php bind(ACTION_LOGIN) ?>">
 
-    <div class="form-line">
+    <div class="form-line <?php getGlobal('classesHandler')('email', 'error') ?>">
       <label for="email" class="icon-label"><i class="fas fa-at"></i></label>
-      <input type="text" class="input" id="email" name="email" placeholder="Correo electrónico">
+      <input type="text" class="input" id="email" name="email" placeholder="Correo electrónico" value="<?php getGlobal('getPreFormData')('email') ?>">
     </div>
-    <div class="form-line">
+    <div class="form-line <?php getGlobal('classesHandler')('pass', 'error') ?>">
       <label for="pass" class="icon-label"><i class="fas fa-key"></i></label>
       <input type="password" class="input" id="pass" name="pass" placeholder="Contraseña">
     </div>

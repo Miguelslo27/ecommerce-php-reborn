@@ -13,4 +13,41 @@ newDocument([
     'css/layout.css',
     'css/forms.css'
   ],
+  'beforeRender' => function ()
+  {
+    $requestMessages = getGlobal('request_' . ACTION_LOGIN . '_messages');
+    setSession('request_messages', $requestMessages);
+
+    if (@$requestMessages->succeeded) {
+      executeJavaScript('window.location.href = "/"');
+    }
+
+    $classesHandler = function ($field, $class)
+    {
+      bind(
+        !empty(getGlobal('request_messages'))
+        && isset(getGlobal('request_messages')->fieldsWithErrors[$field])
+        && getGlobal('request_messages')->fieldsWithErrors[$field]
+          ? $class
+          : ''
+      );
+    };
+
+    $getPreFormData = function ($data)
+    {
+      if (getPostData($data)) {
+        bind(getPostData($data));
+        return;
+      }
+
+      if (getCurrentUser()) {
+        bind(getCurrentUser()->id);
+        return;
+      }
+    };
+
+    setGlobal('classesHandler', $classesHandler);
+    setGlobal('getPreFormData', $getPreFormData);
+    setGlobal('request_messages', $requestMessages);
+  }
 ]);

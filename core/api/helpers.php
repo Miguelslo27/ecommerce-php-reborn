@@ -250,6 +250,18 @@ function executeJavaScript($sentence) {
 <?php
 }
 
+function newStatusObject()
+{
+  $status                   = new stdClass();
+  $status->succeeded        = false;
+  $status->success          = '';
+  $status->errors           = [];
+  $status->warnings         = [];
+  $status->fieldsWithErrors = [];
+
+  return $status;
+}
+
 /* Debugging  */
 function logToConsole($message, $file = null, $function = null, $line = null)
 {
