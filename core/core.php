@@ -22,10 +22,6 @@ function init()
   logToConsole('APP Version: ' . APP_VERSION);
   logToConsole('API Version: ' . API_VERSION);
 
-  setGlobal('site', loadSite());
-  setGlobal('user', getCurrentUser());
-  setGlobal('cart', getCurrentCart());
-
   processRequests();
 }
 
