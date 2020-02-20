@@ -49,5 +49,14 @@ newDocument([
     setGlobal('classesHandler', $classesHandler);
     setGlobal('getPreFormData', $getPreFormData);
     setGlobal('request_messages', $requestMessages);
+  },
+  'afterRender' => function ()
+  {
+    if (
+      !empty(getSession('request_messages'))
+      && count((getSession('request_messages')->errors)) > 0
+    ) {
+      setSession('request_messages', null);
+    }
   }
 ]);

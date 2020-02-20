@@ -1,4 +1,3 @@
-/* https://fonts.googleapis.com/css?family=Lato|Montserrat&display=swap */
 @import url('https://fonts.googleapis.com/css?family=Lato|Montserrat&display=swap');
 
 /* GENERALS */
@@ -87,7 +86,7 @@ i.fab+* {
   text-align: center;
   animation:
     showMessage .5s ease,
-    hideMessage .5s ease 10s forwards;
+    hideMessage .5s ease 8s forwards;
 }
 
 .floating-messages .message.succeed {
@@ -199,8 +198,6 @@ i.fab+* {
 .empty-list {
   text-align: center;
 }
-
-.empty-list {}
 
 /* CONTENTS */
 /* GRIDS */
