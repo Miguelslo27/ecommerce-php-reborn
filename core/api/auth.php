@@ -15,6 +15,7 @@ function runLogin()
 
   $sql = (
     'SELECT
+        `id`,
         `nombre`,
         `apellido`,
         `email`,
@@ -23,7 +24,8 @@ function runLogin()
         `departamento`,
         `ciudad`,
         `telefono`,
-        `celular`
+        `celular`,
+        `administrador`
       FROM
         `usuario`
       WHERE
