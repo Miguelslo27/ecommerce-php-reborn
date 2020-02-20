@@ -2,7 +2,7 @@
 
 function getCurrentUser()
 {
-  return getGlobal('user');
+  return getSession('user');
 }
 
 function isAdmin()
@@ -27,26 +27,27 @@ function getUserId() {
 function registerNewUser() {
   $status = registerNewUser_checkIncomingData();
 
-  if (!$status->success) {
+  if (!$status->succeeded) {
     return $status;
   }
 
   $sql = (
     'INSERT
-      INTO `usuario`
-      (
-        `nombre`,
-        `apellido`,
-        `email`,
-        `clave`,
-        `codigo`,
-        `rut`,
-        `direccion`,
-        `departamento`,
-        `ciudad`,
-        `telefono`,
-        `celular`
-      )
+      INTO
+        `usuario`
+        (
+          `nombre`,
+          `apellido`,
+          `email`,
+          `clave`,
+          `codigo`,
+          `rut`,
+          `direccion`,
+          `departamento`,
+          `ciudad`,
+          `telefono`,
+          `celular`
+        )
       VALUES
       (
         "' . getPostData('nombre') . '",
@@ -75,17 +76,14 @@ function registerNewUser() {
     $status->fieldsWithErrors = [];
   }
 
+  $status->success = 'Te has registrado con éxito';
+
   return $status;
 }
 
 function registerNewUser_checkIncomingData()
 {
-  $status                   = new stdClass();
-  $status->succeeded        = false;
-  $status->success          = '';
-  $status->errors           = [];
-  $status->warnings         = [];
-  $status->fieldsWithErrors = [];
+  $status = newStatusObject();
 
   /**
    * if (
@@ -126,7 +124,7 @@ function registerNewUser_checkIncomingData()
   } elseif (!preg_match(REG_EXP_EMAIL_FORMAT, getPostData('reg_email'))) {
     $status->fieldsWithErrors['reg_email'] = true;
     $status->errors[]                      = 'El email no tiene el formato correcto';
-  } elseif (checkIfEmailAlreadyExists(getPostData('reg_email'))) {
+  } elseif (checkIfEmailExists(getPostData('reg_email'))) {
     $status->fieldsWithErrors['reg_email'] = true;
     $status->errors[]                      = 'El email ya se encuentra registrado';
     return $status;
@@ -135,11 +133,11 @@ function registerNewUser_checkIncomingData()
   if (empty(getPostData('reg_pass'))) {
     $status->fieldsWithErrors['reg_pass'] = true;
     $status->fieldsWithErrors['pass2']    = true;
-    $status->errors[] = 'La contraseña no puede ser vacía';
+    $status->errors[]                     = 'La contraseña no puede ser vacía';
   } elseif (strlen(getPostData('reg_pass')) < 6) {
     $status->fieldsWithErrors['reg_pass'] = true;
     $status->fieldsWithErrors['pass2']    = true;
-    $status->errors[] = 'Para una contraseña segura, esta debe tener más de 6 caracteres';
+    $status->errors[]                     = 'Para una contraseña segura, esta debe tener más de 6 caracteres';
   } else {
     if (
       empty(getPostData('pass2'))
@@ -178,12 +176,11 @@ function registerNewUser_checkIncomingData()
 
   if (count($status->errors) == 0) {
     $status->succeeded = true;
-    $status->success   = 'Te has registrado con éxito';
   }
 
   return $status;
 }
 
-function checkIfEmailAlreadyExists($email) {
+function checkIfEmailExists($email) {
   return getDB()->countOf('usuario', "`email` = '$email'") > 0;
 }

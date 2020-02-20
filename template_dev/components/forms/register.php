@@ -16,14 +16,14 @@
 
     <div class="form-line <?php getGlobal('classesHandler')('reg_email', 'error') ?>">
       <label for="reg_email">E-Mail *</label>
-      <input type="text" name="reg_email" id="reg_email" value="<?php getGlobal('getPreFormData')('reg_email') ?>">
+      <input type="text" name="reg_email" id="reg_email" value="<?php oneOf(@getGlobal('getPreFormData')('reg_email'), getGlobal('getPreFormData')('email')) ?>">
     </div>
 
     <div class="form-group">
       <label for="reg_pass" class="<?php getGlobal('classesHandler')('reg_pass', 'error') ?>">Contraseña *</label>
-      <input type="password" class="<?php getGlobal('classesHandler')('reg_pass', 'error') ?>" name="reg_pass" id="reg_pass" value="<?php getGlobal('getPreFormData')('reg_pass') ?>">
+      <input type="password" class="<?php getGlobal('classesHandler')('reg_pass', 'error') ?>" name="reg_pass" id="reg_pass">
       <label for="pass2" class="align-center <?php getGlobal('classesHandler')('pass2', 'error') ?>">Repetir contraseña *</label>
-      <input type="password" class="<?php getGlobal('classesHandler')('pass2', 'error') ?>" name="pass2" id="pass2" value="<?php getGlobal('getPreFormData')('pass2') ?>">
+      <input type="password" class="<?php getGlobal('classesHandler')('pass2', 'error') ?>" name="pass2" id="pass2">
     </div>
 
     <div class="form-line <?php getGlobal('classesHandler')('rut', 'error') ?>">

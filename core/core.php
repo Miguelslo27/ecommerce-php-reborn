@@ -22,17 +22,20 @@ function init()
   logToConsole('APP Version: ' . APP_VERSION);
   logToConsole('API Version: ' . API_VERSION);
 
-  setGlobal('site', loadSite());
-  setGlobal('user', getCurrentUser());
-  setGlobal('cart', getCurrentCart());
-
   processRequests();
 }
 
 function processRequests()
 {
-  if (getPostData('action') === ACTION_LOGIN) {
-    // @TODO
+  if (
+    getPostData('action') === ACTION_LOGIN
+    && !empty(getServer('REQUEST_METHOD'))
+    && strtolower(getServer('REQUEST_METHOD')) == 'post'
+  ) {
+    setGlobal(
+      'request_' . ACTION_LOGIN . '_messages',
+      runLogin()
+    );
   }
 
   if (
