@@ -119,7 +119,7 @@ function registerNewUser_checkIncomingData()
     $status->errors[]                   = 'La localidad tiene un formato inseguro. La localidad puede incluir letras, espacios y puntos';
     return $status;
   }
-  
+
   if (empty(getPostData('reg_email'))) {
     $status->fieldsWithErrors['reg_email'] = true;
     $status->errors[]                      = 'El email no puede ser vacío';
@@ -165,7 +165,7 @@ function registerNewUser_checkIncomingData()
     || empty(getPostData('ciudad'))
   ) {
     $status->warnings[] = 'Tu dirección, departamento y ciudad, serán necesarias para recibir tus compras, recuerda completar estos datos más adelante';
-  } 
+  }
 
   if (
     empty(getPostData('telefono'))
