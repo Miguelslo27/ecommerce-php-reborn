@@ -99,7 +99,8 @@ function startNewDocument($settings)
 function endNewDocument($settings)
 {
   getTemplate('components/notifications/notifications');
-  getJavaScript($settings)
+  getJavaScript($settings);
+  logDebugging();
   ?>
 </body>
 </html>

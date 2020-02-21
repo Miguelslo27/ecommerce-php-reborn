@@ -263,13 +263,60 @@ function newStatusObject()
 }
 
 /* Debugging  */
-function logToConsole($message, $file = null, $function = null, $line = null)
+function logToConsole($variable, $file = null, $function = null, $line = null)
 {
-?>
-<script>
-  console.log('#PHP:<?php echo isset($file) ? '[' . addslashes($file) . ']' : '' ?><?php echo isset($function) ? '::[' . $function . ']' : '' ?>:<?php echo isset($line) ? $line : '' ?>', '<?php echo $message ?>');
-</script>
-<?php
+  if (!($logs = getGlobal('__console__logs__'))) {
+    $logs = [];
+  }
+
+  $vartype = gettype($variable);
+  $now     = new DateTime();
+  $vardef  = $now->getTimestamp();
+  $logs[]  = 'let __php__variable__' . $vardef . count($logs) . '__;';
+
+  if ($vartype != 'string') {
+    if (
+      $vartype == 'array'
+      || $vartype == 'object'
+    ) {
+      $variable = json_encode($variable);
+      $logs[] = '__php__variable__ = ' . $variable . ';';
+    }
+
+    if (
+      $vartype == 'boolean'
+      || $vartype == 'integer') {
+      $logs[] = '__php__variable__ = ' . $variable . ';';
+    }
+  } else {
+    $logs[] = '__php__variable__ = "' . $variable .'";';
+  }
+
+  $date = new DateTime('NOW', new DateTimeZone('AMERICA/MONTEVIDEO'));
+
+  if (isset($file)) {
+    $logs[] = 'console.log(\'' . $date->format('Y-m-d H:i') . ' #PHP:[' . addslashes($file) . '][' . $function . ']:' . $line . '\');';
+    $logs[] = 'console.log(\'' . $date->format('Y-m-d H:i') . ' ->>>>> \', __php__variable__)';
+  } else {
+    $logs[] = 'console.log(\'' . $date->format('Y-m-d H:i') . '\', __php__variable__)';
+  }
+
+  setGlobal('__console__logs__', $logs);
+}
+
+function logDebugging()
+{
+  $consolelogs = getGlobal('__console__logs__');
+
+  if (!empty($consolelogs)) {
+  ?>
+  <script>
+  <?php
+    bind(implode("\n", $consolelogs));
+  ?>
+  </script>
+  <?php
+  }
 }
 
 function debug($message, $file, $function, $line)
