@@ -272,7 +272,8 @@ function logToConsole($variable, $file = null, $function = null, $line = null)
   $vartype = gettype($variable);
   $now     = new DateTime();
   $vardef  = $now->getTimestamp();
-  $logs[]  = 'let __php__variable__' . $vardef . count($logs) . '__;';
+  $varname = '__php__variable__' . $vardef . count($logs) . '__';
+  $logs[]  = "let $varname";
 
   if ($vartype != 'string') {
     if (
@@ -280,25 +281,30 @@ function logToConsole($variable, $file = null, $function = null, $line = null)
       || $vartype == 'object'
     ) {
       $variable = json_encode($variable);
-      $logs[] = '__php__variable__ = ' . $variable . ';';
+      $logs[] = $varname . ' = ' . $variable . ';';
     }
 
     if (
       $vartype == 'boolean'
-      || $vartype == 'integer') {
-      $logs[] = '__php__variable__ = ' . $variable . ';';
+      || $vartype == 'integer'
+    ) {
+      $logs[] = $varname . ' = ' . $variable . ';';
+    }
+
+    if ($vartype == 'NULL') {
+      $logs[] = $varname . ' = null;';
     }
   } else {
-    $logs[] = '__php__variable__ = "' . $variable .'";';
+    $logs[] = $varname . ' = "' . $variable .'";';
   }
 
   $date = new DateTime('NOW', new DateTimeZone('AMERICA/MONTEVIDEO'));
 
   if (isset($file)) {
     $logs[] = 'console.log(\'' . $date->format('Y-m-d H:i') . ' #PHP:[' . addslashes($file) . '][' . $function . ']:' . $line . '\');';
-    $logs[] = 'console.log(\'' . $date->format('Y-m-d H:i') . ' ->>>>> \', __php__variable__)';
+    $logs[] = 'console.log(\'' . $date->format('Y-m-d H:i') . ' ->>>>> \', ' . $varname . ')';
   } else {
-    $logs[] = 'console.log(\'' . $date->format('Y-m-d H:i') . '\', __php__variable__)';
+    $logs[] = 'console.log(\'' . $date->format('Y-m-d H:i') . '\', ' . $varname . ')';
   }
 
   setGlobal('__console__logs__', $logs);
