@@ -15,6 +15,10 @@ newDocument([
   ],
   'beforeRender' => function ()
   {
+    if (isLoggedIn()) {
+      header('Location: /');
+    }
+
     $requestMessages = getGlobal('request_' . ACTION_LOGIN . '_messages');
     setSession('request_messages', $requestMessages);
 
