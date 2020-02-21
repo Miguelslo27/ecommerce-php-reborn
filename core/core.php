@@ -38,6 +38,12 @@ function processRequests()
     );
   }
 
+  if (getRequestData('action') === ACTION_LOGOUT) {
+    setSession('request_messages', runLogout());
+    header('Location: /');
+    exit;
+  }
+
   if (
     getPostData('action') === ACTION_USER_REGISTRATION
     && !empty(getServer('REQUEST_METHOD'))

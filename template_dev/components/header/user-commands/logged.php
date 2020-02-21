@@ -6,7 +6,7 @@
     </a>
     <div class="dropdown">
       <a href="/registro?id=<?php echo getUserId() ?>" class="access-menu dropdown-item">Edición</a>
-      <a href="/logout" class="access-menu normal-tab">
+      <a href="/?action=logout" class="access-menu normal-tab">
         <i class="fas fa-sign-out-alt"></i>
         <span class="link-label">Salir</span>
       </a>
