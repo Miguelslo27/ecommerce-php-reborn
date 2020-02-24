@@ -81,3 +81,13 @@ function runLogin_checkIncomingData()
 
   return $status;
 }
+
+function runLogout()
+{
+  setSession('user', null);
+  $status = newStatusObject();
+  $status->succeeded = true;
+  $status->success   = 'Sesión cerrada';
+
+  return $status;
+}

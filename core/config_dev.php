@@ -23,6 +23,7 @@ define('DB_PASS', getenv('DB_PASS'));
 
 /* CONSTANTS FOR COMMON USE */
 define('ACTION_LOGIN', 'login');
+define('ACTION_LOGOUT', 'logout');
 define('ACTION_USER_REGISTRATION', 'user_registration');
 define('ACTION_USER_EDITION', 'user_edition');
 define('ACTION_SAVE_CATEGORY', 'save_category');
