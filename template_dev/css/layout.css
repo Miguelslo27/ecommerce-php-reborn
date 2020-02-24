@@ -137,6 +137,11 @@ i.fab+* {
   margin: auto;
 }
 
+.full-inner {
+  max-width: 100%;
+  padding: 0 2rem;
+}
+
 .list-actions {
   display: flex;
   flex-direction: row;
@@ -197,6 +202,40 @@ i.fab+* {
 
 .empty-list {
   text-align: center;
+}
+
+.button {
+  width: 49%;
+  padding: 1rem;
+  background-color: rgb(240, 240, 240);
+  color: #000;
+  font-family: Arial;
+  font-size: .85rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-radius: 50px;
+  box-shadow: 0 4px 6px -4px #b52299;
+  outline: none;
+}
+
+.button.primary {
+  background: #930077;
+  border: 2px solid #930077;
+  color: #FFF;
+}
+
+.button.secondary {
+  border: 2px solid #930077;
+}
+
+.button.primary:active,
+.button.secondary:active {
+  border: 2px solid #FFF;
+  box-shadow:
+    0 0px 2px #b52299,
+    0 4px 6px -4px #b52299;
 }
 
 /* CONTENTS */
@@ -358,10 +397,6 @@ i.fab+* {
   padding: 8%;
 }
 
-/* .articles li article.new .actions,
-featured .articles li article.new .actions {
-  padding: 8%;
-} */
 .articles li article .article-info .price,
 .articles li article.new .article-info .price,
 .articles li article.featured .article-info .price,
@@ -382,83 +417,3 @@ featured .articles li article.new .actions {
   font-weight: normal;
   text-decoration: line-through;
 }
-
-/* TABLES */
-.table {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 2rem;
-  box-shadow: 0 0 25px rgba(147, 0, 119, .15);
-}
-
-.table .row.headline {
-  background-color: #eaeaea;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.table .row {
-  display: flex;
-  padding: 1rem;
-  flex-direction: row;
-  justify-content: space-between;
-  background-color: #fff;
-}
-
-.table .row:hover {
-  background-color: #f9f9f9;
-}
-
-.table .row:not(:first-child):not(:last-child) {
-  border-bottom: 1px solid #eaeaea;
-}
-
-.table .row .cell,
-.table .row .cell.span-1 {
-  flex: 1;
-}
-
-.table .row .cell.span-2 {
-  flex-grow: 2;
-}
-
-.table .row .cell.span-3 {
-  flex-grow: 3;
-}
-
-.table .row .cell.span-4 {
-  flex-grow: 4;
-}
-
-.table .row .cell.span-5 {
-  flex-grow: 5;
-}
-
-.table .row .cell.span-6 {
-  flex-grow: 6;
-}
-
-.table .row .cell.span-7 {
-  flex-grow: 7;
-}
-
-.table .row .cell.span-8 {
-  flex-grow: 8;
-}
-
-.table .row .cell.span-9 {
-  flex-grow: 9;
-}
-
-.table .row .cell.span-10 {
-  flex-grow: 10;
-}
-
-.table .row .cell.span-11 {
-  flex-grow: 11;
-}
-
-.table .row .cell.span-12 {
-  flex-grow: 12;
-}
-
