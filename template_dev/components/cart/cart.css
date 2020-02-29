@@ -1,0 +1,31 @@
+.cart-details {
+  display: flex;
+  flex-direction: row;
+}
+
+.cart-empty {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.cart-empty a.button {
+  display: inline-block;
+  width: 25%;
+  margin: .5rem;
+}
+
+.cart-items,
+.cart-summary {
+  flex: 1;
+}
+
+.cart-items {
+  flex-grow: 5;
+  background: orange;
+  margin-right: 2rem;
+}
+
+.cart-summary {
+  flex-grow: 2;
+  background: green;
+}

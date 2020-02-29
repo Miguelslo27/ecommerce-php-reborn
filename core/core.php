@@ -18,9 +18,9 @@ init();
 
 function init()
 {
-  logToConsole('Environment: ' . getenv('ENV'));
-  logToConsole('APP Version: ' . APP_VERSION);
-  logToConsole('API Version: ' . API_VERSION);
+  logToConsole('', 'Environment: ' . getenv('ENV'));
+  logToConsole('', 'APP Version: ' . APP_VERSION);
+  logToConsole('', 'API Version: ' . API_VERSION);
 
   processRequests();
 }
@@ -53,6 +53,14 @@ function processRequests()
       'request_' . ACTION_USER_REGISTRATION . '_messages',
       registerNewUser()
     );
+  }
+
+  if (getRequestData('action') == ACTION_ADD_TO_CART) {
+    setSession('request_messages', addToCart());
+    $query_str  = getQueryParams(['action' => null, 'aid' => null, 'qty' => null]);
+    $redirectTo = getRequestURIPath() . (!empty($query_str) ? "?$query_str" : '');
+    header("Location: $redirectTo");
+    exit;
   }
 
   if (getPostData('action') === ACTION_SAVE_CATEGORY) {

@@ -1,0 +1,78 @@
+/* TABLES */
+.table {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  box-shadow: 0 0 25px rgba(147, 0, 119, .15);
+}
+
+.table .row.headline {
+  background-color: #eaeaea;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.table .row {
+  display: flex;
+  padding: 1rem;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #fff;
+}
+
+.table .row:hover {
+  background-color: #f9f9f9;
+}
+
+.table .row:not(:first-child):not(:last-child) {
+  border-bottom: 1px solid #eaeaea;
+}
+
+.table .row .cell,
+.table .row .cell.span-1 {
+  flex: 1;
+}
+
+.table .row .cell.span-2 {
+  flex-grow: 2;
+}
+
+.table .row .cell.span-3 {
+  flex-grow: 3;
+}
+
+.table .row .cell.span-4 {
+  flex-grow: 4;
+}
+
+.table .row .cell.span-5 {
+  flex-grow: 5;
+}
+
+.table .row .cell.span-6 {
+  flex-grow: 6;
+}
+
+.table .row .cell.span-7 {
+  flex-grow: 7;
+}
+
+.table .row .cell.span-8 {
+  flex-grow: 8;
+}
+
+.table .row .cell.span-9 {
+  flex-grow: 9;
+}
+
+.table .row .cell.span-10 {
+  flex-grow: 10;
+}
+
+.table .row .cell.span-11 {
+  flex-grow: 11;
+}
+
+.table .row .cell.span-12 {
+  flex-grow: 12;
+}

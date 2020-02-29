@@ -71,8 +71,6 @@ form .form-group {
   flex-grow: 3;
 }
 
-form .form-line input {}
-
 form .form-line label.file {
   overflow: hidden;
   position: relative;
@@ -99,18 +97,6 @@ form .form-line textarea {
   height: initial;
 }
 
-form .form-line select {}
-
-form .form-line:hover {}
-
-form .form-line:hover label {}
-
-form .form-line:hover input {}
-
-form .form-line:hover textarea {}
-
-form .form-line:hover select {}
-
 form .form-line input:focus,
 form .form-group input:focus,
 form .form-line label.file:focus,
@@ -130,10 +116,7 @@ form .form-actions {
 
 form .form-line button,
 form .form-group button,
-form .form-actions button,
-form .form-line a.button,
-form .form-group a.button,
-form .form-actions a.button {
+form .form-actions button {
   width: 49%;
   padding: 1rem;
   background-color: rgb(240, 240, 240);
@@ -154,52 +137,28 @@ form .form-line button[type=reset]:focus,
 form .form-group button[type=submit]:focus,
 form .form-group button[type=reset]:focus,
 form .form-actions button[type=submit]:focus,
-form .form-actions button[type=reset]:focus,
-form .form-line a.button.primary:active,
-form .form-line a.button.secondary:active,
-form .form-group a.button.primary:active,
-form .form-group a.button.secondary:active,
-form .form-actions a.button.primary:active,
-form .form-actions a.button.secondary:active {
+form .form-actions button[type=reset]:focus {
   border: 2px solid #FFF;
   box-shadow:
     0 0px 2px #b52299,
     0 4px 6px -4px #b52299;
 }
 
-form .form-line button:disabled,
-form .form-group button:disabled,
-form .form-actions button:disabled {}
-
 form .form-line button[type=submit],
 form .form-group button[type=submit],
-form .form-actions button[type=submit],
-form .form-line a.button.primary,
-form .form-group a.button.primary,
-form .form-actions a.button.primary {
+form .form-actions button[type=submit] {
   background: #930077;
   border: 2px solid #930077;
   color: #FFF;
 }
 
-form .form-actions button[type=submit]:disabled {}
-
 form .form-line button[type=reset],
 form .form-group button[type=reset],
-form .form-actions button[type=reset],
-form .form-line a.button.secondary,
-form .form-group a.button.secondary,
-form .form-actions a.button.secondary {
+form .form-actions button[type=reset] {
   border: 2px solid #930077;
 }
 
-form .form-actions button[type=reset]:disabled {}
-
 /* ERRORS */
-form .form-line.error {}
-
-form .form-group.error {}
-
 form label.error,
 form .form-line.error label,
 form .form-group.error label {
