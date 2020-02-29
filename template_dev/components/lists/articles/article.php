@@ -28,7 +28,7 @@ if (getGlobal('article')->agotado === '1') {
   </div>
   <hr>
   <div class="actions">
-    <a href="?<?php bind(getQueryParams(['addtocart' => getGlobal('article')->id])) ?>">Agregar al carrito +</a>
+    <a href="?<?php bind(getQueryParams(['action' => ACTION_ADD_TO_CART, 'aid' => getGlobal('article')->id])) ?>">Agregar al carrito +</a>
   </div>
 
   <?php if (isAdmin()) : ?>

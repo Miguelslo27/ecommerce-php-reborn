@@ -67,10 +67,28 @@ function setServer($var, $value)
 /**
  * Get Server variable
  */
-function getServer($var)
+function getServer($var = null)
 {
+  if (!isset($var)) return $_SERVER;
   if (!isset($_SERVER[$var])) return null;
   return $_SERVER[$var];
+}
+
+function getRealIP()
+{
+  if (!empty(getServer("HTTP_CLIENT_IP"))) {
+    return getServer("HTTP_CLIENT_IP");
+  } elseif (!empty(getServer("HTTP_X_FORWARDED_FOR"))) {
+    return getServer("HTTP_X_FORWARDED_FOR");
+  } elseif (!empty(getServer("HTTP_X_FORWARDED"))) {
+    return getServer("HTTP_X_FORWARDED");
+  } elseif (!empty(getServer("HTTP_FORWARDED_FOR"))) {
+    return getServer("HTTP_FORWARDED_FOR");
+  } elseif (!empty(getServer("HTTP_FORWARDED"))) {
+    return getServer("HTTP_FORWARDED");
+  } else {
+    return getServer("REMOTE_ADDR");
+  }
 }
 
 /* General Requests */
@@ -125,6 +143,11 @@ function getTemplateRelativePath()
 function getTemplate($template, $includepath = true, $includeextension = true)
 {
   include(($includepath ? getTemplateAbsolutePath() : '') . $template . ($includeextension ? '.php' : ''));
+}
+
+function getRequestURIPath()
+{
+  return explode('?', getServer('REQUEST_URI'))[0];
 }
 
 /**
@@ -189,7 +212,7 @@ function getPager($model, $where, $perpage) {
  */
 function constructPagerUrl($perpage, $perpage_param, $page_param)
 {
-  $url = $_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : '?' . $perpage_param .  '={{per_page}}&' . $page_param . '={{page}}';
+  $url = getServer('QUERY_STRING') ? '?' . getServer('QUERY_STRING') : '?' . $perpage_param .  '={{per_page}}&' . $page_param . '={{page}}';
   $url = preg_replace('/' . $perpage_param . '=\d+/i', $perpage_param . '={{per_page}}', $url);
   $url = preg_replace('/' . $page_param . '=\d+/i', $page_param . '={{page}}', $url);
   $url = str_replace('{{per_page}}', $perpage, $url);
@@ -263,7 +286,7 @@ function newStatusObject()
 }
 
 /* Debugging  */
-function logToConsole($variable, $file = null, $function = null, $line = null)
+function logToConsole($prefix, $variable, $file = null, $function = null, $line = null)
 {
   if (!($logs = getGlobal('__console__logs__'))) {
     $logs = [];
@@ -273,7 +296,7 @@ function logToConsole($variable, $file = null, $function = null, $line = null)
   $now     = new DateTime();
   $vardef  = $now->getTimestamp();
   $varname = '__php__variable__' . $vardef . count($logs) . '__';
-  $logs[]  = "let $varname";
+  $logs[]  = "let $varname;";
 
   if ($vartype != 'string') {
     if (
@@ -295,16 +318,17 @@ function logToConsole($variable, $file = null, $function = null, $line = null)
       $logs[] = $varname . ' = null;';
     }
   } else {
-    $logs[] = $varname . ' = "' . $variable .'";';
+    $strvar = str_replace('`', '\`', $variable);
+    $logs[] = $varname . ' = `' . $strvar .'`;';;
   }
 
   $date = new DateTime('NOW', new DateTimeZone('AMERICA/MONTEVIDEO'));
 
   if (isset($file)) {
-    $logs[] = 'console.log(\'' . $date->format('Y-m-d H:i') . ' #PHP:[' . addslashes($file) . '][' . $function . ']:' . $line . '\');';
-    $logs[] = 'console.log(\'' . $date->format('Y-m-d H:i') . ' ->>>>> \', ' . $varname . ')';
+    $logs[] = 'console.log(\'%c' . $date->format('Y-m-d H:i') . ' #PHP:[' . addslashes($file) . '][' . $function . ']:' . $line . '\', \'font-size: 14px; font-weight: bold; color: #474A8A\');';
+    $logs[] = 'console.log(\'%c' . $date->format('Y-m-d H:i') . (!empty($prefix) ? ' ' . $prefix : '') . ' ->>>>> \', \'font-size: 14px; font-weight: bold;\', ' . $varname . ')';
   } else {
-    $logs[] = 'console.log(\'' . $date->format('Y-m-d H:i') . '\', ' . $varname . ')';
+    $logs[] = 'console.log(\'%c' . $date->format('Y-m-d H:i') . (!empty($prefix) ? ' ' . $prefix : '') . '\', \'font-size: 14px; font-weight: bold;\', ' . $varname . ')';
   }
 
   setGlobal('__console__logs__', $logs);
@@ -327,5 +351,5 @@ function logDebugging()
 
 function debug($message, $file, $function, $line)
 {
-  if (DEBUG) logToConsole($message, $file, $function, $line);
+  if (DEBUG) logToConsole('', $message, $file, $function, $line);
 }
