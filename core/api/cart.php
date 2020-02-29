@@ -2,7 +2,7 @@
 
 function getCurrentCart()
 {
-  return getGlobal('cart');
+  return getSession('cart');
 }
 
 function addToCart($qty = 1)
