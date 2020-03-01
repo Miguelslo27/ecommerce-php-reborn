@@ -31,7 +31,7 @@ function addToCart($qty = 1)
     return $status;
   }
 
-  setSession('cart', $updatedorder);
+  loadCart();
   $status->success = "Se agregó <strong>$article->nombre</strong> al carrito";
 
   return $status;
@@ -184,4 +184,51 @@ function addToOrder($order, $article, $qty)
   }
 
   return $order;
+}
+
+function getArticlesInOrder($oid)
+{
+  $sql = (
+    "SELECT
+      `articulo_pedido`.`id`,
+      `articulo_pedido`.`articulo_id`,
+      `articulo_pedido`.`precio_actual`,
+      `articulo_pedido`.`cantidad`,
+      `articulo_pedido`.`subtotal`,
+      `articulo`.`nombre`,
+      `articulo`.`codigo`,
+      `articulo`.`imagenes_url`
+      FROM `articulo_pedido`
+      JOIN `articulo`
+        ON `articulo_pedido`.`articulo_id` = `articulo`.`id`
+      WHERE
+        `articulo_pedido`.`pedido_id` = $oid"
+  );
+
+  return getDB()->getObjects($sql);
+}
+
+function loadCart()
+{
+  $user   = getCurrentUser();
+  $userid = oneOf(@$user->id, getSession('temp_user_id'));
+
+  if (empty($userid)) {
+    setSession('cart', null);
+    return;
+  }
+
+  $sql   = getOrderSqlGenerator($userid);
+  $order = getDb()->getObject($sql);
+
+  if (empty($order)) {
+    setSession('cart', null);
+    return;
+  }
+
+  $cart = new stdClass();
+  $cart->order    = $order;
+  $cart->articles = getArticlesInOrder($order->id);
+
+  setSession('cart', $cart);
 }

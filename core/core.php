@@ -22,6 +22,8 @@ function init()
   logToConsole('', 'APP Version: ' . APP_VERSION);
   logToConsole('', 'API Version: ' . API_VERSION);
 
+  loadCart();
+
   processRequests();
 }
 

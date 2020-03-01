@@ -1,5 +1,5 @@
 <section class="full-inner form-register">
-  <?php if (empty(getGlobal('cart'))) : ?>
+  <?php if (empty(getCurrentCart())) : ?>
   <h1 class="shadowed-title">
     <span class="title-shadow">Tu carrito está vacío</span>
     <span class="title">Tu carrito está vacío</span>
@@ -8,15 +8,12 @@
     <a href="/login/" class="button primary">Iniciar sesión</a>
     <a href="/" class="button secondary">Continuar comprando</a>
   </div>
-  
   <?php getTemplate('components/lists/categories/featured-categories') ?>
-  
   <?php else : ?>
   <h1 class="shadowed-title">
     <span class="title-shadow">Carrito de compras</span>
     <span class="title">Carrito de compras</span>
   </h1>
-
   <div class="cart-details">
     <section class="cart-items">
       <div class="table">
