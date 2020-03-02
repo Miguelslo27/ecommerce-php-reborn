@@ -8,7 +8,6 @@
     <a href="/login/" class="button primary">Iniciar sesión</a>
     <a href="/" class="button secondary">Continuar comprando</a>
   </div>
-  <?php getTemplate('components/lists/categories/featured-categories') ?>
   <?php else : ?>
   <h1 class="shadowed-title">
     <span class="title-shadow">Carrito de compras</span>
