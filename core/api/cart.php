@@ -160,26 +160,52 @@ function addToOrder($order, $article, $qty)
     return null;
   }
 
-  $sqlInsert = (
-    "INSERT
-      INTO `articulo_pedido` (
-        `pedido_id`,
-        `articulo_id`,
-        `precio_actual`,
-        `cantidad`,
-        `subtotal`
-      )
-      VALUES (
-        $order->id,
-        $article->id,
-        $price,
-        $qty,
-        $subtotal
-      )
-      "
+  $sqlInOrderArticle = (
+    "SELECT
+      `id`,
+      `cantidad`
+      FROM
+        `articulo_pedido`
+      WHERE
+        `articulo_pedido`.`articulo_id` = $article->id"
   );
 
-  if (!($articleInOrderID = getDB()->insert($sqlInsert))) {
+  $inOrderArticle = getDB()->getObject($sqlInOrderArticle);
+
+  if (!empty($inOrderArticle)) {
+    $sqlInsert = (
+      "UPDATE
+        `articulo_pedido`
+        SET
+          `precio_actual` = $price,
+          `cantidad` = $inOrderArticle->cantidad + $qty,
+          `subtotal` = $price * ($inOrderArticle->cantidad + $qty)
+        WHERE
+          `id` = $inOrderArticle->id"
+    );
+  } else {
+    $sqlInsert = (
+      "INSERT
+        INTO `articulo_pedido` (
+          `pedido_id`,
+          `articulo_id`,
+          `precio_actual`,
+          `cantidad`,
+          `subtotal`
+        )
+        VALUES (
+          $order->id,
+          $article->id,
+          $price,
+          $qty,
+          $subtotal
+        )"
+    );
+  }
+
+  $inOrderArticleId = getDB()->insert($sqlInsert);
+
+  if (!isset($inOrderArticleId)) {
     return null;
   }
 

@@ -1,5 +1,5 @@
 <section class="full-inner form-register">
-  <?php if (empty(getCurrentCart())) : ?>
+  <?php if (empty(getCurrentCart()) || empty(getCurrentCart()->articles)) : ?>
   <h1 class="shadowed-title">
     <span class="title-shadow">Tu carrito está vacío</span>
     <span class="title">Tu carrito está vacío</span>
