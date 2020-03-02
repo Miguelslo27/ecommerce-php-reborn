@@ -160,26 +160,54 @@ function addToOrder($order, $article, $qty)
     return null;
   }
 
-  $sqlInsert = (
-    "INSERT
-      INTO `articulo_pedido` (
-        `pedido_id`,
-        `articulo_id`,
-        `precio_actual`,
-        `cantidad`,
-        `subtotal`
-      )
-      VALUES (
-        $order->id,
-        $article->id,
-        $price,
-        $qty,
-        $subtotal
-      )
-      "
+  $sqlInOrderArticle = (
+    "SELECT
+      `id`,
+      `cantidad`
+      FROM
+        `articulo_pedido`
+      WHERE
+        `articulo_pedido`.`articulo_id` = $article->id"
   );
 
-  if (!($articleInOrderID = getDB()->insert($sqlInsert))) {
+  $inOrderArticle = getDB()->getObject($sqlInOrderArticle);
+
+  if (!empty($inOrderArticle)) {
+    $sqlInsert = (
+      "UPDATE
+        `articulo_pedido`
+        SET
+          `precio_actual` = $price,
+          `cantidad` = $inOrderArticle->cantidad + $qty,
+          `subtotal` = $price * ($inOrderArticle->cantidad + $qty)
+        WHERE
+          `id` = $inOrderArticle->id
+        AND
+          `pedido_id` = $order->id"
+    );
+  } else {
+    $sqlInsert = (
+      "INSERT
+        INTO `articulo_pedido` (
+          `pedido_id`,
+          `articulo_id`,
+          `precio_actual`,
+          `cantidad`,
+          `subtotal`
+        )
+        VALUES (
+          $order->id,
+          $article->id,
+          $price,
+          $qty,
+          $subtotal
+        )"
+    );
+  }
+
+  $inOrderArticleId = getDB()->insert($sqlInsert);
+
+  if (!isset($inOrderArticleId)) {
     return null;
   }
 
@@ -218,6 +246,13 @@ function loadCart()
     return;
   }
 
+  if (
+    !empty(getSession('temp_user_id'))
+    && !empty($user)
+  ) {
+    transferOrder(getSession('temp_user_id'), $user->id);
+  }
+
   $sql   = getOrderSqlGenerator($userid);
   $order = getDb()->getObject($sql);
 
@@ -231,4 +266,26 @@ function loadCart()
   $cart->articles = getArticlesInOrder($order->id);
 
   setSession('cart', $cart);
+}
+
+function transferOrder($fromUser, $toUser)
+{
+  $sql   = getOrderSqlGenerator($fromUser);
+  $order = getDb()->getObject($sql);
+
+  if (empty($order)) {
+    return;
+  }
+
+  $sqlUpdate = (
+    "UPDATE
+      `pedido`
+      SET
+        `usuario_id` = $toUser
+      WHERE
+        `usuario_id` = $fromUser"
+  );
+
+  getDB()->query($sqlUpdate);
+  return;
 }
