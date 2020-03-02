@@ -6,6 +6,7 @@ newDocument([
   'components' => [
     'components/header/header',
     'components/cart/cart',
+    'components/lists/articles/recently-added-articles',
     'components/footer/footer'
   ],
   'styles' => [
@@ -16,5 +17,6 @@ newDocument([
   'beforeRender' => function ()
   {
     setGlobal('featuredCategories', getCategories(null, 0, 4));
+    setGlobal('recentlyAddedArticles', getArticles(null, 0, 3));
   }
 ]);
