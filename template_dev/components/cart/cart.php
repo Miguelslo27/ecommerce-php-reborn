@@ -1,14 +1,18 @@
 <section class="full-inner form-register">
-  <?php if (empty(getCurrentCart()) || empty(getCurrentCart()->articles)) : ?>
+<?php if (empty(getCurrentCart()) || empty(getCurrentCart()->articles)) : ?>
   <h1 class="shadowed-title">
     <span class="title-shadow">Tu carrito está vacío</span>
     <span class="title">Tu carrito está vacío</span>
   </h1>
   <div class="cart-empty">
+  <?php if (isLoggedIn()) : ?>
+    <a href="/" class="button primary">Continuar comprando</a>
+  <?php else : ?>
     <a href="/login/" class="button primary">Iniciar sesión</a>
     <a href="/" class="button secondary">Continuar comprando</a>
+  <?php endif ?>
   </div>
-  <?php else : ?>
+<?php else : ?>
   <h1 class="shadowed-title">
     <span class="title-shadow">Carrito de compras</span>
     <span class="title">Carrito de compras</span>
@@ -23,7 +27,7 @@
           <span class="cell span-2">Subt.</span>
           <span class="cell span-2">Acciones</span>
         </div>
-        <?php foreach (getCurrentCart()->articles as $article) : ?>
+      <?php foreach (getCurrentCart()->articles as $article) : ?>
         <div class="row in-cart-article">
           <div class="cell article-info span-8">
             <div class="image">
@@ -48,7 +52,7 @@
             <a href="#"><i class="far fa-trash-alt"></i></a>
           </span>
         </div>
-        <?php endforeach ?>
+      <?php endforeach ?>
       </div>
     </section>
     <aside class="cart-summary">
@@ -85,5 +89,5 @@
       </div>
     </aside>
   </div>
-  <?php endif ?>
+<?php endif ?>
 </section>

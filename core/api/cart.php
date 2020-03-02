@@ -181,7 +181,9 @@ function addToOrder($order, $article, $qty)
           `cantidad` = $inOrderArticle->cantidad + $qty,
           `subtotal` = $price * ($inOrderArticle->cantidad + $qty)
         WHERE
-          `id` = $inOrderArticle->id"
+          `id` = $inOrderArticle->id
+        AND
+          `pedido_id` = $order->id"
     );
   } else {
     $sqlInsert = (
