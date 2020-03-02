@@ -246,6 +246,13 @@ function loadCart()
     return;
   }
 
+  if (
+    !empty(getSession('temp_user_id'))
+    && !empty($user)
+  ) {
+    transferOrder(getSession('temp_user_id'), $user->id);
+  }
+
   $sql   = getOrderSqlGenerator($userid);
   $order = getDb()->getObject($sql);
 
@@ -259,4 +266,26 @@ function loadCart()
   $cart->articles = getArticlesInOrder($order->id);
 
   setSession('cart', $cart);
+}
+
+function transferOrder($fromUser, $toUser)
+{
+  $sql   = getOrderSqlGenerator($fromUser);
+  $order = getDb()->getObject($sql);
+
+  if (empty($order)) {
+    return;
+  }
+
+  $sqlUpdate = (
+    "UPDATE
+      `pedido`
+      SET
+        `usuario_id` = $toUser
+      WHERE
+        `usuario_id` = $fromUser"
+  );
+
+  getDB()->query($sqlUpdate);
+  return;
 }
