@@ -24,7 +24,7 @@ function addToCart($qty = 1)
   $order        = getOrderByUserId($userid);
   $article      = getArticle($aid);
 
-  if (!($updatedorder = addToOrder($order, $article, $qty))) {
+  if (!addToOrder($order, $article, $qty)) {
     $status->succeeded = false;
     $status->success   = null;
     $status->errors[]  = 'No se pudo actualizar el carrito';
@@ -167,7 +167,9 @@ function addToOrder($order, $article, $qty)
       FROM
         `articulo_pedido`
       WHERE
-        `articulo_pedido`.`articulo_id` = $article->id"
+        `articulo_pedido`.`articulo_id` = $article->id
+        AND
+        `articulo_pedido`.`pedido_id` = $order->id"
   );
 
   $inOrderArticle = getDB()->getObject($sqlInOrderArticle);
@@ -181,9 +183,7 @@ function addToOrder($order, $article, $qty)
           `cantidad` = $inOrderArticle->cantidad + $qty,
           `subtotal` = $price * ($inOrderArticle->cantidad + $qty)
         WHERE
-          `id` = $inOrderArticle->id
-        AND
-          `pedido_id` = $order->id"
+          `id` = $inOrderArticle->id"
     );
   } else {
     $sqlInsert = (
