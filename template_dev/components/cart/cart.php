@@ -42,13 +42,20 @@
             $ <?php bind($article->precio_actual) ?>
           </span>
           <span class="cell article-quantity span-2">
-            <input type="number" value="<?php bind($article->cantidad) ?>">
+            <input type="number" id="_qty_for_<?php bind($article->articulo_id) ?>_" value="<?php bind($article->cantidad) ?>">
           </span>
           <span class="cell article-subtotal span-2">
             $ <?php bind($article->subtotal) ?>
           </span>
           <span class="cell article-actions span-2">
-            <a href="#"><i class="fas fa-sync"></i></a>
+            <a href="#"
+              class="update-cart-button"
+              data-action="<?php bind(ACTION_ADD_TO_CART) ?>"
+              data-oid="<?php bind(getCurrentCart()->order->id) ?>"
+              data-aid="<?php bind($article->articulo_id) ?>"
+              data-current-qty="<?php bind($article->cantidad) ?>"
+              data-input-id="_qty_for_<?php bind($article->articulo_id) ?>_"
+            ><i class="fas fa-sync"></i></a>
             <a href="#"><i class="far fa-trash-alt"></i></a>
           </span>
         </div>
