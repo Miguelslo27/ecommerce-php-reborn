@@ -7,7 +7,7 @@ function getCurrentCart()
 
 function addToCart($qty = 1)
 {
-  $status = addToCart_checkIncommingData();
+  $status = addToCart_checkIncommingData($qty);
 
   if (!$status->succeeded) {
     return $status;
@@ -37,10 +37,16 @@ function addToCart($qty = 1)
   return $status;
 }
 
-function addToCart_checkIncommingData()
+function addToCart_checkIncommingData($qty)
 {
   $status = newStatusObject();
   $aid    = getRequestData('aid');
+
+  if (gettype($qty) != 'number') {
+    $status->succeeded = false;
+    $status->errors[]  = 'Quantity should be a number';
+    return $status;
+  }
 
   if (empty($aid)) {
     $status->succeeded = false;
