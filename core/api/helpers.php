@@ -92,6 +92,10 @@ function getRealIP()
 }
 
 /* General Requests */
+function setRequestData($var, $value)
+{
+  $_REQUEST[$var] = $value;
+}
 /**
  * Get Request Data variable
  */
