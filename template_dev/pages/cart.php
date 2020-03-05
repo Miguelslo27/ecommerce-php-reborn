@@ -16,7 +16,6 @@ newDocument([
   ],
   'beforeRender' => function ()
   {
-    setGlobal('featuredCategories', getCategories(null, 0, 4));
     setGlobal('recentlyAddedArticles', getArticles(null, 0, 3));
   }
 ]);

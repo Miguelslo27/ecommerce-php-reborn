@@ -98,9 +98,9 @@ function startNewDocument($settings)
  */
 function endNewDocument($settings)
 {
+  logDebugging();
   getTemplate('components/notifications/notifications');
   getJavaScript($settings);
-  logDebugging();
   ?>
 </body>
 </html>
@@ -147,7 +147,7 @@ function getJavaScript($settings) {
   }
 
   foreach ($components as $script) {
-    if (file_exists(getTemplateAbsolutePath() . $script . 'js')) {
+    if (file_exists(getTemplateAbsolutePath() . $script . '.js')) {
     ?>
       <script src="<?php bind(getTemplateRelativePath() . $script . '.js') ?>"></script>
     <?php
