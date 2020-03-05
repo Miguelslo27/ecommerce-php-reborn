@@ -14,9 +14,13 @@ if (empty($request->action)) {
 }
 
 if ($request->action == ACTION_ADD_TO_CART) {
-  $aid      = setRequestData('aid', $request->aid);
-  $status   = addToCart('a');
-  $response = json_encode($status);
+  setRequestData('aid', $request->aid);
+  $status       = addToCart($request->qty);
+
+  loadCart();
+
+  $status->data = getSession('cart');
+  $response     = json_encode($status);
 }
 
 if ($status->succeeded) {

@@ -101,6 +101,23 @@ i.fab+* {
   background-color: rgba(255,0,0,.85);
 }
 
+.spin {
+  animation: spinAnimation .5s infinite ease;
+}
+
+.blur {
+  filter: blur(2px);
+}
+
+@keyframes spinAnimation {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes showMessage {
   from {
     right: -120%;

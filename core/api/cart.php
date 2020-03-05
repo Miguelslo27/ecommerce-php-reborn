@@ -42,7 +42,10 @@ function addToCart_checkIncommingData($qty)
   $status = newStatusObject();
   $aid    = getRequestData('aid');
 
-  if (gettype($qty) != 'number') {
+  if (
+    gettype($qty) != 'integer'
+    && gettype($qty) != 'double'
+  ) {
     $status->succeeded = false;
     $status->errors[]  = 'Quantity should be a number';
     return $status;
