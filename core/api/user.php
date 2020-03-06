@@ -94,14 +94,12 @@ function registerNewUser_checkIncomingData()
    */
   if (!preg_match(REG_EXP_NAME_FORMAT, getPostData('nombre'))) {
     $status->fieldsWithErrors['nombre'] = true;
-    $status->errors[]                   = 'El nombre tiene un formato inseguro. Tu nombre puede incluir letras, espacios y puntos';
-    return $status;
+    $status->errors[]                   = 'El nombre tiene un formato incorrecto. Tu nombre puede incluir letras, espacios y puntos';
   }
 
   if (!preg_match(REG_EXP_NAME_FORMAT, getPostData('apellido'))) {
     $status->fieldsWithErrors['apellido'] = true;
-    $status->errors[]                     = 'El apellido tiene un formato inseguro. Tu nombre puede incluir letras, espacios y puntos';
-    return $status;
+    $status->errors[]                     = 'El apellido tiene un formato incorrecto. Tu nombre puede incluir letras, espacios y puntos';
   }
 
   if (!preg_match(REG_EXP_STRING_FORMAT, getPostData('direccion'))) {
@@ -172,6 +170,18 @@ function registerNewUser_checkIncomingData()
     $status->fieldsWithErrors['telefono'] = true;
     $status->fieldsWithErrors['celular']  = true;
     $status->errors[]                     = 'Debes ingresar al menos un número de teléfono, fijo o celular';
+  } elseif (
+    !empty(getPostData('telefono'))
+    && !preg_match(REG_EXP_STRING_NUMBER_FORMAT, getPostData('telefono'))
+  ) {
+    $status->fieldsWithErrors['telefono'] = true;
+    $status->errors[]                     = 'El teléfono tiene un formato incorrecto. Puede incluir números, espacios y guiones';
+  } elseif (
+    !empty(getPostData('celular'))
+    && !preg_match(REG_EXP_STRING_NUMBER_FORMAT, getPostData('celular'))
+  ) {
+    $status->fieldsWithErrors['celular'] = true;
+    $status->errors[]                     = 'El celular tiene un formato incorrecto. Puede incluir números, espacios y guiones';
   }
 
   if (count($status->errors) == 0) {
