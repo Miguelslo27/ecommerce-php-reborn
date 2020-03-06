@@ -121,12 +121,19 @@
 .cart-summary .summary >* {
   display: block;
   min-width: 50%;
+}
+
+.cart-summary .summary.resume {
   color: #666;
 }
 
 .cart-summary .summary .value {
   text-align: right;
   font-weight: bold;
+}
+
+.cart-summary .summary.total {
+  font-size: 1.5rem;
 }
 
 .cart-summary .summary.actions {
@@ -136,5 +143,4 @@
 .cart-summary .summary.actions a {
   min-width: 100%;
   line-height: 1rem;
-  color: #FFF;
 }

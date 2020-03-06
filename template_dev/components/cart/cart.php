@@ -99,7 +99,13 @@
         <span class="value">$ <?php bind($orderTotal) ?></span>
       </div>
       <div class="summary actions">
-        <a href="#" class="button primary">Pagar</a>
+      <?php if (isLoggedIn()) : ?>
+        <a href="/carrito/pagar" class="button primary">Pagar</a>
+      <?php else : ?>
+        <a href="/login" class="button primary">Ingresar</a>
+        <hr>
+        <a href="/registro" class="button secondary">Registrarme</a>
+      <?php endif ?>
       </div>
     </aside>
   </div>
