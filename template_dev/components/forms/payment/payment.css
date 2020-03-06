@@ -15,3 +15,22 @@
   font-size: 1.6rem;
   padding: 0 1rem;
 }
+
+.payment-form form .form-group.group-grid {}
+
+.payment-form form .form-group.group-grid >label {
+  display: flex;
+  padding: 0.5rem;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.payment-form form .form-group.group-grid >label >* {}
+
+.payment-form form .form-group.group-grid >label >input {
+  margin-right: 1rem;
+}
+
+.payment-form form .form-group.group-grid >label >span {
+  line-height: 1.5rem;
+}

@@ -2,6 +2,7 @@
   <form action="" method="POST">
     <fieldset>
       <legend>Datos personales</legend>
+
       <div class="form-group">
         <label for="nombre">Nombre *</label>
         <input type="text" class="" name="nombre" id="nombre" value="<?php getPreformData('nombre', getCurrentUser()->nombre) ?>">
@@ -44,18 +45,19 @@
     </fieldset>
 
     <fieldset>
-      <legend>Datos de pago</legend>
-      <div class="form-group">
+      <legend>Método de pago</legend>
+
+      <div class="form-group group-grid">
         <label for="payment_cash">
           <input type="radio" name="payment" id="payment_cash" value="cash" checked>
           <span>Efectivo</span>
         </label>
-        
+
         <label for="payment_bank-brou">
           <input type="radio" name="payment" id="payment_bank-brou" value="bank-brou">
           <span>Depósito BROU</span>
         </label>
-        
+
         <label for="payment_bank-santander">
           <input type="radio" name="payment" id="payment_bank-santander" value="bank-santander">
           <span>Depósito SANTANDER</span>
@@ -65,7 +67,7 @@
           <input type="radio" name="payment" id="payment_net-abitab" value="recnet-abitabeive">
           <span>Giro Abitab</span>
         </label>
-        
+
         <label for="payment_net-redpagos">
           <input type="radio" name="payment" id="payment_net-redpagos" value="net-redpagos">
           <span>Giro RedPagos</span>

@@ -6,7 +6,13 @@
   padding: .5rem;
 }
 
+.form-login form .form-line label,
+.form-login form .form-line input {
+  flex: 1;
+}
+
 .form-login form .form-line label.icon-label {
+  flex-grow: 1;
   padding: 0;
   display: flex;
   justify-content: center;
