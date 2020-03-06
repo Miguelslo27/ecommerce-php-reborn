@@ -16,15 +16,16 @@ newDocument([
   'beforeRender' => function ()
   {
     if (isLoggedIn()) {
-      header('Location: /');
+      header('Location: ' . (
+        getSession('redirectTo') !== getServer('HTTP_ORIGIN') . getServer('REQUEST_URI')
+        ? getSession('redirectTo')
+        : '/'
+      ));
+      exit;
     }
 
-    $requestMessages = getGlobal('request_' . ACTION_LOGIN . '_messages');
-    setSession('request_messages', $requestMessages);
-
-    if (@$requestMessages->succeeded) {
-      executeJavaScript('window.location.href = "/"');
-    }
+    setSession('redirectTo', oneOf($_SERVER['HTTP_REFERER'], '/'));
+    setSession('request_messages', getGlobal('request_' . ACTION_LOGIN . '_messages'));
 
     $classesHandler = function ($field, $class)
     {
@@ -47,6 +48,6 @@ newDocument([
 
     setGlobal('classesHandler', $classesHandler);
     setGlobal('getPreFormData', $getPreFormData);
-    setGlobal('request_messages', $requestMessages);
+    setGlobal('request_messages', getSession('request_messages'));
   }
 ]);

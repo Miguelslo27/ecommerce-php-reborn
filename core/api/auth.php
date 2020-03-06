@@ -13,8 +13,11 @@ function runLogin()
     return $status;
   }
 
+  $email = getPostData('email');
+  $pass  = md5(getPostData('pass') . getPostData('email'));
+
   $sql = (
-    'SELECT
+    "SELECT
         `id`,
         `nombre`,
         `apellido`,
@@ -29,9 +32,9 @@ function runLogin()
       FROM
         `usuario`
       WHERE
-        `email` = "' . getPostData('email') . '"
+        `email` = '$email'
       AND
-        `clave` = "' . md5(getPostData('pass') . getPostData('email')) . '"'
+        `clave` = '$pass'"
   );
 
   $user = getDB()->getObject($sql);
