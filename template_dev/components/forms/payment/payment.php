@@ -31,7 +31,7 @@
     <fieldset>
       <legend>Datos de envío</legend>
 
-      <div class="form-line">
+      <div class="form-group group-grid columns-2">
         <label for="shipping-receive">
           <input type="radio" name="shipping" id="shipping-receive" value="receive" checked>
           <span>Deceo recibir mi pedido</span>
@@ -47,7 +47,7 @@
     <fieldset>
       <legend>Método de pago</legend>
 
-      <div class="form-group group-grid">
+      <div class="form-group group-grid columns-4">
         <label for="payment_cash">
           <input type="radio" name="payment" id="payment_cash" value="cash" checked>
           <span>Efectivo</span>

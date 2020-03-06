@@ -70,6 +70,14 @@ form .form-group >* {
   width: 25%;
 }
 
+form .form-group.group-grid.columns-2 >* {
+  width: 50%;
+}
+
+form .form-group.group-grid.columns-4 >* {
+  width: 25%;
+}
+
 form .form-line label.file {
   overflow: hidden;
   position: relative;

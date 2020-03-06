@@ -4,7 +4,7 @@
   margin-right: 2rem;
 }
 
-.payment-form form {}
+/* .payment-form form {} */
 
 .payment-form form fieldset {
   margin-bottom: 1.5rem;
@@ -16,7 +16,7 @@
   padding: 0 1rem;
 }
 
-.payment-form form .form-group.group-grid {}
+/* .payment-form form .form-group.group-grid {} */
 
 .payment-form form .form-group.group-grid >label {
   display: flex;
@@ -25,7 +25,7 @@
   align-items: center;
 }
 
-.payment-form form .form-group.group-grid >label >* {}
+/* .payment-form form .form-group.group-grid >label >* {} */
 
 .payment-form form .form-group.group-grid >label >input {
   margin-right: 1rem;
