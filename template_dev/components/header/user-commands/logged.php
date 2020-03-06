@@ -1,11 +1,11 @@
 <div class="user-links navigation">
   <div class="dropdown-nav">
-    <a href="/cuenta" class="access-menu normal-tab">
+    <a class="access-menu normal-tab">
       <i class="fas fa-user-circle"></i>
       <span class="link-label"><?php echo getUserName() ?></span>
     </a>
     <div class="dropdown">
-      <a href="/registro?id=<?php echo getUserId() ?>" class="access-menu dropdown-item">Edición</a>
+      <a href="/registro" class="access-menu dropdown-item">Edición</a>
       <a href="/?action=logout" class="access-menu normal-tab">
         <i class="fas fa-sign-out-alt"></i>
         <span class="link-label">Salir</span>
