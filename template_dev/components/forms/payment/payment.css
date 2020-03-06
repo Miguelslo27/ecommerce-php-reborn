@@ -1,0 +1,17 @@
+.payment-form {
+  flex: 5;
+  flex-grow: 5;
+  margin-right: 2rem;
+}
+
+.payment-form form {}
+
+.payment-form form fieldset {
+  margin-bottom: 1.5rem;
+  border: 2px solid #930077;
+}
+
+.payment-form form fieldset legend {
+  font-size: 1.6rem;
+  padding: 0 1rem;
+}

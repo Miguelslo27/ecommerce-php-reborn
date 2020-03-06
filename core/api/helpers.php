@@ -289,6 +289,16 @@ function newStatusObject()
   return $status;
 }
 
+function getPreformData($data, $or)
+{
+  if (getPostData($data)) {
+    bind(getPostData($data));
+    return;
+  }
+
+  return bind($or);
+}
+
 /* Debugging  */
 function logToConsole($prefix, $variable, $file = null, $function = null, $line = null)
 {

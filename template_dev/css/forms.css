@@ -48,8 +48,8 @@ form .form-line label {
   padding-left: 0;
 }
 
-form .form-line input:not([type=checkbox]),
-form .form-group input:not([type=checkbox]),
+form .form-line input:not([type=checkbox]):not([type=radio]),
+form .form-group input:not([type=checkbox]):not([type=radio]),
 form .form-line label.file,
 form .form-group label.file,
 form .form-line textarea,
@@ -61,6 +61,7 @@ form .form-group select {
   transition:
     border .15s ease,
     border-radius .15s ease;
+  width: 100%;
 }
 
 form .form-line input,
