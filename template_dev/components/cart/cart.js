@@ -1,6 +1,7 @@
 console.log('In Cart');
 
 const updateCartButtons = document.querySelectorAll('.update-cart-button');
+const deleteCartButtons = document.querySelectorAll('.delete-cart-button');
 const cartItems         = document.querySelector('.cart-items');
 const TIMETORELOAD      = 600;
 
@@ -51,7 +52,7 @@ const handleUpdate = function (ev) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      'action': 'add_to_cart',
+      'action': this.dataset.action,
       'aid': this.dataset.aid,
       'qty': qtyAdd
     })
@@ -64,9 +65,21 @@ const handleUpdate = function (ev) {
         this.classList.remove('spin');
         cartItems.classList.remove('blur');
       }, TIMETORELOAD);
+
       handleUpdateResponse(res);
     })
-    .catch(handleUpdateError);
+    .catch(err => {
+      this.classList.remove('spin');
+      cartItems.classList.remove('blur');
+
+      handleUpdateError(err);
+    });
+}
+
+const handleDelete = function (ev) {
+  document.getElementById(this.dataset.inputId).value = 0;
+  handleUpdate.apply(this, [ev]);
 }
 
 updateCartButtons.forEach((updateButton) => updateButton.addEventListener('click', handleUpdate));
+deleteCartButtons.forEach((deleteButton) => deleteButton.addEventListener('click', handleDelete))
