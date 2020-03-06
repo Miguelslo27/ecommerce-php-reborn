@@ -1,0 +1,50 @@
+.cart-summary {
+  flex: 1;
+  flex-grow: 2;
+  padding: 2rem;
+  background-color: #fafafa;
+  box-shadow: 0 0 25px rgba(147, 0, 119, .15);
+}
+
+.cart-summary h2 {
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+.cart-summary hr {
+  background-color: transparent;
+  border: 1px dashed #ccc;
+}
+
+.cart-summary .summary {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  line-height: 2rem;
+}
+.cart-summary .summary >* {
+  display: block;
+  min-width: 50%;
+}
+
+.cart-summary .summary.resume {
+  color: #666;
+}
+
+.cart-summary .summary .value {
+  text-align: right;
+  font-weight: bold;
+}
+
+.cart-summary .summary.total {
+  font-size: 1.5rem;
+}
+
+.cart-summary .summary.actions {
+  margin-top: 2rem;
+}
+
+.cart-summary .summary.actions a {
+  min-width: 100%;
+  line-height: 1rem;
+}
