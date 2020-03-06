@@ -184,16 +184,26 @@ function addToOrder($order, $article, $qty)
   $inOrderArticle = getDB()->getObject($sqlInOrderArticle);
 
   if (!empty($inOrderArticle)) {
-    $sqlInsert = (
-      "UPDATE
-        `articulo_pedido`
-        SET
-          `precio_actual` = $price,
-          `cantidad` = $inOrderArticle->cantidad + $qty,
-          `subtotal` = $price * ($inOrderArticle->cantidad + $qty)
-        WHERE
-          `id` = $inOrderArticle->id"
-    );
+    if (($inOrderArticle->cantidad + $qty) > 0) {
+      $sqlInsert = (
+        "UPDATE
+          `articulo_pedido`
+          SET
+            `precio_actual` = $price,
+            `cantidad` = $inOrderArticle->cantidad + $qty,
+            `subtotal` = $price * ($inOrderArticle->cantidad + $qty)
+          WHERE
+            `id` = $inOrderArticle->id"
+      );
+    } else {
+      $sqlInsert = (
+        "DELETE
+          FROM
+          `articulo_pedido`
+          WHERE
+            `id` = $inOrderArticle->id"
+      );
+    }
   } else {
     $sqlInsert = (
       "INSERT

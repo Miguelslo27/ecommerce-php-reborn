@@ -56,7 +56,14 @@
               data-current-qty="<?php bind($article->cantidad) ?>"
               data-input-id="_qty_for_<?php bind($article->articulo_id) ?>_"
             ><i class="fas fa-sync"></i></a>
-            <a href="#"><i class="far fa-trash-alt"></i></a>
+            <a href="#"
+              class="delete-cart-button"
+              data-action="<?php bind(ACTION_ADD_TO_CART) ?>"
+              data-oid="<?php bind(getCurrentCart()->order->id) ?>"
+              data-aid="<?php bind($article->articulo_id) ?>"
+              data-current-qty="<?php bind($article->cantidad) ?>"
+              data-input-id="_qty_for_<?php bind($article->articulo_id) ?>_"
+            ><i class="far fa-trash-alt"></i></a>
           </span>
         </div>
       <?php endforeach ?>
