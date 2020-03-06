@@ -33,7 +33,7 @@ define('ACTION_ADD_TO_CART', 'add_to_cart');
 /* REGULAR EXPRESSIONS */
 define('REG_EXP_EMAIL_FORMAT', '/^[a-z0-9]+[a-z0-cribir9_.-]+@[a-z0-9_.-]{3,}.[a-z0-9_.-]{1,}.$/');
 define('REG_EXP_STRING_FORMAT', '/^[\w \.\,\/]*$/');
-define('REG_EXP_NAME_FORMAT', '/^[\w \.]*$/');
+define('REG_EXP_NAME_FORMAT', '/^[\[a-zA-Z \.]*$/');
 define('REG_EXP_STRING_NUMBER_FORMAT', '/^[\d]+[\d \-]*[\d]+$/');
 define('REG_EXP_NUMBER_FORMAT', '/^[\d]+$/');
 

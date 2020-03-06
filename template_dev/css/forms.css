@@ -104,8 +104,8 @@ form .form-line textarea {
   height: initial;
 }
 
-form .form-line input:focus,
-form .form-group input:focus,
+form .form-line input:not([type=checkbox]):not([type=radio]):focus,
+form .form-group input:not([type=checkbox]):not([type=radio]):focus,
 form .form-line label.file:focus,
 form .form-group label.file:focus,
 form .form-line textarea:focus,

@@ -34,12 +34,12 @@
       <div class="form-group group-grid columns-2">
         <label for="shipping-receive">
           <input type="radio" name="shipping" id="shipping-receive" value="receive" checked>
-          <span>Deceo recibir mi pedido</span>
+          <span>Deseo recibir mi pedido</span>
         </label>
 
         <label for="shipping-withdraw">
           <input type="radio" name="shipping" id="shipping-withdraw" value="withdraw">
-          <span>Deceo retirar en el local</span>
+          <span>Deseo retirar en el local</span>
         </label>
       </div>
     </fieldset>

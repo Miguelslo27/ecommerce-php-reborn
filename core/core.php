@@ -45,6 +45,11 @@ function processRequests()
     );
   }
 
+  /**
+   * @TODO
+   * Process action ACTION_USER_EDITION
+   */
+
   if (getRequestData('action') == ACTION_ADD_TO_CART) {
     setSession('request_messages', addToCart());
     $query_str  = getQueryParams(['action' => null, 'aid' => null, 'qty' => null]);
