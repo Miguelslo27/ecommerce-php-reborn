@@ -12,7 +12,8 @@ newDocument([
   'styles' => [
     'css/fontawesome/css/all.min.css',
     'css/layout.css',
-    'css/tables.css'
+    'css/tables.css',
+    'components/cart-summary/cart-summary.css'
   ],
   'beforeRender' => function ()
   {

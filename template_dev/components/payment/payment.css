@@ -1,0 +1,8 @@
+.payment-content {
+  display: flex;
+  align-items: flex-start;
+}
+
+.payment-content >* {
+  flex: 1;
+}

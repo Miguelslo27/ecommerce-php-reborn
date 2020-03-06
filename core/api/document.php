@@ -8,7 +8,7 @@ function newDocument($settings)
   $title         = isset($settings['title']) ? $settings['title'] : DEFAULT_DOCUMENT_TITLE;
   $page_name     = isset($settings['page']) ? $settings['page'] : DEFAULT_PAGE_NAME;
   $sub_page_name = isset($settings['sub_page']) ? $settings['sub_page'] : DEFAULT_SUB_PAGE_NAME;
-  
+
   setGlobal('title', $title);
   setGlobal('page', $page_name);
   setGlobal('sub_page', $sub_page_name);
@@ -81,15 +81,17 @@ function startNewDocument($settings)
   }
 
   ?>
-<!doctype html>
-<html lang="es">
-<head>
-  <title><?php bind(getGlobal('title')) ?></title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
-  <?php getStyleSheets($settings) ?>
-</head>
-<body class="page_<?php bind(getGlobal('page')) ?>">
+  <!doctype html>
+  <html lang="es">
+
+  <head>
+    <title><?php bind(getGlobal('title')) ?></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
+    <?php getStyleSheets($settings) ?>
+  </head>
+
+  <body class="page_<?php bind(getGlobal('page')) ?>">
   <?php
 }
 
@@ -102,25 +104,19 @@ function endNewDocument($settings)
   getTemplate('components/notifications/notifications');
   getJavaScript($settings);
   ?>
-</body>
-</html>
+  </body>
+
+  </html>
   <?php
 }
 
 /**
  * Render the Stylesheets
  */
-function getStyleSheets($settings) {
-  $stylesheets = oneOf(@$settings['styles'], []);
+function getStyleSheets($settings)
+{
   $components  = oneOf(@$settings['components'], []);
-
-  foreach ($stylesheets as $style) {
-    if (file_exists(getTemplateAbsolutePath() . $style)) {
-    ?>
-      <link rel="stylesheet" href="<?php bind(getTemplateRelativePath() . $style) ?>">
-    <?php
-    }
-  }
+  $stylesheets = oneOf(@$settings['styles'], []);
 
   foreach ($components as $style) {
     if (file_exists(getTemplateAbsolutePath() . $style . '.css')) {
@@ -129,12 +125,21 @@ function getStyleSheets($settings) {
     <?php
     }
   }
+
+  foreach ($stylesheets as $style) {
+    if (file_exists(getTemplateAbsolutePath() . $style)) {
+    ?>
+      <link rel="stylesheet" href="<?php bind(getTemplateRelativePath() . $style) ?>">
+    <?php
+    }
+  }
 }
 
 /**
  * Render the JavaScript
  */
-function getJavaScript($settings) {
+function getJavaScript($settings)
+{
   $scripts    = oneOf(@$settings['scripts'], []);
   $components = oneOf(@$settings['components'], []);
 

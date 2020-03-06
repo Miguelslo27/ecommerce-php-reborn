@@ -15,8 +15,7 @@
   margin: .5rem;
 }
 
-.cart-items,
-.cart-summary {
+.cart-items {
   flex: 1;
 }
 
@@ -93,48 +92,4 @@
 .cart-items .in-cart-article .article-actions a {
   font-size: 1.5rem;
   margin: 0 .75rem;
-}
-
-.cart-summary {
-  flex-grow: 2;
-  padding: 2rem;
-  background-color: #fafafa;
-  box-shadow: 0 0 25px rgba(147, 0, 119, .15);
-}
-
-.cart-summary h2 {
-  margin: 0;
-  margin-bottom: 1rem;
-}
-
-.cart-summary hr {
-  background-color: transparent;
-  border: 1px dashed #ccc;
-}
-
-.cart-summary .summary {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  line-height: 2rem;
-}
-.cart-summary .summary >* {
-  display: block;
-  min-width: 50%;
-  color: #666;
-}
-
-.cart-summary .summary .value {
-  text-align: right;
-  font-weight: bold;
-}
-
-.cart-summary .summary.actions {
-  margin-top: 2rem;
-}
-
-.cart-summary .summary.actions a {
-  min-width: 100%;
-  line-height: 1rem;
-  color: #FFF;
 }
