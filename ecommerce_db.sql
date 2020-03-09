@@ -21,53 +21,46 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `ecommerce_db`
 --
-CREATE DATABASE IF NOT EXISTS `ecommerce_db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `ecommerce_db`;
+-- CREATE DATABASE IF NOT EXISTS `ecommerce_db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+-- USE `ecommerce_db`;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `articulo`
+-- Estructura de tabla para la tabla `articles`
 --
 
-DROP TABLE IF EXISTS `articulo`;
-CREATE TABLE IF NOT EXISTS `articulo` (
+DROP TABLE IF EXISTS `articles`;
+CREATE TABLE IF NOT EXISTS `articles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `orden` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `codigo` varchar(20) NOT NULL,
-  `descripcion_breve` varchar(255) NOT NULL,
-  `descripcion` tinytext NOT NULL,
-  `precio` double NOT NULL,
-  `talle` varchar(20) NOT NULL,
-  `talle_surtido` varchar(20) NOT NULL,
-  `adaptable` tinyint(1) NOT NULL,
-  `colores_url` varchar(100) NOT NULL,
-  `colores_surtidos_url` varchar(100) NOT NULL,
-  `packs` varchar(20) NOT NULL,
-  `categoria_id` int(11) NOT NULL,
-  `estado` tinyint(1) NOT NULL DEFAULT '1',
-  `nuevo` tinyint(1) NOT NULL,
-  `agotado` tinyint(1) NOT NULL,
-  `oferta` tinyint(1) NOT NULL,
-  `surtido` tinyint(1) NOT NULL,
-  `precio_oferta` double NOT NULL,
-  `precio_surtido` int(11) NOT NULL,
-  `precio_oferta_surtido` int(11) NOT NULL,
-  `imagenes_url` varchar(100) NOT NULL,
+  `position` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `code` varchar(20) NOT NULL,
+  `brief_description` tinytext NOT NULL,
+  `description` text NOT NULL,
+  `price` double NOT NULL,
+  `price_offer` double NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `new` tinyint(1) NOT NULL,
+  `spent` tinyint(1) NOT NULL,
+  `offer` tinyint(1) NOT NULL,
+  `images_url` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `_created_at_` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `_updated_at_` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `nombre` (`nombre`,`codigo`),
-  KEY `categoria_id` (`categoria_id`),
-  KEY `oferta` (`oferta`)
+  KEY `name` (`name`,`code`),
+  KEY `category_id` (`category_id`),
+  KEY `offer` (`offer`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
--- Truncar tablas antes de insertar `articulo`
+-- Truncar tablas antes de insertar `articles`
 --
 
-TRUNCATE TABLE `articulo`;
+TRUNCATE TABLE `articles`;
 --
--- Volcado de datos para la tabla `articulo`
+-- Volcado de datos para la tabla `articles`
 --
 
 -- EMPTY
@@ -75,31 +68,30 @@ TRUNCATE TABLE `articulo`;
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `articulo_pedido`
+-- Estructura de tabla para la tabla `in_order_articles`
 --
 
-DROP TABLE IF EXISTS `articulo_pedido`;
-CREATE TABLE IF NOT EXISTS `articulo_pedido` (
+DROP TABLE IF EXISTS `in_order_articles`;
+CREATE TABLE IF NOT EXISTS `in_order_articles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `pedido_id` int(11) NOT NULL,
-  `articulo_id` int(11) NOT NULL,
-  `surtido` tinyint(1) NOT NULL,
-  `talle` varchar(20) NOT NULL,
-  `color` varchar(20) NOT NULL,
-  `precio_actual` double NOT NULL,
-  `cantidad` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `article_id` int(11) NOT NULL,
+  `current_price` double NOT NULL,
+  `quantity` int(11) NOT NULL,
   `subtotal` double NOT NULL,
+  `_created_at_` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `_updated_at_` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `pedido_id` (`pedido_id`,`articulo_id`)
+  KEY `order_id` (`order_id`,`article_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
--- Truncar tablas antes de insertar `articulo_pedido`
+-- Truncar tablas antes de insertar `in_order_articles`
 --
 
-TRUNCATE TABLE `articulo_pedido`;
+TRUNCATE TABLE `in_order_articles`;
 --
--- Volcado de datos para la tabla `articulo_pedido`
+-- Volcado de datos para la tabla `in_order_articles`
 --
 
 -- EMPTY
@@ -107,61 +99,69 @@ TRUNCATE TABLE `articulo_pedido`;
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `categoria`
+-- Estructura de tabla para la tabla `category`
 --
 
-DROP TABLE IF EXISTS `categoria`;
-CREATE TABLE IF NOT EXISTS `categoria` (
+DROP TABLE IF EXISTS `categories`;
+CREATE TABLE IF NOT EXISTS `categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `titulo` varchar(100) NOT NULL,
-  `descripcion_breve` tinytext NOT NULL,
-  `descripcion` text NOT NULL,
-  `imagen_url` varchar(100) NOT NULL,
-  `categoria_id` int(11) NOT NULL,
-  `estado` tinyint(1) NOT NULL DEFAULT '1',
-  `orden` int(11) NOT NULL,
+  `position` int(11) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `brief_description` tinytext NOT NULL,
+  `description` text NOT NULL,
+  `images_url` varchar(255) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `_created_at_` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `_updated_at_` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `titulo_2` (`titulo`),
-  KEY `titulo` (`titulo`,`categoria_id`)
+  UNIQUE KEY `title` (`title`),
+  KEY `category_id` (`category_id`,`title`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
--- Truncar tablas antes de insertar `categoria`
+-- Truncar tablas antes de insertar `categories`
 --
 
-TRUNCATE TABLE `categoria`;
+TRUNCATE TABLE `categories`;
 --
--- Volcado de datos para la tabla `categoria`
+-- Volcado de datos para la tabla `categories`
 --
 
 -- EMPTY
 
-DROP TABLE IF EXISTS `pedido`;
-CREATE TABLE IF NOT EXISTS `pedido` (
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `usuario_id` varchar(100) NOT NULL,
-  `fecha` datetime NOT NULL,
-  `cantidad` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `date` datetime NOT NULL,
+  `subtotal` double NOT NULL,
+  `taxes` double NOT NULL, 
+  `discount` double NOT NULL,
   `total` double NOT NULL,
-  `estado` int(11) NOT NULL,
-  `retira` tinyint(1) NOT NULL,
-  `compra_en_local` tinyint(1) NOT NULL,
-  `direccion_de_entrega` varchar(100) NOT NULL,
-  `agencia_de_envio` varchar(100) NOT NULL,
-  `forma_de_pago` varchar(100) NOT NULL,
-  `lugar` varchar(80) NOT NULL,
-  `notificado` tinyint(1) NOT NULL,
+  `shipping_method` tinyint(1) NOT NULL,
+  `shipping_address` varchar(100) NOT NULL,
+  `shipping_state` varchar(100) NOT NULL,
+  `shipping_city` varchar(100) NOT NULL,
+  `shipping_zipcode` varchar(100) NOT NULL,
+  `shipping_agency` varchar(100) NOT NULL,
+  `additional_comments` text NOT NULL,
+  `payment_method` varchar(100) NOT NULL,
+  `notified` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `_created_at_` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `_updated_at_` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `usuario_id` (`usuario_id`)
+  KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
--- Truncar tablas antes de insertar `pedido`
+-- Truncar tablas antes de insertar `orders`
 --
 
-TRUNCATE TABLE `pedido`;
+TRUNCATE TABLE `orders`;
 --
--- Volcado de datos para la tabla `pedido`
+-- Volcado de datos para la tabla `orders`
 --
 
 -- EMPTY
@@ -169,23 +169,26 @@ TRUNCATE TABLE `pedido`;
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `suscripciones`
+-- Estructura de tabla para la tabla `subscriptions`
 --
 
-DROP TABLE IF EXISTS `suscripciones`;
-CREATE TABLE IF NOT EXISTS `suscripciones` (
+DROP TABLE IF EXISTS `subscriptions`;
+CREATE TABLE IF NOT EXISTS `subscriptions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `_created_at_` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `_updated_at_` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `email` (`email`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
--- Truncar tablas antes de insertar `suscripciones`
+-- Truncar tablas antes de insertar `subscriptions`
 --
 
-TRUNCATE TABLE `suscripciones`;
+TRUNCATE TABLE `subscriptions`;
 --
--- Volcado de datos para la tabla `suscripciones`
+-- Volcado de datos para la tabla `subscriptions`
 --
 
 -- EMPTY
@@ -193,248 +196,44 @@ TRUNCATE TABLE `suscripciones`;
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuarios`
+-- Estructura de tabla para la tabla `users`
 --
 
-DROP TABLE IF EXISTS `usuario`;
-CREATE TABLE IF NOT EXISTS `usuario` (
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(100) NOT NULL,
-  `apellido` varchar(100) NOT NULL,
-  `rut` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `lastname` varchar(100) NOT NULL,
+  `document_number` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `clave` varchar(100) NOT NULL,
-  `codigo` varchar(100) NOT NULL,
-  `direccion` varchar(100) NOT NULL,
-  `telefono` varchar(100) NOT NULL,
-  `celular` varchar(100) NOT NULL,
-  `departamento` varchar(100) NOT NULL,
-  `ciudad` varchar(100) NOT NULL,
-  `administrador` tinyint(1) NOT NULL DEFAULT '0',
+  `password` varchar(100) NOT NULL,
+  `verification_code` varchar(100) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `phone` varchar(100) NOT NULL,
+  `cellphone` varchar(100) NOT NULL,
+  `state` varchar(100) NOT NULL,
+  `city` varchar(100) NOT NULL,
+  `isadmin` tinyint(1) NOT NULL DEFAULT '0',
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `_created_at_` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `_updated_at_` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
-  KEY `nombre` (`nombre`,`apellido`,`email`)
+  KEY `name` (`name`,`lastname`,`email`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
--- Truncar tablas antes de insertar `usuario`
+-- Truncar tablas antes de insertar `users`
 --
 
-TRUNCATE TABLE `usuario`;
+TRUNCATE TABLE `users`;
 --
--- Volcado de datos para la tabla `usuario`
+-- Volcado de datos para la tabla `users`
 --
 
 -- EMPTY
 
 -- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `articulo`
---
-
-DROP TABLE IF EXISTS `articulo`;
-CREATE TABLE IF NOT EXISTS `articulo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `orden` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `codigo` varchar(20) NOT NULL,
-  `descripcion_breve` varbinary(255) NOT NULL,
-  `descripcion` tinytext NOT NULL,
-  `precio` double NOT NULL,
-  `talle` varchar(20) NOT NULL,
-  `talle_surtido` varchar(20) NOT NULL,
-  `adaptable` tinyint(1) NOT NULL,
-  `colores_url` varchar(100) NOT NULL,
-  `colores_surtidos_url` varchar(100) NOT NULL,
-  `packs` varchar(20) NOT NULL,
-  `categoria_id` int(11) NOT NULL,
-  `estado` tinyint(1) NOT NULL DEFAULT '1',
-  `nuevo` tinyint(1) NOT NULL,
-  `agotado` tinyint(1) NOT NULL,
-  `oferta` tinyint(1) NOT NULL,
-  `surtido` tinyint(1) NOT NULL,
-  `precio_oferta` double NOT NULL,
-  `precio_surtido` int(11) NOT NULL,
-  `precio_oferta_surtido` int(11) NOT NULL,
-  `imagenes_url` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `nombre` (`nombre`,`codigo`),
-  KEY `categoria_id` (`categoria_id`),
-  KEY `oferta` (`oferta`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
-
---
--- Truncar tablas antes de insertar `articulo`
---
-
-TRUNCATE TABLE `articulo`;
---
--- Volcado de datos para la tabla `articulo`
---
-
--- EMPTY
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `articulo_pedido`
---
-
-DROP TABLE IF EXISTS `articulo_pedido`;
-CREATE TABLE IF NOT EXISTS `articulo_pedido` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `pedido_id` int(11) NOT NULL,
-  `articulo_id` int(11) NOT NULL,
-  `surtido` tinyint(1) NOT NULL,
-  `talle` varchar(20) NOT NULL,
-  `color` varchar(20) NOT NULL,
-  `precio_actual` double NOT NULL,
-  `cantidad` int(11) NOT NULL,
-  `subtotal` double NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `pedido_id` (`pedido_id`,`articulo_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
-
---
--- Truncar tablas antes de insertar `articulo_pedido`
---
-
-TRUNCATE TABLE `articulo_pedido`;
---
--- Volcado de datos para la tabla `articulo_pedido`
---
-
--- EMPTY
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `categoria`
---
-
-DROP TABLE IF EXISTS `categoria`;
-CREATE TABLE IF NOT EXISTS `categoria` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `titulo` varchar(100) NOT NULL,
-  `descripcion_breve` tinytext NOT NULL,
-  `descripcion` text NOT NULL,
-  `imagen_url` varchar(100) NOT NULL,
-  `categoria_id` int(11) NOT NULL,
-  `estado` tinyint(1) NOT NULL DEFAULT '1',
-  `orden` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `titulo_2` (`titulo`),
-  KEY `titulo` (`titulo`,`categoria_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
-
---
--- Truncar tablas antes de insertar `categoria`
---
-
-TRUNCATE TABLE `categoria`;
---
--- Volcado de datos para la tabla `categoria`
---
-
--- EMPTY
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `pedido`
---
-
-DROP TABLE IF EXISTS `pedido`;
-CREATE TABLE IF NOT EXISTS `pedido` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `usuario_id` varchar(100) NOT NULL,
-  `fecha` datetime NOT NULL,
-  `cantidad` int(11) NOT NULL,
-  `total` double NOT NULL,
-  `estado` int(11) NOT NULL,
-  `retira` tinyint(1) NOT NULL,
-  `compra_en_local` tinyint(1) NOT NULL,
-  `direccion_de_entrega` varchar(100) NOT NULL,
-  `agencia_de_envio` varchar(100) NOT NULL,
-  `forma_de_pago` varchar(100) NOT NULL,
-  `lugar` varchar(80) NOT NULL,
-  `notificado` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `usuario_id` (`usuario_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
-
---
--- Truncar tablas antes de insertar `pedido`
---
-
-TRUNCATE TABLE `pedido`;
---
--- Volcado de datos para la tabla `pedido`
---
-
--- EMPTY
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `suscripciones`
---
-
-DROP TABLE IF EXISTS `suscripciones`;
-CREATE TABLE IF NOT EXISTS `suscripciones` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
-
---
--- Truncar tablas antes de insertar `suscripciones`
---
-
-TRUNCATE TABLE `suscripciones`;
---
--- Volcado de datos para la tabla `suscripciones`
---
-
--- EMPTY
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `usuario`
---
-
-DROP TABLE IF EXISTS `usuario`;
-CREATE TABLE IF NOT EXISTS `usuario` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(100) NOT NULL,
-  `apellido` varchar(100) NOT NULL,
-  `rut` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `clave` varchar(100) NOT NULL,
-  `codigo` varchar(100) NOT NULL,
-  `direccion` varchar(100) NOT NULL,
-  `telefono` varchar(100) NOT NULL,
-  `celular` varchar(100) NOT NULL,
-  `departamento` varchar(100) NOT NULL,
-  `ciudad` varchar(100) NOT NULL,
-  `administrador` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`),
-  KEY `nombre` (`nombre`,`apellido`,`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
-
---
--- Truncar tablas antes de insertar `usuario`
---
-
-TRUNCATE TABLE `usuario`;
---
--- Volcado de datos para la tabla `usuario`
---
-
--- EMPTY
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
