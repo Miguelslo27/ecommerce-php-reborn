@@ -109,6 +109,53 @@ i.fab+* {
   filter: blur(2px);
 }
 
+.invisible {
+  animation: visibleAnimation .3s reverse forwards ease;
+  display: none;
+  opacity: 1;
+}
+
+.visible {
+  animation: visibleAnimation .3s forwards ease;
+  display: initial;
+  opacity: 0;
+}
+
+.collapsed {
+  height: 0;
+  overflow: hidden;
+  transition: height .3s ease;
+}
+
+.collapsed.visible {
+  height: auto;
+}
+
+.bg-green {
+  background-color: #6DA128 !important;
+}
+
+.border-green {
+  border-color: #6DA128 !important;
+}
+
+.bg-red {
+  background-color: #C71D14 !important;
+}
+
+.border-red {
+  border-color: #C71D14 !important;
+}
+
+@keyframes visibleAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes spinAnimation {
   from {
     transform: rotate(0);
@@ -235,6 +282,14 @@ i.fab+* {
   border-radius: 50px;
   box-shadow: 0 4px 6px -4px #b52299;
   outline: none;
+}
+
+.button.icon {
+  border-radius: 50%;
+  height: 50px;
+  line-height: 50px;
+  padding: 0;
+  width: 50px;
 }
 
 .button.primary {

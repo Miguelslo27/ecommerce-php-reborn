@@ -4,8 +4,6 @@
   margin-right: 2rem;
 }
 
-/* .payment-form form {} */
-
 .payment-form form fieldset {
   margin-bottom: 1.5rem;
   border: 2px solid #930077;
@@ -16,7 +14,16 @@
   padding: 0 1rem;
 }
 
-/* .payment-form form .form-group.group-grid {} */
+.payment-form form .form-group.group-grid.columns-3 >* {
+  width: 40%;
+}
+
+.payment-form form .form-group.group-grid .side-actions {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  width: 20%;
+}
 
 .payment-form form .form-group.group-grid >label {
   display: flex;
@@ -24,8 +31,6 @@
   justify-content: flex-start;
   align-items: center;
 }
-
-/* .payment-form form .form-group.group-grid >label >* {} */
 
 .payment-form form .form-group.group-grid >label >input {
   margin-right: 1rem;
