@@ -21,9 +21,9 @@ newDocument([
       exit;
     }
 
-    $categories = getCategories('`categoria_id` = 0 AND `estado` = 1');
-    $where      = '`categoria_id` = ' . $currentCategory->id . ' AND `estado` = 1';
-    $pager      = getPager('articulo', $where, ARTICLES_PER_PAGE);
+    $categories = getCategories('`category_id` = 0 AND `status` = 1');
+    $where      = '`category_id` = ' . $currentCategory->id . ' AND `status` = 1';
+    $pager      = getPager('articles', $where, ARTICLES_PER_PAGE);
     $articles   = getArticles($where, $pager->offset, $pager->per_page);
 
     setGlobal('currentCategory', $currentCategory);

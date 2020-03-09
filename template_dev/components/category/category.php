@@ -1,14 +1,14 @@
 <section>
   <header>
-    <?php if (isset(getGlobal('currentCategory')->imagen_url)) : ?>
-      <img src="<?php bind(getGlobal('currentCategory')->imagen_url) ?>" alt="<?php bind(getGlobal('currentCategory')->titulo) ?>">
+    <?php if (isset(getGlobal('currentCategory')->images_url)) : ?>
+      <img src="<?php bind(getGlobal('currentCategory')->images_url) ?>" alt="<?php bind(getGlobal('currentCategory')->title) ?>">
     <?php endif ?>
     <div class="cat-info">
-      <?php if (isset(getGlobal('currentCategory')->descripcion_breve)) : ?>
-        <p><?php bind(getGlobal('currentCategory')->descripcion_breve) ?></p>
+      <?php if (isset(getGlobal('currentCategory')->brief_description)) : ?>
+        <p><?php bind(getGlobal('currentCategory')->brief_description) ?></p>
       <?php endif ?>
 
-      <h1><?php bind(getGlobal('currentCategory')->titulo) ?></h1>
+      <h1><?php bind(getGlobal('currentCategory')->title) ?></h1>
       <p><?php bind(count(getGlobal('articles'))) ?> articulos</p>
     </div>
   </header>

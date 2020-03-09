@@ -8,21 +8,21 @@ function getCategories($where = null, $offset = null, $perpage = null)
   $sql = (
     'SELECT
       `id`,
-      `titulo`,
-      `descripcion_breve`,
-      `descripcion`,
-      `imagen_url`,
-      `categoria_id`,
-      `estado`,
-      `orden`
-    FROM `categoria`'
+      `title`,
+      `brief_description`,
+      `description`,
+      `images_url`,
+      `category_id`,
+      `status`,
+      `position`
+    FROM `categories`'
   );
 
   if (isset($where)) {
     $sql .= " WHERE $where";
   }
 
-  $sql .= ' ORDER BY `orden` ASC';
+  $sql .= ' ORDER BY `position` ASC';
 
   if (isset($offset) && isset($perpage)) {
     $sql .= " LIMIT $offset, $perpage";
@@ -33,7 +33,7 @@ function getCategories($where = null, $offset = null, $perpage = null)
 
 function getCategoriesByParentId($cid)
 {
-  return getCategories("`categoria_id` = '$cid'");
+  return getCategories("`category_id` = '$cid'");
 }
 
 function getCurrentCategory()
@@ -46,14 +46,14 @@ function getCategoryById($cid)
   $sql = (
     "SELECT
       `id`,
-      `titulo`,
-      `descripcion_breve`,
-      `descripcion`,
-      `imagen_url`,
-      `categoria_id`,
-      `estado`,
-      `orden`
-    FROM `categoria`
+      `title`,
+      `brief_description`,
+      `description`,
+      `images_url`,
+      `category_id`,
+      `status`,
+      `position`
+    FROM `categories`
     WHERE `id` = $cid"
   );
 

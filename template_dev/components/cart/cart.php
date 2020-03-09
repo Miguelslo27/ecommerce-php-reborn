@@ -31,18 +31,18 @@
         <div class="row in-cart-article">
           <div class="cell article-info span-8">
             <div class="image">
-              <img src="<?php bind($article->imagenes_url) ?>" alt="<?php bind($article->nombre) ?>">
+              <img src="<?php bind($article->images_url) ?>" alt="<?php bind($article->name) ?>">
             </div>
             <div class="title">
-              <h3><?php bind($article->nombre) ?></h3>
-              <span><?php bind($article->codigo) ?></span>
+              <h3><?php bind($article->name) ?></h3>
+              <span><?php bind($article->code) ?></span>
             </div>
           </div>
           <span class="cell article-price span-2">
-            $ <?php bind($article->precio_actual) ?>
+            $ <?php bind($article->current_price) ?>
           </span>
           <span class="cell article-quantity span-2">
-            <input type="number" id="_qty_for_<?php bind($article->articulo_id) ?>_" value="<?php bind($article->cantidad) ?>">
+            <input type="number" id="_qty_for_<?php bind($article->article_id) ?>_" value="<?php bind($article->quantity) ?>">
           </span>
           <span class="cell article-subtotal span-2">
             $ <?php bind($article->subtotal) ?>
@@ -52,17 +52,17 @@
               class="update-cart-button"
               data-action="<?php bind(ACTION_ADD_TO_CART) ?>"
               data-oid="<?php bind(getCurrentCart()->order->id) ?>"
-              data-aid="<?php bind($article->articulo_id) ?>"
-              data-current-qty="<?php bind($article->cantidad) ?>"
-              data-input-id="_qty_for_<?php bind($article->articulo_id) ?>_"
+              data-aid="<?php bind($article->article_id) ?>"
+              data-current-qty="<?php bind($article->quantity) ?>"
+              data-input-id="_qty_for_<?php bind($article->article_id) ?>_"
             ><i class="fas fa-sync"></i></a>
             <a href="#"
               class="delete-cart-button"
               data-action="<?php bind(ACTION_ADD_TO_CART) ?>"
               data-oid="<?php bind(getCurrentCart()->order->id) ?>"
-              data-aid="<?php bind($article->articulo_id) ?>"
-              data-current-qty="<?php bind($article->cantidad) ?>"
-              data-input-id="_qty_for_<?php bind($article->articulo_id) ?>_"
+              data-aid="<?php bind($article->article_id) ?>"
+              data-current-qty="<?php bind($article->quantity) ?>"
+              data-input-id="_qty_for_<?php bind($article->article_id) ?>_"
             ><i class="far fa-trash-alt"></i></a>
           </span>
         </div>
