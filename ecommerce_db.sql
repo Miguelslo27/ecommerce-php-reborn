@@ -132,6 +132,7 @@ TRUNCATE TABLE `categories`;
 
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE IF NOT EXISTS `orders` (
+  -- SUMMARY
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `date` datetime NOT NULL,
@@ -139,6 +140,14 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `taxes` double NOT NULL, 
   `discount` double NOT NULL,
   `total` double NOT NULL,
+  -- BILLING
+  `billing_name` varchar(100) NOT NULL, 
+  `billing_document` varchar(100) NOT NULL,
+  `billing_address` varchar(100) NOT NULL,
+  `billing_state` varchar(100) NOT NULL,
+  `billing_city` varchar(100) NOT NULL,
+  `billing_zipcode` varchar(100) NOT NULL,
+  -- SHIPPING
   `shipping_method` tinyint(1) NOT NULL,
   `shipping_address` varchar(100) NOT NULL,
   `shipping_state` varchar(100) NOT NULL,
@@ -146,6 +155,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `shipping_zipcode` varchar(100) NOT NULL,
   `shipping_agency` varchar(100) NOT NULL,
   `additional_comments` text NOT NULL,
+  -- PAYMENT
   `payment_method` varchar(100) NOT NULL,
   `notified` tinyint(1) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
@@ -204,7 +214,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `lastname` varchar(100) NOT NULL,
-  `document_number` varchar(100) NOT NULL,
+  `document` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `verification_code` varchar(100) NOT NULL,

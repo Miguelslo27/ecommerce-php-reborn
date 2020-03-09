@@ -308,3 +308,88 @@ function transferOrder($fromUser, $toUser)
   getDB()->query($sqlUpdate);
   return;
 }
+
+function saveOrderUserInfo() {
+  /**
+   * @TODO
+   */
+  $status = saveOrderUserInfo_checkIncomingData();
+
+  if (!$status->succeeded) {
+    return $status;
+  }
+
+  var_dump(getCurrentUser());
+  var_dump(getCurrentCart());
+  
+  $sql = (
+    ''
+    // "UPDATE
+    //   `pedido`
+    //   SET
+    //     `precio_actual` = $price,
+    //     `cantidad` = $inOrderArticle->cantidad + $qty,
+    //     `subtotal` = $price * ($inOrderArticle->cantidad + $qty)
+    //   WHERE
+    //     `id` = $inOrderArticle->id"
+  );
+
+  return $status;
+}
+
+function saveOrderUserInfo_checkIncomingData() {
+  $status = newStatusObject();
+
+  if (!preg_match(REG_EXP_NAME_FORMAT, getRequestData('nombre'))) {
+    $status->fieldsWithErrors['nombre'] = true;
+    $status->errors[]                   = 'El nombre tiene un formato incorrecto. Tu nombre puede incluir letras, espacios y puntos';
+  }
+
+  if (!preg_match(REG_EXP_NAME_FORMAT, getRequestData('apellido'))) {
+    $status->fieldsWithErrors['apellido'] = true;
+    $status->errors[]                     = 'El apellido tiene un formato incorrecto. Tu nombre puede incluir letras, espacios y puntos';
+  }
+
+  if (empty(getRequestData('email'))) {
+    $status->fieldsWithErrors['email'] = true;
+    $status->errors[]                  = 'El email no puede ser vacío';
+  } elseif (!preg_match(REG_EXP_EMAIL_FORMAT, getRequestData('email'))) {
+    $status->fieldsWithErrors['email'] = true;
+    $status->errors[]                  = 'El email no tiene el formato correcto';
+  }
+
+  if (empty(getRequestData('rut'))) {
+    $status->fieldsWithErrors['rut'] = true;
+    $status->errors[]                = 'Ingresa el RUT de tu empresa o tu número de documento';
+  } elseif (!preg_match(REG_EXP_NUMBER_FORMAT, getRequestData(('rut')))) {
+    $status->fieldsWithErrors['rut'] = true;
+    $status->errors[]                = 'El RUT o número de documento no puede contener caracteres alfabéticos, puntos ni guiones, sólo números';
+  }
+
+  if (
+    empty(getRequestData('telefono'))
+    && empty(getRequestData('celular'))
+  ) {
+    $status->fieldsWithErrors['telefono'] = true;
+    $status->fieldsWithErrors['celular']  = true;
+    $status->errors[]                     = 'Debes ingresar al menos un número de teléfono, fijo o celular';
+  } elseif (
+    !empty(getRequestData('telefono'))
+    && !preg_match(REG_EXP_STRING_NUMBER_FORMAT, getRequestData('telefono'))
+  ) {
+    $status->fieldsWithErrors['telefono'] = true;
+    $status->errors[]                     = 'El teléfono tiene un formato incorrecto. Puede incluir números, espacios y guiones';
+  } elseif (
+    !empty(getRequestData('celular'))
+    && !preg_match(REG_EXP_STRING_NUMBER_FORMAT, getRequestData('celular'))
+  ) {
+    $status->fieldsWithErrors['celular'] = true;
+    $status->errors[]                     = 'El celular tiene un formato incorrecto. Puede incluir números, espacios y guiones';
+  }
+
+  if (count($status->errors) == 0) {
+    $status->succeeded = true;
+  }
+  
+  return $status;
+}

@@ -58,6 +58,11 @@ function processRequests()
     exit;
   }
 
+  /**
+   * @TODO
+   * process action ACTION_UPDATE_CART_USER_INFO
+   */
+  
   if (getPostData('action') === ACTION_SAVE_CATEGORY) {
     // @TODO
   }
