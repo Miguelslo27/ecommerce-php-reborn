@@ -1,28 +1,28 @@
 <?php
 $class = '';
-if (getGlobal('article')->nuevo === '1') {
+if (getGlobal('article')->new === '1') {
   $class = 'new';
 }
 
-if (getGlobal('article')->oferta === '1') {
+if (getGlobal('article')->offer === '1') {
   $class = 'offer';
 }
 
-if (getGlobal('article')->agotado === '1') {
+if (getGlobal('article')->spent === '1') {
   $class = 'spent';
 }
 ?>
 <article class="<?php bind($class) ?>">
-  <img src="<?php bind(getGlobal('article')->imagenes_url) ?>" alt="<?php bind(getGlobal('article')->nombre) ?>">
+  <img src="<?php bind(getGlobal('article')->images_url) ?>" alt="<?php bind(getGlobal('article')->name) ?>">
   <div class="article-info">
-    <span><?php bind(getGlobal('article')->descripcion_breve) ?></span>
-    <a href="<?php bind(getGlobal('article')->id) ?>"><?php bind(getGlobal('article')->nombre) ?></a>
+    <span><?php bind(getGlobal('article')->brief_description) ?></span>
+    <a href="<?php bind(getGlobal('article')->id) ?>"><?php bind(getGlobal('article')->name) ?></a>
 
-    <?php if (getGlobal('article')->oferta === '1') : ?>
-      <span class="price before">$<?php bind(getGlobal('article')->precio) ?></span>
-      <span class="price after">$<?php bind(getGlobal('article')->precio_oferta) ?></span>
+    <?php if (getGlobal('article')->offer === '1') : ?>
+      <span class="price before">$<?php bind(getGlobal('article')->price) ?></span>
+      <span class="price after">$<?php bind(getGlobal('article')->price_offer) ?></span>
     <?php else : ?>
-      <span class="price">$<?php bind(getGlobal('article')->precio) ?></span>
+      <span class="price">$<?php bind(getGlobal('article')->price) ?></span>
     <?php endif ?>
     
   </div>

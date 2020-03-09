@@ -8,26 +8,26 @@ function getArticles($where = null, $offset = null, $perpage = null)
   $sql = (
     "SELECT
       `id`,
-      `nombre`,
-      `codigo`,
-      `descripcion_breve`,
-      `descripcion`,
-      `imagenes_url`,
-      `categoria_id`,
-      `nuevo`,
-      `agotado`,
-      `oferta`,
-      `precio`,
-      `precio_oferta`,
-      `orden`
-    FROM `articulo`"
+      `name`,
+      `code`,
+      `brief_description`,
+      `description`,
+      `images_url`,
+      `category_id`,
+      `new`,
+      `spent`,
+      `offer`,
+      `price`,
+      `price_offer`,
+      `position`
+    FROM `articles`"
   );
 
   if (isset($where)) {
     $sql .= " WHERE $where";
   }
 
-  $sql .= " ORDER BY `orden` ASC";
+  $sql .= " ORDER BY `position` ASC";
 
   if (isset($offset) && isset($perpage)) {
     $sql .= " LIMIT $offset, $perpage";
@@ -41,19 +41,19 @@ function getArticle($aid)
   $sql = (
     "SELECT
       `id`,
-      `nombre`,
-      `codigo`,
-      `descripcion_breve`,
-      `descripcion`,
-      `imagenes_url`,
-      `categoria_id`,
-      `nuevo`,
-      `agotado`,
-      `oferta`,
-      `precio`,
-      `precio_oferta`,
-      `orden`
-    FROM `articulo`
+      `name`,
+      `code`,
+      `brief_description`,
+      `description`,
+      `images_url`,
+      `category_id`,
+      `new`,
+      `spent`,
+      `offer`,
+      `price`,
+      `price_offer`,
+      `position`
+    FROM `articles`
     WHERE `id` = $aid"
   );
 
@@ -62,6 +62,6 @@ function getArticle($aid)
 
 function articleExists($aid)
 {
-  $count = getDB()->countOf('articulo', "id = $aid");
+  $count = getDB()->countOf('articles', "id = $aid");
   return $count > 0 ? true : false;
 }

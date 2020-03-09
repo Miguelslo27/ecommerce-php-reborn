@@ -11,12 +11,12 @@ function isAdmin()
     return false;
   }
 
-  return getCurrentUser()->administrador;
+  return getCurrentUser()->isadmin;
 }
 
 function getUserName() {
   if (!getCurrentUser()) return null;
-  return getCurrentUser()->nombre;
+  return getCurrentUser()->name;
 }
 
 function getUserId() {
@@ -36,31 +36,31 @@ function registerNewUser() {
       INTO
         `usuario`
         (
-          `nombre`,
-          `apellido`,
+          `name`,
+          `lastname`,
           `email`,
-          `clave`,
-          `codigo`,
-          `rut`,
-          `direccion`,
-          `departamento`,
-          `ciudad`,
-          `telefono`,
-          `celular`
+          `password`,
+          `verification_code`,
+          `document`,
+          `address`,
+          `state`,
+          `city`,
+          `phone`,
+          `cellphone`
         )
       VALUES
       (
-        "' . getPostData('nombre') . '",
-        "' . getPostData('apellido') . '",
+        "' . getPostData('name') . '",
+        "' . getPostData('lastname') . '",
         "' . getPostData('reg_email') . '",
         "' . md5(getPostData('reg_pass') . getPostData('reg_email')) . '",
         "' . md5(getPostData('reg_email')) . '",
-        "' . getPostData('rut') . '",
-        "' . getPostData('direccion') . '",
-        "' . getPostData('departamento') . '",
-        "' . getPostData('ciudad') . '",
-        "' . getPostData('telefono') . '",
-        "' . getPostData('celular') . '"
+        "' . getPostData('document') . '",
+        "' . getPostData('address') . '",
+        "' . getPostData('state') . '",
+        "' . getPostData('city') . '",
+        "' . getPostData('phone') . '",
+        "' . getPostData('cellphone') . '"
       )'
   );
 
@@ -89,29 +89,29 @@ function registerNewUser_checkIncomingData()
    * if (
    *  $status = validateData([
    *    'regexp' => REG_EXP_NAME_FORMAT
-   *  ], getPostData('nombre'), $status)
+   *  ], getPostData('name'), $status)
    * ) return $status; // El mensaje debería ser genérico según la validación hecha
    */
-  if (!preg_match(REG_EXP_NAME_FORMAT, getPostData('nombre'))) {
-    $status->fieldsWithErrors['nombre'] = true;
+  if (!preg_match(REG_EXP_NAME_FORMAT, getPostData('name'))) {
+    $status->fieldsWithErrors['name'] = true;
     $status->errors[]                   = 'El nombre tiene un formato incorrecto. Tu nombre puede incluir letras, espacios y puntos';
   }
 
-  if (!preg_match(REG_EXP_NAME_FORMAT, getPostData('apellido'))) {
-    $status->fieldsWithErrors['apellido'] = true;
+  if (!preg_match(REG_EXP_NAME_FORMAT, getPostData('lastname'))) {
+    $status->fieldsWithErrors['lastname'] = true;
     $status->errors[]                     = 'El apellido tiene un formato incorrecto. Tu nombre puede incluir letras, espacios y puntos';
   }
 
-  if (!preg_match(REG_EXP_STRING_FORMAT, getPostData('direccion'))) {
-    $status->fieldsWithErrors['direccion'] = true;
+  if (!preg_match(REG_EXP_STRING_FORMAT, getPostData('address'))) {
+    $status->fieldsWithErrors['address'] = true;
     $status->errors[]                      = 'La dirección tiene un formato inseguro. La dirección puede contener letras, espacios, números, puntos, comas y barras, pero no caracteres especiales';
     return $status;
-  } elseif (!preg_match(REG_EXP_NAME_FORMAT, getPostData('departamento'))) {
-    $status->fieldsWithErrors['departamento'] = true;
+  } elseif (!preg_match(REG_EXP_NAME_FORMAT, getPostData('state'))) {
+    $status->fieldsWithErrors['state'] = true;
     $status->errors[]                         = 'El departamento tiene un formato inseguro. El departamento puede incluir letras, espacios y puntos';
     return $status;
-  } elseif (!preg_match(REG_EXP_NAME_FORMAT, getPostData('ciudad'))) {
-    $status->fieldsWithErrors['ciudad'] = true;
+  } elseif (!preg_match(REG_EXP_NAME_FORMAT, getPostData('city'))) {
+    $status->fieldsWithErrors['city'] = true;
     $status->errors[]                   = 'La localidad tiene un formato inseguro. La localidad puede incluir letras, espacios y puntos';
     return $status;
   }
@@ -147,40 +147,40 @@ function registerNewUser_checkIncomingData()
     }
   }
 
-  if (empty(getPostData('rut'))) {
-    $status->fieldsWithErrors['rut'] = true;
+  if (empty(getPostData('document'))) {
+    $status->fieldsWithErrors['document'] = true;
     $status->errors[]                = 'Ingresa el RUT de tu empresa o tu número de documento';
-  } elseif (!preg_match(REG_EXP_NUMBER_FORMAT, getPostData(('rut')))) {
-    $status->fieldsWithErrors['rut'] = true;
+  } elseif (!preg_match(REG_EXP_NUMBER_FORMAT, getPostData(('document')))) {
+    $status->fieldsWithErrors['document'] = true;
     $status->errors[]                = 'El RUT o número de documento no puede contener caracteres alfabéticos, puntos ni guiones, sólo números';
   }
 
   if (
-    empty(getPostData('direccion'))
-    || empty(getPostData('departamento'))
-    || empty(getPostData('ciudad'))
+    empty(getPostData('address'))
+    || empty(getPostData('state'))
+    || empty(getPostData('city'))
   ) {
     $status->warnings[] = 'Tu dirección, departamento y ciudad, serán necesarias para recibir tus compras, recuerda completar estos datos más adelante';
   }
 
   if (
-    empty(getPostData('telefono'))
-    && empty(getPostData('celular'))
+    empty(getPostData('phone'))
+    && empty(getPostData('cellphone'))
   ) {
-    $status->fieldsWithErrors['telefono'] = true;
-    $status->fieldsWithErrors['celular']  = true;
+    $status->fieldsWithErrors['phone'] = true;
+    $status->fieldsWithErrors['cellphone']  = true;
     $status->errors[]                     = 'Debes ingresar al menos un número de teléfono, fijo o celular';
   } elseif (
-    !empty(getPostData('telefono'))
-    && !preg_match(REG_EXP_STRING_NUMBER_FORMAT, getPostData('telefono'))
+    !empty(getPostData('phone'))
+    && !preg_match(REG_EXP_STRING_NUMBER_FORMAT, getPostData('phone'))
   ) {
-    $status->fieldsWithErrors['telefono'] = true;
+    $status->fieldsWithErrors['phone'] = true;
     $status->errors[]                     = 'El teléfono tiene un formato incorrecto. Puede incluir números, espacios y guiones';
   } elseif (
-    !empty(getPostData('celular'))
-    && !preg_match(REG_EXP_STRING_NUMBER_FORMAT, getPostData('celular'))
+    !empty(getPostData('cellphone'))
+    && !preg_match(REG_EXP_STRING_NUMBER_FORMAT, getPostData('cellphone'))
   ) {
-    $status->fieldsWithErrors['celular'] = true;
+    $status->fieldsWithErrors['cellphone'] = true;
     $status->errors[]                     = 'El celular tiene un formato incorrecto. Puede incluir números, espacios y guiones';
   }
 

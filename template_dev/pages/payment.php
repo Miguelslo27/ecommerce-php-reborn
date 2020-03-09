@@ -32,12 +32,12 @@ newDocument([
 
     $phones = array();
 
-    if (!empty(getCurrentUser()->telefono)) {
-      $phones[] = getCurrentUser()->telefono;
+    if (!empty(getCurrentUser()->phone)) {
+      $phones[] = getCurrentUser()->phone;
     }
 
-    if (!empty(getCurrentUser()->celular)) {
-      $phones[] = getCurrentUser()->celular;
+    if (!empty(getCurrentUser()->cellphone)) {
+      $phones[] = getCurrentUser()->cellphone;
     }
 
     setGlobal('phones', $phones);

@@ -5,11 +5,11 @@
 
       <div class="form-group group-grid columns-3">
         <div>
-          <p><strong>Nombre:</strong> <?php bind(getCurrentUser()->nombre) ?> <?php bind(getCurrentUser()->apellido) ?></p>
+          <p><strong>Nombre:</strong> <?php bind(getCurrentUser()->name) ?> <?php bind(getCurrentUser()->lastname) ?></p>
           <p><strong>Email:</strong> <?php bind(getCurrentUser()->email) ?></p>
         </div>
         <div>
-          <p><strong>Documento:</strong> <?php bind(oneOf(getCurrentUser()->rut, 'Sin definir')) ?></p>
+          <p><strong>Documento:</strong> <?php bind(oneOf(getCurrentUser()->document, 'Sin definir')) ?></p>
           <p><strong>Teléfono:</strong> <?php bind(implode(' / ', getGlobal('phones'))) ?></p>
         </div>
         <div class="side-actions">
@@ -31,9 +31,9 @@
       <div class="user-data-form collapsed">
         <div class="form-group">
           <label for="nombre">Nombre *</label>
-          <input type="text" class="" name="nombre" id="nombre" value="<?php getPreformData('nombre', getCurrentUser()->nombre) ?>">
+          <input type="text" class="" name="nombre" id="nombre" value="<?php getPreformData('nombre', getCurrentUser()->name) ?>">
           <label for="apellido" class="align-center">Apellido *</label>
-          <input type="text" class="" name="apellido" id="apellido" value="<?php getPreformData('nombre', getCurrentUser()->apellido) ?>">
+          <input type="text" class="" name="apellido" id="apellido" value="<?php getPreformData('nombre', getCurrentUser()->lastname) ?>">
         </div>
 
         <div class="form-line">
@@ -43,14 +43,14 @@
 
         <div class="form-line">
           <label for="rut">RUT o CI * </label>
-          <input type="text" name="rut" id="rut" value="<?php getPreformData('rut', getCurrentUser()->rut) ?>">
+          <input type="text" name="rut" id="rut" value="<?php getPreformData('rut', getCurrentUser()->document) ?>">
         </div>
 
         <div class="form-group">
           <label for="telefono" class="">Teléfono *</label>
-          <input type="text" class="" name="telefono" id="telefono" value="<?php getPreformData('telefono', getCurrentUser()->telefono) ?>">
+          <input type="text" class="" name="telefono" id="telefono" value="<?php getPreformData('telefono', getCurrentUser()->phone) ?>">
           <label for="celular" class="align-center">Celular *</label>
-          <input type="text" class="" name="celular" id="celular" value="<?php getPreformData('celular', getCurrentUser()->celular) ?>">
+          <input type="text" class="" name="celular" id="celular" value="<?php getPreformData('celular', getCurrentUser()->cellphone) ?>">
         </div>
       </div>
     </fieldset>
@@ -89,14 +89,14 @@
       <div class="shipping-form collapsed visible">
         <div class="form-line">
           <label for="direccion">Dirección</label>
-          <input type="text" name="direccion" id="direccion" value="<?php getPreformData('direccion', getCurrentUser()->direccion) ?>">
+          <input type="text" name="direccion" id="direccion" value="<?php getPreformData('direccion', getCurrentUser()->address) ?>">
         </div>
 
         <div class="form-group">
           <label for="departamento" class="">Departamento</label>
-          <input type="text" class="" name="departamento" id="departamento" value="<?php getPreformData('departamento', getCurrentUser()->departamento) ?>">
+          <input type="text" class="" name="departamento" id="departamento" value="<?php getPreformData('departamento', getCurrentUser()->state) ?>">
           <label for="ciudad" class="align-center">Localidad</label>
-          <input type="text" class="" name="ciudad" id="ciudad" value="<?php getPreformData('ciudad', getCurrentUser()->ciudad) ?>">
+          <input type="text" class="" name="ciudad" id="ciudad" value="<?php getPreformData('ciudad', getCurrentUser()->city) ?>">
         </div>
 
         <div class="form-line">

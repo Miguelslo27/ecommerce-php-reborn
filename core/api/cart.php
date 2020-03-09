@@ -32,7 +32,7 @@ function addToCart($qty = 1)
   }
 
   loadCart();
-  $status->success = "Se agregó <strong>$article->nombre</strong> al carrito";
+  $status->success = "Se agregó <strong>$article->name</strong> al carrito";
 
   return $status;
 }
@@ -96,16 +96,16 @@ function getOrderSqlGenerator($userid)
   $sql = (
     "SELECT
       `id`,
-      `fecha`,
+      `date`,
       `total`,
-      `cantidad`,
-      `estado`
+      `quantity`,
+      `status`
       FROM
         `pedido`
       WHERE
-        `usuario_id` = \"$userid\"
-        AND `estado` = 4
-        AND `fecha` >= \"$dateFromtwoDaysAgo\""
+        `user_id` = \"$userid\"
+        AND `status` = 4
+        AND `date` >= \"$dateFromtwoDaysAgo\""
   );
 
   return $sql;
@@ -120,11 +120,11 @@ function createNewOrder($userid) {
   $sqlInsert = (
     "INSERT
       INTO `pedido` (
-        `usuario_id`,
-        `fecha`,
+        `user_id`,
+        `date`,
         `total`,
-        `cantidad`,
-        `estado`
+        `quantity`,
+        `status`
       )
       VALUES (
         \"$userid\",
@@ -151,47 +151,47 @@ function addToOrder($order, $article, $qty)
   $price           = getArticlePrice($article);
   $subtotal        = $price * $qty;
   $order->total    = $order->total + $subtotal;
-  $order->cantidad = $order->cantidad + $qty;
+  $order->quantity = $order->quantity + $qty;
 
   $sqlUpdate = (
     "UPDATE
       `pedido`
       SET
         `total` = $order->total,
-        `cantidad` = $order->cantidad
+        `quantity` = $order->quantity
       WHERE
         `id` = $order->id"
   );
 
   if (!getDB()->query($sqlUpdate)) {
     $order->total    = $order->total - $subtotal;
-    $order->cantidad = $order->cantidad - $qty;
+    $order->quantity = $order->quantity - $qty;
     return null;
   }
 
   $sqlInOrderArticle = (
     "SELECT
       `id`,
-      `cantidad`
+      `quantity`
       FROM
-        `articulo_pedido`
+        `in_order_articles`
       WHERE
-        `articulo_pedido`.`articulo_id` = $article->id
+        `in_order_articles`.`article_id` = $article->id
         AND
-        `articulo_pedido`.`pedido_id` = $order->id"
+        `in_order_articles`.`order_id` = $order->id"
   );
 
   $inOrderArticle = getDB()->getObject($sqlInOrderArticle);
 
   if (!empty($inOrderArticle)) {
-    if (($inOrderArticle->cantidad + $qty) > 0) {
+    if (($inOrderArticle->quantity + $qty) > 0) {
       $sqlInsert = (
         "UPDATE
-          `articulo_pedido`
+          `in_order_articles`
           SET
-            `precio_actual` = $price,
-            `cantidad` = $inOrderArticle->cantidad + $qty,
-            `subtotal` = $price * ($inOrderArticle->cantidad + $qty)
+            `current_price` = $price,
+            `quantity` = $inOrderArticle->quantity + $qty,
+            `subtotal` = $price * ($inOrderArticle->quantity + $qty)
           WHERE
             `id` = $inOrderArticle->id"
       );
@@ -199,7 +199,7 @@ function addToOrder($order, $article, $qty)
       $sqlInsert = (
         "DELETE
           FROM
-          `articulo_pedido`
+          `in_order_articles`
           WHERE
             `id` = $inOrderArticle->id"
       );
@@ -207,11 +207,11 @@ function addToOrder($order, $article, $qty)
   } else {
     $sqlInsert = (
       "INSERT
-        INTO `articulo_pedido` (
-          `pedido_id`,
-          `articulo_id`,
-          `precio_actual`,
-          `cantidad`,
+        INTO `in_order_articles` (
+          `order_id`,
+          `article_id`,
+          `current_price`,
+          `quantity`,
           `subtotal`
         )
         VALUES (
@@ -237,19 +237,19 @@ function getArticlesInOrder($oid)
 {
   $sql = (
     "SELECT
-      `articulo_pedido`.`id`,
-      `articulo_pedido`.`articulo_id`,
-      `articulo_pedido`.`precio_actual`,
-      `articulo_pedido`.`cantidad`,
-      `articulo_pedido`.`subtotal`,
-      `articulo`.`nombre`,
-      `articulo`.`codigo`,
-      `articulo`.`imagenes_url`
-      FROM `articulo_pedido`
-      JOIN `articulo`
-        ON `articulo_pedido`.`articulo_id` = `articulo`.`id`
+      `in_order_articles`.`id`,
+      `in_order_articles`.`article_id`,
+      `in_order_articles`.`current_price`,
+      `in_order_articles`.`quantity`,
+      `in_order_articles`.`subtotal`,
+      `articles`.`name`,
+      `articles`.`code`,
+      `articles`.`images_url`
+      FROM `in_order_articles`
+      JOIN `articles`
+        ON `in_order_articles`.`article_id` = `articles`.`id`
       WHERE
-        `articulo_pedido`.`pedido_id` = $oid"
+        `in_order_articles`.`order_id` = $oid"
   );
 
   return getDB()->getObjects($sql);
@@ -300,9 +300,9 @@ function transferOrder($fromUser, $toUser)
     "UPDATE
       `pedido`
       SET
-        `usuario_id` = $toUser
+        `user_id` = $toUser
       WHERE
-        `usuario_id` = $fromUser"
+        `user_id` = $fromUser"
   );
 
   getDB()->query($sqlUpdate);
@@ -327,9 +327,9 @@ function saveOrderUserInfo() {
     // "UPDATE
     //   `pedido`
     //   SET
-    //     `precio_actual` = $price,
-    //     `cantidad` = $inOrderArticle->cantidad + $qty,
-    //     `subtotal` = $price * ($inOrderArticle->cantidad + $qty)
+    //     `current_price` = $price,
+    //     `quantity` = $inOrderArticle->quantity + $qty,
+    //     `subtotal` = $price * ($inOrderArticle->quantity + $qty)
     //   WHERE
     //     `id` = $inOrderArticle->id"
   );
@@ -340,13 +340,13 @@ function saveOrderUserInfo() {
 function saveOrderUserInfo_checkIncomingData() {
   $status = newStatusObject();
 
-  if (!preg_match(REG_EXP_NAME_FORMAT, getRequestData('nombre'))) {
-    $status->fieldsWithErrors['nombre'] = true;
+  if (!preg_match(REG_EXP_NAME_FORMAT, getRequestData('name'))) {
+    $status->fieldsWithErrors['name'] = true;
     $status->errors[]                   = 'El nombre tiene un formato incorrecto. Tu nombre puede incluir letras, espacios y puntos';
   }
 
-  if (!preg_match(REG_EXP_NAME_FORMAT, getRequestData('apellido'))) {
-    $status->fieldsWithErrors['apellido'] = true;
+  if (!preg_match(REG_EXP_NAME_FORMAT, getRequestData('lastname'))) {
+    $status->fieldsWithErrors['lastname'] = true;
     $status->errors[]                     = 'El apellido tiene un formato incorrecto. Tu nombre puede incluir letras, espacios y puntos';
   }
 
@@ -358,32 +358,32 @@ function saveOrderUserInfo_checkIncomingData() {
     $status->errors[]                  = 'El email no tiene el formato correcto';
   }
 
-  if (empty(getRequestData('rut'))) {
-    $status->fieldsWithErrors['rut'] = true;
+  if (empty(getRequestData('document'))) {
+    $status->fieldsWithErrors['document'] = true;
     $status->errors[]                = 'Ingresa el RUT de tu empresa o tu número de documento';
-  } elseif (!preg_match(REG_EXP_NUMBER_FORMAT, getRequestData(('rut')))) {
-    $status->fieldsWithErrors['rut'] = true;
+  } elseif (!preg_match(REG_EXP_NUMBER_FORMAT, getRequestData(('document')))) {
+    $status->fieldsWithErrors['document'] = true;
     $status->errors[]                = 'El RUT o número de documento no puede contener caracteres alfabéticos, puntos ni guiones, sólo números';
   }
 
   if (
-    empty(getRequestData('telefono'))
-    && empty(getRequestData('celular'))
+    empty(getRequestData('phone'))
+    && empty(getRequestData('cellphone'))
   ) {
-    $status->fieldsWithErrors['telefono'] = true;
-    $status->fieldsWithErrors['celular']  = true;
+    $status->fieldsWithErrors['phone'] = true;
+    $status->fieldsWithErrors['cellphone']  = true;
     $status->errors[]                     = 'Debes ingresar al menos un número de teléfono, fijo o celular';
   } elseif (
-    !empty(getRequestData('telefono'))
-    && !preg_match(REG_EXP_STRING_NUMBER_FORMAT, getRequestData('telefono'))
+    !empty(getRequestData('phone'))
+    && !preg_match(REG_EXP_STRING_NUMBER_FORMAT, getRequestData('phone'))
   ) {
-    $status->fieldsWithErrors['telefono'] = true;
+    $status->fieldsWithErrors['phone'] = true;
     $status->errors[]                     = 'El teléfono tiene un formato incorrecto. Puede incluir números, espacios y guiones';
   } elseif (
-    !empty(getRequestData('celular'))
-    && !preg_match(REG_EXP_STRING_NUMBER_FORMAT, getRequestData('celular'))
+    !empty(getRequestData('cellphone'))
+    && !preg_match(REG_EXP_STRING_NUMBER_FORMAT, getRequestData('cellphone'))
   ) {
-    $status->fieldsWithErrors['celular'] = true;
+    $status->fieldsWithErrors['cellphone'] = true;
     $status->errors[]                     = 'El celular tiene un formato incorrecto. Puede incluir números, espacios y guiones';
   }
 
