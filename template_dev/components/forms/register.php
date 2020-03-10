@@ -56,7 +56,7 @@
       <button type="reset">Revertir cambios</button>
       <?php else : ?>
       <button type="submit">Registrarme</button>
-      <a href="/login" class="button secondary">Ingresar</a>
+      <a href="/login" class="button secondary">Ya estoy registrado, ingresar</a>
       <?php endif ?>
     </div>
   </form>
