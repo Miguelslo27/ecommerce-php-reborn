@@ -92,27 +92,33 @@ function registerNewUser_checkIncomingData()
    *  ], getPostData('name'), $status)
    * ) return $status; // El mensaje debería ser genérico según la validación hecha
    */
-  if (!preg_match(REG_EXP_NAME_FORMAT, getPostData('name'))) {
+  if (empty(getPostData('name'))) {
     $status->fieldsWithErrors['name'] = true;
-    $status->errors[]                   = 'El nombre tiene un formato incorrecto. Tu nombre puede incluir letras, espacios y puntos';
+    $status->errors[]                 = 'Tu nombre no puede ser vacío';
+  } elseif (!preg_match(REG_EXP_NAME_FORMAT, getPostData('name'))) {
+    $status->fieldsWithErrors['name'] = true;
+    $status->errors[]                 = 'El nombre tiene un formato incorrecto. Tu nombre puede incluir letras, espacios y puntos';
   }
 
-  if (!preg_match(REG_EXP_NAME_FORMAT, getPostData('lastname'))) {
+  if (empty(getPostData('lastname'))) {
+    $status->fieldsWithErrors['lastname'] = true;
+    $status->errors[]                     = 'Tu apellido no puede ser vacío';
+  } elseif (!preg_match(REG_EXP_NAME_FORMAT, getPostData('lastname'))) {
     $status->fieldsWithErrors['lastname'] = true;
     $status->errors[]                     = 'El apellido tiene un formato incorrecto. Tu nombre puede incluir letras, espacios y puntos';
   }
 
   if (!preg_match(REG_EXP_STRING_FORMAT, getPostData('address'))) {
     $status->fieldsWithErrors['address'] = true;
-    $status->errors[]                      = 'La dirección tiene un formato inseguro. La dirección puede contener letras, espacios, números, puntos, comas y barras, pero no caracteres especiales';
+    $status->errors[]                    = 'La dirección tiene un formato inseguro. La dirección puede contener letras, espacios, números, puntos, comas y barras, pero no caracteres especiales';
     return $status;
   } elseif (!preg_match(REG_EXP_NAME_FORMAT, getPostData('state'))) {
     $status->fieldsWithErrors['state'] = true;
-    $status->errors[]                         = 'El departamento tiene un formato inseguro. El departamento puede incluir letras, espacios y puntos';
+    $status->errors[]                  = 'El departamento tiene un formato inseguro. El departamento puede incluir letras, espacios y puntos';
     return $status;
   } elseif (!preg_match(REG_EXP_NAME_FORMAT, getPostData('city'))) {
     $status->fieldsWithErrors['city'] = true;
-    $status->errors[]                   = 'La localidad tiene un formato inseguro. La localidad puede incluir letras, espacios y puntos';
+    $status->errors[]                 = 'La localidad tiene un formato inseguro. La localidad puede incluir letras, espacios y puntos';
     return $status;
   }
 
