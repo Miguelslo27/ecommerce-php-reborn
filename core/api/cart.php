@@ -98,10 +98,9 @@ function getOrderSqlGenerator($userid)
       `id`,
       `date`,
       `total`,
-      `quantity`,
       `status`
       FROM
-        `pedido`
+        `orders`
       WHERE
         `user_id` = \"$userid\"
         AND `status` = 4
@@ -119,11 +118,10 @@ function createNewOrder($userid) {
   $sqlSelect = getOrderSqlGenerator($userid);
   $sqlInsert = (
     "INSERT
-      INTO `pedido` (
+      INTO `orders` (
         `user_id`,
         `date`,
         `total`,
-        `quantity`,
         `status`
       )
       VALUES (
@@ -155,10 +153,9 @@ function addToOrder($order, $article, $qty)
 
   $sqlUpdate = (
     "UPDATE
-      `pedido`
+      `orders`
       SET
-        `total` = $order->total,
-        `quantity` = $order->quantity
+        `total` = $order->total
       WHERE
         `id` = $order->id"
   );
@@ -298,7 +295,7 @@ function transferOrder($fromUser, $toUser)
 
   $sqlUpdate = (
     "UPDATE
-      `pedido`
+      `orders`
       SET
         `user_id` = $toUser
       WHERE
@@ -325,10 +322,9 @@ function saveOrderUserInfo() {
   $sql = (
     ''
     // "UPDATE
-    //   `pedido`
+    //   `orders`
     //   SET
     //     `current_price` = $price,
-    //     `quantity` = $inOrderArticle->quantity + $qty,
     //     `subtotal` = $price * ($inOrderArticle->quantity + $qty)
     //   WHERE
     //     `id` = $inOrderArticle->id"
