@@ -128,7 +128,6 @@ function createNewOrder($userid) {
         \"$userid\",
         \"$gmdate\",
         0,
-        0,
         4
       )"
   );
@@ -141,7 +140,7 @@ function createNewOrder($userid) {
 
 function getArticlePrice($article)
 {
-  return $article->oferta ? $article->precio_oferta : $article->precio;
+  return $article->offer ? $article->price_offer : $article->price;
 }
 
 function addToOrder($order, $article, $qty)
@@ -149,7 +148,6 @@ function addToOrder($order, $article, $qty)
   $price           = getArticlePrice($article);
   $subtotal        = $price * $qty;
   $order->total    = $order->total + $subtotal;
-  $order->quantity = $order->quantity + $qty;
 
   $sqlUpdate = (
     "UPDATE
@@ -162,7 +160,6 @@ function addToOrder($order, $article, $qty)
 
   if (!getDB()->query($sqlUpdate)) {
     $order->total    = $order->total - $subtotal;
-    $order->quantity = $order->quantity - $qty;
     return null;
   }
 
