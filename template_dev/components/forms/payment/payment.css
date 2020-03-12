@@ -5,8 +5,8 @@
 }
 
 .payment-form form fieldset {
-  margin-bottom: 1.5rem;
-  border: 2px solid #930077;
+  border: 2px dashed #930077;
+  border-radius: 1rem;
 }
 
 .payment-form form fieldset legend {
@@ -14,8 +14,31 @@
   padding: 0 1rem;
 }
 
+.payment-form form fieldset legend >span {
+  background: #930077;
+  border-radius: 50%;
+  color: #FFF;
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: bold;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  width: 60px;
+}
+
+.payment-form form .form-group.group-grid >p {
+  line-height: 2rem;
+  padding: 0;
+  margin: 0;
+}
+
 .payment-form form .form-group.group-grid.columns-3 >* {
   width: 40%;
+}
+
+.payment-form form .form-group.group-grid.columns-3 >.span-2 {
+  width: 80%;
 }
 
 .payment-form form .form-group.group-grid .side-actions {
@@ -23,6 +46,15 @@
   display: flex;
   justify-content: space-evenly;
   width: 20%;
+}
+
+.payment-form form .form-group.group-grid .side-actions >.button {
+  align-items: center;
+  border-radius: .5rem;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
 }
 
 .payment-form form .form-group.group-grid >label {

@@ -1,24 +1,17 @@
 <section class="payment-form">
   <form action="" method="POST">
     <fieldset>
-      <legend>Datos personales</legend>
+      <legend><span>1</span> Datos de facturación</legend>
 
       <div class="form-group group-grid columns-3">
-        <div>
-          <p><strong>Nombre:</strong> <?php bind(getCurrentUser()->name) ?> <?php bind(getCurrentUser()->lastname) ?></p>
-          <p><strong>Email:</strong> <?php bind(getCurrentUser()->email) ?></p>
+        <div class="span-2 form-group group-grid columns-2">
+          <p><strong>Nombre completo:</strong> <?php bind(getGlobal('billing_name')) ?></p>
+          <p><strong>Documento:</strong> <?php bind(oneOf(getGlobal('billing_document'), 'Sin definir')) ?></p>
+          <p><strong>Dirección:</strong> <?php bind(oneOf(getGlobal('billing_fulladdress'), 'Sin definir')) ?></p>
+          <p><strong>Teléfono:</strong> <?php bind(oneOf(getGlobal('phones'), 'Sin definir')) ?></p>
         </div>
-        <div>
-          <p><strong>Documento:</strong> <?php bind(oneOf(getCurrentUser()->document, 'Sin definir')) ?></p>
-          <p><strong>Teléfono:</strong> <?php bind(implode(' / ', getGlobal('phones'))) ?></p>
-        </div>
-        <div class="side-actions">
-          <a href="#"
-            data-action="<?php bind(ACTION_UPDATE_CART_USER_INFO) ?>"
-            data-form-selector=".user-data-form"
-            class="button icon primary bg-green border-green invisible save-user-info"
-          ><i class="fas fa-check"></i></a>
 
+        <div class="side-actions">
           <a href="#"
             class="button icon primary"
             data-action="switch"
@@ -29,32 +22,47 @@
       </div>
 
       <div class="user-data-form collapsed">
+        <input type="hidden" name="action" value="<?php bind(ACTION_UPDATE_CART_USER_INFO) ?>">
+
         <div class="form-group">
-          <label for="nombre">Nombre *</label>
-          <input type="text" class="" name="nombre" id="nombre" value="<?php getPreformData('nombre', getCurrentUser()->name) ?>">
-          <label for="apellido" class="align-center">Apellido *</label>
-          <input type="text" class="" name="apellido" id="apellido" value="<?php getPreformData('nombre', getCurrentUser()->lastname) ?>">
-        </div>
-
-        <div class="form-line">
-          <label for="email">E-Mail *</label>
-          <input type="text" name="email" id="email" value="<?php getPreformData('email', getCurrentUser()->email) ?>">
-        </div>
-
-        <div class="form-line">
-          <label for="rut">RUT o CI * </label>
-          <input type="text" name="rut" id="rut" value="<?php getPreformData('rut', getCurrentUser()->document) ?>">
+          <label for="billing_name">Nombre completo *</label>
+          <input type="text" class="" name="billing_name" id="billing_name" value="<?php bind(getPreformData('billing_name', getGlobal('billing_name'))) ?>">
+          <label for="billing_document" class="align-center">RUT o CI * </label>
+          <input type="text" name="billing_document" id="billing_document" value="<?php bind(getPreformData('billing_document', getGlobal('billing_document'))) ?>">
         </div>
 
         <div class="form-group">
-          <label for="telefono" class="">Teléfono *</label>
-          <input type="text" class="" name="telefono" id="telefono" value="<?php getPreformData('telefono', getCurrentUser()->phone) ?>">
-          <label for="celular" class="align-center">Celular *</label>
-          <input type="text" class="" name="celular" id="celular" value="<?php getPreformData('celular', getCurrentUser()->cellphone) ?>">
+          <label for="billing_address">Dirección *</label>
+          <input type="text" class="" name="billing_address" id="billing_address" value="<?php bind(getPreformData('billing_address', getGlobal('billing_address'))) ?>">
+          <label for="billing_state" class="align-center">Departamento *</label>
+          <input type="text" class="" name="billing_state" id="billing_state" value="<?php bind(getPreformData('billing_state', getGlobal('billing_state'))) ?>">
+        </div>
+
+        <div class="form-group">
+          <label for="billing_city">Localidad *</label>
+          <input type="text" class="" name="billing_city" id="billing_city" value="<?php bind(getPreformData('billing_city', getGlobal('billing_city'))) ?>">
+          <label for="billing_zipcode" class="align-center">Código postal</label>
+          <input type="text" name="billing_zipcode" id="billing_zipcode" value="<?php bind(getPreformData('billing_zipcode', getGlobal('billing_zipcode'))) ?>">
+        </div>
+
+        <div class="form-actions">
+          <!-- <a href="#"
+            data-action="<?php bind(ACTION_UPDATE_CART_USER_INFO) ?>"
+            data-form-selector=".user-data-form"
+            class="button primary bg-green border-green save-user-info"
+          ><i class="fas fa-check"></i> Guardar</a> -->
+          <button type="submit">
+            <i class="fas fa-check"></i> Guardar
+          </button>
+          <button type="reset">
+            <i class="fas fa-times"></i> Cancelar
+          </button>
         </div>
       </div>
     </fieldset>
+  </form>
 
+  <!-- <form action="">
     <fieldset>
       <legend>Datos de envío</legend>
 
@@ -105,7 +113,9 @@
         </div>
       </div>
     </fieldset>
+  </form> -->
 
+  <!-- <form action="">
     <fieldset>
       <legend>Método de pago</legend>
 
@@ -151,5 +161,5 @@
         </label>
       </div>
     </fieldset>
-  </form>
+  </form> -->
 </section>
