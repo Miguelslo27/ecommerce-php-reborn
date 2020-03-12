@@ -266,7 +266,7 @@ function bind($var)
  */
 function oneOf($var1, $var2)
 {
-  return $var1 ? $var1 : $var2;
+  return isset($var1) && !empty($var1) ? $var1 : $var2;
 }
 
 function executeJavaScript($sentence) {
@@ -292,11 +292,10 @@ function newStatusObject()
 function getPreformData($data, $or)
 {
   if (getPostData($data)) {
-    bind(getPostData($data));
-    return;
+    return getPostData($data);
   }
 
-  return bind($or);
+  return $or;
 }
 
 /* Debugging  */
