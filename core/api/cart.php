@@ -303,11 +303,11 @@ function transferOrder($fromUser, $toUser)
   return;
 }
 
-function saveOrderUserInfo() {
+function saveOrderBillingInfo() {
   /**
    * @TODO
    */
-  $status = saveOrderUserInfo_checkIncomingData();
+  $status = saveOrderBillingInfo_checkIncomingData();
 
   if (!$status->succeeded) {
     return $status;
@@ -330,56 +330,69 @@ function saveOrderUserInfo() {
   return $status;
 }
 
-function saveOrderUserInfo_checkIncomingData() {
+/**
+ * @TODO
+ */
+function getOrderBillingInfo($oid) {
+  logToConsole('$oid', $oid, __FILE__, __FUNCTION__, __LINE__);
+
+  $sql = (
+    "SELECT
+      `billing_name`,
+      `billing_document`,
+      `billing_address`,
+      `billing_state`,
+      `billing_city`,
+      `billing_zipcode`
+      FROM `orders`
+      WHERE `id` = $oid"
+  );
+
+  $order = getDB()->getObject($sql);
+  
+  return $order;
+}
+
+function saveOrderBillingInfo_checkIncomingData() {
   $status = newStatusObject();
 
-  if (!preg_match(REG_EXP_NAME_FORMAT, getRequestData('name'))) {
-    $status->fieldsWithErrors['name'] = true;
-    $status->errors[]                   = 'El nombre tiene un formato incorrecto. Tu nombre puede incluir letras, espacios y puntos';
-  }
-
-  if (!preg_match(REG_EXP_NAME_FORMAT, getRequestData('lastname'))) {
-    $status->fieldsWithErrors['lastname'] = true;
-    $status->errors[]                     = 'El apellido tiene un formato incorrecto. Tu nombre puede incluir letras, espacios y puntos';
-  }
-
-  if (empty(getRequestData('email'))) {
-    $status->fieldsWithErrors['email'] = true;
-    $status->errors[]                  = 'El email no puede ser vacío';
-  } elseif (!preg_match(REG_EXP_EMAIL_FORMAT, getRequestData('email'))) {
-    $status->fieldsWithErrors['email'] = true;
-    $status->errors[]                  = 'El email no tiene el formato correcto';
+  if (!preg_match(REG_EXP_NAME_FORMAT, getRequestData('fullname'))) {
+    $status->fieldsWithErrors['fullname'] = true;
+    $status->errors[]                     = 'El nombre tiene un formato incorrecto. Tu nombre puede incluir letras, espacios y puntos';
   }
 
   if (empty(getRequestData('document'))) {
     $status->fieldsWithErrors['document'] = true;
-    $status->errors[]                = 'Ingresa el RUT de tu empresa o tu número de documento';
+    $status->errors[]                     = 'Ingresa el RUT de tu empresa o tu número de documento';
   } elseif (!preg_match(REG_EXP_NUMBER_FORMAT, getRequestData(('document')))) {
     $status->fieldsWithErrors['document'] = true;
-    $status->errors[]                = 'El RUT o número de documento no puede contener caracteres alfabéticos, puntos ni guiones, sólo números';
+    $status->errors[]                     = 'El RUT o número de documento no puede contener caracteres alfabéticos, puntos ni guiones, sólo números';
   }
 
-  if (
-    empty(getRequestData('phone'))
-    && empty(getRequestData('cellphone'))
-  ) {
-    $status->fieldsWithErrors['phone'] = true;
-    $status->fieldsWithErrors['cellphone']  = true;
-    $status->errors[]                     = 'Debes ingresar al menos un número de teléfono, fijo o celular';
-  } elseif (
-    !empty(getRequestData('phone'))
-    && !preg_match(REG_EXP_STRING_NUMBER_FORMAT, getRequestData('phone'))
-  ) {
-    $status->fieldsWithErrors['phone'] = true;
-    $status->errors[]                     = 'El teléfono tiene un formato incorrecto. Puede incluir números, espacios y guiones';
-  } elseif (
-    !empty(getRequestData('cellphone'))
-    && !preg_match(REG_EXP_STRING_NUMBER_FORMAT, getRequestData('cellphone'))
-  ) {
-    $status->fieldsWithErrors['cellphone'] = true;
-    $status->errors[]                     = 'El celular tiene un formato incorrecto. Puede incluir números, espacios y guiones';
+  if (empty(getRequestData('address'))) {
+    $status->fieldsWithErrors['address'] = true;
+    $status->errors[]                    = 'Debes poner una dirección para facturar';
+  } elseif (!preg_match(REG_EXP_STRING_FORMAT, getRequestData(('address')))) {
+    $status->fieldsWithErrors['address'] = true;
+    $status->errors[]                    = 'La dirección tiene un formato incorrecto, puede incluir letras, números y signos de puntuación';
   }
 
+  if (empty(getRequestData('state'))) {
+    $status->fieldsWithErrors['state'] = true;
+    $status->errors[]                  = 'El departamento es obligatorio';
+  } elseif (!preg_match(REG_EXP_NAME_FORMAT, getRequestData(('state')))) {
+    $status->fieldsWithErrors['state'] = true;
+    $status->errors[]                  = 'El departamento tiene un formato incorrecto, puede incluir letras y signos de puntuación';
+  }
+
+  if (empty(getRequestData('city'))) {
+    $status->fieldsWithErrors['city'] = true;
+    $status->errors[]                 = 'La localidad es obligatoria';
+  } elseif (!preg_match(REG_EXP_NAME_FORMAT, getRequestData(('city')))) {
+    $status->fieldsWithErrors['city'] = true;
+    $status->errors[]                 = 'La localidad tiene un formato incorrecto, puede incluir letras y signos de puntuación';
+  }
+  
   if (count($status->errors) == 0) {
     $status->succeeded = true;
   }
