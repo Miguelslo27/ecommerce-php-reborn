@@ -121,14 +121,17 @@ i.fab+* {
   opacity: 0;
 }
 
-.collapsed {
-  height: 0;
+.collapsable {
   overflow: hidden;
   transition: height .3s ease;
 }
 
-.collapsed.visible {
+.collapsable.open {
   height: auto;
+}
+
+.collapsable.closed {
+  height: 0;
 }
 
 .bg-green {

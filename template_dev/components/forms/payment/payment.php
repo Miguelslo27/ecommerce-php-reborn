@@ -21,36 +21,31 @@
         </div>
       </div>
 
-      <div class="user-data-form collapsed">
-        <input type="hidden" name="action" value="<?php bind(ACTION_UPDATE_CART_USER_INFO) ?>">
+      <div class="user-data-form collapsable <?php formHasError('open', 'closed') ?>">
+        <input type="hidden" name="action" value="<?php bind(ACTION_UPDATE_CART_BILLING_INFO) ?>">
 
         <div class="form-group">
-          <label for="billing_name">Nombre completo *</label>
-          <input type="text" class="" name="billing_name" id="billing_name" value="<?php bind(getPreformData('billing_name', getGlobal('billing_name'))) ?>">
-          <label for="billing_document" class="align-center">RUT o CI * </label>
-          <input type="text" name="billing_document" id="billing_document" value="<?php bind(getPreformData('billing_document', getGlobal('billing_document'))) ?>">
+          <label for="billing_name" class="<?php fieldHasError('billing_name', 'error') ?>">Nombre *</label>
+          <input type="text" class="<?php fieldHasError('billing_name', 'error') ?>" name="billing_name" id="billing_name" value="<?php bind(getPreformData('billing_name', getGlobal('billing_name'))) ?>">
+          <label for="billing_document" class="align-center <?php fieldHasError('billing_document', 'error') ?>">RUT o Cédula * </label>
+          <input type="text" class="<?php fieldHasError('billing_document', 'error') ?>" name="billing_document" id="billing_document" value="<?php bind(getPreformData('billing_document', getGlobal('billing_document'))) ?>">
         </div>
 
         <div class="form-group">
-          <label for="billing_address">Dirección *</label>
-          <input type="text" class="" name="billing_address" id="billing_address" value="<?php bind(getPreformData('billing_address', getGlobal('billing_address'))) ?>">
-          <label for="billing_state" class="align-center">Departamento *</label>
-          <input type="text" class="" name="billing_state" id="billing_state" value="<?php bind(getPreformData('billing_state', getGlobal('billing_state'))) ?>">
+          <label for="billing_address" class="<?php fieldHasError('billing_address', 'error') ?>">Dirección *</label>
+          <input type="text" class="<?php fieldHasError('billing_address', 'error') ?>" name="billing_address" id="billing_address" value="<?php bind(getPreformData('billing_address', getGlobal('billing_address'))) ?>">
+          <label for="billing_state" class="align-center <?php fieldHasError('billing_state', 'error') ?>">Departamento *</label>
+          <input type="text" class="<?php fieldHasError('billing_state', 'error') ?>" name="billing_state" id="billing_state" value="<?php bind(getPreformData('billing_state', getGlobal('billing_state'))) ?>">
         </div>
 
         <div class="form-group">
-          <label for="billing_city">Localidad *</label>
-          <input type="text" class="" name="billing_city" id="billing_city" value="<?php bind(getPreformData('billing_city', getGlobal('billing_city'))) ?>">
-          <label for="billing_zipcode" class="align-center">Código postal</label>
-          <input type="text" name="billing_zipcode" id="billing_zipcode" value="<?php bind(getPreformData('billing_zipcode', getGlobal('billing_zipcode'))) ?>">
+          <label for="billing_city" class="<?php fieldHasError('billing_city', 'error') ?>">Localidad *</label>
+          <input type="text" class="<?php fieldHasError('billing_city', 'error') ?>" name="billing_city" id="billing_city" value="<?php bind(getPreformData('billing_city', getGlobal('billing_city'))) ?>">
+          <label for="billing_zipcode" class="align-center <?php fieldHasError('billing_zipcode', 'error') ?>">Código postal</label>
+          <input type="text" class="<?php fieldHasError('billing_zipcode', 'error') ?>" name="billing_zipcode" id="billing_zipcode" value="<?php bind(getPreformData('billing_zipcode', getGlobal('billing_zipcode'))) ?>">
         </div>
 
         <div class="form-actions">
-          <!-- <a href="#"
-            data-action="<?php bind(ACTION_UPDATE_CART_USER_INFO) ?>"
-            data-form-selector=".user-data-form"
-            class="button primary bg-green border-green save-user-info"
-          ><i class="fas fa-check"></i> Guardar</a> -->
           <button type="submit">
             <i class="fas fa-check"></i> Guardar
           </button>

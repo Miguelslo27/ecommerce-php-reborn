@@ -23,18 +23,6 @@ if ($request->action == ACTION_ADD_TO_CART) {
   $response     = json_encode($status);
 }
 
-if ($request->action == ACTION_UPDATE_CART_USER_INFO) {
-  /**
-   * @TODO
-   */
-  foreach ($request->data as $field => $value) {
-    setRequestData($field, $value);
-  }
-  
-  $status   = saveOrderUserInfo();
-  $response = json_encode($status);
-}
-
 if (!isset($status)) {
   header(getServer('SERVER_PROTOCOL') . ' 500 Internal server error');
   exit;
