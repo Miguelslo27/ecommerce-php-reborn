@@ -17,7 +17,9 @@ function init()
 
 function processRequests()
 {
-  logToConsole('action', getPostData('action'), __FILE__, __FUNCTION__, __LINE__);
+  logToConsole('post action', getPostData('action'), __FILE__, __FUNCTION__, __LINE__);
+  logToConsole('get action', getGetData('action'), __FILE__, __FUNCTION__, __LINE__);
+  logToConsole('request action', getRequestData('action'), __FILE__, __FUNCTION__, __LINE__);
 
   if (
     getPostData('action') === ACTION_LOGIN
