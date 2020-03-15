@@ -17,6 +17,8 @@ function init()
 
 function processRequests()
 {
+  logToConsole('action', getPostData('action'), __FILE__, __FUNCTION__, __LINE__);
+
   if (
     getPostData('action') === ACTION_LOGIN
     && !empty(getServer('REQUEST_METHOD'))
@@ -58,6 +60,18 @@ function processRequests()
     exit;
   }
 
+  /**
+   * @TODO
+   * process action ACTION_UPDATE_CART_BILLING_INFO
+   */
+
+  if (getRequestData('action') == ACTION_UPDATE_CART_BILLING_INFO) {
+    /**
+     * @TODO
+     */
+    setSession('request_messages', saveOrderBillingInfo());
+  }
+  
   if (getPostData('action') === ACTION_SAVE_CATEGORY) {
     // @TODO
   }

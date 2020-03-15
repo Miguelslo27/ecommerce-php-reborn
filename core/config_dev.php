@@ -30,6 +30,11 @@ define('ACTION_SAVE_CATEGORY', 'save_category');
 define('ACTION_SAVE_ARTICLE', 'save_article');
 define('ACTION_ADD_TO_CART', 'add_to_cart');
 
+/* CONSTANTS FOR PAYMENT */
+define('ACTION_UPDATE_CART_BILLING_INFO', 'update_cart_billing_info');
+define('ACTION_UPDATE_CART_SHIPPING_INFO', 'update_cart_shipping_info');
+define('ACTION_UPDATE_CART_PAYMENT_INFO', 'update_cart_payment_info');
+
 /* REGULAR EXPRESSIONS */
 define('REG_EXP_EMAIL_FORMAT', '/^[a-z0-9]+[a-z0-cribir9_.-]+@[a-z0-9_.-]{3,}.[a-z0-9_.-]{1,}.$/');
 define('REG_EXP_STRING_FORMAT', '/^[\w \.\,\/]*$/');

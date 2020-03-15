@@ -28,8 +28,17 @@
     <span class="value">$ <?php bind($orderTotal) ?></span>
   </div>
   <div class="summary actions">
+
   <?php if (isLoggedIn()) : ?>
-    <a href="/carrito/pagar" class="button primary">Pagar</a>
+    <?php if (getGlobal('sub_page') == 'payment') : ?>
+      <a href="/carrito/pagar" class="button primary">Finalizar</a>
+      <hr>
+      <a href="/carrito" class="button secondary">Editar el carrito</a>
+      <?php else : ?>
+      <a href="/carrito/pagar" class="button primary">Pagar</a>
+      <hr>
+      <a href="/categorias" class="button secondary">Seguir comprando</a>
+    <?php endif ?>
   <?php else : ?>
     <a href="/login" class="button primary">Ingresar</a>
     <hr>

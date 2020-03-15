@@ -23,6 +23,11 @@ if ($request->action == ACTION_ADD_TO_CART) {
   $response     = json_encode($status);
 }
 
+if (!isset($status)) {
+  header(getServer('SERVER_PROTOCOL') . ' 500 Internal server error');
+  exit;
+}
+
 if ($status->succeeded) {
   header(getServer('SERVER_PROTOCOL') . ' 200 Transaction succeeded');
 } else {

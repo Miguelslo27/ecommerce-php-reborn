@@ -8,10 +8,10 @@
     <input type="hidden" name="action" value="<?php bind(getCurrentUser() ? ACTION_USER_EDITION : ACTION_USER_REGISTRATION) ?>">
 
     <div class="form-group">
-      <label for="nombre">Nombre</label>
-      <input type="text" class="<?php getGlobal('classesHandler')('nombre', 'error') ?>" name="nombre" id="nombre" value="<?php getGlobal('getPreFormData')('nombre') ?>">
-      <label for="apellido" class="align-center">Apellido</label>
-      <input type="text" class="<?php getGlobal('classesHandler')('apellido', 'error') ?>" name="apellido" id="apellido" value="<?php getGlobal('getPreFormData')('apellido') ?>">
+      <label for="name" class="<?php getGlobal('classesHandler')('name', 'error') ?>">Nombre *</label>
+      <input type="text" class="<?php getGlobal('classesHandler')('name', 'error') ?>" name="name" id="name" value="<?php getGlobal('getPreFormData')('name') ?>">
+      <label for="lastname" class="align-center <?php getGlobal('classesHandler')('lastname', 'error') ?>">Apellido * </label>
+      <input type="text" class="<?php getGlobal('classesHandler')('lastname', 'error') ?>" name="lastname" id="lastname" value="<?php getGlobal('getPreFormData')('lastname') ?>">
     </div>
 
     <div class="form-line <?php getGlobal('classesHandler')('reg_email', 'error') ?>">
@@ -26,28 +26,28 @@
       <input type="password" class="<?php getGlobal('classesHandler')('pass2', 'error') ?>" name="pass2" id="pass2">
     </div>
 
-    <div class="form-line <?php getGlobal('classesHandler')('rut', 'error') ?>">
-      <label for="rut">Documento (RUT o CI) * </label>
-      <input type="text" name="rut" id="rut" value="<?php getGlobal('getPreFormData')('rut') ?>">
+    <div class="form-line <?php getGlobal('classesHandler')('document', 'error') ?>">
+      <label for="document">RUT o Cédula * </label>
+      <input type="text" name="document" id="document" value="<?php getGlobal('getPreFormData')('document') ?>">
     </div>
 
-    <div class="form-line <?php getGlobal('classesHandler')('direccion', 'error') ?>">
-      <label for="direccion">Dirección completa</label>
-      <input type="text" name="direccion" id="direccion" value="<?php getGlobal('getPreFormData')('direccion') ?>">
+    <div class="form-line <?php getGlobal('classesHandler')('address', 'error') ?>">
+      <label for="address">Dirección completa</label>
+      <input type="text" name="address" id="address" value="<?php getGlobal('getPreFormData')('address') ?>">
     </div>
     
     <div class="form-group">
-      <label for="departamento" class="<?php getGlobal('classesHandler')('departamento', 'error') ?>">Departamento</label>
-      <input type="text" class="<?php getGlobal('classesHandler')('departamento', 'error') ?>" name="departamento" id="departamento" value="<?php getGlobal('getPreFormData')('departamento') ?>">
-      <label for="ciudad" class="align-center <?php getGlobal('classesHandler')('ciudad', 'error') ?>">Localidad</label>
-      <input type="text" class="<?php getGlobal('classesHandler')('ciudad', 'error') ?>" name="ciudad" id="ciudad" value="<?php getGlobal('getPreFormData')('ciudad') ?>">
+      <label for="state" class="<?php getGlobal('classesHandler')('state', 'error') ?>">Departamento</label>
+      <input type="text" class="<?php getGlobal('classesHandler')('state', 'error') ?>" name="state" id="state" value="<?php getGlobal('getPreFormData')('state') ?>">
+      <label for="city" class="align-center <?php getGlobal('classesHandler')('city', 'error') ?>">Localidad</label>
+      <input type="text" class="<?php getGlobal('classesHandler')('city', 'error') ?>" name="city" id="city" value="<?php getGlobal('getPreFormData')('city') ?>">
     </div>
 
     <div class="form-group">
-      <label for="telefono" class="<?php getGlobal('classesHandler')('telefono', 'error') ?>">Teléfono *</label>
-      <input type="text" class="<?php getGlobal('classesHandler')('telefono', 'error') ?>" name="telefono" id="telefono" value="<?php getGlobal('getPreFormData')('telefono') ?>">
-      <label for="celular" class="align-center <?php getGlobal('classesHandler')('celular', 'error') ?>">Celular *</label>
-      <input type="text" class="<?php getGlobal('classesHandler')('celular', 'error') ?>" name="celular" id="celular" value="<?php getGlobal('getPreFormData')('celular') ?>">
+      <label for="phone" class="<?php getGlobal('classesHandler')('phone', 'error') ?>">Teléfono *</label>
+      <input type="text" class="<?php getGlobal('classesHandler')('phone', 'error') ?>" name="phone" id="phone" value="<?php getGlobal('getPreFormData')('phone') ?>">
+      <label for="cellphone" class="align-center <?php getGlobal('classesHandler')('cellphone', 'error') ?>">Celular *</label>
+      <input type="text" class="<?php getGlobal('classesHandler')('cellphone', 'error') ?>" name="cellphone" id="cellphone" value="<?php getGlobal('getPreFormData')('cellphone') ?>">
     </div>
 
     <div class="form-actions">
@@ -56,7 +56,7 @@
       <button type="reset">Revertir cambios</button>
       <?php else : ?>
       <button type="submit">Registrarme</button>
-      <a href="/login" class="button secondary">Ingresar</a>
+      <a href="/login" class="button secondary">Ya estoy registrado, ingresar</a>
       <?php endif ?>
     </div>
   </form>

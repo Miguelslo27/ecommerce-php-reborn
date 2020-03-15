@@ -32,7 +32,7 @@ function addToCart($qty = 1)
   }
 
   loadCart();
-  $status->success = "Se agregó <strong>$article->nombre</strong> al carrito";
+  $status->success = "Se agregó <strong>$article->name</strong> al carrito";
 
   return $status;
 }
@@ -96,16 +96,15 @@ function getOrderSqlGenerator($userid)
   $sql = (
     "SELECT
       `id`,
-      `fecha`,
+      `date`,
       `total`,
-      `cantidad`,
-      `estado`
+      `status`
       FROM
-        `pedido`
+        `orders`
       WHERE
-        `usuario_id` = \"$userid\"
-        AND `estado` = 4
-        AND `fecha` >= \"$dateFromtwoDaysAgo\""
+        `user_id` = \"$userid\"
+        AND `status` = 4
+        AND `date` >= \"$dateFromtwoDaysAgo\""
   );
 
   return $sql;
@@ -119,17 +118,15 @@ function createNewOrder($userid) {
   $sqlSelect = getOrderSqlGenerator($userid);
   $sqlInsert = (
     "INSERT
-      INTO `pedido` (
-        `usuario_id`,
-        `fecha`,
+      INTO `orders` (
+        `user_id`,
+        `date`,
         `total`,
-        `cantidad`,
-        `estado`
+        `status`
       )
       VALUES (
         \"$userid\",
         \"$gmdate\",
-        0,
         0,
         4
       )"
@@ -143,7 +140,7 @@ function createNewOrder($userid) {
 
 function getArticlePrice($article)
 {
-  return $article->oferta ? $article->precio_oferta : $article->precio;
+  return $article->offer ? $article->price_offer : $article->price;
 }
 
 function addToOrder($order, $article, $qty)
@@ -151,47 +148,44 @@ function addToOrder($order, $article, $qty)
   $price           = getArticlePrice($article);
   $subtotal        = $price * $qty;
   $order->total    = $order->total + $subtotal;
-  $order->cantidad = $order->cantidad + $qty;
 
   $sqlUpdate = (
     "UPDATE
-      `pedido`
+      `orders`
       SET
-        `total` = $order->total,
-        `cantidad` = $order->cantidad
+        `total` = $order->total
       WHERE
         `id` = $order->id"
   );
 
   if (!getDB()->query($sqlUpdate)) {
     $order->total    = $order->total - $subtotal;
-    $order->cantidad = $order->cantidad - $qty;
     return null;
   }
 
   $sqlInOrderArticle = (
     "SELECT
       `id`,
-      `cantidad`
+      `quantity`
       FROM
-        `articulo_pedido`
+        `in_order_articles`
       WHERE
-        `articulo_pedido`.`articulo_id` = $article->id
+        `in_order_articles`.`article_id` = $article->id
         AND
-        `articulo_pedido`.`pedido_id` = $order->id"
+        `in_order_articles`.`order_id` = $order->id"
   );
 
   $inOrderArticle = getDB()->getObject($sqlInOrderArticle);
 
   if (!empty($inOrderArticle)) {
-    if (($inOrderArticle->cantidad + $qty) > 0) {
+    if (($inOrderArticle->quantity + $qty) > 0) {
       $sqlInsert = (
         "UPDATE
-          `articulo_pedido`
+          `in_order_articles`
           SET
-            `precio_actual` = $price,
-            `cantidad` = $inOrderArticle->cantidad + $qty,
-            `subtotal` = $price * ($inOrderArticle->cantidad + $qty)
+            `current_price` = $price,
+            `quantity` = $inOrderArticle->quantity + $qty,
+            `subtotal` = $price * ($inOrderArticle->quantity + $qty)
           WHERE
             `id` = $inOrderArticle->id"
       );
@@ -199,7 +193,7 @@ function addToOrder($order, $article, $qty)
       $sqlInsert = (
         "DELETE
           FROM
-          `articulo_pedido`
+          `in_order_articles`
           WHERE
             `id` = $inOrderArticle->id"
       );
@@ -207,11 +201,11 @@ function addToOrder($order, $article, $qty)
   } else {
     $sqlInsert = (
       "INSERT
-        INTO `articulo_pedido` (
-          `pedido_id`,
-          `articulo_id`,
-          `precio_actual`,
-          `cantidad`,
+        INTO `in_order_articles` (
+          `order_id`,
+          `article_id`,
+          `current_price`,
+          `quantity`,
           `subtotal`
         )
         VALUES (
@@ -237,19 +231,19 @@ function getArticlesInOrder($oid)
 {
   $sql = (
     "SELECT
-      `articulo_pedido`.`id`,
-      `articulo_pedido`.`articulo_id`,
-      `articulo_pedido`.`precio_actual`,
-      `articulo_pedido`.`cantidad`,
-      `articulo_pedido`.`subtotal`,
-      `articulo`.`nombre`,
-      `articulo`.`codigo`,
-      `articulo`.`imagenes_url`
-      FROM `articulo_pedido`
-      JOIN `articulo`
-        ON `articulo_pedido`.`articulo_id` = `articulo`.`id`
+      `in_order_articles`.`id`,
+      `in_order_articles`.`article_id`,
+      `in_order_articles`.`current_price`,
+      `in_order_articles`.`quantity`,
+      `in_order_articles`.`subtotal`,
+      `articles`.`name`,
+      `articles`.`code`,
+      `articles`.`images_url`
+      FROM `in_order_articles`
+      JOIN `articles`
+        ON `in_order_articles`.`article_id` = `articles`.`id`
       WHERE
-        `articulo_pedido`.`pedido_id` = $oid"
+        `in_order_articles`.`order_id` = $oid"
   );
 
   return getDB()->getObjects($sql);
@@ -298,13 +292,128 @@ function transferOrder($fromUser, $toUser)
 
   $sqlUpdate = (
     "UPDATE
-      `pedido`
+      `orders`
       SET
-        `usuario_id` = $toUser
+        `user_id` = $toUser
       WHERE
-        `usuario_id` = $fromUser"
+        `user_id` = $fromUser"
   );
 
   getDB()->query($sqlUpdate);
   return;
+}
+
+function saveOrderBillingInfo() {
+  /**
+   * @TODO
+   */
+  $status = saveOrderBillingInfo_checkIncomingData();
+
+  if (!$status->succeeded) {
+    return $status;
+  }
+
+  $orderid = getCurrentCart()->order->id;
+
+  $sql = (
+    "UPDATE
+      `orders`
+      SET
+        `billing_name` = \"" . getPostData('billing_name') . "\",
+        `billing_document` = \"" . getPostData('billing_document') . "\",
+        `billing_address` = \"" . getPostData('billing_address') . "\",
+        `billing_state` = \"" . getPostData('billing_state') . "\",
+        `billing_city` = \"" . getPostData('billing_city') . "\",
+        `billing_zipcode` = \"" . getPostData('billing_zipcode') . "\"
+      WHERE
+        `id` = $orderid"
+  );
+
+  if (!getDB()->query($sql)) {
+    $status->succedded = false;
+    $status->errors[]  = 'Error al guardar los datos, vuelve a intentar';
+    return $status;
+  }
+
+  $status->success = 'Información guardada con éxito';
+
+  return $status;
+}
+
+function saveOrderBillingInfo_checkIncomingData() {
+  $status = newStatusObject();
+
+  if (empty(getRequestData('billing_name'))) {
+    $status->fieldsWithErrors['billing_name'] = true;
+    $status->errors[]                         = 'El nombre de la factura no puede ser vacío';
+  } elseif (!preg_match(REG_EXP_NAME_FORMAT, getRequestData('billing_name'))) {
+    $status->fieldsWithErrors['billing_name'] = true;
+    $status->errors[]                         = 'El nombre tiene un formato incorrecto. Tu nombre puede incluir letras, espacios y puntos';
+  }
+
+  if (empty(getRequestData('billing_document'))) {
+    $status->fieldsWithErrors['billing_document'] = true;
+    $status->errors[]                             = 'Ingresa el RUT de tu empresa o tu número de documento';
+  } elseif (!preg_match(REG_EXP_NUMBER_FORMAT, getRequestData('billing_document'))) {
+    $status->fieldsWithErrors['billing_document'] = true;
+    $status->errors[]                             = 'El RUT o número de documento no puede contener caracteres alfabéticos, puntos ni guiones, sólo números';
+  }
+
+  if (empty(getRequestData('billing_address'))) {
+    $status->fieldsWithErrors['billing_address'] = true;
+    $status->errors[]                            = 'Debes poner una dirección para facturar';
+  } elseif (!preg_match(REG_EXP_STRING_FORMAT, getRequestData('billing_address'))) {
+    $status->fieldsWithErrors['billing_address'] = true;
+    $status->errors[]                            = 'La dirección tiene un formato incorrecto, puede incluir letras, números y signos de puntuación';
+  }
+
+  if (empty(getRequestData('billing_state'))) {
+    $status->fieldsWithErrors['billing_state'] = true;
+    $status->errors[]                          = 'El departamento es obligatorio';
+  } elseif (!preg_match(REG_EXP_NAME_FORMAT, getRequestData('billing_state'))) {
+    $status->fieldsWithErrors['billing_state'] = true;
+    $status->errors[]                          = 'El departamento tiene un formato incorrecto, puede incluir letras y signos de puntuación';
+  }
+
+  if (empty(getRequestData('billing_city'))) {
+    $status->fieldsWithErrors['billing_city'] = true;
+    $status->errors[]                         = 'La localidad es obligatoria';
+  } elseif (!preg_match(REG_EXP_NAME_FORMAT, getRequestData('billing_city'))) {
+    $status->fieldsWithErrors['billing_city'] = true;
+    $status->errors[]                         = 'La localidad tiene un formato incorrecto, puede incluir letras y signos de puntuación';
+  }
+
+  if (
+    !empty(getRequestData('billing_zipcode'))
+    && !preg_match(REG_EXP_NUMBER_FORMAT, getRequestData('billing_zipcode'))
+  ) {
+    $status->fieldsWithErrors['billing_zipcode'] = true;
+    $status->errors[]                            = 'El código postal tiene un formato incorrecto, debe contener sólo números.';
+  }
+
+  if (count($status->errors) == 0) {
+    $status->succeeded = true;
+  }
+
+  return $status;
+}
+
+function getOrderBillingInfo($oid) {
+  logToConsole('$oid', $oid, __FILE__, __FUNCTION__, __LINE__);
+
+  $sql = (
+    "SELECT
+      `billing_name`,
+      `billing_document`,
+      `billing_address`,
+      `billing_state`,
+      `billing_city`,
+      `billing_zipcode`
+      FROM `orders`
+      WHERE `id` = $oid"
+  );
+
+  $order = getDB()->getObject($sql);
+  
+  return $order;
 }

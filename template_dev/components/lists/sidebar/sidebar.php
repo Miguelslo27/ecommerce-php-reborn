@@ -13,10 +13,10 @@
     >
       <a href="/categoria/?cid=<?php bind($category->id) ?>">
         <i class="fas fa-chevron-right"></i>
-        <span><?php bind($category->titulo) ?></span>
+        <span><?php bind($category->title) ?></span>
       </a>
     </li>
-    <?php $subcats = getCategories("`categoria_id` = $category->id AND `estado` = 1") ?>
+    <?php $subcats = getCategories("`category_id` = $category->id AND `status` = 1") ?>
     <?php if (!empty($subcats)) : ?>
     <?php foreach ($subcats as $subcat) : ?>
     <li
@@ -28,7 +28,7 @@
         );
       ?> <?php
         bind(
-          $subcat->categoria_id != 0
+          $subcat->category_id != 0
             ? 'subcategory'
             : ''
         );
@@ -36,7 +36,7 @@
     >
       <a href="/categoria/?cid=<?php bind($subcat->id) ?>">
         <i class="fas fa-chevron-right"></i>
-        <span><?php bind($subcat->titulo) ?></span>
+        <span><?php bind($subcat->title) ?></span>
       </a>
     </li>
     <?php endforeach ?>

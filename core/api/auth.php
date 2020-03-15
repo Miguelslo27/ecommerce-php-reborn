@@ -19,22 +19,22 @@ function runLogin()
   $sql = (
     "SELECT
         `id`,
-        `nombre`,
-        `apellido`,
+        `name`,
+        `lastname`,
         `email`,
-        `rut`,
-        `direccion`,
-        `departamento`,
-        `ciudad`,
-        `telefono`,
-        `celular`,
-        `administrador`
+        `document`,
+        `address`,
+        `state`,
+        `city`,
+        `phone`,
+        `cellphone`,
+        `isadmin`
       FROM
-        `usuario`
+        `users`
       WHERE
         `email` = '$email'
       AND
-        `clave` = '$pass'"
+        `password` = '$pass'"
   );
 
   $user = getDB()->getObject($sql);
