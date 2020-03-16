@@ -9,6 +9,8 @@ function printRecursively($object)
     $spaces[] = '  ';
   }
 
+  if (empty($object)) return;
+
   foreach ($object as $key => $value) {
     if (gettype($value) === 'array' || gettype($value) === 'object') {
       $GLOBALS['level'] ++;
@@ -31,7 +33,9 @@ error_log("----------------------------------------------\n", 3, 'logfile.txt');
 error_log("---------------    REQUEST    ----------------\n", 3, 'logfile.txt');
 error_log("----------------------------------------------\n", 3, 'logfile.txt');
 
-printRecursively(apache_request_headers());
+$request_h = apache_request_headers();
+
+printRecursively($request_h);
 
 error_log("----------------------------------------------\n", 3, 'logfile.txt');
 
@@ -43,7 +47,6 @@ sleep(10);
 
 exec('git checkout -- .', $commandOutput);
 exec('git pull', $commandOutput);
-// exec('cp ~/_setup_/.htaccess ./');
 exec('chmod -R 755 ./');
 
 error_log("----------------------------------------------\n", 3, 'logfile.txt');

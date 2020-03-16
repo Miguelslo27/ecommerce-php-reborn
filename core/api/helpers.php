@@ -320,10 +320,11 @@ function logToConsole($prefix, $variable, $file = null, $function = null, $line 
       $logs[] = $varname . ' = ' . $variable . ';';
     }
 
-    if (
-      $vartype == 'boolean'
-      || $vartype == 'integer'
-    ) {
+    if ($vartype == 'boolean') {
+      $logs[] = $varname . ' = ' . ($variable ? 'true' : 'false') . ';';
+    }
+
+    if ($vartype == 'integer') {
       $logs[] = $varname . ' = ' . $variable . ';';
     }
 
@@ -335,13 +336,30 @@ function logToConsole($prefix, $variable, $file = null, $function = null, $line 
     $logs[] = $varname . ' = `' . $strvar .'`;';;
   }
 
-  $date = new DateTime('NOW', new DateTimeZone('AMERICA/MONTEVIDEO'));
+  $date   = new DateTime('NOW', new DateTimeZone('AMERICA/MONTEVIDEO'));
+
+  if (
+    empty(getSession('ruri'))
+    || getSession('ruri') != getServer('REQUEST_URI')
+  ) {
+    setSession('ruri', getServer('REQUEST_URI'));
+    error_log('--------------------------------------------------------------' . "\n", 3, getServer('DOCUMENT_ROOT') . '/debug.txt');
+    error_log('--------------- ' . getSession('ruri') . "\n", 3, getServer('DOCUMENT_ROOT') . '/debug.txt');
+    error_log('--------------------------------------------------------------' . "\n", 3, getServer('DOCUMENT_ROOT') . '/debug.txt');
+  } else {
+    setSession('ruri', getServer('REQUEST_URI'));
+  }
 
   if (isset($file)) {
     $logs[] = 'console.log(\'%c' . $date->format('Y-m-d H:i') . ' #PHP:[' . addslashes($file) . '][' . $function . ']:' . $line . '\', \'font-size: 14px; font-weight: bold; color: #474A8A\');';
     $logs[] = 'console.log(\'%c' . $date->format('Y-m-d H:i') . (!empty($prefix) ? ' ' . $prefix : '') . ' ->>>>> \', \'font-size: 14px; font-weight: bold;\', ' . $varname . ')';
+
+    error_log($date->format('Y-m-d H:i') . ' [' . addslashes($file) . '][' . $function . ']:' . $line . "\n", 3, getServer('DOCUMENT_ROOT') . '/debug.txt');
+    error_log($date->format('Y-m-d H:i') . (!empty($prefix) ? ' ' . $prefix : '') . ' ->>>>> ' . $variable . "\n", 3, getServer('DOCUMENT_ROOT') . '/debug.txt');
   } else {
     $logs[] = 'console.log(\'%c' . $date->format('Y-m-d H:i') . (!empty($prefix) ? ' ' . $prefix : '') . '\', \'font-size: 14px; font-weight: bold;\', ' . $varname . ')';
+
+    error_log($date->format('Y-m-d H:i') . ' ' . (!empty($prefix) ? ' ' . $prefix : '') . $variable . "\n", 3, getServer('DOCUMENT_ROOT') . '/debug.txt');
   }
 
   setGlobal('__console__logs__', $logs);
