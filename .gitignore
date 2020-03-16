@@ -5,3 +5,15 @@ statics/images/catalogos
 logfile.txt
 error_log
 error.*
+debug.*
+
+# IGNORE TO AVOID COMMIT
+__administrar-pedidos/
+__administrar-usuarios/
+__app/
+__core/
+__detalle/
+__logout/
+__mis-pedidos/
+__suscripcion/
+statics/__css/
