@@ -17,8 +17,6 @@ function init()
 
 function processRequests()
 {
-  logToConsole('action', getPostData('action'), __FILE__, __FUNCTION__, __LINE__);
-
   if (
     getPostData('action') === ACTION_LOGIN
     && !empty(getServer('REQUEST_METHOD'))
