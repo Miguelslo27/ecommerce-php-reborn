@@ -146,7 +146,13 @@ function getTemplateRelativePath()
  */
 function getTemplate($template, $includepath = true, $includeextension = true)
 {
-  include(($includepath ? getTemplateAbsolutePath() : '') . $template . ($includeextension ? '.php' : ''));
+  $templateLocation = ($includepath ? getTemplateAbsolutePath() : '') . $template . ($includeextension ? '.php' : '');
+  /**
+   * @TODO
+   * Add the hability to include index.php without specify the file name
+   * just the folder
+   */
+  include($templateLocation);
 }
 
 function getRequestURIPath()
