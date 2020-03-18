@@ -15,13 +15,13 @@
           <a href="#"
             class="button icon primary"
             data-action="switch"
-            data-selector=".user-data-form"
+            data-selector=".billing-info-form"
             data-prevent-default="true"
           ><i class="far fa-edit"></i></a>
         </div>
       </div>
 
-      <div class="user-data-form collapsable <?php formHasError('open', 'closed') ?>">
+      <div class="billing-info-form collapsable <?php formHasError('open', 'closed') ?>">
         <input type="hidden" name="action" value="<?php bind(ACTION_UPDATE_CART_BILLING_INFO) ?>">
 
         <div class="form-group">
