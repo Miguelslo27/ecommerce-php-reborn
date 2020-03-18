@@ -25,7 +25,6 @@ newDocument([
     }
 
     setSession('redirectTo', oneOf(@$_SERVER['HTTP_REFERER'], '/'));
-    setSession('request_messages', getGlobal('request_' . ACTION_LOGIN . '_messages'));
 
     $classesHandler = function ($field, $class)
     {
