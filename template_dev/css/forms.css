@@ -32,17 +32,17 @@ form .form-group>*:not(button) {
   padding: .5rem;
 }
 
-form .form-group >*:not(input):first-child {
+form .form-group >*:not(input):not(textarea):first-child {
   padding-left: 0;
   padding-right: 1rem;
 }
 
-form .form-group >*:not(input):last-child {
+form .form-group >*:not(input):not(textarea):last-child {
   padding-left: 1rem;
   padding-right: 0;
 }
 
-form .form-line >*:not(input) {
+form .form-line >*:not(input):not(textarea) {
   padding-left: 0;
   width: 25%;
 }

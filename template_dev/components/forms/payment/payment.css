@@ -33,22 +33,22 @@
   margin: 0;
 }
 
-.payment-form form .form-group.group-grid.columns-3 >* {
+.billing-info .form-group.group-grid.columns-3 >* {
   width: 40%;
 }
 
-.payment-form form .form-group.group-grid.columns-3 >.span-2 {
+.billing-info .form-group.group-grid.columns-3 >.span-2 {
   width: 80%;
 }
 
-.payment-form form .form-group.group-grid .side-actions {
+.billing-info .form-group.group-grid .side-actions {
   align-items: center;
   display: flex;
   justify-content: space-evenly;
   width: 20%;
 }
 
-.payment-form form .form-group.group-grid .side-actions >.button {
+.billing-info .form-group.group-grid .side-actions >.button {
   align-items: center;
   border-radius: .5rem;
   display: flex;

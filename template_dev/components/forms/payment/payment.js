@@ -1,9 +1,11 @@
 console.log('In payment');
 
-const switchActionLinks    = document.querySelectorAll('[data-action="switch"]');
-const shippingRadioButtons = document.querySelectorAll('[name="shipping"]');
-const collapsableBoxes     = document.querySelectorAll('.collapsable');
-const TIMETORELOAD         = 600;
+const switchActions         = document.querySelectorAll('[data-action="switch"]');
+const collapsableBoxes      = document.querySelectorAll('.collapsable');
+const shippingReceiveRadio  = document.getElementById('shipping-receive');
+const shippingWithdrawRadio = document.getElementById('shipping-withdraw');
+const copyBillingAddrCheck  = document.getElementById('copy-billing-address');
+const TIMETORELOAD          = 600;
 
 collapsableBoxes.forEach(box => {
   box.dataset.height = box.scrollHeight;
@@ -15,30 +17,78 @@ collapsableBoxes.forEach(box => {
 
 function handleSwitchAction(ev) {
   const target         = document.querySelector(this.dataset.selector);
-  const height         = target.dataset.height;
   const preventDefault = this.dataset.preventDefault;
+  const perform        = this.dataset.perform;
 
   if (preventDefault) {
     ev.preventDefault();
   }
 
-  if (target.classList.contains('open')) {
+  switchBox(target, perform);
+}
+
+function switchBox(target, perform) {
+  const height  = target.dataset.height;
+
+  if (
+    target.classList.contains('open')
+    && (
+      !perform
+      || perform == "close"
+    )
+  ) {
     target.style.height = `0`;
     target.classList.remove('open');
     target.classList.add('closed');
-  } else {
+  } else if (
+    target.classList.contains('closed')
+    && (
+      !perform
+      || perform == "open"
+    )
+  ) {
     target.style.height = `${height}px`;
     target.classList.remove('closed');
     target.classList.add('open');
   }
 }
 
-switchActionLinks.forEach(link => {
-  link.addEventListener('click', function (ev) {
-    handleSwitchAction.call(this, ev);
-  });
+shippingReceiveRadio.addEventListener('click', function (ev) {
+  if (this.checked) {
+    copyBillingAddrCheck.disabled = false;
+  } else {
+    copyBillingAddrCheck.disabled = true;
+  }
+
+  if (copyBillingAddrCheck.checked) {
+    this.dataset.perform = 'close';
+  } else {
+    this.dataset.perform = 'open';
+  }
+
+  handleSwitchAction.call(this, ev);
 });
 
-shippingRadioButtons.forEach(radiobutton => {
-  radiobutton.addEventListener('click', handleSwitchAction);
+shippingWithdrawRadio.addEventListener('click', function (ev) {
+  if (this.checked) {
+    copyBillingAddrCheck.disabled = true;
+  } else {
+    copyBillingAddrCheck.disabled = false;
+  }
+});
+
+copyBillingAddrCheck.addEventListener('click', function (ev) {
+  if (this.checked && shippingReceiveRadio.checked) {
+    shippingReceiveRadio.dataset.perform = 'close';
+  } else {
+    shippingReceiveRadio.dataset.perform = 'open';
+  }
+
+  handleSwitchAction.call(shippingReceiveRadio, ev);
+});
+
+switchActions.forEach(switchAction => {
+  switchAction.addEventListener('click', function (ev) {
+    handleSwitchAction.call(this, ev);
+  });
 });
