@@ -399,8 +399,6 @@ function saveOrderBillingInfo_checkIncomingData() {
 }
 
 function getOrderBillingInfo($oid) {
-  logToConsole('$oid', $oid, __FILE__, __FUNCTION__, __LINE__);
-
   $sql = (
     "SELECT
       `billing_name`,
