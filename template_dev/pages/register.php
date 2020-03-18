@@ -15,19 +15,25 @@ newDocument([
   ],
   'beforeRender' => function ()
   {
-    $requestMessages = getGlobal('request_' . ACTION_USER_REGISTRATION . '_messages');
-    setSession('request_messages', $requestMessages);
+    $requestMessages = getSession('request_messages');
 
     if (@$requestMessages->succeeded) {
-      executeJavaScript('window.location.href = "/"');
+      header('Location: ' . (
+        getSession('redirectTo') !== getServer('HTTP_ORIGIN') . getServer('REQUEST_URI')
+        ? getSession('redirectTo')
+        : '/'
+      ));
+      exit;
     }
+
+    setSession('redirectTo', oneOf(@$_SERVER['HTTP_REFERER'], '/'));
 
     $classesHandler = function ($field, $class)
     {
       bind(
-        !empty(getGlobal('request_messages'))
-        && isset(getGlobal('request_messages')->fieldsWithErrors[$field])
-        && getGlobal('request_messages')->fieldsWithErrors[$field]
+        !empty(getSession('request_messages'))
+        && isset(getSession('request_messages')->fieldsWithErrors[$field])
+        && getSession('request_messages')->fieldsWithErrors[$field]
           ? $class
           : ''
       );
@@ -48,15 +54,5 @@ newDocument([
 
     setGlobal('classesHandler', $classesHandler);
     setGlobal('getPreFormData', $getPreFormData);
-    setGlobal('request_messages', $requestMessages);
-  },
-  'afterRender' => function ()
-  {
-    if (
-      !empty(getSession('request_messages'))
-      && count((getSession('request_messages')->errors)) > 0
-    ) {
-      setSession('request_messages', null);
-    }
   }
 ]);

@@ -22,10 +22,7 @@ function processRequests()
     && !empty(getServer('REQUEST_METHOD'))
     && strtolower(getServer('REQUEST_METHOD')) == 'post'
   ) {
-    setGlobal(
-      'request_' . ACTION_LOGIN . '_messages',
-      runLogin()
-    );
+    setSession('request_messages', runLogin());
   }
 
   if (getRequestData('action') === ACTION_LOGOUT) {
@@ -39,10 +36,7 @@ function processRequests()
     && !empty(getServer('REQUEST_METHOD'))
     && strtolower(getServer('REQUEST_METHOD')) == 'post'
   ) {
-    setGlobal(
-      'request_' . ACTION_USER_REGISTRATION . '_messages',
-      registerNewUser()
-    );
+    setSession('request_messages', registerNewUser());
   }
 
   /**
