@@ -54,6 +54,11 @@ function getSession($var)
   return $_SESSION[$var];
 }
 
+function getSessions()
+{
+  return $_SESSION;
+}
+
 /* Server */
 /**
  * Set Server variable
@@ -72,6 +77,11 @@ function getServer($var = null)
   if (!isset($var)) return $_SERVER;
   if (!isset($_SERVER[$var])) return null;
   return $_SERVER[$var];
+}
+
+function getServers()
+{
+  return $_SERVER;
 }
 
 function getRealIP()
@@ -96,6 +106,7 @@ function setRequestData($var, $value)
 {
   $_REQUEST[$var] = $value;
 }
+
 /**
  * Get Request Data variable
  */
@@ -103,6 +114,11 @@ function getRequestData($var)
 {
   if (!isset($_REQUEST[$var])) return null;
   return htmlspecialchars(trim($_REQUEST[$var]));
+}
+
+function getRequestAll()
+{
+  return $_REQUEST;
 }
 
 /**
@@ -114,6 +130,11 @@ function getGetData($var)
   return htmlspecialchars(trim($_GET[$var]));
 }
 
+function getGetAll()
+{
+  return $_GET;
+}
+
 /**
  * Get POST request variable
  */
@@ -121,6 +142,11 @@ function getPostData($var)
 {
   if (!isset($_POST[$var])) return null;
   return htmlspecialchars(trim($_POST[$var]));
+}
+
+function getPostAll()
+{
+  return $_POST;
 }
 
 /* Templating */
