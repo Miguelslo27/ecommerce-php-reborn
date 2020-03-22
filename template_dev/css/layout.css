@@ -150,6 +150,10 @@ i.fab+* {
   border-color: #C71D14 !important;
 }
 
+.error {
+  color: red;
+}
+
 @keyframes visibleAnimation {
   from {
     opacity: 0;
@@ -303,6 +307,20 @@ i.fab+* {
 
 .button.secondary {
   border: 2px solid #930077;
+}
+
+.button.disabled,
+.button.primary.disabled,
+.button.secondary.disabled,
+.button.disabled:focus,
+.button.primary.disabled:focus,
+.button.secondary.disabled:focus,
+.button.disabled:active,
+.button.primary.disabled:active,
+.button.secondary.disabled:active {
+  background: #efefef;
+  border: 2px solid #999;
+  color: #999;
 }
 
 .button.primary:active,
