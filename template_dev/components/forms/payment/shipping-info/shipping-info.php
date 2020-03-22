@@ -2,6 +2,27 @@
   <fieldset>
     <legend><span>2</span> Datos de envío</legend>
 
+    <div class="shipping-info-data collapsable <?php bind(empty(getPreformData('copy-billing-address', '')) ? 'open' : 'closed') ?>">
+      <div class="form-group group-grid columns-3">
+        <div class="span-2">
+          <p class="<?php bind(shippingInfoIsIncomplete() ? 'error' : '') ?>">
+            <strong>Dirección de envío: *</strong><br>
+            <?php bind(oneOf(getGlobal('shipping_fulladdress'), 'Sin definir')) ?>
+          </p>
+        </div>
+
+        <div class="side-actions">
+          <a href="#"
+            class="button icon primary <?php bind(shippingInfoFormHasErrors() || shippingInfoIsIncomplete() ? 'disabled' : '') ?>"
+            data-action="switch"
+            data-selector=".shipping-info-form"
+            data-prevent-default="true"
+            <?php bind(shippingInfoFormHasErrors() || shippingInfoIsIncomplete() ? 'data-perform="open"' : '') ?>
+          ><i class="far fa-edit"></i></a>
+        </div>
+      </div>
+    </div>
+
     <div class="form-group group-grid columns-3">
       <label for="shipping-receive">
         <input
@@ -9,13 +30,9 @@
           name="shipping"
           id="shipping-receive"
           value="receive"
+          data-selector=".shipping-info-form, .shipping-info-data"
           checked
-          data-selector=".shipping-form"
         >
-        <!--
-          data-action="switch"
-          data-perform="open"
-        -->
         <span>Quiero recibir mi pedido</span>
       </label>
 
@@ -27,7 +44,7 @@
           value="withdraw"
           data-action="switch"
           data-perform="close"
-          data-selector=".shipping-form"
+          data-selector=".shipping-info-form"
           data-height="0"
         >
         <span>Retiro personalmente</span>
@@ -38,44 +55,68 @@
           type="checkbox"
           name="copy-billing-address"
           id="copy-billing-address"
-          checked
+          <?php bind(!empty(getPreformData('copy-billing-address', '')) ? 'checked' : '') ?>
         >
         <span>Usar dirección de facturación</span>
       </label>
     </div>
 
-    <div class="shipping-form collapsable closed">
-      <div class="form-line">
-        <label for="direccion">Dirección</label>
-        <input type="text" name="direccion" id="direccion" value="<?php getPreformData('direccion', getCurrentUser()->address) ?>">
+    <div class="shipping-info-form collapsable <?php bind((shippingInfoFormHasErrors() && empty(getPreformData('copy-billing-address', '')) || shippingInfoIsIncomplete()) ? 'open' : 'closed') ?>">
+      <input type="hidden" name="action" value="<?php bind(ACTION_UPDATE_CART_SHIPPING_INFO) ?>">
+
+      <div class="form-line <?php fieldHasError('shipping_address', 'error') ?>">
+        <label for="shipping_address">Dirección *</label>
+        <input type="text" name="shipping_address" id="shipping_address" value="<?php bind(getPreformData('shipping_address', getCurrentUser()->address)) ?>">
       </div>
 
       <div class="form-group">
-        <label for="departamento" class="">Departamento</label>
-        <input type="text" class="" name="departamento" id="departamento" value="<?php getPreformData('departamento', getCurrentUser()->state) ?>">
-        <label for="ciudad" class="align-center">Localidad</label>
-        <input type="text" class="" name="ciudad" id="ciudad" value="<?php getPreformData('ciudad', getCurrentUser()->city) ?>">
+        <label for="shipping_state" class="<?php fieldHasError('shipping_state', 'error') ?>">Departamento *</label>
+        <input type="text" class="<?php fieldHasError('shipping_state', 'error') ?>" name="shipping_state" id="shipping_state" value="<?php bind(getPreformData('shipping_state', getCurrentUser()->state)) ?>">
+        <label for="shipping_city" class="align-center <?php fieldHasError('shipping_city', 'error') ?>">Localidad *</label>
+        <input type="text" class="<?php fieldHasError('shipping_city', 'error') ?>" name="shipping_city" id="shipping_city" value="<?php bind(getPreformData('shipping_city', getCurrentUser()->city)) ?>">
       </div>
 
       <div class="form-group">
-        <label for="agencia">Agencia de envío</label>
-        <input type="text" name="agencia" id="agencia" value="<?php getPreformData('agencia', '') ?>">
-        <label for="zipcode" class="align-center">Código postal</label>
-        <input type="text" name="zipcode" id="zipcode" value="<?php getPreformData('zipcode', '') ?>">
+        <label for="shipping_agency" class="<?php fieldHasError('shipping_agency', 'error') ?>">Agencia de envío</label>
+        <input type="text" class="<?php fieldHasError('shipping_agency', 'error') ?>" name="shipping_agency" id="shipping_agency" value="<?php bind(getPreformData('shipping_agency', '')) ?>">
+        <label for="shipping_zipcode" class="align-center <?php fieldHasError('shipping_zipcode', 'error') ?>">Código postal</label>
+        <input type="text" class="<?php fieldHasError('shipping_zipcode', 'error') ?>" name="shipping_zipcode" id="shipping_zipcode" value="<?php bind(getPreformData('shipping_zipcode', '')) ?>">
       </div>
+    </div>
 
-      <div class="form-line">
+    <div>
+      <div class="form-line <?php fieldHasError('additional_notes', 'error') ?>">
         <label for="additional_notes">Comentarios adicionales</label>
-        <textarea name="additional_notes" id="additional_notes" cols="30" rows="5"></textarea>
+        <textarea name="additional_notes" id="additional_notes" cols="30" rows="5"><?php bind(getPreformData('additional_notes', '')) ?></textarea>
       </div>
 
       <div class="form-actions">
         <button type="submit">
           <i class="fas fa-check"></i> Guardar
         </button>
-        <button type="reset">
-          <i class="fas fa-times"></i> Cancelar
-        </button>
+
+        <?php if (shippingInfoFormHasErrors()) : ?>
+          <button
+            type="reset"
+            data-action="switch"
+            data-perform="open"
+            data-prevent-default="true"
+            data-selector=".shipping-info-form"
+            disabled
+          >
+            <i class="fas fa-times"></i> Cancelar
+          </button>
+        <?php else : ?>
+          <a
+            href="#"
+            class="button secondary"
+            data-action="switch"
+            data-perform="close"
+            data-prevent-default="true"
+            data-selector=".shipping-info-form"
+          ><i class="fas fa-times"></i> Cancelar</a>
+        <?php endif ?>
+
       </div>
     </div>
   </fieldset>
