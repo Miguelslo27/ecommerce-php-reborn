@@ -16,15 +16,15 @@ collapsableBoxes.forEach(box => {
 });
 
 function handleSwitchAction(ev) {
-  const target         = document.querySelector(this.dataset.selector);
-  const preventDefault = this.dataset.preventDefault;
+  const target         = document.querySelectorAll(this.dataset.selector);
+  const preventDefault = (this.dataset.preventDefault === 'true' ? true : false);
   const perform        = this.dataset.perform;
 
   if (preventDefault) {
     ev.preventDefault();
   }
 
-  switchBox(target, perform);
+  target.forEach(el => switchBox(el, perform))
 }
 
 function switchBox(target, perform) {
