@@ -304,9 +304,6 @@ function transferOrder($fromUser, $toUser)
 }
 
 function saveOrderBillingInfo() {
-  /**
-   * @TODO
-   */
   $status = saveOrderBillingInfo_checkIncomingData();
 
   if (!$status->succeeded) {
@@ -335,7 +332,7 @@ function saveOrderBillingInfo() {
     return $status;
   }
 
-  $status->success = 'Información guardada con éxito';
+  $status->success = 'Información de facturación guardada con éxito';
 
   return $status;
 }
@@ -343,49 +340,49 @@ function saveOrderBillingInfo() {
 function saveOrderBillingInfo_checkIncomingData() {
   $status = newStatusObject();
 
-  if (empty(getRequestData('billing_name'))) {
+  if (empty(getPostData('billing_name'))) {
     $status->fieldsWithErrors['billing_name'] = true;
     $status->errors[]                         = 'El nombre de la factura no puede ser vacío';
-  } elseif (!preg_match(REG_EXP_NAME_FORMAT, getRequestData('billing_name'))) {
+  } elseif (!preg_match(REG_EXP_NAME_FORMAT, getPostData('billing_name'))) {
     $status->fieldsWithErrors['billing_name'] = true;
     $status->errors[]                         = 'El nombre tiene un formato incorrecto. Tu nombre puede incluir letras, espacios y puntos';
   }
 
-  if (empty(getRequestData('billing_document'))) {
+  if (empty(getPostData('billing_document'))) {
     $status->fieldsWithErrors['billing_document'] = true;
     $status->errors[]                             = 'Ingresa el RUT de tu empresa o tu número de documento';
-  } elseif (!preg_match(REG_EXP_NUMBER_FORMAT, getRequestData('billing_document'))) {
+  } elseif (!preg_match(REG_EXP_NUMBER_FORMAT, getPostData('billing_document'))) {
     $status->fieldsWithErrors['billing_document'] = true;
     $status->errors[]                             = 'El RUT o número de documento no puede contener caracteres alfabéticos, puntos ni guiones, sólo números';
   }
 
-  if (empty(getRequestData('billing_address'))) {
+  if (empty(getPostData('billing_address'))) {
     $status->fieldsWithErrors['billing_address'] = true;
-    $status->errors[]                            = 'Debes poner una dirección para facturar';
-  } elseif (!preg_match(REG_EXP_STRING_FORMAT, getRequestData('billing_address'))) {
+    $status->errors[]                            = 'La dirección de facturación es un campo requerido';
+  } elseif (!preg_match(REG_EXP_STRING_FORMAT, getPostData('billing_address'))) {
     $status->fieldsWithErrors['billing_address'] = true;
     $status->errors[]                            = 'La dirección tiene un formato incorrecto, puede incluir letras, números y signos de puntuación';
   }
 
-  if (empty(getRequestData('billing_state'))) {
+  if (empty(getPostData('billing_state'))) {
     $status->fieldsWithErrors['billing_state'] = true;
     $status->errors[]                          = 'El departamento es obligatorio';
-  } elseif (!preg_match(REG_EXP_NAME_FORMAT, getRequestData('billing_state'))) {
+  } elseif (!preg_match(REG_EXP_NAME_FORMAT, getPostData('billing_state'))) {
     $status->fieldsWithErrors['billing_state'] = true;
     $status->errors[]                          = 'El departamento tiene un formato incorrecto, puede incluir letras y signos de puntuación';
   }
 
-  if (empty(getRequestData('billing_city'))) {
+  if (empty(getPostData('billing_city'))) {
     $status->fieldsWithErrors['billing_city'] = true;
     $status->errors[]                         = 'La localidad es obligatoria';
-  } elseif (!preg_match(REG_EXP_NAME_FORMAT, getRequestData('billing_city'))) {
+  } elseif (!preg_match(REG_EXP_NAME_FORMAT, getPostData('billing_city'))) {
     $status->fieldsWithErrors['billing_city'] = true;
     $status->errors[]                         = 'La localidad tiene un formato incorrecto, puede incluir letras y signos de puntuación';
   }
 
   if (
-    !empty(getRequestData('billing_zipcode'))
-    && !preg_match(REG_EXP_NUMBER_FORMAT, getRequestData('billing_zipcode'))
+    !empty(getPostData('billing_zipcode'))
+    && !preg_match(REG_EXP_NUMBER_FORMAT, getPostData('billing_zipcode'))
   ) {
     $status->fieldsWithErrors['billing_zipcode'] = true;
     $status->errors[]                            = 'El código postal tiene un formato incorrecto, debe contener sólo números.';
@@ -398,7 +395,114 @@ function saveOrderBillingInfo_checkIncomingData() {
   return $status;
 }
 
-function getOrderBillingInfo($oid) {
+function saveOrderShippingInfo()
+{
+  $status = saveOrderShippingInfo_checkIncomingData();
+
+  if (!$status->succeeded) {
+    return $status;
+  }
+
+  $orderid = getCurrentCart()->order->id;
+
+  if (getPostData('shipping') === 'receive') {
+    $shippingMethod = 1;
+  } else {
+    $shippingMethod = 0;
+  }
+
+  $sql = (
+    "UPDATE
+      `orders`
+      SET
+        `shipping_method` = \"" . $shippingMethod . "\",
+        `shipping_address` = \"" . getPostData('shipping_address') . "\",
+        `shipping_state` = \"" . getPostData('shipping_state') . "\",
+        `shipping_city` = \"" . getPostData('shipping_city') . "\",
+        `shipping_agency` = \"" . getPostData('shipping_agency') . "\",
+        `shipping_zipcode` = \"" . getPostData('shipping_zipcode') . "\",
+        `additional_comments` = \"" . getPostData('additional_notes') . "\"
+      WHERE
+        `id` = $orderid"
+  );
+
+  if (!getDB()->query($sql)) {
+    $status->succedded = false;
+    $status->errors[]  = 'Error al guardar los datos, vuelve a intentar';
+    return $status;
+  }
+
+  $status->success = 'Información de envío guardada con éxito';
+
+  return $status;
+}
+
+function saveOrderShippingInfo_checkIncomingData()
+{
+  $status = newStatusObject();
+
+  if (
+    getPostData('shipping') === 'receive'
+    && empty(getPostData('copy-billing-address'))
+  ) {
+    if (empty(getPostData('shipping_address'))) {
+      $status->fieldsWithErrors['shipping_address'] = true;
+      $status->errors[]                             = 'La dirección de envío es un campo requerido';
+    } elseif (!preg_match(REG_EXP_STRING_FORMAT, getPostData('shipping_address'))) {
+      $status->fieldsWithErrors['shipping_address'] = true;
+      $status->errors[]                             = 'La dirección tiene un formato incorrecto, puede incluir letras, números y signos de puntuación';
+    }
+
+    if (empty(getPostData('shipping_state'))) {
+      $status->fieldsWithErrors['shipping_state'] = true;
+      $status->errors[]                           = 'El departamento es obligatorio';
+    } elseif (!preg_match(REG_EXP_NAME_FORMAT, getPostData('shipping_state'))) {
+      $status->fieldsWithErrors['shipping_state'] = true;
+      $status->errors[]                           = 'El departamento tiene un formato incorrecto, puede incluir letras y signos de puntuación';
+    }
+
+    if (empty(getPostData('shipping_city'))) {
+      $status->fieldsWithErrors['shipping_city'] = true;
+      $status->errors[]                          = 'La localidad es obligatoria';
+    } elseif (!preg_match(REG_EXP_NAME_FORMAT, getPostData('shipping_city'))) {
+      $status->fieldsWithErrors['shipping_city'] = true;
+      $status->errors[]                          = 'La localidad tiene un formato incorrecto, puede incluir letras y signos de puntuación';
+    }
+
+    if (
+      !empty(getPostData('shipping_zipcode'))
+      && !preg_match(REG_EXP_NUMBER_FORMAT, getPostData('shipping_zipcode'))
+    ) {
+      $status->fieldsWithErrors['shipping_zipcode'] = true;
+      $status->errors[]                             = 'El código postal tiene un formato incorrecto, debe contener sólo números.';
+    }
+
+    if (
+      !empty(getPostData('shipping_agency'))
+      && !preg_match(REG_EXP_NAME_FORMAT, getPostData('shipping_agency'))
+    ) {
+      $status->fieldsWithErrors['shipping_agency'] = true;
+      $status->errors[]                            = 'La agencia tiene un formato incorrecto, puede incluir letras y signos de puntuación.';
+    }
+  }
+
+  if (
+    !empty(getPostData('additional_notes'))
+    && !preg_match(REG_EXP_STRING_FORMAT, getPostData('additional_notes'))
+  ) {
+    $status->fieldsWithErrors['additional_notes'] = true;
+    $status->errors[]                             = 'Las notas adicionales tienen un formato incorrecto, puede incluir letras, números y signos de puntuación.';
+  }
+
+  if (count($status->errors) == 0) {
+    $status->succeeded = true;
+  }
+
+  return $status;
+}
+
+function getOrderBillingInfo($oid)
+{
   $sql = (
     "SELECT
       `billing_name`,
@@ -412,6 +516,26 @@ function getOrderBillingInfo($oid) {
   );
 
   $order = getDB()->getObject($sql);
-  
+
+  return $order;
+}
+
+function getOrderShippingInfo($oid)
+{
+  $sql = (
+    "SELECT
+      `shipping_method`,
+      `shipping_address`,
+      `shipping_state`,
+      `shipping_city`,
+      `shipping_agency`,
+      `shipping_zipcode`,
+      `additional_comments`
+      FROM `orders`
+      WHERE `id` = $oid"
+  );
+
+  $order = getDB()->getObject($sql);
+
   return $order;
 }
