@@ -26,10 +26,15 @@ form .help-line {
   padding: 1rem;
 }
 
-form .form-line>*:not(button),
-form .form-group>*:not(button) {
+form .form-line >*:not(button),
+form .form-group >*:not(button) {
   line-height: 2rem;
   padding: .5rem;
+}
+
+form .form-line >textarea,
+form .form-group >textarea {
+  line-height: 1rem;
 }
 
 form .form-group >*:not(input):not(textarea):first-child {
@@ -191,6 +196,13 @@ form .form-line button[type=reset],
 form .form-group button[type=reset],
 form .form-actions button[type=reset] {
   border: 2px solid #930077;
+}
+
+form .form-line button:disabled,
+form .form-group button:disabled,
+form .form-actions button:disabled {
+  border: 2px solid #999;
+  color: #999;
 }
 
 /* ERRORS */
