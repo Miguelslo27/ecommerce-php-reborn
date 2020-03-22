@@ -5,22 +5,23 @@
     <div class="form-group group-grid columns-3">
       <div class="span-2 form-group group-grid columns-2">
         <p><strong>Nombre completo:</strong> <?php bind(getGlobal('billing_name')) ?></p>
-        <p><strong>Documento:</strong> <?php bind(oneOf(getGlobal('billing_document'), 'Sin definir')) ?></p>
-        <p><strong>Dirección:</strong> <?php bind(oneOf(getGlobal('billing_fulladdress'), 'Sin definir')) ?></p>
+        <p class="<?php bind(empty(getGlobal('billing_document')) ? 'error' : '') ?>"><strong>Documento: *</strong> <?php bind(oneOf(getGlobal('billing_document'), 'Sin definir')) ?></p>
+        <p class="<?php bind(empty(getGlobal('billing_fulladdress')) ? 'error' : '') ?>"><strong>Dirección: *</strong> <?php bind(oneOf(getGlobal('billing_fulladdress'), 'Sin definir')) ?></p>
         <p><strong>Teléfono:</strong> <?php bind(oneOf(getGlobal('phones'), 'Sin definir')) ?></p>
       </div>
 
       <div class="side-actions">
         <a href="#"
-          class="button icon primary"
+          class="button icon primary <?php bind(billingInfoIsIncomplete() ? 'disabled' : '') ?>"
           data-action="switch"
           data-selector=".billing-info-form"
           data-prevent-default="true"
+          <?php bind(billingInfoIsIncomplete() ? 'data-perform="open"' : '') ?>
         ><i class="far fa-edit"></i></a>
       </div>
     </div>
 
-    <div class="billing-info-form collapsable <?php formHasError('open', 'closed') ?>">
+    <div class="billing-info-form collapsable <?php bind(billingInfoFormHasErrors() || billingInfoIsIncomplete() ? 'open' : 'closed') ?>">
       <input type="hidden" name="action" value="<?php bind(ACTION_UPDATE_CART_BILLING_INFO) ?>">
 
       <div class="form-group">
@@ -51,8 +52,9 @@
         <button
           type="reset"
           data-action="switch"
-          data-perfor="close"
+          data-perform="<?php bind(billingInfoIsIncomplete() ? 'open' : 'close') ?>"
           data-selector=".billing-info-form"
+          <?php bind(billingInfoIsIncomplete() ? 'disabled' : '') ?>
         >
           <i class="fas fa-times"></i> Cancelar
         </button>
