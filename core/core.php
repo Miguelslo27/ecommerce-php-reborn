@@ -52,16 +52,13 @@ function processRequests()
     exit;
   }
 
-  /**
-   * @TODO
-   * process action ACTION_UPDATE_CART_BILLING_INFO
-   */
-
   if (getRequestData('action') == ACTION_UPDATE_CART_BILLING_INFO) {
-    /**
-     * @TODO
-     */
     setSession('request_messages', saveOrderBillingInfo());
+  }
+
+
+  if (getRequestData('action') == ACTION_UPDATE_CART_SHIPPING_INFO) {
+    setSession('request_messages', saveOrderShippingInfo());
   }
   
   if (getPostData('action') === ACTION_SAVE_CATEGORY) {
