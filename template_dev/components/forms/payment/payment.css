@@ -27,28 +27,32 @@
   width: 60px;
 }
 
-.payment-form form .form-group.group-grid >p {
+.payment-form form .form-group.group-grid p {
   line-height: 2rem;
   padding: 0;
   margin: 0;
 }
 
-.billing-info .form-group.group-grid.columns-3 >* {
+.billing-info .form-group.group-grid.columns-3 >*,
+.shipping-info .form-group.group-grid.columns-3 >* {
   width: 40%;
 }
 
-.billing-info .form-group.group-grid.columns-3 >.span-2 {
+.billing-info .form-group.group-grid.columns-3 >.span-2,
+.shipping-info .form-group.group-grid.columns-3 >.span-2 {
   width: 80%;
 }
 
-.billing-info .form-group.group-grid .side-actions {
+.billing-info .form-group.group-grid .side-actions,
+.shipping-info .form-group.group-grid .side-actions {
   align-items: center;
   display: flex;
   justify-content: space-evenly;
   width: 20%;
 }
 
-.billing-info .form-group.group-grid .side-actions >.button {
+.billing-info .form-group.group-grid .side-actions >.button,
+.shipping-info .form-group.group-grid .side-actions >.button {
   align-items: center;
   border-radius: .5rem;
   display: flex;
