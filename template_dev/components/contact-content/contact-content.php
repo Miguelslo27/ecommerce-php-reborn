@@ -27,6 +27,20 @@
         <button type="submit" class="subscribe-button">Suscribirme</button>
       </form>
     </div>
+    <!-- SOCIAL SECTION -->
+    <div class="social-networks">
+      <ul>
+        <li>
+          <a href="https://www.youtube.com"><i class="fab fa-youtube"></i></a>
+        </li>
+        <li>
+          <a href="https://www.twitter.com"><i class="fab fa-twitter"></i></a>
+        </li>
+        <li>
+          <a href="https://www.facebook.com"><i class="fab fa-facebook-square"></i></a>
+        </li>
+      </ul>
+    </div>
   </div>
   <div class="contact-div">
     <!-- FORM SECTION -->
