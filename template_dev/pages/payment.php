@@ -98,6 +98,10 @@ newDocument([
     setGlobal('phones', implode(' / ', $phones));
     setGlobal('shipping_method', $shippingInfo->shipping_method);
     setGlobal('shipping_fulladdress', implode(', ', $shippingFullAddress));
+    setGlobal('shipping_address', $shippingAddress);
+    setGlobal('shipping_state', $shippingState);
+    setGlobal('shipping_city', $shippingCity);
+    setGlobal('shipping_zipcode', $shippingZipcode);
   }
 ]);
 
@@ -150,7 +154,10 @@ function shippingInfoFormHasErrors()
 
 function shippingInfoIsIncomplete()
 {
-  if (empty(getGlobal('shipping_fulladdress'))) {
+  if (
+    empty(getGlobal('shipping_fulladdress'))
+    && empty(getPreformData('copy-billing-address', ''))
+  ) {
     return true;
   }
 
