@@ -70,6 +70,7 @@ function processRequests()
   }
 
   if (getPostData('action') === ACTION_SEND_EMAIL) {
-    logToConsole('$_POST', $_POST, __FILE__, __FUNCTION__, __LINE__);
+    // @TODO
+    logToConsole('getPostAll()', getPostAll(), __FILE__, __FUNCTION__, __LINE__);
   }
 }
