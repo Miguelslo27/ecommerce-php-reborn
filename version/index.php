@@ -7,10 +7,16 @@ newDocument([
   'page' => 'home',
   'components' => [
     'components/header/header',
+    'components/test',
     'components/footer/footer'
   ],
   'styles' => [
-    'css/layout.css'
+    'css/layout.css',
+    'css/forms.css'
   ],
-  'scripts' => []
+  'scripts' => [],
+  'beforeRender' => function ()
+  {
+    // getSession('request_messages');
+  }
 ]);
