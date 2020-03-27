@@ -49,7 +49,8 @@
     <div class="contact-div form-container">
       <!-- FORM SECTION -->
       <div class="form-div">
-        <form action="">
+        <form action="" method="POST">
+        <input type="hidden" name="action" value="<?php bind(ACTION_SEND_EMAIL) ?>">
           <div class="form-placeholder">
             <input type="text" placeholder="Nombre">
           </div>
