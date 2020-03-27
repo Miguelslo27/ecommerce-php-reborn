@@ -1,5 +1,5 @@
 <section class="inner contact-section">
-  <h1 class="shadowed-title">
+  <h1 class="shadowed-title normal-title">
     <span class="title-shadow">Contacto</span>
     <span class="title">Contacto</span>
   </h1>
@@ -72,5 +72,8 @@
       </div>
     </div>
   </div>      
-  <h3>CONTACTENOS</h3>
+  <h1 class="shadowed-title mobile-title">
+    <span class="title-shadow">Contacto</span>
+    <span class="title">Contacto</span>
+  </h1>
 </section>
