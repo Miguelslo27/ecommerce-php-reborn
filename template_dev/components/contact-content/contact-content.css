@@ -4,8 +4,6 @@
   flex-wrap: wrap;
   flex-direction: column;
   width: 100%;
-  max-width: 1600px;
-  min-height: 40vh;
   padding: 0 5rem 1em 5rem;
   margin: auto;
   box-sizing: border-box;
@@ -142,13 +140,9 @@
 
 /* FORM SECTION */
 .contact-section .contact-div .form-div {
+  width: 80%;
   display: flex;
-  width: 90%;
   align-items: center;
-  flex-direction: column;
-}
-
-.contact-section .contact-div .form-div form {
   flex-direction: column;
 }
 
@@ -187,6 +181,7 @@
   }
 
   .contact-section .contact-div .form-div {
+    width: 100%;
     margin-bottom: 1rem;
   }
 
@@ -197,6 +192,7 @@
 
   .contact-section .contact-div .form-div form {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     width: 90%;
   }

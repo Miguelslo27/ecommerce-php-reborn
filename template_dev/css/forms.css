@@ -37,7 +37,7 @@ form .help-line {
   align-items: center;
   flex-wrap: wrap;
   padding: .2rem;
-  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 form .form-placeholder>*:not(button),
@@ -84,9 +84,10 @@ form .form-group textarea,
 form .form-line select,
 form .form-group select {
   padding: 1rem;
-  border: 1px solid #222222;
-  border-radius: .5rem;
-  box-shadow: 0 4px 6px -4px #b52299;
+  border: 1.5px solid transparent;
+  background-color: #EEEEEE;
+  color: #555;
+  font-family: "Montserrat", "Arial", sans-serif;
   transition:
     border .2s ease
 }

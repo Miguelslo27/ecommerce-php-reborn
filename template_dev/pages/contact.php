@@ -2,7 +2,7 @@
 
 newDocument([
   'title' => 'eCommerce - Contacto',
-  'page' => 'articles',
+  'page' => 'contact',
   'components' => [
     'components/header/header',
     'components/contact-content/contact-content',
