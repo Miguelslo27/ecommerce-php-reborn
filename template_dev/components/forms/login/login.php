@@ -27,7 +27,7 @@
       <a href="/registro/">Soy nuevo, deseo registrarme</a>
     </div>
     <div class="form-line">
-      <button type="submit">Ingresar</button>
+      <button class="btn-100" type="submit">Ingresar</button>
     </div>
   </form>
 </section>

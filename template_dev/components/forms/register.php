@@ -10,7 +10,7 @@
     <div class="form-group">
       <label for="name" class="<?php getGlobal('classesHandler')('name', 'error') ?>">Nombre *</label>
       <input type="text" class="<?php getGlobal('classesHandler')('name', 'error') ?>" name="name" id="name" value="<?php getGlobal('getPreFormData')('name') ?>">
-      <label for="lastname" class="align-center <?php getGlobal('classesHandler')('lastname', 'error') ?>">Apellido * </label>
+      <label for="lastname" class="second-label <?php getGlobal('classesHandler')('lastname', 'error') ?>">Apellido * </label>
       <input type="text" class="<?php getGlobal('classesHandler')('lastname', 'error') ?>" name="lastname" id="lastname" value="<?php getGlobal('getPreFormData')('lastname') ?>">
     </div>
 
@@ -22,7 +22,7 @@
     <div class="form-group">
       <label for="reg_pass" class="<?php getGlobal('classesHandler')('reg_pass', 'error') ?>">Contraseña *</label>
       <input type="password" class="<?php getGlobal('classesHandler')('reg_pass', 'error') ?>" name="reg_pass" id="reg_pass">
-      <label for="pass2" class="align-center <?php getGlobal('classesHandler')('pass2', 'error') ?>">Repetir contraseña *</label>
+      <label for="pass2" class="second-label <?php getGlobal('classesHandler')('pass2', 'error') ?>">Repetir contraseña *</label>
       <input type="password" class="<?php getGlobal('classesHandler')('pass2', 'error') ?>" name="pass2" id="pass2">
     </div>
 
@@ -39,14 +39,14 @@
     <div class="form-group">
       <label for="state" class="<?php getGlobal('classesHandler')('state', 'error') ?>">Departamento</label>
       <input type="text" class="<?php getGlobal('classesHandler')('state', 'error') ?>" name="state" id="state" value="<?php getGlobal('getPreFormData')('state') ?>">
-      <label for="city" class="align-center <?php getGlobal('classesHandler')('city', 'error') ?>">Localidad</label>
+      <label for="city" class="second-label <?php getGlobal('classesHandler')('city', 'error') ?>">Localidad</label>
       <input type="text" class="<?php getGlobal('classesHandler')('city', 'error') ?>" name="city" id="city" value="<?php getGlobal('getPreFormData')('city') ?>">
     </div>
 
     <div class="form-group">
       <label for="phone" class="<?php getGlobal('classesHandler')('phone', 'error') ?>">Teléfono *</label>
       <input type="text" class="<?php getGlobal('classesHandler')('phone', 'error') ?>" name="phone" id="phone" value="<?php getGlobal('getPreFormData')('phone') ?>">
-      <label for="cellphone" class="align-center <?php getGlobal('classesHandler')('cellphone', 'error') ?>">Celular *</label>
+      <label for="cellphone" class="second-label <?php getGlobal('classesHandler')('cellphone', 'error') ?>">Celular *</label>
       <input type="text" class="<?php getGlobal('classesHandler')('cellphone', 'error') ?>" name="cellphone" id="cellphone" value="<?php getGlobal('getPreFormData')('cellphone') ?>">
     </div>
 

@@ -1,1 +1,16 @@
-<h1>Contact template</h1>
+<?php
+
+newDocument([
+  'title' => 'eCommerce - Contacto',
+  'page' => 'contact',
+  'components' => [
+    'components/header/header',
+    'components/contact-content/contact-content',
+    'components/footer/footer'
+  ],
+  'styles' => [
+    'css/fontawesome/css/all.min.css',
+    'css/layout.css',
+    'css/forms.css'
+  ],
+]);

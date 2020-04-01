@@ -1,0 +1,230 @@
+
+.contact-section {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 5rem 1em 5rem;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+.contact-section .mobile-title {
+  display: none;
+}
+
+.contact-section .contact-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.contact-section .contact-div {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 50%;
+  margin-top: 1rem;
+}
+
+.contact-section .info-container {
+  margin-top: 3rem;
+}
+
+.contact-section .form-container {
+  align-items: flex-end;
+}
+
+/* INFORMATION SECTION */
+.contact-section .contact-div h3 {
+  display: block;
+  color: #930077;
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+
+.contact-section .contact-div .info-div ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  line-height: 2.5rem;
+}
+
+.contact-section .contact-div .info-div i {
+  color: #930077;
+}
+
+.contact-section .contact-div .info-div ul a{
+  color: #222222;
+}
+
+/* NEWSLETTER SECTION */
+.contact-section .contact-div .news-div {
+  padding-top: 1rem;
+  box-sizing: border-box;
+}
+
+.contact-section .contact-div .news-div h4{
+  color: #930077;
+}
+
+.contact-section .contact-div .news-div p {
+  width: 90%;
+  line-height: 1.5rem;
+}
+
+.contact-section .contact-div .news-div form {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: unset;
+}
+
+.contact-section .contact-div .news-div form .subscribe-input,
+.contact-section .contact-div .news-div form .subscribe-button {
+  height: 2.6rem;
+  line-height: 2.2rem;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: #fff;
+  outline: none;
+}
+
+.contact-section .contact-div .news-div form .subscribe-input {
+  width: 50%;
+  padding: 0 1rem;
+  border-top-left-radius: 1.1rem;
+  border-bottom-left-radius: 1.1rem;
+  border: .5px solid #930077;
+  transition: all .2s ease;
+}
+
+.contact-section .contact-div .news-div form .subscribe-input:focus {
+  border: 2px solid #930077;
+}
+
+.contact-section .contact-div .news-div form .subscribe-button {
+  padding: 0 .6rem;
+  border-top-right-radius: 1.1rem;
+  border-bottom-right-radius: 1.1rem;
+  background: #930077;
+  font-size: .6rem;
+  text-transform: uppercase;
+  color: #FFF;
+  cursor: pointer;
+}
+/* SOCIAL SECTION */
+.contact-section .contact-div .social-networks {
+  margin-top: 2rem;
+}
+
+.contact-section .contact-div .social-networks ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-section .contact-div .social-networks ul li {
+  display: inline;
+  font-size: 40px;
+  margin-right: 1.5rem;
+}
+
+.contact-section .contact-div .social-networks ul li a{
+  color: #930077;
+}
+
+.contact-section .contact-div .social-networks ul li:nth-child(3) {
+  margin: 0;
+}
+
+/* FORM SECTION */
+.contact-section .contact-div .form-div {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* MEDIA QUERIES */
+@media only screen and (max-width: 686px) {
+  .contact-section {
+    flex-direction: column-reverse;
+    padding: 3rem;
+  }
+  
+  .contact-section .mobile-title {
+    display: block;
+  }
+  
+  .contact-section .normal-title {
+    display: none;
+  }
+
+  .contact-section .contact-div {
+    flex: 1 0 100%;
+    text-align: center;
+  }
+
+  .contact-section .contact-div .news-div {
+    margin: 3rem 0;
+  }
+
+  .contact-section .contact-div .news-div p {
+    width: 100%;
+    line-height: 1.5rem;
+  }
+
+  .contact-section .contact-div .news-div form {
+    display: flex;
+    justify-content: center;
+  }
+
+  .contact-section .contact-div .form-div {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .contact-section .form-container {
+    margin-top: 3rem;
+    align-items: center;
+  }
+
+  .contact-section .contact-div .form-div form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+  }
+
+  .contact-section .contact-div .form-div form .form-actions {
+    margin-top: 0;
+  }
+
+  .contact-section .contact-div .form-div form button {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .contact-section .contact-div .social-networks {
+    margin-top: 0;
+  }
+
+  .contact-section .contact-div .social-networks ul li {
+    margin: 0 .7rem;
+  }
+
+  .contact-section .contact-div .social-networks ul li:nth-child(3) {
+    margin: 0 .7rem;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .contact-section {
+    padding: 4rem 1rem 2rem 1rem;
+  }
+
+  .contact-section .contact-div .form-div form {
+    width: 90%;
+  }
+}
