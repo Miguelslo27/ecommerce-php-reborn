@@ -2,6 +2,10 @@
   <fieldset>
     <legend><span>2</span> Datos de envío</legend>
 
+    <!-- 
+      Shipping info
+      :: Show only if user decied to not copy the billing info
+    -->
     <div class="shipping-info-data collapsable <?php bind(empty(getPreformData('copy-billing-address', '')) ? 'open' : 'closed') ?>">
       <div class="form-group group-grid columns-3">
         <div class="span-2">
@@ -23,15 +27,15 @@
       </div>
     </div>
 
-    <div class="form-group group-grid columns-3">
+    <div class="form-group group-grid columns-2">
       <label for="shipping-receive">
         <input
           type="radio"
           name="shipping"
           id="shipping-receive"
           value="receive"
-          data-selector=".shipping-info-form, .shipping-info-data"
-          checked
+          data-selector=".shipping-info-form, .shipping-info-data, .shipping-agency-form"
+          <?php bind(shippingReceiveCheck()) ?>
         >
         <span>Quiero recibir mi pedido</span>
       </label>
@@ -44,18 +48,22 @@
           value="withdraw"
           data-action="switch"
           data-perform="close"
-          data-selector=".shipping-info-form"
+          data-selector=".shipping-info-form, .shipping-agency-form"
           data-height="0"
+          <?php bind(shippingWithdrawCheck()) ?>
         >
         <span>Retiro personalmente</span>
       </label>
-
+    </div>
+    <hr>
+    <div class="form-placeholder">
       <label for="copy-billing-address">
         <input
           type="checkbox"
           name="copy-billing-address"
           id="copy-billing-address"
-          <?php bind(!empty(getPreformData('copy-billing-address', '')) ? 'checked' : '') ?>
+          <?php // bind(!empty(getPreformData('copy-billing-address', '')) ? 'checked' : '') ?>
+          <?php bind(copyBillingAddressCheck()) ?>
         >
         <span>Usar dirección de facturación</span>
       </label>
@@ -82,7 +90,7 @@
       </div>
     </div>
 
-    <div class="shipping-agency-form collapsable <?php bind(getGlobal('shipping_method') ? 'open' : 'closed' ) ?>">
+    <div class="shipping-agency-form collapsable <?php bind(getGlobal('shipping_method') === 1 || (shippingInfoFormHasErrors() && empty(getPreformData('copy-billing-address', '')) || shippingInfoIsIncomplete()) ? 'open' : 'closed' ) ?>">
       <div class="form-line <?php fieldHasError('shipping_agency', 'error') ?>">
         <label for="shipping_agency">Agencia de envío *</label>
         <input type="text" name="shipping_agency" id="shipping_agency" value="<?php bind(getPreformData('shipping_agency', '')) ?>">
@@ -106,7 +114,7 @@
             data-action="switch"
             data-perform="open"
             data-prevent-default="true"
-            data-selector=".shipping-info-form"
+            data-selector=".shipping-info-form, .shipping-agency-form"
             disabled
           >
             <i class="fas fa-times"></i> Cancelar
@@ -118,7 +126,7 @@
             data-action="switch"
             data-perform="close"
             data-prevent-default="true"
-            data-selector=".shipping-info-form"
+            data-selector=".shipping-info-form, .shipping-agency-form"
           ><i class="fas fa-times"></i> Cancelar</a>
         <?php endif ?>
 

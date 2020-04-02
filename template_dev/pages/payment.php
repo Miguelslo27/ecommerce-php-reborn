@@ -102,6 +102,8 @@ newDocument([
     setGlobal('shipping_state', $shippingState);
     setGlobal('shipping_city', $shippingCity);
     setGlobal('shipping_zipcode', $shippingZipcode);
+
+    // @TODO - Check the current status of the order
   }
 ]);
 
@@ -162,6 +164,64 @@ function shippingInfoIsIncomplete()
   }
 
   return false;
+}
+
+/**
+ * @todo
+ * Handle if recive should be checked
+ */
+function shippingReceiveCheck()
+{
+  // Default
+  $checked = true;
+  
+  logToConsole('getPostAll()', getPostAll(), __FILE__, __FUNCTION__, __LINE__);
+  logToConsole('action', getPostData('action'), __FILE__, __FUNCTION__, __LINE__);
+  
+  // If there is action AND action is update shipping info
+  // checked should be handled
+  if (
+    getPostData('action')
+    && getPostData('action') === ACTION_UPDATE_CART_SHIPPING_INFO
+  ) {
+    logToConsole('handle receive check', true, __FILE__, __FUNCTION__, __LINE__);
+  }
+  
+  return $checked ? 'checked' : '';
+}
+
+function shippingWithdrawCheck()
+{
+  // Default
+  $checked = false;
+
+  // If there is action AND action is update shipping info
+  // checked should be handled
+  if (
+    getPostData('action')
+    && getPostData('action') === ACTION_UPDATE_CART_SHIPPING_INFO
+  ) {
+    logToConsole('handle withdraw check', true, __FILE__, __FUNCTION__, __LINE__);
+  }
+  
+  return $checked ? 'checked' : '';
+}
+
+function copyBillingAddressCheck()
+{
+  // Default
+  $checked = true;
+
+  // If there is action AND action is update shipping info
+  // checked should be handled
+  if (
+    getPostData('action')
+    && getPostData('action') === ACTION_UPDATE_CART_SHIPPING_INFO
+  ) {
+    logToConsole('handle copy billing address check', true, __FILE__, __FUNCTION__, __LINE__);
+  }
+
+  return $checked ? 'checked' : '';
 }
 
 function fieldHasError($field, $class)

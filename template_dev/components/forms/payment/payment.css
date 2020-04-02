@@ -4,6 +4,11 @@
   margin-right: 2rem;
 }
 
+.payment-form form hr {
+  border-top: 2px dashed #930077;
+  background-color: transparent;
+}
+
 .payment-form form fieldset {
   border: 2px dashed #930077;
   border-radius: 1rem;
