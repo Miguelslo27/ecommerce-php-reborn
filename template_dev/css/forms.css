@@ -17,21 +17,34 @@ form hr {
   margin: 1rem;
 }
 
+form textarea {
+  font-family: Arial, Helvetica, sans-serif;
+  resize: none;
+  min-height: 100px;
+}
+
+form textarea:focus {
+  outline: none;
+  border: 2px solid #b52299 !important;
+}
+
 form .form-placeholder,
 form .form-line,
 form .form-group,
 form .form-actions,
 form .help-line {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
-  padding: 1rem;
+  padding: .2rem;
+  margin-top: 1.5rem;
 }
 
 form .form-placeholder>*:not(button),
 form .form-placeholder>*:not(button),
 form .form-line>*:not(button),
 form .form-group>*:not(button) {
-  line-height: 2rem;
+  line-height: 1rem;
   padding: .5rem;
 }
 
@@ -61,6 +74,7 @@ form .form-line>*:not(input):not(textarea) {
 }
 
 form .form-placeholder input:not([type=checkbox]):not([type=radio]),
+form .form-placeholder textarea:not([type=checkbox]):not([type=radio]),
 form .form-line input:not([type=checkbox]):not([type=radio]),
 form .form-group input:not([type=checkbox]):not([type=radio]),
 form .form-line label.file,
@@ -69,11 +83,13 @@ form .form-line textarea,
 form .form-group textarea,
 form .form-line select,
 form .form-group select {
-  border: 1px solid #ddd;
-  box-shadow: 0 4px 6px -4px #b52299;
+  padding: 1rem;
+  border: 1.5px solid transparent;
+  background-color: #EEEEEE;
+  color: #555;
+  font-family: "Montserrat", "Arial", sans-serif;
   transition:
-    border .15s ease,
-    border-radius .15s ease;
+    border .2s ease
 }
 
 form .form-line>input,
@@ -86,6 +102,11 @@ form .form-line>.form-group {
 
 form .form-group>* {
   width: 25%;
+}
+
+form .form-group .second-label {
+  text-align: right;
+  padding-right: 1rem;
 }
 
 form .form-group.group-grid.columns-2>* {
@@ -159,18 +180,18 @@ form .form-placeholder select:focus,
 form .form-line select:focus,
 form .form-group select:focus {
   outline: none;
-  border: 2px solid #b52299;
-  border-radius: .5rem;
+  border: 1.5px solid #b52299;
 }
 
 form .form-actions {
-  justify-content: space-between;
+  margin-top: 3rem;
+  justify-content: space-around;
 }
 
 form .form-line button,
 form .form-group button,
 form .form-actions button {
-  width: 49%;
+  width: 40%;
   padding: 1rem;
   background-color: rgb(240, 240, 240);
   color: #000;
@@ -183,6 +204,12 @@ form .form-actions button {
   border-radius: 50px;
   box-shadow: 0 4px 6px -4px #b52299;
   outline: none;
+}
+
+form .form-line .btn-100,
+form .form-group .btn-100,
+form .form-actions .btn-100 {
+  width: 100%;
 }
 
 form .form-line button[type=submit]:focus,
