@@ -2,7 +2,9 @@
   <div class="header-inner">
     <div class="site-nav">
       <div class="logo">
-        DEMO
+        <a href="/" <?php if (getGlobal('page') == "home") echo 'is-active'; ?>>
+          DEMO
+        </a>
       </div>
     </div>
 
