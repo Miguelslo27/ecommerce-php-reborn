@@ -45,7 +45,7 @@
 
       <div class="search-box">
         <form action="/busqueda/" method="GET">
-          <input type="text" name="clave" class="search-input" placeholder="Qué deseas encontrar?">
+          <input type="text" name="clave" class="search-input" placeholder="Buscar...">
           <button type="submit" class="search-button">
             <i class="fas fa-search"></i>
           </button>
