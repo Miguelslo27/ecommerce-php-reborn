@@ -2,7 +2,9 @@
   <div class="header-inner">
     <div class="site-nav">
       <div class="logo">
-        DEMO
+        <a href="/" <?php if (getGlobal('page') == "home") echo 'is-active'; ?>>
+          DEMO
+        </a>
       </div>
     </div>
 
@@ -43,7 +45,7 @@
 
       <div class="search-box">
         <form action="/busqueda/" method="GET">
-          <input type="text" name="clave" class="search-input" placeholder="Qué deseas encontrar?">
+          <input type="text" name="clave" class="search-input" placeholder="Buscar...">
           <button type="submit" class="search-button">
             <i class="fas fa-search"></i>
           </button>
