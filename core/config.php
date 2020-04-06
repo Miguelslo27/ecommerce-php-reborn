@@ -1,6 +1,6 @@
 <?php
 
-define('APP_VERSION', '0.9.1');
+define('APP_VERSION', '0.9.3');
 define('API_VERSION', '0.5.11');
 
 if (!empty(getenv('ENV'))) {
