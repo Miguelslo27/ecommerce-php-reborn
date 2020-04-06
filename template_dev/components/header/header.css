@@ -104,6 +104,11 @@ body>header .header-inner .store-nav {
   box-shadow: unset;
 }
 
+.search-input {
+  text-align: center;
+  font-size: 20px;
+}
+
 .store-nav .search-box form .search-input,
 .store-nav .search-box form .search-button {
   height: 2.2rem;
