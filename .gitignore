@@ -1,11 +1,14 @@
-statics/images/articles
-statics/images/categories
-statics/images/catalogos
 .htaccess
+.vscode/
 logfile.txt
 error_log
 error.*
 debug.*
+
+# STATICS
+statics/images/articles
+statics/images/categories
+statics/images/catalogos
 
 # IGNORE TO AVOID COMMIT
 __administrar-pedidos/
