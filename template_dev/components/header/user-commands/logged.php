@@ -1,6 +1,6 @@
 <div class="user-links navigation">
   <div class="dropdown-nav">
-    <a href="components/pages/account.php" class="access-menu normal-tab">
+    <a href="/cuenta/index.php" class="access-menu normal-tab">
       <i class="fas fa-user-circle"></i>
       <span class="link-label"><?php echo getUserName() ?></span>
     </a>
