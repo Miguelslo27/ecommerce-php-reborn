@@ -147,21 +147,6 @@ function addToOrder($order, $article, $qty)
 {
   $price           = getArticlePrice($article);
   $subtotal        = $price * $qty;
-  $order->total    = $order->total + $subtotal;
-
-  $sqlUpdate = (
-    "UPDATE
-      `orders`
-      SET
-        `total` = $order->total
-      WHERE
-        `id` = $order->id"
-  );
-
-  if (!getDB()->query($sqlUpdate)) {
-    $order->total    = $order->total - $subtotal;
-    return null;
-  }
 
   $sqlInOrderArticle = (
     "SELECT
@@ -221,6 +206,28 @@ function addToOrder($order, $article, $qty)
   $inOrderArticleId = getDB()->insert($sqlInsert);
 
   if (!isset($inOrderArticleId)) {
+    return null;
+  }
+
+  if (($inOrderArticle->quantity + $qty) >= 0) {
+    $subtotal = $price * $qty;
+  } else {
+    $subtotal = $price * ($inOrderArticle->quantity * -1);
+  }
+
+  $order->total = $order->total + $subtotal;
+
+  $sqlUpdate = (
+    "UPDATE
+      `orders`
+      SET
+        `total` = $order->total
+      WHERE
+        `id` = $order->id"
+  );
+
+  if (!getDB()->query($sqlUpdate)) {
+    $order->total    = $order->total - $subtotal;
     return null;
   }
 
