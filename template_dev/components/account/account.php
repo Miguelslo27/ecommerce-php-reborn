@@ -1,29 +1,40 @@
 <body>
   <div>
-    <section>
+    <section class="info-section">
       <img src="" alt="FotoPerfil">
       <h3>Nombre Apellido</h3>
         <ol>
-          <ul> Cuenta </ul>
-          <ul> Contraseña </ul>
-          <ul> Datos de facturación </ul>
-          <ul> Datos de envio </ul>
-          <ul> Historial de pedidos </ul>
-          <ul> Eliminar cuenta </ul>
+          <a><ul> Cuenta </ul></a>
+          <a><ul> Contraseña </ul></a>
+          <a><ul> Datos de facturación </ul></a>
+          <a><ul> Datos de envio </ul></a>
+          <a><ul> Historial de pedidos </ul></a>
+          <a><ul> Eliminar cuenta </ul></a>
         </ol>
     </section>
-    <section>
+    <section class="edit-section">
       <form action="">
-        <label for="">Nombre</label>
-        <input type="text">
-        <label for="">Apellido</label>
-        <input type="text">
-        <label for="">Nombre de Empresa</label>
-        <input type="text">
-        <label for="">Direccion</label>
-        <input type="text">
-        <input type="text">
+        <div class="form-group">
+          <label for="">Nombre</label>
+          <input type="text">
+          <label for="">Apellido</label>
+          <input type="text">
+        </div>
+
+        <div class="form-line">
+          <label for="">Nombre de Empresa</label>
+          <input type="text">
+        </div>
+
+        <div class="form-group">
+          <label for="">Direccion</label>
+          <input type="text">
+          <input type="text">
+        </div>
+
+        <button class="button primary">Save</button>
       </form>
+
     </section>
   </div>
 </body>
