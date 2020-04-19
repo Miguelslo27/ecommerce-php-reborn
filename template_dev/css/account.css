@@ -1,20 +1,33 @@
  .div-account {
-  display: flex;
-  flex-direction: row;
-  padding: 0%;
-  margin: 0%;
-}
+   display: flex;
+   flex-direction: row;
+   padding: 0%;
+   margin: 20px;
+   max-width: 1200px;
+   box-sizing: border-box;
+   justify-content: space-around;
 
-.h2-name {
-  padding: 10px;
-  margin: 5px;
-  text-align: center;
-}
-
-.info-section{
+  }
+  
+  .form-section .info-section{
+    flex-grow: 1;
+    box-sizing: border-box;
+    margin: 2rem;
+    max-width: 900px;
+    padding: 30px;
+  }
+  
+  .form-section{
+    margin-left: 30px;
+    width: 675px;
+  }
+  
+  .info-section{
   box-shadow:0 0 15px rgba(147, 0, 119, .15);
-  margin: 2rem;
-  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+  width: 300px;
 }
 
 .form-margin{
@@ -25,16 +38,13 @@
   box-shadow:0 0 15px rgba(147, 0, 119, .15);
   padding: 17px;
   color: black ;
+  flex-grow: 1;
 }
 
 .menu:hover {
   color: #b52299;
 }
 
-.form-edit{
-  margin: 2rem;
-  flex-grow: 2;
-}
 
 #button-center {
   margin-top: 30px;
@@ -50,4 +60,10 @@
 ol{
   padding: 20px;
   margin: 0px;
+}
+
+.h2-account {
+  padding: 10px;
+  margin: 5px;
+  text-align: center;
 }

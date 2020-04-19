@@ -2,19 +2,19 @@
   <div class="div-account">
     <section class="info-section">
       <img src="Foto.jpg" alt="FotoPerfil">
-      <h2 class= "h2-name">Nombre Apellido</h2>
+      <h2 class= "h2-account">Nombre Apellido</h2>
         <ol>
-          <a><ul class="menu"><i class="fas fa-user"></i> | Cuenta </ul></a>
+          <a><ul class="menu"><i class="fas fa-user"></i> | Cuenta <i class="fas fa-angle-right arrow-right"></i></ul></a>
           <a><ul class="menu"><i class="fas fa-key"></i> | Contraseña </ul></a>
           <a><ul class="menu"><i class="far fa-credit-card"></i> | Datos de facturación </ul></a>
-          <a><ul class="menu"><i class="fas fa-truck-moving"></i> | Datos de envio </ul></a>
+          <a><ul class="menu"><i class="fas fa-truck-moving"></i> | Datos de envio</ul></a>
           <a><ul class="menu"><i class="fas fa-shopping-cart"></i> | Historial de pedidos </ul></a>
           <a><ul class="menu"><i class="fas fa-trash-alt"></i> | Eliminar cuenta </ul></a>
         </ol>
     </section>
-
-    <section class="form-edit">
+    <section class="form-section">
       <form action="" class="form-margin">
+        <h2 class="h2-account">Dirección de facturación</h2>
         <div class="form-group">
           <label for="">Nombre</label>
           <input type="text" placeholder="Nombre"> 
@@ -59,7 +59,7 @@
             </datalist>
         </div>
 
-        <button class="button primary" id="button-center">Save</button>
+        <button class="button primary" id="button-center">Guardar</button>
       </form>
 
     </section>
