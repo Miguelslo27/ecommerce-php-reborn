@@ -5,18 +5,35 @@
   margin: 0%;
 }
 
-.form-edit .info-section {
-  flex-grow: 1;
+.h2-name {
+  padding: 10px;
+  margin: 5px;
+  text-align: center;
 }
 
 .info-section{
-  margin: 30px;
-  padding-right: 100px;
+  box-shadow:0 0 15px rgba(147, 0, 119, .15);
+  margin: 2rem;
+  flex-grow: 1;
+}
+
+.form-margin{
+  margin-bottom: 0rem;
+}
+
+.menu {
+  box-shadow:0 0 15px rgba(147, 0, 119, .15);
+  padding: 17px;
+  color: black ;
+}
+
+.menu:hover {
+  color: #b52299;
 }
 
 .form-edit{
-  margin: 30px;
-  padding-left: 100px;
+  margin: 2rem;
+  flex-grow: 2;
 }
 
 #button-center {
@@ -30,4 +47,7 @@
   margin-right: 10px;
 }
 
-
+ol{
+  padding: 20px;
+  margin: 0px;
+}

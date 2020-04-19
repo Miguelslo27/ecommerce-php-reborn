@@ -1,38 +1,20 @@
 <body>
   <div class="div-account">
     <section class="info-section">
-      <img src="" alt="FotoPerfil">
-      <h3>Nombre Apellido</h3>
+      <img src="Foto.jpg" alt="FotoPerfil">
+      <h2 class= "h2-name">Nombre Apellido</h2>
         <ol>
-          <a><ul>
-            <i class="fas fa-user"></i>
-            Cuenta 
-        </ul></a>
-          <a><ul>
-            <i class="fas fa-key"></i>
-            Contraseña 
-            </ul></a>
-          <a><ul>
-            <i class="far fa-credit-card"></i>
-             Datos de facturación 
-            </ul></a>
-          <a><ul>
-            <i class="fas fa-truck-moving"></i>
-            Datos de envio 
-          </ul></a>
-          <a><ul> 
-            <i class="fas fa-shopping-cart"></i>
-            Historial de pedidos 
-          </ul></a>
-          <a><ul> 
-            <i class="fas fa-trash-alt"></i>
-            Eliminar cuenta 
-          </ul></a>
+          <a><ul class="menu"><i class="fas fa-user"></i> | Cuenta </ul></a>
+          <a><ul class="menu"><i class="fas fa-key"></i> | Contraseña </ul></a>
+          <a><ul class="menu"><i class="far fa-credit-card"></i> | Datos de facturación </ul></a>
+          <a><ul class="menu"><i class="fas fa-truck-moving"></i> | Datos de envio </ul></a>
+          <a><ul class="menu"><i class="fas fa-shopping-cart"></i> | Historial de pedidos </ul></a>
+          <a><ul class="menu"><i class="fas fa-trash-alt"></i> | Eliminar cuenta </ul></a>
         </ol>
     </section>
 
     <section class="form-edit">
-      <form action="">
+      <form action="" class="form-margin">
         <div class="form-group">
           <label for="">Nombre</label>
           <input type="text" placeholder="Nombre"> 
