@@ -103,6 +103,7 @@ i.fab+* {
 
 .spin {
   animation: spinAnimation .5s infinite ease;
+  pointer-events: none;
 }
 
 .blur {
