@@ -63,6 +63,7 @@ body>header .header-inner .store-nav {
 .store-nav .navigation .dropdown-nav {
   display: inline-block;
   position: relative;
+  min-width: 100px;
 }
 
 .store-nav .navigation .dropdown {
