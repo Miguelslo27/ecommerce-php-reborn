@@ -1,7 +1,12 @@
 <section class="inner form-register">
   <h1 class="shadowed-title">
-    <span class="title-shadow">Registro de Usuario</span>
-    <span class="title">Registro de Usuario</span>
+    <?php if (getCurrentUser()) : ?>
+      <span class="title-shadow">Edición de Usuario</span>
+      <span class="title">Edición de Usuario</span>
+    <?php else : ?>
+      <span class="title-shadow">Registro de Usuario</span>
+      <span class="title">Registro de Usuario</span>
+    <?php endif ?>
   </h1>
 
   <form action="" method="POST">
@@ -15,8 +20,8 @@
     </div>
 
     <div class="form-line <?php getGlobal('classesHandler')('reg_email', 'error') ?>">
-      <label for="reg_email">E-Mail *</label>
-      <input type="text" name="reg_email" id="reg_email" value="<?php oneOf(@getGlobal('getPreFormData')('reg_email'), getGlobal('getPreFormData')('email')) ?>">
+      <label for="reg_email" class="<?php bind(getCurrentUser() ? 'disabled' : '') ?>">E-Mail *</label>
+      <input type="text" name="reg_email" id="reg_email" value="<?php oneOf(@getGlobal('getPreFormData')('reg_email'), getGlobal('getPreFormData')('email')) ?>" <?php bind(getCurrentUser() ? 'disabled' : '') ?>>
     </div>
 
     <div class="form-group">
@@ -27,8 +32,8 @@
     </div>
 
     <div class="form-line <?php getGlobal('classesHandler')('document', 'error') ?>">
-      <label for="document">RUT o Cédula * </label>
-      <input type="text" name="document" id="document" value="<?php getGlobal('getPreFormData')('document') ?>">
+      <label for="document" class="<?php bind(getCurrentUser() ? 'disabled' : '') ?>">RUT o Cédula * </label>
+      <input type="text" name="document" id="document" value="<?php getGlobal('getPreFormData')('document') ?>" <?php bind(getCurrentUser() ? 'disabled' : '') ?>>
     </div>
 
     <div class="form-line <?php getGlobal('classesHandler')('address', 'error') ?>">

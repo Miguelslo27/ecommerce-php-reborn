@@ -17,7 +17,11 @@ newDocument([
   {
     $requestMessages = getSession('request_messages');
 
-    if (@$requestMessages->succeeded) {
+    if (@$requestMessages->succeeded && getCurrentUser()) {
+      setSession('user', loadUser(getCurrentUser()->email));
+    }
+
+    if (@$requestMessages->succeeded && !getCurrentUser()) {
       header('Location: ' . (
         getSession('redirectTo') !== getServer('HTTP_ORIGIN') . getServer('REQUEST_URI')
         ? getSession('redirectTo')
