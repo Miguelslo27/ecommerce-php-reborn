@@ -73,6 +73,14 @@ form .form-line>*:not(input):not(textarea) {
   width: 25%;
 }
 
+form .form-placeholder input:not([type=checkbox]):not([type=radio]):disabled,
+form .form-line input:not([type=checkbox]):not([type=radio]):disabled,
+form .form-group input:not([type=checkbox]):not([type=radio]):disabled {
+  background-color: #b3b3b363;
+  color: #6b6b6bad;
+  user-select: none;
+}
+
 form .form-placeholder input:not([type=checkbox]):not([type=radio]),
 form .form-placeholder textarea:not([type=checkbox]):not([type=radio]),
 form .form-line input:not([type=checkbox]):not([type=radio]),

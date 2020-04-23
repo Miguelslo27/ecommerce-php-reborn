@@ -25,7 +25,7 @@ function getUserId() {
 }
 
 function registerNewUser() {
-  $status = registerNewUser_checkIncomingData();
+  $status = user_checkIncomingData(true);
 
   if (!$status->succeeded) {
     return $status;
@@ -74,14 +74,53 @@ function registerNewUser() {
     ];
     $status->warnings         = [];
     $status->fieldsWithErrors = [];
+  } else {
+    $status->success = 'Te has registrado con éxito';
   }
+  
+  return $status;
+}
 
-  $status->success = 'Te has registrado con éxito';
+function saveUserEdition()
+{
+  $status = user_checkIncomingData(false);
+  
+  if (!$status->succeeded) {
+    return $status;
+  }
+  
+  // @TODO
+  $sql = (
+    'UPDATE
+      `users`
+      SET 
+        `name` = "' . getPostData('name') . '",
+        `lastname` = "' . getPostData('lastname') . '",
+        `address` = "' . getPostData('address') . '",
+        `state` = "' . getPostData('state') . '",
+        `city` = "' . getPostData('city') . '",
+        `phone` = "' . getPostData('phone') . '",
+        `cellphone` = "' . getPostData('cellphone') . '"
+      WHERE
+        `id` = ' . getUserId()
+    );
+  
+  if(!getDB()->query($sql)) {
+    $status->succeeded        = false;
+    $status->success          = '';
+    $status->errors           = [
+      'Hubo un error al guardar tus datos, inténtalo de nuevo'
+    ];
+    $status->warnings         = [];
+    $status->fieldsWithErrors = [];
+  } else {
+    $status->success = 'Tus datos se salvaron con éxito';
+  }
 
   return $status;
 }
 
-function registerNewUser_checkIncomingData()
+function user_checkIncomingData($isANewUser = false)
 {
   $status = newStatusObject();
 
@@ -122,43 +161,57 @@ function registerNewUser_checkIncomingData()
     return $status;
   }
 
-  if (empty(getPostData('reg_email'))) {
-    $status->fieldsWithErrors['reg_email'] = true;
-    $status->errors[]                      = 'El email no puede ser vacío';
-  } elseif (!preg_match(REG_EXP_EMAIL_FORMAT, getPostData('reg_email'))) {
-    $status->fieldsWithErrors['reg_email'] = true;
-    $status->errors[]                      = 'El email no tiene el formato correcto';
-  } elseif (checkIfEmailExists(getPostData('reg_email'))) {
-    $status->fieldsWithErrors['reg_email'] = true;
-    $status->errors[]                      = 'El email ya se encuentra registrado';
-    return $status;
-  }
-
-  if (empty(getPostData('reg_pass'))) {
-    $status->fieldsWithErrors['reg_pass'] = true;
-    $status->fieldsWithErrors['pass2']    = true;
-    $status->errors[]                     = 'La contraseña no puede ser vacía';
-  } elseif (strlen(getPostData('reg_pass')) < 6) {
-    $status->fieldsWithErrors['reg_pass'] = true;
-    $status->fieldsWithErrors['pass2']    = true;
-    $status->errors[]                     = 'Para una contraseña segura, esta debe tener más de 6 caracteres';
-  } else {
-    if (
-      empty(getPostData('pass2'))
-      || getPostData('reg_pass') !== getPostData('pass2')
-    ) {
-      $status->fieldsWithErrors['reg_pass'] = true;
-      $status->fieldsWithErrors['pass2']    = true;
-      $status->errors[]                     = 'Las contraseñas deben coincidir, por seguridad';
+  if ($isANewUser) {
+    if (empty(getPostData('reg_email'))) {
+      $status->fieldsWithErrors['reg_email'] = true;
+      $status->errors[]                      = 'El email no puede ser vacío';
+    } elseif (!preg_match(REG_EXP_EMAIL_FORMAT, getPostData('reg_email'))) {
+      $status->fieldsWithErrors['reg_email'] = true;
+      $status->errors[]                      = 'El email no tiene el formato correcto';
+    } elseif (checkIfEmailExists(getPostData('reg_email'))) {
+      $status->fieldsWithErrors['reg_email'] = true;
+      $status->errors[]                      = 'El email ya se encuentra registrado';
+      return $status;
     }
   }
 
-  if (empty(getPostData('document'))) {
-    $status->fieldsWithErrors['document'] = true;
-    $status->errors[]                = 'Ingresa el RUT de tu empresa o tu número de documento';
-  } elseif (!preg_match(REG_EXP_NUMBER_FORMAT, getPostData(('document')))) {
-    $status->fieldsWithErrors['document'] = true;
-    $status->errors[]                = 'El RUT o número de documento no puede contener caracteres alfabéticos, puntos ni guiones, sólo números';
+  if ($isANewUser) {
+    if (strlen(getPostData('reg_pass')) < 6) {
+      $status->fieldsWithErrors['reg_pass'] = true;
+      $status->fieldsWithErrors['pass2']    = true;
+      $status->errors[]                     = 'Para una contraseña segura, esta debe tener más de 6 caracteres';
+    } else {
+      if (
+        empty(getPostData('pass2'))
+        || getPostData('reg_pass') !== getPostData('pass2')
+      ) {
+        $status->fieldsWithErrors['reg_pass'] = true;
+        $status->fieldsWithErrors['pass2']    = true;
+        $status->errors[]                     = 'Las contraseñas deben coincidir, por seguridad';
+      }
+    }
+  } else {
+    if (!empty(getPostData('reg_pass')) && strlen(getPostData('reg_pass')) < 6) {
+      $status->fieldsWithErrors['reg_pass'] = true;
+      $status->fieldsWithErrors['pass2']    = true;
+      $status->errors[]                     = 'Para una contraseña segura, esta debe tener más de 6 caracteres';
+    } else {
+      if (getPostData('reg_pass') !== getPostData('pass2')) {
+        $status->fieldsWithErrors['reg_pass'] = true;
+        $status->fieldsWithErrors['pass2']    = true;
+        $status->errors[]                     = 'Las contraseñas deben coincidir, por seguridad';
+      }
+    }
+  }
+
+  if ($isANewUser) {
+    if (empty(getPostData('document'))) {
+      $status->fieldsWithErrors['document'] = true;
+      $status->errors[]                     = 'Ingresa el RUT de tu empresa o tu número de documento';
+    } elseif (!preg_match(REG_EXP_NUMBER_FORMAT, getPostData(('document')))) {
+      $status->fieldsWithErrors['document'] = true;
+      $status->errors[]                     = 'El RUT o número de documento no puede contener caracteres alfabéticos, puntos ni guiones, sólo números';
+    }
   }
 
   if (
@@ -199,4 +252,28 @@ function registerNewUser_checkIncomingData()
 
 function checkIfEmailExists($email) {
   return getDB()->countOf('users', "`email` = '$email'") > 0;
+}
+
+function loadUser($email)
+{
+  $sql = (
+    "SELECT
+        `id`,
+        `name`,
+        `lastname`,
+        `email`,
+        `document`,
+        `address`,
+        `state`,
+        `city`,
+        `phone`,
+        `cellphone`,
+        `isadmin`
+      FROM
+        `users`
+      WHERE
+        `email` = '$email'"
+  );
+  $user = getDB()->getObject($sql);
+  return $user;
 }

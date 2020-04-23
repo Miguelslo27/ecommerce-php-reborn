@@ -39,10 +39,14 @@ function processRequests()
     setSession('request_messages', registerNewUser());
   }
 
-  /**
-   * @TODO
-   * Process action ACTION_USER_EDITION
-   */
+  if (
+    getPostData('action') === ACTION_USER_EDITION
+    && !empty(getServer('REQUEST_METHOD'))
+    && strtolower(getServer('REQUEST_METHOD')) == 'post'
+  ) {
+    logToConsole('EDITING', 'USER', __FILE__, __FUNCTION__, __LINE__);
+    setSession('request_messages', saveUserEdition());
+  }
 
   if (getRequestData('action') == ACTION_ADD_TO_CART) {
     setSession('request_messages', addToCart());
