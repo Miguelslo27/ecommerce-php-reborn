@@ -52,3 +52,5 @@ exec('chmod -R 755 ./');
 error_log("----------------------------------------------\n", 3, 'logfile.txt');
 
 printRecursively($commandOutput);
+
+// Testing deployment
