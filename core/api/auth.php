@@ -52,6 +52,12 @@ function runLogin()
   setSession('user', $user);
   $status->success = 'Ingresaste con éxito';
 
+  /*$temporal_order = getCurrentCart();
+
+  if ($status->success && !(empty(getCurrentCart()) || empty(getCurrentCart()->articles))) {
+    setcookie("TEMPORAL_ORDER", "temporal_order", time()+3600, "/","", 0);
+  }*/
+
   return $status;
 }
 

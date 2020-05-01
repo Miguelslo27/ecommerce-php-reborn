@@ -288,9 +288,65 @@ function loadCart()
 function transferOrder($fromUser, $toUser)
 {
   $sql   = getOrderSqlGenerator($fromUser);
+  $order_temporal = getDb()->getObject($sql);
+
+  $sql   = getOrderSqlGenerator($toUser);
   $order = getDb()->getObject($sql);
 
+  if (empty($order_temporal)) {
+    return;
+  }
+
   if (empty($order)) {
+    $sqlUpdate = (
+      "UPDATE
+        `orders`
+        SET
+          `user_id` = $toUser
+        WHERE
+          `user_id` = $fromUser"
+    );
+  
+    getDB()->query($sqlUpdate);
+    return;
+  } else {
+    $oid_from        = getOrderByUserId($fromUser);
+    $oid_to          = getOrderByUserId($toUser);
+
+    $sqlUpdate = (
+      "UPDATE
+        `in_order_articles`
+        SET
+          `order_id` = $oid_to->id
+        WHERE
+          `order_id` = $oid_from->id"
+    );
+    getDB()->query($sqlUpdate);
+    
+    $sqlUpdate = (
+      "DELETE FROM
+        `orders`
+        WHERE
+        `user_id` = $fromUser"
+    );
+  }
+  
+  getDB()->query($sqlUpdate);
+  refreshOrder($oid_to->id);
+
+}
+
+function refreshOrder($oid) {
+  $articles = getArticlesInOrder($oid);
+
+  $total = 0;
+  if (!empty($articles)) {
+    foreach ($articles as $article) {
+      $price           = $article->current_price;
+      $subtotal        = $price * $article->quantity;
+      $total           = $total + $subtotal;
+    }
+  } else {
     return;
   }
 
@@ -298,13 +354,11 @@ function transferOrder($fromUser, $toUser)
     "UPDATE
       `orders`
       SET
-        `user_id` = $toUser
+        `total` = $total
       WHERE
-        `user_id` = $fromUser"
+        `id` = $oid"
   );
-
   getDB()->query($sqlUpdate);
-  return;
 }
 
 function saveOrderBillingInfo() {
