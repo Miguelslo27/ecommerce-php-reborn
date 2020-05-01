@@ -1,15 +1,15 @@
 <body>
   <div class="div-account">
     <section class="info-section">
-      <img src="Foto.jpg" alt="FotoPerfil">
+      <img class="photo" src="/statics/images/Foto.jpg" alt="FotoPerfil">
       <h2 class= "h2-account">Nombre Apellido</h2>
         <ol>
           <a><ul class="menu"><i class="fas fa-user"></i> | Cuenta <i class="fas fa-angle-right arrow-right"></i></ul></a>
-          <a><ul class="menu"><i class="fas fa-key"></i> | Contraseña </ul></a>
-          <a><ul class="menu"><i class="far fa-credit-card"></i> | Datos de facturación </ul></a>
-          <a><ul class="menu"><i class="fas fa-truck-moving"></i> | Datos de envio</ul></a>
-          <a><ul class="menu"><i class="fas fa-shopping-cart"></i> | Historial de pedidos </ul></a>
-          <a><ul class="menu"><i class="fas fa-trash-alt"></i> | Eliminar cuenta </ul></a>
+          <a><ul class="menu"><i class="fas fa-key"></i> | Contraseña  <i class="fas fa-angle-right arrow-right"></i></ul></a>
+          <a><ul class="menu"><i class="far fa-credit-card"></i> | Datos de facturación  <i class="fas fa-angle-right arrow-right"></i></ul></a>
+          <a><ul class="menu"><i class="fas fa-truck-moving"></i> | Datos de envio  <i class="fas fa-angle-right arrow-right"></i></ul></a>
+          <a><ul class="menu"><i class="fas fa-shopping-cart"></i> | Historial de pedidos  <i class="fas fa-angle-right arrow-right"></i></ul></a>
+          <a><ul class="menu"><i class="fas fa-trash-alt"></i> | Eliminar cuenta  <i class="fas fa-angle-right arrow-right"></i></ul></a>
         </ol>
     </section>
     <section class="form-section">
@@ -60,6 +60,8 @@
         </div>
 
         <button class="button primary" id="button-center">Guardar</button>
+        <button class="button secondary" id="button-center">Reset</button>
+
       </form>
 
     </section>
