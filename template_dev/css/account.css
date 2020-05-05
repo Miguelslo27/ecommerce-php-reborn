@@ -5,17 +5,15 @@
    margin: 20px;
    max-width: 1200px;
    box-sizing: border-box;
-
   }
   
-  
-  .form-section .info-section{
+  .form-section .info-section {
     box-sizing: border-box;
     margin: 2rem;
     padding: 30px;
   }
   
-  .form-section{
+  .form-section {
     width: calc(100% - 300px) ;
     margin-left: 30px;
     justify-content: center;
@@ -29,10 +27,10 @@
   }
 
   .form-section div {
-    margin: 40px;
+    margin: 30px;
   }
   
-  .info-section{
+  .info-section {
   box-shadow:0 0 15px rgba(147, 0, 119, .15);
   display: flex;
   flex-direction: column;
@@ -43,12 +41,12 @@
   height: 705px;
 }
 
-.form-margin{
+.form-margin {
   margin-bottom: 0rem;
 }
 
 .menu {
-  border: 3px solid black;
+  border-bottom: 1px solid black;
   padding: 17px;
   color: black ;
   flex-grow: 1;
@@ -56,17 +54,13 @@
 }
 
 .menu:hover {
-  border: 3px solid #b52299;
+  border: 1px solid #b52299;
   color: #b52299;
+  padding: 25px;
 }
-
 
 #button-center {
  margin: 30px;
-}
-
-.input-space { 
-  margin-right: 10px;
 }
 
 ol{
@@ -74,23 +68,42 @@ ol{
   margin: 0px;
 }
 
-.h2-account {
+ /*.h2-account {
   padding: 10px;
   margin: 5px;
   text-align: center;
-}
+}*/
 
 .arrow-right {
   float: right;
 }
+ 
+.photo:hover {
+  margin: 10px;
+  border: 1px double #b52299;
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.photo:hover img{
+  width: 265px;
+  height: 245px;
+}
+
+.photo img{
+  width: 240px;
+  height: 220px;
+}
 
 .photo {
   margin: 10px;
-    width: 265px;
-    border-radius: 35px;
+  border-radius: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.photo:hover {
-  width: 320px;
-  border: 3px solid #b52299;
+.label-center {
+  text-align: center;
 }
