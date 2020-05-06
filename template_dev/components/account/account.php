@@ -9,7 +9,7 @@
           <a><ul class="menu"><i class="fas fa-user"></i> | Cuenta <i class="fas fa-angle-right arrow-right"></i></ul></a>
           <a><ul class="menu"><i class="fas fa-key"></i> | Contraseña  <i class="fas fa-angle-right arrow-right"></i></ul></a>
           <a><ul class="menu"><i class="far fa-credit-card"></i> | Datos de facturación  <i class="fas fa-angle-right arrow-right"></i></ul></a>
-          <a><ul class="menu"><i class="fas fa-truck-moving"></i> | Datos de envio  <i class="fas fa-angle-right arrow-right"></i></ul></a>
+          <a><ul class="menu"><i class="fas fa-truck-moving"></i> | Datos de envío  <i class="fas fa-angle-right arrow-right"></i></ul></a>
           <a><ul class="menu"><i class="fas fa-shopping-cart"></i> | Historial de pedidos  <i class="fas fa-angle-right arrow-right"></i></ul></a>
           <a><ul class="menu"><i class="fas fa-trash-alt"></i> | Eliminar cuenta  <i class="fas fa-angle-right arrow-right"></i></ul></a>
         </ol>
@@ -18,8 +18,8 @@
     <section class="form-section">
       <form action="" class="form-margin">
         <h2 class="shadowed-title">
-          <span class="title-shadow"> Datos de Facturacion</span>
-          <span class="title"> Datos de Facturacion</span>
+          <span class="title-shadow"> Datos de Facturación</span>
+          <span class="title"> Datos de Facturación</span>
         </h2>
         <div class="form-group">
           <label class="label-center" for="">Nombre</label>
@@ -34,13 +34,13 @@
         </div>
 
         <div class="form-line">
-          <label class="label-center" for="">Direccion Completa</label>
+          <label class="label-center" for="">Dirección Completa</label>
           <input type="text" placeholder="Calle 1245, esq Dir">
         </div>
 
         <div class="form-group">
           <Label class="label-center">Departamento</Label>
-          <input list="city">
+          <input list="city" placeholder="Montevideo">
             <datalist id="city">
               <option value="Montevideo">
               <option value="Canelones">
@@ -68,7 +68,7 @@
         </div>
 
         <div class="form-group">
-          <label class="label-center" for="">Telefono</label>
+          <label class="label-center" for="">Teléfono</label>
           <input type="tel" placeholder="12345678">
 
           <label class="label-center" for="">Celular</label>

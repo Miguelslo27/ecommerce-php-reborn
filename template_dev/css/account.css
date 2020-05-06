@@ -14,7 +14,7 @@
   }
   
   .form-section {
-    width: calc(100% - 300px) ;
+    width: calc(100% - 300px);
     margin-left: 30px;
     justify-content: center;
     align-items: center;
@@ -63,16 +63,10 @@
  margin: 30px;
 }
 
-ol{
+ol {
   padding: 20px;
   margin: 0px;
 }
-
- /*.h2-account {
-  padding: 10px;
-  margin: 5px;
-  text-align: center;
-}*/
 
 .arrow-right {
   float: right;
@@ -85,12 +79,12 @@ ol{
   overflow: hidden;
 }
 
-.photo:hover img{
+.photo:hover img {
   width: 265px;
   height: 245px;
 }
 
-.photo img{
+.photo img {
   width: 240px;
   height: 220px;
 }
