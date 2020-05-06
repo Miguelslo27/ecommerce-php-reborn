@@ -1,7 +1,7 @@
 <?php
 
 define('APP_VERSION', '0.10.2');
-define('API_VERSION', '0.6.3');
+define('API_VERSION', '0.6.4');
 
 if (!empty(getenv('ENV'))) {
   require_once('config_' . getenv('ENV') . '.php');
