@@ -1,8 +1,8 @@
 <?php
 
 newDocument([
-  'title' => 'eCommerce - Mi Carrito',
-  'page' => 'cart',
+  'title' => 'eCommerce - Mi Cuenta',
+  'account' => 'cart',
   'components' => [
     'components/header/header',
     'components/account/account',
