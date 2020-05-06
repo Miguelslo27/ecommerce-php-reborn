@@ -288,9 +288,104 @@ function loadCart()
 function transferOrder($fromUser, $toUser)
 {
   $sql   = getOrderSqlGenerator($fromUser);
+  $order_temporal = getDb()->getObject($sql);
+
+  $sql   = getOrderSqlGenerator($toUser);
   $order = getDb()->getObject($sql);
 
+  //TEMPORAL EMPTY RETURN
+  if (empty($order_temporal)) {
+    return;
+  }
+
+  //ACTUAL EMPTY TRANSFER ORDER TEMPORAL
   if (empty($order)) {
+    $sqlUpdate = (
+      "UPDATE
+        `orders`
+        SET
+          `user_id` = $toUser
+        WHERE
+          `user_id` = $fromUser"
+    );
+
+    getDB()->query($sqlUpdate);
+    return;
+  } else {
+    $oid_from        = getOrderByUserId($fromUser);
+    $oid_to          = getOrderByUserId($toUser);
+    $articles_from   = getArticlesInOrder($oid_from->id);
+    $articles_to     = getArticlesInOrder($oid_to->id);
+    $auxiliar_equal = false;
+
+    //SAME ARTICLES - UPDATE QUANTITY
+    foreach ($articles_from as $article_from) {
+      foreach ($articles_to as $article_to) {
+        if (($article_from->article_id) == ($article_to->article_id)) {
+          $sqlUpdate = (
+            "UPDATE
+              `in_order_articles`
+              SET
+                `quantity` = $article_to->quantity + $article_from->quantity, 
+                `subtotal` = $article_to->subtotal + $article_from->subtotal 
+              WHERE
+                `order_id` = $oid_to->id
+              AND
+                `article_id` = $article_to->article_id"
+          );
+          getDB()->query($sqlUpdate);
+          $auxiliar_equal = true;
+        }
+      }
+      //DIFFERENT ARTICLES - CHANGE OLD ORDER ID
+      if ($auxiliar_equal == false) {
+        $sqlUpdate = (
+          "UPDATE
+            `in_order_articles`
+            SET
+              `order_id` = $oid_to->id
+            WHERE
+              `order_id` = $oid_from->id
+            AND
+              `article_id` = $article_from->article_id"
+        );
+        getDB()->query($sqlUpdate);
+      }
+      $auxiliar_equal = false;
+    } 
+    
+    //DELETE OLD ORDER AND DERIVATIVES
+    $sqlUpdate = (
+      "DELETE FROM
+        `orders`
+        WHERE
+        `user_id` = $fromUser"
+    );
+    getDB()->query($sqlUpdate);
+
+    $sqlUpdate = (
+      "DELETE FROM
+        `in_order_articles`
+        WHERE
+        `order_id` = $oid_from->id"
+    );
+    getDB()->query($sqlUpdate);
+
+    refreshOrder($oid_to->id);
+  }
+}
+
+function refreshOrder($oid) {
+  $articles = getArticlesInOrder($oid);
+
+  $total = 0;
+  if (!empty($articles)) {
+    foreach ($articles as $article) {
+      $price           = $article->current_price;
+      $subtotal        = $price * $article->quantity;
+      $total           = $total + $subtotal;
+    }
+  } else {
     return;
   }
 
@@ -298,13 +393,11 @@ function transferOrder($fromUser, $toUser)
     "UPDATE
       `orders`
       SET
-        `user_id` = $toUser
+        `total` = $total
       WHERE
-        `user_id` = $fromUser"
+        `id` = $oid"
   );
-
   getDB()->query($sqlUpdate);
-  return;
 }
 
 function saveOrderBillingInfo() {
