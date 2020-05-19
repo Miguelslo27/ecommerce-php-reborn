@@ -11,7 +11,6 @@ newDocument([
   'styles' => [
     'css/fontawesome/css/all.min.css',
     'css/layout.css',
-    'css/account.css',
     'css/forms.css'
   ]
 ]);

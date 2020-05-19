@@ -1,17 +1,63 @@
+<style>
+.info-section nav {
+  width: 80%;
+}
+ul.sidebar-nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+ul.sidebar-nav li > a {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 15px;
+  justify-content: space-between;
+  border-bottom: 1px solid;
+  color: #333;
+  text-decoration: none;
+}
+ul.sidebar-nav li > a:hover {
+  color: #b52299;
+}
+ul.sidebar-nav li > a:hover > span {
+  padding-left: 10px;
+}
+/* ul.sidebar-nav li > a > * {
+} */
+</style>
 <body>
   <div class="div-account">
     <section class="info-section">
-    <div class="photo">
-      <img src="/statics/images/Foto.jpg" alt="FotoPerfil">
-    </div>
+      <div class="photo">
+        <img src="/statics/images/Foto.jpg" alt="FotoPerfil">
+      </div>
       <h2 class= "h2-account">Nombre Apellido</h2>
 
-      <ul class="list-section">
-
-        <a class="list-flex">
+      <nav>
+        <ul class="sidebar-nav">
+          <li>
+            <a href="#">
+              <span>
+                <i class="fas fa-user"></i> | Cuenta
+              </span>
+              <i class="fas fa-angle-right"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span>
+                <i class="fas fa-user"></i> | Cuenta
+              </span>
+              <i class="fas fa-angle-right"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+        <!-- <a class="list-flex">
           <li class="list-one"> <i class="fas fa-user"></i> | Cuenta </li>
           <li class="list-two"> <i class="fas fa-angle-right"></i></li>
-          </a>
+        </a>
         
          <a class="list-flex">
           <li class="list-one"><i class="fas fa-key"></i> | Contraseña </li>
@@ -37,8 +83,8 @@
           <a class="list-flex" href="">
           <li class="list-one"><i class="fas fa-trash-alt"></i> | Eliminar cuenta </li>
           <li class="list-two"><i class="fas fa-angle-right"></i></li>
-          </a>
-        </ul>
+          </a> -->
+        <!-- </ul> -->
     </section>
 
     <section class="form-section">
