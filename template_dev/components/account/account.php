@@ -5,14 +5,40 @@
       <img src="/statics/images/Foto.jpg" alt="FotoPerfil">
     </div>
       <h2 class= "h2-account">Nombre Apellido</h2>
-        <ol>
-          <a><ul class="menu"><i class="fas fa-user"></i> | Cuenta <i class="fas fa-angle-right arrow-right"></i></ul></a>
-          <a><ul class="menu"><i class="fas fa-key"></i> | Contraseña  <i class="fas fa-angle-right arrow-right"></i></ul></a>
-          <a><ul class="menu"><i class="far fa-credit-card"></i> | Datos de facturación  <i class="fas fa-angle-right arrow-right"></i></ul></a>
-          <a><ul class="menu"><i class="fas fa-truck-moving"></i> | Datos de envío  <i class="fas fa-angle-right arrow-right"></i></ul></a>
-          <a><ul class="menu"><i class="fas fa-shopping-cart"></i> | Historial de pedidos  <i class="fas fa-angle-right arrow-right"></i></ul></a>
-          <a><ul class="menu"><i class="fas fa-trash-alt"></i> | Eliminar cuenta  <i class="fas fa-angle-right arrow-right"></i></ul></a>
-        </ol>
+
+      <ul class="list-section">
+
+        <a class="list-flex">
+          <li class="list-one"> <i class="fas fa-user"></i> | Cuenta </li>
+          <li class="list-two"> <i class="fas fa-angle-right"></i></li>
+          </a>
+        
+         <a class="list-flex">
+          <li class="list-one"><i class="fas fa-key"></i> | Contraseña </li>
+          <li class="list-two"> <i class="fas fa-angle-right"></i></li>
+          </a>
+
+        <a class="list-flex">
+          <li class="list-one"><i class="far fa-credit-card"></i> |  Datos de facturación</li>
+          <li class="list-two"> <i class="fas fa-angle-right"></i></li>
+          </a>
+
+        <a class="list-flex">
+          <li class="list-one"><i class="fas fa-truck-moving"></i> | Datos de envío  </li>
+          <li class="list-two"><i class="fas fa-angle-right"></i></li>
+        </a>
+        
+        <a class="list-flex" href="">
+          <li class="list-one"><i class="fas fa-shopping-cart"></i> | Historial de pedidos </li>
+          <li class="list-two"> <i class="fas fa-angle-right"></i></li>
+        </a>
+      
+      
+          <a class="list-flex" href="">
+          <li class="list-one"><i class="fas fa-trash-alt"></i> | Eliminar cuenta </li>
+          <li class="list-two"><i class="fas fa-angle-right"></i></li>
+          </a>
+        </ul>
     </section>
 
     <section class="form-section">

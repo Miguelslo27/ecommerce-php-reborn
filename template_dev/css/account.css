@@ -44,37 +44,44 @@
 .form-margin {
   margin-bottom: 0rem;
 }
-
-.menu {
-  border-bottom: 1px solid black;
-  padding: 17px;
-  color: black ;
-  flex-grow: 1;
-  margin-bottom: 5px;
+.list-one {
+  flex-grow: 2;
 }
 
-.menu:hover {
-  border: 1px solid #b52299;
+.list-two {
+  float: right;
+}
+
+.list-flex:hover {
+  border-bottom: 1px solid #b52299;
   color: #b52299;
-  padding: 25px;
+  padding: 20px;
+}
+
+.list-section{
+  margin: 10px;
+  padding: 10px;
+  max-height: 375px;
+  box-sizing: border-box;
 }
 
 #button-center {
  margin: 30px;
 }
 
-ol {
-  padding: 20px;
-  margin: 0px;
-}
-
-.arrow-right {
-  float: right;
+.list-flex {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  border-bottom: 1px solid black;
+  padding: 17px;
+  color: black ;
+  margin-bottom: 0px;
 }
  
 .photo:hover {
   margin: 10px;
-  border: 1px double #b52299;
+  border-bottom: 1px double #b52299;
   border-radius: 100%;
   overflow: hidden;
 }
