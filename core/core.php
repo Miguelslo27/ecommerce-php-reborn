@@ -6,11 +6,7 @@ init();
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
-require_once 'C:\xampp\htdocs\websites\ecommerce\core\lib\mailer\class.smtp.php';
-require_once 'C:\xampp\htdocs\websites\ecommerce\core\lib\mailer\class.exception.php';
-require_once 'C:\xampp\htdocs\websites\ecommerce\core\lib\mailer\class.phpmailer.php';
-
+use PHPMailer\PHPMailer\SMTP;
 
 function init()
 {
@@ -92,7 +88,7 @@ function processRequests()
     logToConsole('getPostAll()', getPostAll(), __FILE__, __FUNCTION__, __LINE__);
     setSession('request_messages', sendEmail([
       'from'    => ['email' => getPostData('sendemail_from'), 'name' => getPostData('sendemail_name')],
-      'to'      => 'fdsosa.35@gmail.com',
+      'to'      => 'federicososa999@gmail.com',
       'subject' => getPostData('sendemail_subject'),
       'body'    => getPostData('sendemail_message'),
     ]));
@@ -110,12 +106,20 @@ function sendEmail($settings)
       $mailer = new PHPMailer();
     
       //Server settings
-      $mailer->SMTPDebug = 0;                      // Enable verbose debug output
+      $mailer->SMTPDebug = SMTP::DEBUG_OFF;                      // Enable verbose debug output
       $mailer->isSMTP();                                            // Send using SMTP
+      $mailer->SMTPOptions = array(
+        'ssl' => array(
+        'verify_peer' => false,
+        'verify_peer_name' => false,
+        'allow_self_signed' => true
+        )
+      );
       $mailer->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
       $mailer->SMTPAuth   = true;                                   // Enable SMTP authentication
-      $mailer->Username   = 'fdsosa.35@gmail.com';                     // SMTP username
-      $mailer->Password   = 'popla2010';                               // SMTP password
+      $mailer->Username   = '';                     // SMTP username
+      $mailer->Password   = '';                               // SMTP password
+      $mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
       $mailer->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
       customAddAddresses($mailer, $settings['to']);
@@ -127,7 +131,8 @@ function sendEmail($settings)
         customAddAddresses($mailer, $settings['bcc']);
       }
       $mailer->setFrom(@$settings['from']['email'], @$settings['from']['name']);
-      $mailer->isHTML(true);//(@$settings['isHTML']);
+      $mailer->AddReplyTo(@$settings['from']['email'], @$settings['from']['name']);
+      $mailer->(@$settings['isHTML']);
       $mailer->Subject = @$settings['subject'];
       $mailer->Body    = @$settings['body'];
       $mailer->AltBody = @$settings['body'];
