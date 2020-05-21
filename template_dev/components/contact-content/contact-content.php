@@ -47,7 +47,30 @@
       </div>
     </div>
     <div class="contact-div form-container">
-      <?php getTemplate('components/forms/contact') ?>
+      <!-- FORM SECTION -->
+      <div class="form-div">
+        <form action="" method="POST">
+        <input type="hidden" name="action" value="<?php bind(ACTION_SEND_EMAIL) ?>">
+          <div class="form-placeholder">
+            <input type="text" placeholder="Nombre">
+          </div>
+          <div class="form-placeholder">
+            <input type="text" placeholder="Empresa">
+          </div>
+          <div class="form-placeholder">
+            <input type="text" placeholder="Telefono">
+          </div>
+          <div class="form-placeholder">
+            <input type="text" placeholder="Email">
+          </div>
+          <div class="form-placeholder">
+            <textarea placeholder="Mensaje"></textarea>
+          </div>
+          <div class="form-actions">
+            <button class="btn-100" type="submit">ENVIAR CONSULTA</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>      
   <h1 class="shadowed-title mobile-title">
