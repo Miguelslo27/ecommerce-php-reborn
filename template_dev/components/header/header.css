@@ -50,6 +50,10 @@ body>header .header-inner .store-nav {
   border-bottom: 2px solid #b52299;
 }
 
+.store-nav .navigation a.more-item {
+  color: #b52299;
+}
+
 .store-nav .navigation a.access-menu .fas,
 .store-nav .navigation a.access-menu .far {
   font-size: 1rem;
