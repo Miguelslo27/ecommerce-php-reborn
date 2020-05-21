@@ -1,45 +1,67 @@
 <body>
   <div class="div-account">
-    <section class="info-section">
+    <nav class="info-section">
     <div class="photo">
       <img src="/statics/images/Foto.jpg" alt="FotoPerfil">
     </div>
       <h2 class= "h2-account">Nombre Apellido</h2>
 
       <ul class="list-section">
+      <li class="item-list">
+      <a href="" class="list-flex">
+    <span>
+      <i class="fas fa-user"></i> | Cuenta
+    </span>
+      <i class="fas fa-angle-right"></i>
+  </a>
+</li>
 
-        <a class="list-flex">
-          <li class="list-one"> <i class="fas fa-user"></i> | Cuenta </li>
-          <li class="list-two"> <i class="fas fa-angle-right"></i></li>
-          </a>
-        
-         <a class="list-flex">
-          <li class="list-one"><i class="fas fa-key"></i> | Contraseña </li>
-          <li class="list-two"> <i class="fas fa-angle-right"></i></li>
-          </a>
+<li class="item-list">
+  <a href="" class="list-flex">
+    <span>
+      <i class="fas fa-key"></i> | Contraseña 
+    </span>
+      <i class="fas fa-angle-right"></i>
+  </a>
+</li>
 
-        <a class="list-flex">
-          <li class="list-one"><i class="far fa-credit-card"></i> |  Datos de facturación</li>
-          <li class="list-two"> <i class="fas fa-angle-right"></i></li>
-          </a>
+<li class="item-list">
+  <a href="" class="list-flex">
+    <span>
+      <i class="far fa-credit-card"></i> |  Datos de facturación
+    </span>
+      <i class="fas fa-angle-right"></i>
+  </a>
+</li>
+       
+<li class="item-list">
+  <a href="" class="list-flex">
+    <span>
+    <i class="fas fa-truck-moving"></i> | Datos de envío 
+    </span>
+      <i class="fas fa-angle-right"></i>
+  </a>
+</li>     
+    
+<li class="item-list">
+  <a href="" class="list-flex">
+    <span>
+      <i class="fas fa-shopping-cart"></i> | Historial de pedidos
+    </span>
+      <i class="fas fa-angle-right"></i>
+  </a>
+</li>
 
-        <a class="list-flex">
-          <li class="list-one"><i class="fas fa-truck-moving"></i> | Datos de envío  </li>
-          <li class="list-two"><i class="fas fa-angle-right"></i></li>
-        </a>
-        
-        <a class="list-flex" href="">
-          <li class="list-one"><i class="fas fa-shopping-cart"></i> | Historial de pedidos </li>
-          <li class="list-two"> <i class="fas fa-angle-right"></i></li>
-        </a>
-      
-      
-          <a class="list-flex" href="">
-          <li class="list-one"><i class="fas fa-trash-alt"></i> | Eliminar cuenta </li>
-          <li class="list-two"><i class="fas fa-angle-right"></i></li>
-          </a>
+<li class="item-list">
+  <a href="" class="list-flex">
+    <span>
+      <i class="fas fa-trash-alt"></i> | Eliminar cuenta 
+    </span>
+      <i class="fas fa-angle-right"></i>
+  </a>
+</li>
         </ul>
-    </section>
+    </nav>
 
     <section class="form-section">
       <form action="" class="form-margin">
