@@ -13,7 +13,7 @@
     </div>
   </header>
   <section class="inner">
-    <?php if (!empty(getGlobal('categories'))) : ?>
+    <?php if (!empty(getGlobal('categoriesArticles'))) : ?>
       <?php getTemplate('components/lists/sidebar/sidebar') ?>
     <?php endif ?>
 

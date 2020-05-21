@@ -22,8 +22,19 @@
               <a href="/categoria/nueva" class="access-menu dropdown-item">Nueva</a>
               <hr>
             <?php endif ?>
-            <a href="/categorias" class="access-menu dropdown-item">Test 1</a>
-            <a href="/categorias" class="access-menu dropdown-item">Test 2</a>
+            <?php if (count(getGlobal('categories')) > 0) : ?>
+              <?php foreach (getGlobal('categories') as $category) : ?>
+                <?php
+                  setGlobal('category', $category);
+                  getTemplate('components/header/category-item')
+                ?>
+              <?php endforeach ?>
+            <?php else : ?>
+              <h2 class>No se encontraron categorías destacadas</h2>
+              <?php if (isAdmin()) : ?>
+                  <a href="/categoria/nueva">Nueva categoría +</a>
+              <?php endif ?>
+            <?php endif ?>
           </div>
         </div>
 

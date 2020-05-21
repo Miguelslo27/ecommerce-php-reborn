@@ -17,13 +17,15 @@ newDocument([
     $currentCategory         = new stdClass();
     $currentCategory->title = 'Todos los artículos';
 
-    $categories = getCategories('`category_id` = 0 AND `status` = 1');
+    $categoriesArticles = getCategories('`category_id` = 0 AND `status` = 1');
     $where      = '`status` = 1';
     $pager      = getPager('articles', $where, ARTICLES_PER_PAGE);
     $articles   = getArticles($where, $pager->offset, $pager->per_page);
+    $categories            = getCategories();
 
-    setGlobal('currentCategory', $currentCategory);
     setGlobal('categories', oneOf($categories, []));
+    setGlobal('currentCategory', $currentCategory);
+    setGlobal('categoriesArticles', oneOf($categoriesArticles, []));
     setGlobal('articles_pager', $pager);
     setGlobal('articles', oneOf($articles, []));
   }

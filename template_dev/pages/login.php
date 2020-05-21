@@ -45,6 +45,9 @@ newDocument([
       }
     };
 
+    $categories            = getCategories();
+
+    setGlobal('categories', oneOf($categories, []));
     setGlobal('classesHandler', $classesHandler);
     setGlobal('getPreFormData', $getPreFormData);
     setGlobal('request_messages', getSession('request_messages'));
