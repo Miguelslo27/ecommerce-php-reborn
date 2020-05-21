@@ -4,9 +4,21 @@
       <div>
         <h3>Categorías</h3>
         <ul class="links">
-          <li><a href="#">Categoría 1</a></li>
-          <li><a href="#">Categoría 2</a></li>
-          <li><a href="#">Categoría 3</a></li>
+          <?php if (count(getGlobal('categories')) > 0) : ?>
+            <?php 
+              for($i = 0; $i < 3; $i++) {
+                setGlobal('category', getGlobal('categories')[$i]);
+                print "<li>";
+                getTemplate('components/header/category-item');
+                print "</li>";
+              }
+            ?>
+          <?php else : ?>
+            <h2 class>No se encontraron categorías destacadas</h2>
+            <?php if (isAdmin()) : ?>
+                <a href="/categoria/nueva">Nueva categoría +</a>
+            <?php endif ?>
+          <?php endif ?>
         </ul>
       </div>
       <div>
