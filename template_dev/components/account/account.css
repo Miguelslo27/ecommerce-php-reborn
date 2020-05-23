@@ -45,12 +45,6 @@
   margin-bottom: 0rem;
 }
 
-.list-flex:hover {
-  border-bottom: 1px solid #b52299;
-  color: #b52299;
-  padding-left: 2rem;
-}
-
 .list-section{
   margin: 10px;
   padding: 10px;
@@ -64,24 +58,39 @@
  margin: 30px;
 }
 
-.item-list{
-  list-style: none;
-  flex-grow: 1;
+.info-section nav {
+  width: 80%;
 }
 
-.list-flex {
+ul.list-section{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.list-section li > a {
   display: flex;
   flex-direction: row;
-  list-style-type: none;
+  width: 100%;
   border-bottom: 1px solid black;
-  padding: 17px;
+  padding: 1rem;
   color: black ;
   margin-bottom: 0px;
+  justify-content: space-between;
+  text-decoration: none;
 }
- 
+
+ul.list-section li > a:hover {
+  border-bottom: 1px solid #b52299;
+  color: #b52299;
+}
+
+ul.list-section li > a:hover > span {
+   padding-left: 1rem;
+}
+
 .photo:hover {
   margin: 10px;
-  border-bottom: 1px double #b52299;
   border-radius: 100%;
   overflow: hidden;
 }

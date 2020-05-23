@@ -1,14 +1,15 @@
 <body>
   <div class="div-account">
-    <nav class="info-section">
+    <section class="info-section">
     <div class="photo">
       <img src="/statics/images/Foto.jpg" alt="FotoPerfil">
     </div>
       <h2 class= "h2-account">Nombre Apellido</h2>
 
+      <nav>
       <ul class="list-section">
-      <li class="item-list">
-      <a href="" class="list-flex">
+      <li>
+      <a href="">
     <span>
       <i class="fas fa-user"></i> | Cuenta
     </span>
@@ -16,8 +17,8 @@
   </a>
 </li>
 
-<li class="item-list">
-  <a href="" class="list-flex">
+<li>
+  <a href="">
     <span>
       <i class="fas fa-key"></i> | Contraseña 
     </span>
@@ -25,8 +26,8 @@
   </a>
 </li>
 
-<li class="item-list">
-  <a href="" class="list-flex">
+<li>
+  <a href="">
     <span>
       <i class="far fa-credit-card"></i> |  Datos de facturación
     </span>
@@ -34,8 +35,8 @@
   </a>
 </li>
        
-<li class="item-list">
-  <a href="" class="list-flex">
+<li>
+  <a href="">
     <span>
     <i class="fas fa-truck-moving"></i> | Datos de envío 
     </span>
@@ -43,8 +44,8 @@
   </a>
 </li>     
     
-<li class="item-list">
-  <a href="" class="list-flex">
+<li>
+  <a href="">
     <span>
       <i class="fas fa-shopping-cart"></i> | Historial de pedidos
     </span>
@@ -52,8 +53,8 @@
   </a>
 </li>
 
-<li class="item-list">
-  <a href="" class="list-flex">
+<li>
+  <a href="">
     <span>
       <i class="fas fa-trash-alt"></i> | Eliminar cuenta 
     </span>
@@ -61,7 +62,8 @@
   </a>
 </li>
         </ul>
-    </nav>
+        </nav>
+    </section>
 
     <section class="form-section">
       <form action="" class="form-margin">

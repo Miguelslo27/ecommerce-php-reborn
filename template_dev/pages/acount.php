@@ -2,7 +2,7 @@
 
 newDocument([
   'title' => 'eCommerce - Mi Cuenta',
-  'account' => 'cart',
+  'page' => 'account',
   'components' => [
     'components/header/header',
     'components/account/account',
@@ -12,5 +12,5 @@ newDocument([
     'css/fontawesome/css/all.min.css',
     'css/layout.css',
     'css/forms.css'
-  ]
+  ],
 ]);
