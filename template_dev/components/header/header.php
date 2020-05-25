@@ -22,12 +22,6 @@
               <a href="/categoria/nueva" class="access-menu dropdown-item">Nueva</a>
               <hr>
             <?php endif ?>
-            <?php if (count(getGlobal('categories')) > 7) : ?>
-              <?php
-                setGlobal('categories', array_slice(getGlobal('categories'), 0, 7));
-                setGlobal('display_more', true);
-              ?>
-            <?php endif ?>
             <?php if (count(getGlobal('categories')) > 0) : ?>
               <?php foreach (getGlobal('categories') as $category) : ?>
                 <?php
@@ -35,11 +29,8 @@
                   getTemplate('components/header/category-item')
                 ?>
               <?php endforeach ?>
-              <?php if ((getGlobal('display_more')) == true) : ?>
-                <a href="/categorias" class="access-menu dropdown-item more-item" >Mostrar más!</a>
-              <?php endif ?>
             <?php else : ?>
-              <h2 class>No se encontraron categorías destacadas</h2>
+              <h2 class="not-found-cat">No se encontraron categorías destacadas</h2>
               <?php if (isAdmin()) : ?>
                   <a href="/categoria/nueva">Nueva categoría +</a>
               <?php endif ?>

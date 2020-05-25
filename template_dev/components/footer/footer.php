@@ -15,9 +15,6 @@
             ?>
           <?php else : ?>
             <h2 class>No se encontraron categorías destacadas</h2>
-            <?php if (isAdmin()) : ?>
-                <a href="/categoria/nueva">Nueva categoría +</a>
-            <?php endif ?>
           <?php endif ?>
         </ul>
       </div>
