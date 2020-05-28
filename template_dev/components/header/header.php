@@ -12,31 +12,28 @@
       <nav class="navigation">
         <a href="/" class="access-menu normal-tab <?php if (getGlobal('page') == "home") echo 'is-active'; ?>">Home</a>
 
-        <div class="dropdown-nav">
-          <a href="/categorias" class="access-menu dropdown-tab <?php if (getGlobal('page') == "categories") echo 'is-active'; ?>">
-            <i class="fas fa-bars"></i>
-            <span>Categorías</span>
-          </a>
-          <div class="dropdown">
-            <?php if (isAdmin()) : ?>
-              <a href="/categoria/nueva" class="access-menu dropdown-item">Nueva</a>
-              <hr>
-            <?php endif ?>
-            <?php if (count(getGlobal('categories')) > 0) : ?>
-              <?php foreach (getGlobal('categories') as $category) : ?>
-                <?php
-                  setGlobal('category', $category);
-                  getTemplate('components/header/category-item')
-                ?>
-              <?php endforeach ?>
-            <?php else : ?>
-              <h2 class="not-found-cat">No se encontraron categorías destacadas</h2>
+        <?php if ((count(getGlobal('categories')) < 0) || isAdmin()) : ?>
+          <div class="dropdown-nav">
+            <a href="/categorias" class="access-menu dropdown-tab <?php if (getGlobal('page') == "categories") echo 'is-active'; ?>">
+              <i class="fas fa-bars"></i>
+              <span>Categorías</span>
+            </a>
+            <div class="dropdown">
               <?php if (isAdmin()) : ?>
-                  <a href="/categoria/nueva">Nueva categoría +</a>
+                <a href="/categoria/nueva" class="access-menu dropdown-item">Nueva</a>
+                <hr>
               <?php endif ?>
-            <?php endif ?>
+              <?php if (count(getGlobal('categories')) > 0) : ?>
+                <?php foreach (getGlobal('categories') as $category) : ?>
+                  <?php
+                    setGlobal('category', $category);
+                    getTemplate('components/header/category-item')
+                  ?>
+                <?php endforeach ?>            
+              <?php endif ?>
+            </div>
           </div>
-        </div>
+        <?php endif ?>
 
         <?php if (isAdmin()) : ?>
           <div class="dropdown-nav">

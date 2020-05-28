@@ -5,16 +5,14 @@
         <h3>Categorías</h3>
         <ul class="links">
           <?php if (count(getGlobal('categories')) > 0) : ?>
-            <?php 
-              for($i = 0; $i < 3; $i++) {
-                setGlobal('category', getGlobal('categories')[$i]);
-                print "<li>";
-                getTemplate('components/header/category-item');
-                print "</li>";
-              }
-            ?>
-          <?php else : ?>
-            <h2 class>No se encontraron categorías destacadas</h2>
+            <?php foreach (getGlobal('categories') as $category) : ?>
+                <?php
+                  setGlobal('category', $category);
+                  print "<li>";
+                  getTemplate('components/header/category-item');
+                  print "</li>";
+                ?>
+              <?php endforeach ?>
           <?php endif ?>
         </ul>
       </div>
