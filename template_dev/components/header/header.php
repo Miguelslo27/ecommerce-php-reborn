@@ -12,7 +12,7 @@
       <nav class="navigation">
         <a href="/" class="access-menu normal-tab <?php if (getGlobal('page') == "home") echo 'is-active'; ?>">Home</a>
 
-        <?php if ((count(getGlobal('categories')) < 0) || isAdmin()) : ?>
+        <?php if ((count(getGlobal('categories')) > 0) || isAdmin()) : ?>
           <div class="dropdown-nav">
             <a href="/categorias" class="access-menu dropdown-tab <?php if (getGlobal('page') == "categories") echo 'is-active'; ?>">
               <i class="fas fa-bars"></i>
