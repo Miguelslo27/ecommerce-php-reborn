@@ -448,7 +448,7 @@ header .header-inner .store-nav {
 }
 
 .articles li article.spent::before {
-  content: "spent";
+  content: "Agotado";
   background: grey;
 }
 
