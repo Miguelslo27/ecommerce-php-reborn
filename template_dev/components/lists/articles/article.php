@@ -16,7 +16,7 @@ if (getGlobal('article')->spent === '1') {
   <img src="<?php bind(getGlobal('article')->images_url) ?>" alt="<?php bind(getGlobal('article')->name) ?>">
   <div class="article-info">
     <span><?php bind(getGlobal('article')->brief_description) ?></span>
-    <a href="<?php bind(getGlobal('article')->id) ?>"><?php bind(getGlobal('article')->name) ?></a>
+    <a href="/articulo/?aid=<?php bind(getGlobal('article')->id) ?>"><?php bind(getGlobal('article')->name) ?></a>
 
     <?php if (getGlobal('article')->offer === '1') : ?>
       <span class="price before">$<?php bind(getGlobal('article')->price) ?></span>

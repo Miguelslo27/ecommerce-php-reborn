@@ -450,23 +450,41 @@ i.fab+* {
   left: 1rem;
 }
 
-.articles li article.new::before {
+.details .article-info.new::before,
+.details .article-info.featured::before,
+.details .article-info.offer::before,
+.details .article-info.spent::before {
+  position: absolute;
+  color: #FFF;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  top: 0;
+  right: -20px;
+  transform: rotate(25deg);
+}
+
+.articles li article.new::before,
+.details .article-info.new::before {
   content: "Nuevo";
   background: orange;
 }
 
-.articles li article.featured::before {
+.articles li article.featured::before,
+.details.featured::before {
   content: "Destacado";
   background: blueviolet;
 }
 
-.articles li article.offer::before {
+.articles li article.offer::before,
+.details.offer::before {
   content: "Oferta";
   background: greenyellow;
 }
 
-.articles li article.spent::before {
-  content: "spent";
+.articles li article.spent::before,
+.details.spent::before {
+  content: "Agotado";
   background: grey;
 }
 
@@ -511,3 +529,313 @@ i.fab+* {
   font-weight: normal;
   text-decoration: line-through;
 }
+
+/* ARTICLE DETAILS */
+.details {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  width: 70%;
+  max-width: 1200px;
+  margin: auto;
+  margin-top: 3rem;
+  box-sizing: border-box;
+}
+
+.not-dscp {
+  margin-bottom: 7rem;
+}
+
+.details .img-container {
+  width: 58%;
+  box-sizing: border-box;
+}
+
+.details .img-container img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.details .article-info {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  background-color: #f1f1f1;
+  padding: 2rem;
+  padding-top: 1.5rem;
+  width: 42%;
+  box-sizing: border-box;
+}
+
+.details .article-info .article-path {
+  display: inline;
+  font-size: .6rem;
+}
+
+.details .article-info .article-path a:hover {
+  text-decoration: none;
+}
+
+.details .article-info h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1.4rem;
+}
+
+.details .article-info .price {
+  font-size: 2rem;
+}
+
+.details .article-info .stock {
+  margin-top: .5rem;
+  margin-bottom: 2rem;
+  font-size: .8rem;
+}
+
+.details .article-info .actions a {
+  background-color: #b52299;
+  padding: .8rem;
+  color: #fff;
+  font-size: .8rem;
+  transition: .1s all ease;
+}
+
+.details .article-info .actions a:hover {
+  text-decoration: none;
+  background-color: #971980;
+}
+
+.details .article-info .link-description {
+  margin-top: 1.2rem;
+  margin-left: 10px;
+  font-size: .8rem;
+}
+
+.article-description {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  max-width: 1200px;
+  margin: auto;
+  margin-bottom: 8rem;
+  padding: 3rem 6rem;
+  padding-top: 5rem;
+  background-color: #f1f1f1;
+}
+
+.article-description .subtitle {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #b52299;
+  margin: 0;
+}
+
+.article-description hr {
+  border: 1px #222 solid;
+  opacity: .2;
+  height: 0;
+  width: 100%;
+  background: none;
+  margin-top: 1rem;
+}
+
+.article-description p {
+  font-size: 1rem;
+  opacity: 0.9;
+  line-height: 1.3rem;
+}
+
+/* XS */
+@media only screen and (min-width: 0px) and (max-width: 800px) {
+  .details {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+  }
+
+  .details .img-container {
+    width: 100%;
+  }
+  
+  .details .article-info {
+    padding: 5rem 1rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .details .article-info .article-path {
+    font-size: 1rem;
+    margin-bottom: .8rem;
+  }
+  
+  .details .article-info .price {
+    margin-top: .4rem;
+    font-size: 2.2rem;
+  }
+
+  .details .article-info .stock {
+    margin-bottom: 3rem;
+  }
+  
+  .details .article-info .actions a {
+    padding: 1.2rem 2rem;
+    font-size: .9rem;
+  }
+  
+  .details .article-info .link-description {
+    margin-top: 3.2rem;
+  }
+
+  .article-description {
+    width: 90%;
+    padding: 3rem 2rem;
+    padding-top: 5rem;
+  }
+  
+  .article-description .subtitle {
+    font-size: 1.5rem;
+  }
+  
+  .article-description p {
+    font-size: 1.1rem;
+    line-height: 1.5rem;
+  }
+}
+
+/* S */
+@media only screen and (min-width: 451px) and (max-width: 800px) {
+  .details {
+    width: 80%;
+  }
+  
+  .details .article-info {
+    padding: 5rem 3rem;
+  }
+
+  .details .article-info .article-path {
+    margin-bottom: .3rem;
+  }
+  
+  .details .article-info h4 {
+    padding: 0 2rem;
+  }
+
+  .details .article-info .price {
+    margin-top: 1rem;
+    font-size: 2.2rem;
+  }
+  
+  .details .article-info .actions a {
+    padding: 1.2rem 4rem;
+  }
+
+  .article-description {
+    width: 80%;
+    padding: 3rem 4rem;
+  }
+  
+  .article-description .subtitle {
+    font-size: 1.6rem;
+  }
+  
+  .article-description p {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+  }
+}
+
+/* L */
+@media only screen and (min-width: 1200px) {  
+  .details .article-info {
+    padding: 2.5rem;
+  }
+  
+  .details .article-info .article-path {
+    font-size: 1rem;
+  }
+  
+  .details .article-info h4 {
+    margin: 0 0 1.5rem 0;
+    font-size: 1.8rem;
+  }
+  
+  .details .article-info .price {
+    font-size: 2.5rem;
+  }
+  
+  .details .article-info .stock {
+    margin-top: .5rem;
+    margin-bottom: 3rem;
+    font-size: 1rem;
+  }
+  
+  .details .article-info .actions a {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+  
+  .details .article-info .link-description {
+    margin-top: 2rem;
+    font-size: 1.1rem;
+  }
+
+  .article-description {
+    padding-top: 8rem;
+  }
+
+  .article-description .subtitle {
+    font-size: 1.8rem;
+  }
+  
+  .article-description p {
+    font-size: 1.2rem;
+    line-height: 1.7rem;
+  }
+}
+
+/* XL */
+@media only screen and (min-width: 1500px) {  
+  .details .article-info {
+    padding: 2.7rem;
+  }
+  
+  .details .article-info .article-path {
+    font-size: 1.3rem;
+  }
+  
+  .details .article-info h4 {
+    margin-bottom: 3rem;
+    font-size: 2rem;
+  }
+  
+  .details .article-info .price {
+    font-size: 2.9rem;
+  }
+  
+  .details .article-info .stock {
+    margin-bottom: 3rem;
+    font-size: 1.3rem;
+  }
+  
+  .details .article-info .actions a {
+    padding: 1rem 2rem;
+    font-size: 1.3rem;
+  }
+  
+  .details .article-info .link-description {
+    font-size: 1.3rem;
+  }
+
+  .article-description {
+    padding-top: 8rem;
+  }
+
+  .article-description .subtitle {
+    font-size: 1.6rem;
+  }
+  
+  .article-description p {
+    font-size: 1.3rem;
+    line-height: 1.7rem;
+  }
+}  
