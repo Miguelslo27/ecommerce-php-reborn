@@ -1,6 +1,5 @@
-<body>
   <div class="div-account">
-    <section class="info-section">
+    <aside class="info-section">
     <div class="photo">
       <img src="/statics/images/Foto.jpg" alt="FotoPerfil">
     </div>
@@ -63,7 +62,7 @@
 </li>
         </ul>
         </nav>
-    </section>
+</aside>
 
     <section class="form-section">
       <form action="" class="form-margin">
@@ -72,24 +71,24 @@
           <span class="title"> Datos de Facturación</span>
         </h2>
         <div class="form-group">
-          <label class="label-center" for="">Nombre</label>
+          <label for="">Nombre</label>
           <input type="text" placeholder="Nombre"> 
           <label class="label-center" for="">Apellido</label>
           <input type="text" placeholder="Apellido">
         </div>
 
         <div class="form-line">
-          <label class="label-center" for="">Nombre de Empresa</label>
+          <label for="">Nombre de Empresa</label>
           <input type="text" placeholder="Nombre Empresa">
         </div>
 
         <div class="form-line">
-          <label class="label-center" for="">Dirección Completa</label>
+          <label for="">Dirección Completa</label>
           <input type="text" placeholder="Calle 1245, esq Dir">
         </div>
 
         <div class="form-group">
-          <Label class="label-center">Departamento</Label>
+          <Label>Departamento</Label>
           <input list="city" placeholder="Montevideo">
             <datalist id="city">
               <option value="Montevideo">
@@ -118,7 +117,7 @@
         </div>
 
         <div class="form-group">
-          <label class="label-center" for="">Teléfono</label>
+          <label for="">Teléfono</label>
           <input type="tel" placeholder="12345678">
 
           <label class="label-center" for="">Celular</label>
@@ -132,4 +131,3 @@
 
     </section>
   </div>
-</body>
