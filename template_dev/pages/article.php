@@ -22,6 +22,10 @@ newDocument([
     $url = @$_SERVER[REQUEST_URI];
     $url = explode("=", $url);
     $id = $url[count($url) - 1];
+    $id = trim($id, '/');
+
+    logToConsole('id', $id, __FILE__, __FUNCTION__, __LINE__);
+
 
     $where                 = '`status` = 1';
     $pager                 = getPager('articles', $where, ARTICLES_PER_PAGE);

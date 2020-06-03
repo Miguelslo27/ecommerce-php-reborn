@@ -53,7 +53,7 @@ if (getGlobal('currentArticle')->description === '') {
     <!--  CARRITO BUTTON   -->
     <?php if ($class != 'spent') : ?>
       <div class="actions">
-        <a href="?<?php bind(getQueryParams(['action' => ACTION_ADD_TO_CART, 'aid' => getGlobal('currentArticle')->id])) ?>">Agregar al carrito</a>
+        <a href="/?<?php bind(getQueryParams(['action' => ACTION_ADD_TO_CART, 'aid' => getGlobal('currentArticle')->id])) ?>">Agregar al carrito</a>
       </div>
     <?php endif ?>
     <!--  DSCP LINK   -->
