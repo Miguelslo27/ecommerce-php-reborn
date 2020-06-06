@@ -15,6 +15,7 @@ if (empty($request->action)) {
 
 if ($request->action == ACTION_ADD_TO_CART) {
   setRequestData('aid', $request->aid);
+  setRequestData('qty', $request->qty);
   $status       = addToCart($request->qty);
 
   loadCart();

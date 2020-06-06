@@ -2,6 +2,7 @@
 $class = '';
 $dscp = '';
 $discount = '';
+
 if (getGlobal('currentArticle')->new === '1') {
   $class = 'new';
 }
@@ -33,12 +34,16 @@ if (getGlobal('currentArticle')->description === '') {
     </div>
     <!--  TITLE   -->
     <h4><?php bind(getGlobal('currentArticle')->name) ?></h4>
+    <!--  CODE   -->
+    <span class="code">Cod. <?php bind(getGlobal('currentArticle')->code) ?></span>
     <!--  PRICE   -->
     <?php if (getGlobal('currentArticle')->offer === '1') : ?>
-      <span class="price before">$<?php bind(getGlobal('currentArticle')->price) ?></span>
-      <div class="price-discount">
-        <span class="price after">$<?php bind(getGlobal('currentArticle')->price_offer) ?></span>
-        <p><?php bind(round($discount)) ?> % OFF</p>
+      <div class="price-container">
+        <span class="price before">$<?php bind(getGlobal('currentArticle')->price) ?></span>
+        <div class="price-discount">
+          <span class="price after">$<?php bind(getGlobal('currentArticle')->price_offer) ?></span>
+          <p><?php bind(round($discount)) ?> % OFF</p>
+        </div>
       </div>
     <?php else : ?>
       <span class="price">$<?php bind(getGlobal('currentArticle')->price) ?></span>
@@ -50,10 +55,14 @@ if (getGlobal('currentArticle')->description === '') {
       <p class="stock">No hay stock</p>
     <?php endif ?>
     <hr>
-    <!--  CARRITO BUTTON   -->
     <?php if ($class != 'spent') : ?>
-      <div class="actions">
-        <a href="/?<?php bind(getQueryParams(['action' => ACTION_ADD_TO_CART, 'aid' => getGlobal('currentArticle')->id])) ?>">Agregar al carrito</a>
+      <div class="cart-actions">
+        <form method="GET">
+          <input name="qty" id="quantity" type="number" min="1" max="99" required value="1">
+          <input type="hidden" name="action" value="<?php bind(ACTION_ADD_TO_CART) ?>" />
+          <input type="hidden" name="aid" value="<?php bind(getGlobal('currentArticle')->id) ?>" />
+          <button type="submit" class="search-button"><i class="fas fa-shopping-cart"></i>Agregar al carrito</button>
+        </form>
       </div>
     <?php endif ?>
     <!--  DSCP LINK   -->

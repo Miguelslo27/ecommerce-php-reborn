@@ -18,19 +18,13 @@ newDocument([
   'beforeRender' => function () {
     $currentCategory         = new stdClass();
     $currentCategory->title = 'Todos los artículos';
-
-    $url = @$_SERVER[REQUEST_URI];
-    $url = explode("=", $url);
-    $id = $url[count($url) - 1];
-    $id = trim($id, '/');
-
-    logToConsole('id', $id, __FILE__, __FUNCTION__, __LINE__);
-
+    $id = getServer('REQUEST_URI');
+    $id = explode("=", $id);
 
     $where                 = '`status` = 1';
     $pager                 = getPager('articles', $where, ARTICLES_PER_PAGE);
     $articles              = getArticles($where, $pager->offset, $pager->per_page);
-    $currentArticle        = getArticle($id);
+    $currentArticle        = getArticle($id[1]);
     $currentCategory       = getCategoryById($currentArticle->category_id);
     $mainCategory          = getCategoryById($currentCategory->category_id);
     $categories            = getCategories('`category_id` = 0 AND `status` = 1');
