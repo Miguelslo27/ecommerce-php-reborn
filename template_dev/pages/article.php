@@ -13,13 +13,15 @@ newDocument([
   'styles' => [
     'css/fontawesome/css/all.min.css',
     'css/layout.css',
-    'components/lists/sidebar/sidebar.css'
+    'components/lists/sidebar/sidebar.css',
+    'components/lists/articles/article-details.css'
   ],
   'beforeRender' => function () {
     $currentCategory         = new stdClass();
     $currentCategory->title = 'Todos los artículos';
     $id = getServer('REQUEST_URI');
     $id = explode("=", $id);
+    logToConsole('asd', getRequestURIPath(), __FILE__, __FUNCTION__, __LINE__);
 
     $where                 = '`status` = 1';
     $pager                 = getPager('articles', $where, ARTICLES_PER_PAGE);

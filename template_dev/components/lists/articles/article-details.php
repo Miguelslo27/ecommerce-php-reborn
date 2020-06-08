@@ -15,11 +15,13 @@ if (getGlobal('currentArticle')->offer === '1') {
 if (getGlobal('currentArticle')->spent === '1') {
   $class = 'spent';
 }
+
 if (getGlobal('currentArticle')->description === '') {
   $dscp = 'not-dscp';
 }
+
 ?>
-<article class="details <?php bind($dscp) ?>">
+<article class="details inner <?php bind($dscp) ?>">
   <div class="img-container">
     <img src="<?php bind(getGlobal('currentArticle')->images_url) ?>" alt="<?php bind(getGlobal('currentArticle')->name) ?>">
   </div>
@@ -79,7 +81,7 @@ if (getGlobal('currentArticle')->description === '') {
   </div>
 </article>
 <?php if (getGlobal('currentArticle')->description) : ?>
-  <div class="article-description" id="description">
+  <div class="article-description inner" id="description">
     <p class="subtitle">Descripción:</p>
     <hr>
     <p><?php bind(getGlobal('currentArticle')->description) ?></p>
