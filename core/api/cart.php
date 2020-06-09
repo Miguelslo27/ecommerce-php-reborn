@@ -45,8 +45,8 @@ function addToCart_checkIncommingData($qty)
 {
   $status = newStatusObject();
   $aid    = getRequestData('aid');
-  //Give me error when want to pass qty in article details
-  /*
+  $qty    = intval($qty);
+
   if (
     gettype($qty) != 'integer'
     && gettype($qty) != 'double'
@@ -55,7 +55,6 @@ function addToCart_checkIncommingData($qty)
     $status->errors[]  = 'Quantity should be a number';
     return $status;
   }
-  */
 
   if (empty($aid)) {
     $status->succeeded = false;
