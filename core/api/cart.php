@@ -7,8 +7,8 @@ function getCurrentCart()
 
 function addToCart($qty = 1)
 {
-  if((getRequestData('qty')) > 0){
-    $qty    = getRequestData('qty');
+  if(getRequestData('qty') > 0){
+    $qty = getRequestData('qty');
   }
   
   $status = addToCart_checkIncommingData($qty);

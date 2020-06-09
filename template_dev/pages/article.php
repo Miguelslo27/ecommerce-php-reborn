@@ -21,7 +21,6 @@ newDocument([
     $currentCategory->title = 'Todos los artículos';
     $id = getServer('REQUEST_URI');
     $id = explode("=", $id);
-    logToConsole('asd', getRequestURIPath(), __FILE__, __FUNCTION__, __LINE__);
 
     $where                 = '`status` = 1';
     $pager                 = getPager('articles', $where, ARTICLES_PER_PAGE);
