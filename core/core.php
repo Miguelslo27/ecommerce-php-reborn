@@ -86,6 +86,10 @@ function processRequests()
       'body'    => getPostData('sendemail_message'),
     ]));
   }
+
+  if (getRequestData('action') == ACTION_SEARCH) {
+    setSession('request_messages', search());
+  }
 }
 
 function sendEmail($settings)
