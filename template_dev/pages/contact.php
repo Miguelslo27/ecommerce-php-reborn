@@ -26,7 +26,7 @@ newDocument([
       );
     };
 
-    $categories            = getCategories();
+    $categories = getCategories();
     setGlobal('categories', oneOf($categories, []));
     setGlobal('classesHandler', $classesHandler);
   }

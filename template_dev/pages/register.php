@@ -29,7 +29,8 @@ newDocument([
       ));
       exit;
     }
-    $categories            = getCategories();
+    
+    $categories = getCategories();
 
     setGlobal('categories', oneOf($categories, []));
     setSession('redirectTo', oneOf(@$_SERVER['HTTP_REFERER'], '/'));

@@ -15,13 +15,13 @@ newDocument([
   ],
   'beforeRender' => function () {
     $currentCategory         = new stdClass();
-    $currentCategory->title = 'Todos los artículos';
+    $currentCategory->title  = 'Todos los artículos';
 
-    $categoriesArticles = getCategories('`category_id` = 0 AND `status` = 1');
-    $where      = '`status` = 1';
-    $pager      = getPager('articles', $where, ARTICLES_PER_PAGE);
-    $articles   = getArticles($where, $pager->offset, $pager->per_page);
-    $categories            = getCategories();
+    $categoriesArticles      = getCategories('`category_id` = 0 AND `status` = 1');
+    $where                   = '`status` = 1';
+    $pager                   = getPager('articles', $where, ARTICLES_PER_PAGE);
+    $articles                = getArticles($where, $pager->offset, $pager->per_page);
+    $categories              = getCategories();
 
     setGlobal('categories', oneOf($categories, []));
     setGlobal('currentCategory', $currentCategory);

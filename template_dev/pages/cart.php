@@ -17,7 +17,7 @@ newDocument([
   ],
   'beforeRender' => function ()
   {
-    $categories            = getCategories();
+    $categories = getCategories();
     
     setGlobal('categories', oneOf($categories, []));
     setGlobal('recentlyAddedArticles', getArticles(null, 0, 3));

@@ -13,10 +13,10 @@ newDocument([
     'css/layout.css'
   ],
   'beforeRender' => function () {
-    $where      = '`category_id` = 0 AND `status` = 1';
-    $pager      = getPager('categories', $where, CATEGORIES_PER_PAGE);
+    $where           = '`category_id` = 0 AND `status` = 1';
+    $pager           = getPager('categories', $where, CATEGORIES_PER_PAGE);
     $categoriesTotal = getCategories($where, $pager->offset, $pager->per_page);
-    $categories            = getCategories();
+    $categories      = getCategories();
 
     setGlobal('categories', oneOf($categories, []));
     setGlobal('categories_pager', $pager);
