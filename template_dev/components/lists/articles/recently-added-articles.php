@@ -1,3 +1,8 @@
+<?php
+  $uri = getRequestURIPath();
+  $articleURI = ($uri == '/articulo/') ? true : false;
+  setGlobal('articleURI', $articleURI);
+?>
 <section class="inner articles-component">
   <h1 class="shadowed-title">
     <span class="title-shadow">Artículos nuevos</span>

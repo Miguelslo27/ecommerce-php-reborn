@@ -7,6 +7,10 @@ function getCurrentCart()
 
 function addToCart($qty = 1)
 {
+  if(getRequestData('qty') > 0){
+    $qty = getRequestData('qty');
+  }
+  
   $status = addToCart_checkIncommingData($qty);
 
   if (!$status->succeeded) {
@@ -41,6 +45,7 @@ function addToCart_checkIncommingData($qty)
 {
   $status = newStatusObject();
   $aid    = getRequestData('aid');
+  $qty    = intval($qty);
 
   if (
     gettype($qty) != 'integer'

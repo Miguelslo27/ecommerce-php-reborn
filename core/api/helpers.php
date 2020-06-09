@@ -221,6 +221,7 @@ function getQueryParams($additions = null)
     $returnList[] = "$param=$value";
   }
 
+  array_reverse($returnList);
   return implode('&', $returnList);
 }
 

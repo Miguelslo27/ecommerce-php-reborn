@@ -1,3 +1,4 @@
+<?php logToConsole('query-string', getServer('QUERY_STRING'), __FILE__, __FUNCTION__, __LINE__) ?>
 <header>
   <div class="header-inner">
     <div class="site-nav">
