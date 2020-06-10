@@ -16,8 +16,7 @@ if (getGlobal('article')->spent === '1') {
   <img src="<?php bind(getGlobal('article')->images_url) ?>" alt="<?php bind(getGlobal('article')->name) ?>">
   <div class="article-info">
     <span><?php bind(getGlobal('article')->brief_description) ?></span>
-    <a href="<?php bind(getGlobal('article')->id) ?>"><?php bind(getGlobal('article')->name) ?></a>
-
+    <a href="/articulo/?aid=<?php bind(getGlobal('article')->id) ?>"><?php bind(getGlobal('article')->name) ?></a>
     <?php if (getGlobal('article')->offer === '1') : ?>
       <span class="price before">$<?php bind(getGlobal('article')->price) ?></span>
       <span class="price after">$<?php bind(getGlobal('article')->price_offer) ?></span>
@@ -28,7 +27,7 @@ if (getGlobal('article')->spent === '1') {
   </div>
   <hr>
   <div class="actions">
-    <a href="?<?php bind(getQueryParams(['action' => ACTION_ADD_TO_CART, 'aid' => getGlobal('article')->id])) ?>">Agregar al carrito +</a>
+    <a href="<?php if (getGlobal('articleURI')) : ?>/<?php endif ?>?<?php bind(getQueryParams(['action' => ACTION_ADD_TO_CART, 'aid' => getGlobal('article')->id])) ?>">Agregar al carrito +</a>
   </div>
 
   <?php if (isAdmin()) : ?>

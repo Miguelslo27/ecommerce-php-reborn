@@ -1,0 +1,450 @@
+/* ARTICLE DETAILS */
+.details {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  width: 70%;
+  margin-top: 3rem;
+  box-sizing: border-box;
+}
+
+.not-dscp {
+  margin-bottom: 7rem;
+}
+
+.details .img-container {
+  width: 58%;
+}
+
+.details .img-container img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.details .article-info {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  background-color: #f1f1f1;
+  padding: 2rem;
+  padding-top: 1.5rem;
+  width: 42%;
+}
+
+.details .article-info .article-path {
+  display: inline;
+  font-size: .6rem;
+}
+
+.details .article-info .article-path a:hover {
+  text-decoration: none;
+}
+
+.details .article-info h4 {
+  margin: 0 0 .1rem 0;
+  font-size: 1.4rem;
+}
+
+.details .article-info .code {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  opacity: .7;
+}
+
+.details .article-info .price {
+  font-size: 2rem;
+}
+
+.details .article-info .before {
+  text-decoration: line-through;
+  opacity: .7;
+  font-size: 1.4rem !important;
+}
+
+.details .article-info .price-discount {
+  display: flex;
+  align-items: center;
+}
+
+.details .article-info .price-discount p{
+  font-size: 1.1rem;
+  margin: 0;
+  padding-left: 1rem;
+  color: #b52299;
+}
+
+.details .article-info .stock {
+  margin-top: .5rem;
+  margin-bottom: 2rem;
+  font-size: .8rem;
+}
+
+.details .article-info .cart-actions {
+  height: 2.5rem;
+  align-items: center;
+}
+
+.details .article-info .cart-actions form{
+  display: flex;
+  height: 100%;
+}
+
+.details .article-info .cart-actions input {
+  margin: 0 .2rem 0 .1rem;
+  width: 35px;
+  text-align: center;
+  padding: 4px;
+  height: 100%;
+  background: none;
+  border: 1px solid rgba(0, 0, 0, 0.438);
+  transition: .1s ease all;
+}
+
+.details .article-info .cart-actions input:focus{
+  border: 2px #b52299 solid;
+  outline: none;
+  outline-offset: -1px;
+}
+
+.details .article-info .cart-actions .fas{
+  font-size: .7rem;
+  margin-right: .4rem;
+}
+
+.details .article-info .cart-actions button {
+  background-color: #b52299;
+  padding: 0 .4rem;
+  color: #fff;
+  font-size: .8rem;
+  height: 100%;
+  border: none;
+  transition: .1s all ease;
+  cursor: pointer;
+}
+
+.details .article-info .cart-actions button:hover {
+  text-decoration: none;
+  background-color: #971980;
+}
+
+.details .article-info .cart-actions button:focus {
+  outline: none;
+}
+
+.details .article-info .link-description {
+  margin-top: 1.2rem;
+  margin-left: 10px;
+  font-size: .8rem;
+}
+
+.article-description {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin-bottom: 8rem;
+  padding: 3rem 4rem;
+  padding-top: 4rem;
+  background-color: #f1f1f1;
+}
+
+.article-description .subtitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #b52299;
+  margin: 0;
+}
+
+.article-description hr {
+  border: 1px #222 solid;
+  opacity: .2;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.article-description p {
+  font-size: .9rem;
+  opacity: 0.9;
+  line-height: 1.3rem;
+}
+
+/* XS */
+@media only screen and (min-width: 0px) and (max-width: 800px) {
+  .details {
+    flex-direction: column;
+    width: 90%;
+  }
+
+  .details .img-container {
+    width: 100%;
+  }
+  
+  .details .article-info {
+    padding: 5rem 1rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .details .article-info .article-path {
+    font-size: 1rem;
+    margin-bottom: .8rem;
+  }
+
+  .details .article-info .code {
+    margin: 0 0 .2rem 0;
+  }
+
+  .details .article-info .price-container {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: .6rem;
+  }
+  
+  .details .article-info .price {
+    margin-top: .4rem;
+    font-size: 2.2rem;
+  }
+
+  .details .article-info .price-discount {
+    justify-content: center;
+  }
+
+  .details .article-info .before {
+    padding-left: 1.3rem;
+    text-align: left;
+  }
+
+  .details .article-info .stock {
+    margin-bottom: 3rem;
+  }
+  
+  .details .article-info .cart-actions {
+    display: flex;
+    height: 3.5rem;
+    justify-content: center;
+  }
+  
+  .details .article-info .cart-actions input {
+    width: 45px;
+    font-size: .8rem;
+  }
+  
+  .details .article-info .cart-actions .fas{
+    font-size: .8rem;
+    margin-right: .7rem;
+  }
+  
+  .details .article-info .cart-actions button {
+    padding: 0 .7rem;
+    font-size: .9rem;
+  }  
+  
+  .details .article-info .link-description {
+    margin-top: 3.2rem;
+  }
+
+  .article-description {
+    width: 90%;
+    padding: 3rem 2rem;
+  }
+  
+  .article-description .subtitle {
+    font-size: 1.3rem;
+  }
+  
+  .article-description p {
+    line-height: 1.5rem;
+  }
+
+  .details .article-info.new::before,
+  .details .article-info.featured::before,
+  .details .article-info.offer::before,
+  .details .article-info.spent::before {
+    top: 1rem;
+    right: 1rem;
+    transform: rotate(0deg);
+  }
+}
+
+/* S */
+@media only screen and (min-width: 451px) and (max-width: 800px) {
+  .details {
+    width: 80%;
+  }
+  
+  .details .article-info {
+    padding: 5rem 3rem;
+  }
+
+  .details .article-info .article-path {
+    margin-bottom: .3rem;
+  }
+  
+  .details .article-info h4 {
+    font-size: 1.6rem;
+    padding: 0 2rem;
+  }
+
+  .details .article-info .price {
+    margin-top: 1rem;
+    font-size: 2.4rem;
+  }
+
+  .details .article-info .after {
+    margin-top: 0;
+  }
+
+  .details .article-info .stock {
+    font-size: 1rem;
+  }
+  
+  .details .article-info .cart-actions input {
+    font-size: .9rem;
+  }
+  
+  .details .article-info .cart-actions .fas{
+    font-size: 1.1rem;
+  }
+  
+  .details .article-info .cart-actions button {
+    font-size: 1.2rem;
+  }  
+
+  .details .article-info .link-description {
+    font-size: 1.1rem;
+  }
+
+  .article-description {
+    width: 80%;
+    padding: 3rem 3rem;
+  }
+  
+  .article-description .subtitle {
+    font-size: 1.4rem;
+  }
+  
+  .article-description p {
+    font-size: 1rem;
+    line-height: 1.6rem;
+  }
+}
+
+/* L */
+@media only screen and (min-width: 1200px) {  
+  .details .article-info {
+    padding: 2.5rem;
+  }
+  
+  .details .article-info .article-path {
+    font-size: 1rem;
+  }
+  
+  .details .article-info h4 {
+    margin: 0 0 .2rem 0;
+    font-size: 1.8rem;
+  }
+  
+  .details .article-info .price {
+    font-size: 2.5rem;
+  }
+
+  .details .article-info .price-discount p{
+    font-size: 1.4rem;
+  }
+  
+  .details .article-info .stock {
+    margin-bottom: 3rem;
+    font-size: 1rem;
+  }
+  
+  .details .article-info .cart-actions input {
+    width: 3.5rem;
+    padding: 6px;
+    font-size: 1rem;
+    margin: 0 .7rem 0 .1rem;
+  }
+  
+  .details .article-info .cart-actions .fas{
+    font-size: .9rem;
+    margin-right: .7rem;
+  }
+  
+  .details .article-info .cart-actions button {
+    font-size: .9rem;
+    padding: 0 .8rem;
+  }
+  
+  .details .article-info .link-description {
+    margin-top: 2rem;
+    font-size: 1.1rem;
+  }
+
+  .article-description {
+    padding-top: 8rem;
+  }
+
+  .article-description .subtitle {
+    font-size: 1.8rem;
+  }
+  
+  .article-description p {
+    font-size: 1.2rem;
+    line-height: 1.7rem;
+  }
+}
+
+/* XL */
+@media only screen and (min-width: 1500px) {  
+  .details .article-info {
+    padding: 2.7rem;
+  }
+  
+  .details .article-info .article-path {
+    font-size: 1.3rem;
+  }
+  
+  .details .article-info h4 {
+    margin-bottom: .3rem;
+    font-size: 2rem;
+  }
+  
+  .details .article-info .price {
+    font-size: 2.9rem;
+  }
+  
+  .details .article-info .stock {
+    font-size: 1.3rem;
+  }
+  
+  .details .article-info .cart-actions {
+    height: 4rem;
+  }
+  
+  .details .article-info .cart-actions input {
+    font-size: 1.2rem;
+    width: 4rem;
+  }
+  
+  .details .article-info .cart-actions .fas{
+    font-size: 1.1rem;
+  }
+  
+  .details .article-info .cart-actions button {
+    padding: 0 1rem;
+    font-size: 1.1rem;
+  }
+  
+  .details .article-info .link-description {
+    font-size: 1.3rem;
+  }
+
+  .article-description .subtitle {
+    font-size: 1.6rem;
+  }
+  
+  .article-description p {
+    font-size: 1.3rem;
+  }
+}  
