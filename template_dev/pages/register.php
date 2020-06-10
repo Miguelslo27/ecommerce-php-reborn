@@ -29,7 +29,10 @@ newDocument([
       ));
       exit;
     }
+    
+    $categories = getCategories();
 
+    setGlobal('categories', oneOf($categories, []));
     setSession('redirectTo', oneOf(@$_SERVER['HTTP_REFERER'], '/'));
 
     $classesHandler = function ($field, $class)
