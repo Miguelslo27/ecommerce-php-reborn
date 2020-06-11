@@ -249,7 +249,22 @@ function getPager($model, $where, $perpage) {
  */
 function constructPagerUrl($perpage, $perpage_param, $page_param)
 {
-  $url = getServer('QUERY_STRING') ? '?' . getServer('QUERY_STRING') : '?' . $perpage_param .  '={{per_page}}&' . $page_param . '={{page}}';
+  $key = getServer('QUERY_STRING');
+  $clave = explode("=", $key);
+  $clave = strval($clave[0]);  
+
+  if (getServer('QUERY_STRING') !== null && $clave != 'clave')
+  {
+    $url = '?' . getServer('QUERY_STRING');
+  }
+  else if(getServer('QUERY_STRING') !== null && $clave == 'clave')
+  {
+    $url = '?' . $perpage_param .  '={{per_page}}&' . $page_param . '={{page}}&' . $key;
+  }
+  else
+  {
+    $url = '?' . $perpage_param .  '={{per_page}}&' . $page_param . '={{page}}';
+  }
   $url = preg_replace('/' . $perpage_param . '=\d+/i', $perpage_param . '={{per_page}}', $url);
   $url = preg_replace('/' . $page_param . '=\d+/i', $page_param . '={{page}}', $url);
   $url = str_replace('{{per_page}}', $perpage, $url);

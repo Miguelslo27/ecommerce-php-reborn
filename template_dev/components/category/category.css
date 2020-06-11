@@ -32,19 +32,29 @@
 }
 
 .cat-info>p,
-.cat-info>h1 {
+.cat-info>h1,
+.cat-info>h2 {
   margin: 1rem 0;
   text-align: left;
+  margin-left: .5rem;
 }
 
 .cat-info>p {
   font-size: 1.1rem;
   line-height: 1.5rem;
+  margin-bottom: 1.8rem;
 }
 
 .cat-info>h1 {
   text-transform: uppercase;
-  font-size: 2.2rem;
+  font-size: 2rem;
+  margin-top: 1.8rem;
+}
+
+.cat-info>h2 {
+  text-transform: uppercase;
+  font-size: 1.8rem;
+  margin-top: 1.8rem;
 }
 
 .page_category>section>section.inner,
