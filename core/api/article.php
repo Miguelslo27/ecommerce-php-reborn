@@ -82,7 +82,7 @@ function searchArticle($key)
 
   return getDB()->getObjects($sql);
 }
-//str_replace // %key%%key%
+
 function returnId($var) {
   return $var->id;
 }

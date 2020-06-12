@@ -28,8 +28,7 @@ newDocument([
       $key = ($key[1]);
     }
 
-    $key = str_replace("+", " ", $key);
-    
+    $key             = str_replace("+", " ", $key);
     $result_articles = searchArticle($key);
     
     if($result_articles != null)
@@ -44,13 +43,10 @@ newDocument([
       setGlobal('count_articles', $count_articles);
       setGlobal('articles', oneOf($articles, []));
       setGlobal('articles_pager', $pager);
+      setGlobal('key', $key);
     }
 
-    $categories      = getCategories('`category_id` = 0 AND `status` = 1');
+    $categories = getCategories('`category_id` = 0 AND `status` = 1');
     setGlobal('categories', oneOf($categories, []));
-    setGlobal('key', $key);
-
-    logToConsole('$result_articles', $result_articles, __FILE__, __FUNCTION__, __LINE__);
-    logToConsole('pager', $key, __FILE__, __FUNCTION__, __LINE__);
   }
 ]);

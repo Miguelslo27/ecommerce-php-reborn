@@ -85,3 +85,30 @@
   flex-grow: 3;
   padding: 2rem 0;
 }
+
+@media only screen and (max-width: 900px) {
+  .page_search>section>header {
+    height: 140px;
+  }  
+
+  .page_search>section>section.inner>section {
+    padding: 2rem 2rem;
+  }
+
+  .page_search>section>section.inner>aside {
+    display: none;
+  }
+
+  .cat-info>h1 {
+    font-size: 1.6rem;
+  }
+
+  .cat-info>h2 {
+    font-size: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .cat-info>p {
+    font-size: .9rem;
+  }  
+}
