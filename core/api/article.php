@@ -66,21 +66,23 @@ function articleExists($aid)
   return $count > 0 ? true : false;
 }
 
-function search($key)
+function searchArticle($key)
 {
+  $key = str_replace(" ", "%", $key);
+
   $sql = (
     "SELECT
       `id`
     FROM `articles`
-    WHERE `name` LIKE '%$key%%'
-    OR `code` LIKE '%$key%%'
-    OR `brief_description` LIKE '%$key%%'
-    OR `description` LIKE '%$key%%'"
+    WHERE `name` LIKE '%$key%'
+    OR `code` LIKE '%$key%'
+    OR `brief_description` LIKE '%$key%'
+    OR `description` LIKE '%$key%'"
   );
 
   return getDB()->getObjects($sql);
 }
-
+//str_replace // %key%%key%
 function returnId($var) {
   return $var->id;
 }

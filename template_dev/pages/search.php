@@ -30,7 +30,7 @@ newDocument([
 
     $key = str_replace("+", " ", $key);
     
-    $result_articles = search($key);
+    $result_articles = searchArticle($key);
     
     if($result_articles != null)
     {
