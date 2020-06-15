@@ -43,6 +43,7 @@ body>header .header-inner .store-nav {
   text-decoration: none;
   text-transform: uppercase;
   line-height: 2.5rem;
+  white-space: nowrap;
 }
 
 .store-nav .navigation a.access-menu:hover {
@@ -50,9 +51,19 @@ body>header .header-inner .store-nav {
   border-bottom: 2px solid #b52299;
 }
 
+.store-nav .navigation a.more-item {
+  color: #b52299;
+}
+
 .store-nav .navigation a.access-menu .fas,
 .store-nav .navigation a.access-menu .far {
   font-size: 1rem;
+}
+
+.store-nav .navigation h2.not-found-cat {
+  font-size: 1rem;
+  padding: 0 .2rem;
+  font-weight: 500;
 }
 
 .store-nav .navigation a.access-menu:not(:last-child) {

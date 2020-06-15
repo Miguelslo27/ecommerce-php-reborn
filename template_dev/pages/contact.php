@@ -13,6 +13,7 @@ newDocument([
     'css/layout.css',
     'css/forms.css'
   ],
+
   'beforeRender' => function ()
   {
     $classesHandler = function ($field, $class)
@@ -25,6 +26,8 @@ newDocument([
       );
     };
 
+    $categories = getCategories();
+    setGlobal('categories', oneOf($categories, []));
     setGlobal('classesHandler', $classesHandler);
   }
 ]);

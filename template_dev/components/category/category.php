@@ -13,10 +13,7 @@
     </div>
   </header>
   <section class="inner">
-    <?php if (!empty(getGlobal('categories'))) : ?>
-      <?php getTemplate('components/lists/sidebar/sidebar') ?>
-    <?php endif ?>
-
-    <?php getTemplate('components/lists/articles/articles') ?>
+  <?php getTemplate('components/lists/sidebar/sidebar') ?>
+  <?php getTemplate('components/lists/articles/articles') ?>
   </section>
 </section>
