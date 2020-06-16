@@ -1,10 +1,9 @@
-  <div class="div-account">
+  <div class="div-account inner">
     <aside class="info-section">
     <div class="photo">
       <img src="/statics/images/Foto.jpg" alt="FotoPerfil">
     </div>
       <h2 class= "h2-account">Nombre Apellido</h2>
-
       <nav>
       <ul class="list-section">
       <li>
