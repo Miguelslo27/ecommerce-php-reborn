@@ -89,27 +89,27 @@
         <div class="form-group">
           <Label>Departamento</Label>
           <input list="city" placeholder="Montevideo">
-            <datalist id="city">
-              <option value="Montevideo">
-              <option value="Canelones">
-              <option value="Lavalleja">
-              <option value="Maldonado">
-              <option value="Artigas">
-              <option value="Flores">
-              <option value="Florida">
-              <option value="Rio Negro">
-              <option value="Tacuarembo">
-              <option value="Treinta y Tres">
-              <option value="Cerro Largo">
-              <option value="Rivera">
-              <option value="Salto">
-              <option value="Paysandu">
-              <option value="San Jose">
-              <option value="Soriano">
-              <option value="Colonia">
-              <option value="Durazno">
-              <option value="Rocha">
-            </datalist>
+          <datalist id="city">
+            <option value="Artigas">
+            <option value="Canelones">
+            <option value="Cerro Largo">
+            <option value="Colonia">
+            <option value="Durazno">
+            <option value="Flores">
+            <option value="Florida">
+            <option value="Lavalleja">
+            <option value="Maldonado">
+            <option value="Montevideo">
+            <option value="Paysandu">
+            <option value="Rio Negro">
+            <option value="Rivera">
+            <option value="Rocha">
+            <option value="Salto">
+            <option value="San Jose">
+            <option value="Soriano">
+            <option value="Tacuarembo">
+            <option value="Treinta y Tres">
+          </datalist>
 
             <label class="label-center" for="">Localidad</label>
             <input type="text" placeholder="Barrio">
