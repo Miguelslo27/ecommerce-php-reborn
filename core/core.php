@@ -86,12 +86,6 @@ function processRequests()
       'body'    => getPostData('sendemail_message'),
     ]));
   }
-<<<<<<< HEAD
-=======
-
-  if (getRequestData('action') == ACTION_SEARCH) {
-    setSession('request_messages', search());
-  }
 
   if(getRequestData('action') == ACTION_OBTAIN_PASSWORD) {
     setSession('request_messages', obtain_password());
@@ -105,7 +99,6 @@ function processRequests()
       exit;
     }
   }
->>>>>>> d9d64f8... feature/forgot-password - Implemented functions in User API
 }
 
 function sendEmail($settings)

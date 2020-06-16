@@ -28,12 +28,8 @@ define('ACTION_USER_EDITION', 'user_edition');
 define('ACTION_SAVE_CATEGORY', 'save_category');
 define('ACTION_SAVE_ARTICLE', 'save_article');
 define('ACTION_ADD_TO_CART', 'add_to_cart');
-<<<<<<< HEAD
-=======
-define('ACTION_SEARCH', 'search');
 define('ACTION_OBTAIN_PASSWORD', 'obtain_password');
 define('ACTION_CHANGE_PASSWORD', 'change_password');
->>>>>>> d9d64f8... feature/forgot-password - Implemented functions in User API
 
 /* DEFAULT REQUIRED TEMPLATES PATHS */
 define('ERROR_404_TEMPLATE', 'pages/404');

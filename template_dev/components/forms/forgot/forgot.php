@@ -25,11 +25,11 @@
       <input type="hidden" name="action" value="<?php bind(ACTION_CHANGE_PASSWORD) ?>">
       <div class="form-line <?php getGlobal('classesHandler')('pswrd', 'error') ?>">
         <label for="pswrd" class="icon-label"><i class="fas fa-at"></i></label>
-        <input type="text" class="input" id="pswrd" name="pswrd" placeholder="Nueva contraseña">
+        <input type="password" class="input" id="pswrd" name="pswrd" placeholder="Nueva contraseña">
       </div>
       <div class="form-line <?php getGlobal('classesHandler')('pswrd_confirm', 'error') ?>">
         <label for="pswrd_confirm" class="icon-label"><i class="fas fa-at"></i></label>
-        <input type="text" class="input" id="pswrd_confirm" name="pswrd_confirm" placeholder="Repetir contraseña">
+        <input type="password" class="input" id="pswrd_confirm" name="pswrd_confirm" placeholder="Repetir contraseña">
       </div>
       <div class="form-line">
         <button class="btn-100" type="submit">Enviar</button>

@@ -371,7 +371,7 @@ function change_password()
   } 
   else {
     $pass             = md5($pswd . $email);
-    $new_verification = md5($pswd . $actual_user->email);
+    $new_verification = md5($pswd . $actual_user->id);
     $sql = (
       "UPDATE
           `users`
