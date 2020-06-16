@@ -250,14 +250,14 @@ function getPager($model, $where, $perpage) {
 function constructPagerUrl($perpage, $perpage_param, $page_param)
 {
   $key = getServer('QUERY_STRING');
-  $clave = explode("=", $key);
-  $clave = strval($clave[0]);  
+  $fragments_key = explode("=", $key);
+  $first_fragment = strval($fragments_key[0]);  
 
-  if (getServer('QUERY_STRING') !== "" && $clave != 'clave')
+  if (getServer('QUERY_STRING') != "" && $first_fragment != 'clave')
   {
     $url = '?' . getServer('QUERY_STRING');
   }
-  else if(getServer('QUERY_STRING') !== "" && $clave == 'clave')
+  else if(getServer('QUERY_STRING') != "" && $first_fragment == 'clave')
   {
     $url = '?' . $perpage_param .  '={{per_page}}&' . $page_param . '={{page}}&' . $key;
   }
