@@ -1,17 +1,17 @@
-.form-login form {
+.form-forgot form {
   max-width: 500px;
 }
 
-.form-login form .form-line {
+.form-forgot form .form-line {
   padding: .5rem;
 }
 
-.form-login form .form-line label,
-.form-login form .form-line input {
+.form-forgot form .form-line label,
+.form-forgot form .form-line input {
   flex: 1;
 }
 
-.form-login form .form-line label.icon-label {
+.form-forgot form .form-line label.icon-label {
   flex-grow: 1;
   padding: calc(1rem + 1px) .3rem;
   display: flex;
@@ -22,11 +22,11 @@
   border-bottom-left-radius: .5rem !important;
 }
 
-.form-login form .form-line label i {
+.form-forgot form .form-line label i {
   color: #FFF;
 }
 
-.form-login form .form-line input {
+.form-forgot form .form-line input {
   flex-grow: 6;
   box-shadow: 0 0 0 !important;
   border: 1px solid #930077 !important;
@@ -35,14 +35,12 @@
   border-bottom-right-radius: .5rem !important;
 }
 
-.form-login form .remember,
-.form-login form .help-line {
+.form-forgot form .remember,
+.form-forgot form .help-line {
   display: block;
   font-size: .8rem;
 }
 
-.form-login form .form-line.error label.icon-label,
 .form-forgot form .form-line.error label.icon-label {
   background-color: red;
-  padding: calc(1rem + 2px) .3rem;
 }

@@ -277,3 +277,121 @@ function loadUser($email)
   $user = getDB()->getObject($sql);
   return $user;
 }
+
+function obtain_password() 
+{
+  $status = newStatusObject();
+  $email  = getPostData('email');
+
+  if (empty($email)) {
+    $status->fieldsWithErrors['email'] = true;
+    $status->errors[]                  = 'El campo destinatario no puede ser vacío';
+  } else if (!preg_match(REG_EXP_EMAIL_FORMAT, $email)) {
+    $status->fieldsWithErrors['email'] = true;
+    $status->errors[]                  = 'El correo <strong>' . $email . '</strong> tiene un formato de email incorrecto';
+  } else {
+    $sql = (
+      "SELECT
+          `id`,
+          verification_code
+        FROM
+          `users`
+        WHERE
+          `email` = '$email'"
+    );
+    $user = getDB()->getObject($sql);
+
+    if($user != null){
+      $url="http://demo.ecommerce.local/recuperar-clave/?email=$email&activation=$user->verification_code";
+      $body = "
+        <html>
+        <head>
+        <title></title>
+        </head>
+        <body>     
+        <div style='width:70%;background:#f1f1f1;margin:auto;text-align:center;padding:3rem;'>
+          <h2>Holas $email,</h2>
+          <h3 style='margin-bottom:4rem;'>Hemos recibido una solicitud de nueva contraseña para acceder a Nombre Empresa</h3>
+          <a style='padding:1rem 2rem;background:#930077;color:#fff;font-size:16px;text-decoration:none;' href=$url>Pulsa aquí para recibir la nueva contraseña.</a>
+        </div>
+        </body>
+        </html>";
+      
+      $status = sendEmail([
+        'from'    => ['email' => 'federicososa999@gmail.com', 'name' => 'Nombre Empresa'],
+        'to'      => ['user' => $email],
+        'subject' => 'Recuperar Contraseña',
+        'body'    => $body,
+        'isHTML'  => true,
+      ]);
+    }
+
+    $status->succeeded = true;
+    $status->success = 'Tu correo fue enviado correctamente, gracias por contactarte.';
+  }
+
+  return $status;
+}
+
+function change_password()
+{
+  $status     = newStatusObject();
+  $keys       = explode("=", getServer('QUERY_STRING'));
+  $email      = explode("&", $keys[1]);
+  $email      = $email[0];
+  $activation = $keys[2];
+  $pswd       = getPostData('pswrd');
+
+  $sql = (
+    "SELECT
+        `id`,
+        `email`
+      FROM
+        `users`
+      WHERE
+        `verification_code` = '$activation'"
+  );
+  $actual_user = getDB()->getObject($sql);
+
+  if($actual_user == null) {
+    $status->fieldsWithErrors['pswrd']         = true;
+    $status->fieldsWithErrors['pswrd_confirm'] = true;
+    $status->errors[]                          = 'Hubo un error en el codigo de activacion';
+  } else if (strlen(getPostData('pswrd')) < 6) {
+    $status->fieldsWithErrors['pswrd']         = true;
+    $status->fieldsWithErrors['pswrd_confirm'] = true;
+    $status->errors[]                          = 'Para una contraseña segura, esta debe tener más de 6 caracteres';
+  } else if (
+    empty(getPostData('pswrd_confirm')) 
+    || getPostData('pswrd') !== getPostData('pswrd_confirm')
+  ) {
+    $status->fieldsWithErrors['pswrd']         = true;
+    $status->fieldsWithErrors['pswrd_confirm'] = true;
+    $status->errors[]                          = 'Las contraseñas deben coincidir, por seguridad';
+  } 
+  else {
+    $pass             = md5($pswd . $email);
+    $new_verification = md5($pswd . $actual_user->email);
+    $sql = (
+      "UPDATE
+          `users`
+        SET
+          `password` = '$pass',
+          `verification_code` = '$new_verification'
+        WHERE
+          `email` = '$email'"
+    );
+
+    if(!getDB()->query($sql)) {
+      $status->fieldsWithErrors['pswrd']         = true;
+      $status->fieldsWithErrors['pswrd_confirm'] = true;
+      $status->errors[]                          = 'Hubo un error al cambiar tu contraseña, inténtalo de nuevo';
+    } else {
+      $status->succeeded = true;
+      $status->success = 'Tu contraseña se modifico con éxito';
+      setGlobal('change_pass_success', true);
+    }
+  } 
+  
+  return $status;
+}

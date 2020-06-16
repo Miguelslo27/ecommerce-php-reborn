@@ -40,6 +40,10 @@ form .help-line {
   margin-top: 1.5rem;
 }
 
+.page_forgot form .form-line {
+  margin: 0 auto 1rem auto;
+}
+
 form .form-placeholder>*:not(button),
 form .form-placeholder>*:not(button),
 form .form-line>*:not(button),
