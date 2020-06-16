@@ -90,6 +90,19 @@ function processRequests()
   if (getRequestData('action') == ACTION_SEARCH) {
     setSession('request_messages', search());
   }
+
+  if(getRequestData('action') == ACTION_OBTAIN_PASSWORD) {
+    setSession('request_messages', obtain_password());
+  }
+
+  if(getRequestData('action') == ACTION_CHANGE_PASSWORD) {
+    setSession('request_messages', change_password());
+    if(getGlobal('change_pass_success')){
+      setGlobal('change_pass_success', false);
+      header('Location: /');
+      exit;
+    }
+  }
 }
 
 function sendEmail($settings)
@@ -112,8 +125,8 @@ function sendEmail($settings)
       );
       $mailer->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
       $mailer->SMTPAuth   = true;                                   // Enable SMTP authentication
-      $mailer->Username   = '';                     // SMTP username
-      $mailer->Password   = '';                               // SMTP password
+      $mailer->Username   = 'fdsosa.35@gmail.com';                     // SMTP username
+      $mailer->Password   = 'popla2010';                               // SMTP password
       $mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
       $mailer->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
@@ -148,7 +161,7 @@ function sendEmail_checkIncomingData($settings)
   $status = newStatusObject();
   if (empty($settings['from']['email'])) {
     $status->fieldsWithErrors['sendemail_from'] = true;
-    $status->errors[]                 = 'El campo remitente no puede ser vacío';
+    $status->errors[]               = 'El campo remitente no puede ser vacío';
   } else {
     checkEmailsAddresses($settings['from']['email'], $status, 'El correo <strong>' . $settings['from']['email'] . '</strong> tiene un formato de email incorrecto', 'sendemail_from');
   }
