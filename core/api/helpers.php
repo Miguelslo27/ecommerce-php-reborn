@@ -196,17 +196,6 @@ function getQueryParams($additions = null)
   $paramsObj  = [];
   $returnList = [];
 
-  if (htmlspecialchars(trim($params)) != '') {
-    $paramsList = explode('&', $params);
-  }
-
-  foreach ($paramsList as $value) {
-    $paramKeyValue        = explode('=', $value);
-    $paramKey             = $paramKeyValue[0];
-    $parmaValue           = isset($paramKeyValue[1]) ? $paramKeyValue[1] : 'true';
-    $paramsObj[$paramKey] = $parmaValue;
-  }
-
   if ($additions) {
     foreach ($additions as $addition => $value) {
       if ($value) {
@@ -215,6 +204,10 @@ function getQueryParams($additions = null)
         unset($paramsObj[$addition]);
       }
     }
+  }
+
+  if(getRequestURIPath() == '/busqueda/') {
+    $paramsObj['clave'] = getGlobal('key');
   }
 
   foreach ($paramsObj as $param => $value) {
