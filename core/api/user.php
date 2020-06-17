@@ -337,9 +337,9 @@ function change_password()
 {
   $status     = newStatusObject();
   $keys       = explode("=", getServer('QUERY_STRING'));
-  $email      = explode("&", $keys[1]);
+  @$email      = explode("&", $keys[1]);
   $email      = $email[0];
-  $activation = $keys[2];
+  @$activation = $keys[2];
   $pswd       = getPostData('pswrd');
 
   $sql = (
@@ -388,7 +388,7 @@ function change_password()
       $status->errors[]                          = 'Hubo un error al cambiar tu contraseña, inténtalo de nuevo';
     } else {
       $status->succeeded = true;
-      $status->success = 'Tu contraseña se modifico con éxito';
+      $status->success   = 'Tu contraseña se modifico con éxito';
       setGlobal('change_pass_success', true);
     }
   } 

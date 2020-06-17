@@ -11,8 +11,8 @@ newDocument([
   'styles' => [
     'css/fontawesome/css/all.min.css',
     'css/layout.css',
-    'css/forms.css',
-    'components/forms/login/login.css'
+    'components/forms/login/login.css',
+    'css/forms.css'
   ],
   'beforeRender' => function ()
   {
