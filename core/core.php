@@ -121,8 +121,8 @@ function sendEmail($settings)
       );
       $mailer->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
       $mailer->SMTPAuth   = true;                                   // Enable SMTP authentication
-      $mailer->Username   = 'fdsosa.35@gmail.com';                     // SMTP username
-      $mailer->Password   = 'popla2010';                               // SMTP password
+      $mailer->Username   = '';                     // SMTP username
+      $mailer->Password   = '';                               // SMTP password
       $mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
       $mailer->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
