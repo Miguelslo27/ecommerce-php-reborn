@@ -30,6 +30,7 @@ define('ACTION_SAVE_CATEGORY', 'save_category');
 define('ACTION_SAVE_ARTICLE', 'save_article');
 define('ACTION_ADD_TO_CART', 'add_to_cart');
 define('ACTION_SEND_EMAIL', 'send_email');
+define('ACTION_SEARCH', 'search');
 
 /* CONSTANTS FOR PAYMENT */
 define('ACTION_UPDATE_CART_BILLING_INFO', 'update_cart_billing_info');
