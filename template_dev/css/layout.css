@@ -531,3 +531,62 @@ i.fab+* {
   opacity: .7;
   text-decoration: line-through;
 }
+
+@media only screen and (max-width: 750px) {
+  .page_search .articles li {
+    width: 46%;
+    margin: 0 2%;
+  }
+
+  .page_search section section section h2 {
+    font-size: 1.3rem;
+  }
+
+  .page_search section section section p {
+    font-size: .9rem;
+  }
+
+  .page_search .articles li article .article-info a {
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+  }
+
+  .page_search .articles li article .article-info .price,
+  .page_search .articles li article.new .article-info .price,
+  .page_search .articles li article.featured .article-info .price,
+  .page_search .articles li article.offer .article-info .price,
+  .page_search .articles li article.spent .article-info .price {
+    margin-right: 1rem;
+    font-size: 1.5rem;
+  }
+
+  .page_search .articles li article .article-info .price.before,
+  .page_search .articles li article.new .article-info .price.before,
+  .page_search .articles li article.featured .article-info .price.before,
+  .page_search .articles li article.offer .article-info .price.before,
+  .page_search .articles li article.spent .article-info .price.before {
+    margin-right: 1rem;
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .page_search .articles li {
+    width: 94%;
+    margin: 5% 3%;
+  }
+
+  .page_search .list-actions>div span,
+  .page_search .list-actions>div a {
+    padding: .3rem .9rem;
+  }
+
+  .page_search .list-actions {
+    flex-wrap: wrap;
+  }
+
+  .page_search .list-actions div{
+    margin-top: .5rem;
+    justify-content: center;
+  }
+}

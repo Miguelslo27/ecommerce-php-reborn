@@ -8,64 +8,64 @@
 
     <a href="<?php bind(getNextPageUrl(getGlobal('pager'))) ?>"><i class="fas fa-arrow-right"></i></a>
   </div>
+  <div class="per-page">
+    <span>Mostrar:</span>
+
+    <a class="<?php
+      bind(
+        getGetData(
+          getGlobal('pager')->model . '_per_page'
+        ) == (
+          getGlobal('pager_per_page')
+        ) ? 'active' : ''
+      )
+    ?>" href="?<?php
+      bind(
+        getQueryParams(
+          [
+            getGlobal('pager')->model . '_per_page' => getGlobal('pager_per_page'),
+            getGlobal('pager')->model . '_page' => 1
+          ]
+        )
+      )
+    ?>"><?php bind(intval(getGlobal('pager_per_page'))) ?></a>
+    
+    <a class="<?php
+      bind(
+        getGetData(
+          getGlobal('pager')->model . '_per_page'
+        ) == (
+          getGlobal('pager_per_page') * 2
+        ) ? 'active' : ''
+      )
+    ?>" href="?<?php
+      bind(
+        getQueryParams(
+          [
+            getGlobal('pager')->model . '_per_page' => getGlobal('pager_per_page') * 2,
+            getGlobal('pager')->model . '_page' => 1
+          ]
+        )
+      )
+    ?>"><?php bind(getGlobal('pager_per_page') * 2) ?></a>
+
+    <a class="<?php
+      bind(
+        getGetData(
+          getGlobal('pager')->model . '_per_page'
+        ) == (
+          getGlobal('pager_per_page') * 4
+        ) ? 'active' : ''
+      )
+    ?>" href="?<?php
+      bind(
+        getQueryParams(
+          [
+            getGlobal('pager')->model . '_per_page' => getGlobal('pager_per_page') * 4,
+            getGlobal('pager')->model . '_page' => 1
+          ]
+        )
+      )
+    ?>"><?php bind(getGlobal('pager_per_page') * 4) ?></a>
+  </div>
 <?php endif ?>
-<div class="per-page">
-  <span>Mostrar:</span>
-
-  <a class="<?php
-    bind(
-      getGetData(
-        getGlobal('pager')->model . '_per_page'
-      ) == (
-        getGlobal('pager_per_page')
-      ) ? 'active' : ''
-    )
-  ?>" href="?<?php
-    bind(
-      getQueryParams(
-        [
-          getGlobal('pager')->model . '_per_page' => getGlobal('pager_per_page'),
-          getGlobal('pager')->model . '_page' => 1
-        ]
-      )
-    )
-  ?>"><?php bind(intval(getGlobal('pager_per_page'))) ?></a>
-  
-  <a class="<?php
-    bind(
-      getGetData(
-        getGlobal('pager')->model . '_per_page'
-      ) == (
-        getGlobal('pager_per_page') * 2
-      ) ? 'active' : ''
-    )
-  ?>" href="?<?php
-    bind(
-      getQueryParams(
-        [
-          getGlobal('pager')->model . '_per_page' => getGlobal('pager_per_page') * 2,
-          getGlobal('pager')->model . '_page' => 1
-        ]
-      )
-    )
-  ?>"><?php bind(getGlobal('pager_per_page') * 2) ?></a>
-
-  <a class="<?php
-    bind(
-      getGetData(
-        getGlobal('pager')->model . '_per_page'
-      ) == (
-        getGlobal('pager_per_page') * 4
-      ) ? 'active' : ''
-    )
-  ?>" href="?<?php
-    bind(
-      getQueryParams(
-        [
-          getGlobal('pager')->model . '_per_page' => getGlobal('pager_per_page') * 4,
-          getGlobal('pager')->model . '_page' => 1
-        ]
-      )
-    )
-  ?>"><?php bind(getGlobal('pager_per_page') * 4) ?></a>
-</div>

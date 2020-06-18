@@ -196,17 +196,6 @@ function getQueryParams($additions = null)
   $paramsObj  = [];
   $returnList = [];
 
-  if (htmlspecialchars(trim($params)) != '') {
-    $paramsList = explode('&', $params);
-  }
-
-  foreach ($paramsList as $value) {
-    $paramKeyValue        = explode('=', $value);
-    $paramKey             = $paramKeyValue[0];
-    $parmaValue           = isset($paramKeyValue[1]) ? $paramKeyValue[1] : 'true';
-    $paramsObj[$paramKey] = $parmaValue;
-  }
-
   if ($additions) {
     foreach ($additions as $addition => $value) {
       if ($value) {
@@ -215,6 +204,10 @@ function getQueryParams($additions = null)
         unset($paramsObj[$addition]);
       }
     }
+  }
+
+  if(getRequestURIPath() == '/busqueda/') {
+    $paramsObj['clave'] = getGlobal('key');
   }
 
   foreach ($paramsObj as $param => $value) {
@@ -249,7 +242,22 @@ function getPager($model, $where, $perpage) {
  */
 function constructPagerUrl($perpage, $perpage_param, $page_param)
 {
-  $url = getServer('QUERY_STRING') ? '?' . getServer('QUERY_STRING') : '?' . $perpage_param .  '={{per_page}}&' . $page_param . '={{page}}';
+  $key = getServer('QUERY_STRING');
+  $fragments_key = explode("=", $key);
+  $first_fragment = strval($fragments_key[0]);  
+
+  if (getServer('QUERY_STRING') != "" && $first_fragment != 'clave')
+  {
+    $url = '?' . getServer('QUERY_STRING');
+  }
+  else if(getServer('QUERY_STRING') != "" && $first_fragment == 'clave')
+  {
+    $url = '?' . $perpage_param .  '={{per_page}}&' . $page_param . '={{page}}&' . $key;
+  }
+  else
+  {
+    $url = '?' . $perpage_param .  '={{per_page}}&' . $page_param . '={{page}}';
+  }
   $url = preg_replace('/' . $perpage_param . '=\d+/i', $perpage_param . '={{per_page}}', $url);
   $url = preg_replace('/' . $page_param . '=\d+/i', $page_param . '={{page}}', $url);
   $url = str_replace('{{per_page}}', $perpage, $url);

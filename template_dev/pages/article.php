@@ -28,10 +28,11 @@ newDocument([
     $currentArticle        = getArticle($id[1]);
     $currentCategory       = getCategoryById($currentArticle->category_id);
     $mainCategory          = getCategoryById($currentCategory->category_id);
-    $categories            = getCategories('`category_id` = 0 AND `status` = 1');
     $recentlyAddedArticles = getArticles('`status` = 1', 3, 3);
     $featuredArticles      = getArticles('`status` = 1', 0, 3);
+    $categories            = getCategories('`category_id` = 0 AND `status` = 1');
 
+    setGlobal('categories', oneOf($categories, []));
     setGlobal('recentlyAddedArticles', oneOf($recentlyAddedArticles, []));
     setGlobal('featuredArticles', oneOf($featuredArticles, []));
     setGlobal('currentCategory', $currentCategory);
@@ -40,6 +41,5 @@ newDocument([
     setGlobal('articles_pager', $pager);
     setGlobal('articles', oneOf($articles, []));
     setGlobal('currentArticle', $currentArticle);
-    setGlobal('categories', oneOf($categories, []));
   }
 ]);
