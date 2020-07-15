@@ -320,9 +320,8 @@ function obtain_password()
         </html>";
       
       $status = sendEmail([
-        'from'    => ['email' => 'miguelmail2006@gmail.com', 'name' => 'Nombre Empresa'],
-        // 'to'      => ['user' => $email],
-        'to'      => ['user' => 'miguelmail2006@gmail.com'],
+        'from'    => ['email' => 'admin@e-com.uy', 'name' => 'Demo eComm'],
+        'to'      => ['user' => $email],
         'subject' => 'Recuperar Contraseña',
         'body'    => $body,
         'isHTML'  => true,
@@ -330,9 +329,6 @@ function obtain_password()
     }
 
     logToConsole('obtain_password:$status', $status, __FILE__, __FUNCTION__, __LINE__);
-
-    $status->succeeded = true;
-    $status->success = 'Tu correo fue enviado correctamente, gracias por contactarte.';
   }
 
   return $status;

@@ -106,54 +106,54 @@ function sendEmail($settings)
   $status = sendEmail_checkIncomingData($settings);
   
   if ($status->succeeded) {
-    try {
-      $mailer = new PHPMailer();
+    $mailer = new PHPMailer();
 
-      //Server settings
-      $mailer->SMTPDebug = SMTP::DEBUG_OFF;
-      $mailer->isSMTP();
-      $mailer->SMTPOptions = array(
-        'ssl' => array(
-        'verify_peer' => false,
-        'verify_peer_name' => false,
+    //Server settings
+    $mailer->SMTPDebug = SMTP::DEBUG_OFF;
+    $mailer->isSMTP();
+    $mailer->SMTPOptions = array(
+      'ssl' => array(
+        'verify_peer'       => false,
+        'verify_peer_name'  => false,
         'allow_self_signed' => true
-        )
-      );
-      $mailer->Host       = 'smtp-relay.sendinblue.com';
-      $mailer->SMTPAuth   = true;
-      $mailer->Username   = 'admin@e-com.uy';
-      $mailer->Password   = 'I4MW8Hc3sXhqm02t';
-      $mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-      $mailer->Port       = 587;
+      )
+    );
+    $mailer->Host       = 'smtp-relay.sendinblue.com';
+    $mailer->SMTPAuth   = true;
+    $mailer->Username   = 'admin@e-com.uy';
+    $mailer->Password   = 'I4MW8Hc3sXhqm02t';
+    $mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mailer->Port       = 587;
 
-      customAddAddresses($mailer, $settings['to']);
+    customAddAddresses($mailer, $settings['to']);
 
-      if (!empty($settings['cc'])) {
-        customAddAddresses($mailer, $settings['cc']);
-      }
+    if (!empty($settings['cc'])) {
+      customAddAddresses($mailer, $settings['cc']);
+    }
 
-      if (!empty($settings['bcc'])) {
-        customAddAddresses($mailer, $settings['bcc']);
-      }
+    if (!empty($settings['bcc'])) {
+      customAddAddresses($mailer, $settings['bcc']);
+    }
 
-      $mailer->setFrom(@$settings['from']['email'], @$settings['from']['name']);
-      $mailer->AddReplyTo(@$settings['from']['email'], @$settings['from']['name']);
-      $mailer->isHTML(@$settings['isHTML']);
-      $mailer->Subject = @$settings['subject'];
-      $mailer->Body    = @$settings['body'];
-      $mailer->AltBody = @$settings['body'];
-      $mailer->send();
+    $mailer->setFrom(@$settings['from']['email'], @$settings['from']['name']);
+    $mailer->AddReplyTo(@$settings['from']['email'], @$settings['from']['name']);
+    $mailer->isHTML(@$settings['isHTML']);
+    $mailer->Subject = @$settings['subject'];
+    $mailer->Body    = @$settings['body'];
+    $mailer->AltBody = @$settings['body'];
 
-      logToConsole('$mailer', $mailer, __FILE__, __FUNCTION__, __LINE__);
+    logToConsole('$mailer', $mailer, __FILE__, __FUNCTION__, __LINE__);
 
-      $status->success = 'Tu correo fue enviado correctamente, gracias por contactarte.';
-    } catch(Exception $e) {
+    if ($mailer->send()) {
+      $status->succeeded = true;
+      $status->success   = 'Tu correo fue enviado correctamente, gracias por contactarte.';
+    } else {
       $status->succeeded = false;
       $status->errors[]  = 'No se ha podido enviar el correo, intenta más tarde.';
-      $status->errors[]  = $mailer->ErrorInfo;
     }
   }
 
+  logToConsole('$status', $status, __FILE__, __FUNCTION__, __LINE__);
   return $status;
 }
 
