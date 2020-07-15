@@ -120,8 +120,8 @@ function sendEmail($settings)
     );
     $mailer->Host       = 'smtp-relay.sendinblue.com';
     $mailer->SMTPAuth   = true;
-    $mailer->Username   = 'admin@e-com.uy';
-    $mailer->Password   = 'I4MW8Hc3sXhqm02t';
+    $mailer->Username   = SBLUEUSR;
+    $mailer->Password   = SBLUEPSS;
     $mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mailer->Port       = 587;
 

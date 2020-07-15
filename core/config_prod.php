@@ -21,6 +21,9 @@ define('DB_HOST', getenv('DB_HOST'));
 define('DB_USER', getenv('DB_USER'));
 define('DB_PASS', getenv('DB_PASS'));
 
+define('SBLUEUSR', getenv('SBLUEUSR'));
+define('SBLUEPSS', getenv('SBLUEPSS'));
+
 /* CONSTANTS FOR COMMON USE */
 define('ACTION_LOGIN', 'login');
 define('ACTION_USER_REGISTRATION', 'user_registration');
