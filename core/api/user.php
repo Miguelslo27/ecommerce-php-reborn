@@ -301,6 +301,8 @@ function obtain_password()
     );
     $user = getDB()->getObject($sql);
 
+    logToConsole('obtain_password:$user', $user, __FILE__, __FUNCTION__, __LINE__);
+
     if ($user != null) {
       $url="http://demo.ecommerce.local/recuperar-clave/?email=$email&activation=$user->verification_code";
       $body = "
@@ -318,13 +320,16 @@ function obtain_password()
         </html>";
       
       $status = sendEmail([
-        'from'    => ['email' => 'federicososa999@gmail.com', 'name' => 'Nombre Empresa'],
-        'to'      => ['user' => $email],
+        'from'    => ['email' => 'miguelmail2006@gmail.com', 'name' => 'Nombre Empresa'],
+        // 'to'      => ['user' => $email],
+        'to'      => ['user' => 'miguelmail2006@gmail.com'],
         'subject' => 'Recuperar Contraseña',
         'body'    => $body,
         'isHTML'  => true,
       ]);
     }
+
+    logToConsole('obtain_password:$status', $status, __FILE__, __FUNCTION__, __LINE__);
 
     $status->succeeded = true;
     $status->success = 'Tu correo fue enviado correctamente, gracias por contactarte.';
