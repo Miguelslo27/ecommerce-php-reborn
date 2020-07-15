@@ -285,7 +285,7 @@ function obtain_password()
 
   if (empty($email)) {
     $status->fieldsWithErrors['email'] = true;
-    $status->errors[]                  = 'El campo destinatario no puede ser vacío';
+    $status->errors[]                  = 'El correo para restaurar su contraseña no puede ser vacío';
   } else if (!preg_match(REG_EXP_EMAIL_FORMAT, $email)) {
     $status->fieldsWithErrors['email'] = true;
     $status->errors[]                  = 'El correo <strong>' . $email . '</strong> tiene un formato de email incorrecto';
@@ -293,7 +293,7 @@ function obtain_password()
     $sql = (
       "SELECT
           `id`,
-          verification_code
+          `verification_code`
         FROM
           `users`
         WHERE
@@ -301,7 +301,7 @@ function obtain_password()
     );
     $user = getDB()->getObject($sql);
 
-    if($user != null){
+    if ($user != null) {
       $url="http://demo.ecommerce.local/recuperar-clave/?email=$email&activation=$user->verification_code";
       $body = "
         <html>
@@ -310,7 +310,7 @@ function obtain_password()
         </head>
         <body>     
         <div style='width:70%;background:#f1f1f1;margin:auto;text-align:center;padding:3rem;'>
-          <h2>Holas $email,</h2>
+          <h2>Hola $email,</h2>
           <h3 style='margin-bottom:4rem;'>Hemos recibido una solicitud de nueva contraseña para acceder a Nombre Empresa</h3>
           <a style='padding:1rem 2rem;background:#930077;color:#fff;font-size:16px;text-decoration:none;' href=$url>Pulsa aquí para recibir la nueva contraseña.</a>
         </div>
@@ -349,11 +349,13 @@ function change_password()
       FROM
         `users`
       WHERE
-        `verification_code` = '$activation'"
+        `verification_code` = '$activation'
+      AND
+        `email` = '$email'"
   );
   $actual_user = getDB()->getObject($sql);
 
-  if($actual_user == null) {
+  if ($actual_user == null) {
     $status->fieldsWithErrors['pswrd']         = true;
     $status->fieldsWithErrors['pswrd_confirm'] = true;
     $status->errors[]                          = 'Hubo un error en el codigo de activacion';
@@ -382,7 +384,7 @@ function change_password()
           `email` = '$email'"
     );
 
-    if(!getDB()->query($sql)) {
+    if (!getDB()->query($sql)) {
       $status->fieldsWithErrors['pswrd']         = true;
       $status->fieldsWithErrors['pswrd_confirm'] = true;
       $status->errors[]                          = 'Hubo un error al cambiar tu contraseña, inténtalo de nuevo';

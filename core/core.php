@@ -111,7 +111,7 @@ function sendEmail($settings)
     
       //Server settings
       $mailer->SMTPDebug = SMTP::DEBUG_OFF;                      // Enable verbose debug output
-      $mailer->isSMTP();                                            // Send using SMTP
+      $mailer->isSMTP();                                         // Send using SMTP
       $mailer->SMTPOptions = array(
         'ssl' => array(
         'verify_peer' => false,
@@ -120,11 +120,11 @@ function sendEmail($settings)
         )
       );
       $mailer->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
-      $mailer->SMTPAuth   = true;                                   // Enable SMTP authentication
+      $mailer->SMTPAuth   = true;                                // Enable SMTP authentication
       $mailer->Username   = '';                     // SMTP username
       $mailer->Password   = '';                               // SMTP password
-      $mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-      $mailer->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+      $mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;      // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+      $mailer->Port       = 587;                                 // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
       customAddAddresses($mailer, $settings['to']);
       
