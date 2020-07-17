@@ -5,7 +5,6 @@ require_once('requires.php');
 init();
 
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
 
 function init()
@@ -80,7 +79,7 @@ function processRequests()
   if (getPostData('action') === ACTION_SEND_EMAIL) {
     setSession('request_messages', sendEmail([
       'from'    => ['email' => getPostData('sendemail_from'), 'name' => getPostData('sendemail_name')],
-      'to'      => ['admin' => 'federicososa999@gmail.com', 'user' => getPostData('sendemail_from')],
+      'to'      => ['admin' => 'admin@e-com.uy', 'user' => getPostData('sendemail_from')],
       'subject' => getPostData('sendemail_subject'),
       'body'    => getPostData('sendemail_message'),
     ]));
@@ -117,10 +116,10 @@ function sendEmail($settings)
         'allow_self_signed' => true
       )
     );
-    $mailer->Host       = 'smtp-relay.sendinblue.com';
+    $mailer->Host       = SMTPHOST;
     $mailer->SMTPAuth   = true;
-    $mailer->Username   = SBLUEUSR;
-    $mailer->Password   = SBLUEPSS;
+    $mailer->Username   = SMTPUSER;
+    $mailer->Password   = SMTPPASS;
     $mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mailer->Port       = 587;
 
@@ -169,13 +168,13 @@ function sendEmail_checkIncomingData($settings)
     $status->fieldsWithErrors['to'] = true;
     $status->errors[]               = 'El campo destinatario no puede ser vacío';
   } else {
-    checkEmailsAddresses($settings['to'], $status, 'El correo <strong>' . $settings['to']['user'] . '</strong> tiene un formato de email incorrecto');
+    checkEmailsAddresses($settings['to'], $status, 'El correo tiene un formato de email incorrecto');
   }
   if (!empty($settings['cc'])) {
-    checkEmailsAddresses($settings['cc'], $status, 'El correo <strong>' . $settings['cc'] . '</strong> tiene un formato de email incorrecto');
+    checkEmailsAddresses($settings['cc'], $status, 'El correo tiene un formato de email incorrecto');
   }
   if (!empty($settings['bcc'])) {
-    checkEmailsAddresses($settings['bcc'], $status, 'El correo <strong>' . $settings['bcc'] . '</strong> tiene un formato de email incorrecto');
+    checkEmailsAddresses($settings['bcc'], $status, 'El correo tiene un formato de email incorrecto');
   }
   if (empty($settings['body'])) {
     $status->fieldsWithErrors['sendemail_message'] = true;
@@ -196,7 +195,7 @@ function checkEmailsAddresses($emails, $status, $message, $field = null) {
       }
     break;
     case 'array':
-      foreach($emails as $value) {
+      foreach($emails as $key => $value) {
         if (!preg_match(REG_EXP_EMAIL_FORMAT, $value)) {
           $status->fieldsWithErrors['to'] = true;
           $status->errors[]               = $message;

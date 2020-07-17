@@ -21,8 +21,12 @@ define('DB_HOST', getenv('DB_HOST'));
 define('DB_USER', getenv('DB_USER'));
 define('DB_PASS', getenv('DB_PASS'));
 
-define('SBLUEUSR', getenv('SBLUEUSR'));
-define('SBLUEPSS', getenv('SBLUEPSS'));
+// define('SBLUEUSR', getenv('SBLUEUSR'));
+// define('SBLUEPSS', getenv('SBLUEPSS'));
+
+define('SMTPHOST', getenv('SMTPHOST'));
+define('SMTPUSER', getenv('SMTPUSER'));
+define('SMTPPASS', getenv('SMTPPASS'));
 
 /* CONSTANTS FOR COMMON USE */
 define('ACTION_LOGIN', 'login');
