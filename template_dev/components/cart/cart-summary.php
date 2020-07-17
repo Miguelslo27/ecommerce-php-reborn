@@ -34,8 +34,8 @@
       <a href="/carrito/pagar" class="button primary">Finalizar</a>
       <hr>
       <a href="/carrito" class="button secondary">Editar el carrito</a>
-      <?php else : ?>
-      <a href="/carrito/pagar" class="button primary">Pagar</a>
+    <?php else : ?>
+      <a href="/carrito/datos-facturacion" class="button primary">Pagar</a>
       <hr>
       <a href="/categorias" class="button secondary">Seguir comprando</a>
     <?php endif ?>

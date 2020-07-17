@@ -1,7 +1,21 @@
+.payment-content {
+  display: flex;
+  align-items: flex-start;
+}
+
+.payment-content >* {
+  flex: 1;
+}
+
 .payment-form {
   flex: 5;
   flex-grow: 5;
   margin-right: 2rem;
+}
+
+.payment-form form {
+  width: 100%;
+  max-width: 100%;
 }
 
 .payment-form form fieldset {
