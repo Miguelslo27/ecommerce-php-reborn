@@ -16,19 +16,7 @@ newDocument([
     'components/category/category.css'
   ],
   'beforeRender' => function () {
-    $key = getServer('REQUEST_URI');
-    $key = explode("=", $key);
-    
-    if($key[0] != '/busqueda/?clave')
-    {
-      @$key = ($key[3]);
-    }
-    else
-    {
-      $key = ($key[1]);
-    }
-
-    $key             = str_replace("+", " ", $key);
+    $key             = getQueryParamsByName(['clave'])['clave'];
     $result_articles = searchArticle($key);
     
     if($result_articles != null)

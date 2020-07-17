@@ -186,14 +186,35 @@ function getRequestURIPath()
   return explode('?', getServer('REQUEST_URI'))[0];
 }
 
+function getQueryParamsByName($names = null)
+{
+  $params     = getServer('QUERY_STRING');
+  $paramsList = [];
+  $paramsObj  = [];
+
+  if (htmlspecialchars(trim($params)) != '') {
+    $paramsList = explode('&', $params);
+  }
+
+  foreach ($paramsList as $value) {
+    $paramKeyValue        = explode('=', $value);
+    $paramKey             = $paramKeyValue[0];
+    $paramValue           = isset($paramKeyValue[1]) ? $paramKeyValue[1] : 'true';
+
+    if (!$names || in_array($paramKey, $names)) {
+      $paramsObj[$paramKey] = $paramValue;
+    }
+  }
+
+  return $paramsObj;
+}
+
 /**
  * Get Query Parammeters
  */
 function getQueryParams($additions = null)
 {
-  $params     = getServer('QUERY_STRING');
-  $paramsList = [];
-  $paramsObj  = [];
+  $paramsObj  = getQueryParamsByName();
   $returnList = [];
 
   if ($additions) {
@@ -204,10 +225,6 @@ function getQueryParams($additions = null)
         unset($paramsObj[$addition]);
       }
     }
-  }
-
-  if(getRequestURIPath() == '/busqueda/') {
-    $paramsObj['clave'] = getGlobal('key');
   }
 
   foreach ($paramsObj as $param => $value) {
@@ -242,22 +259,7 @@ function getPager($model, $where, $perpage) {
  */
 function constructPagerUrl($perpage, $perpage_param, $page_param)
 {
-  $key = getServer('QUERY_STRING');
-  $fragments_key = explode("=", $key);
-  $first_fragment = strval($fragments_key[0]);  
-
-  if (getServer('QUERY_STRING') != "" && $first_fragment != 'clave')
-  {
-    $url = '?' . getServer('QUERY_STRING');
-  }
-  else if(getServer('QUERY_STRING') != "" && $first_fragment == 'clave')
-  {
-    $url = '?' . $perpage_param .  '={{per_page}}&' . $page_param . '={{page}}&' . $key;
-  }
-  else
-  {
-    $url = '?' . $perpage_param .  '={{per_page}}&' . $page_param . '={{page}}';
-  }
+  $url = '?' . getQueryParams([$perpage_param => '{{per_page}}', $page_param => '{{page}}']);
   $url = preg_replace('/' . $perpage_param . '=\d+/i', $perpage_param . '={{per_page}}', $url);
   $url = preg_replace('/' . $page_param . '=\d+/i', $page_param . '={{page}}', $url);
   $url = str_replace('{{per_page}}', $perpage, $url);
