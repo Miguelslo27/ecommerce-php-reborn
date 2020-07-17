@@ -105,6 +105,7 @@ function sendEmail($settings)
   
   if ($status->succeeded) {
     $mailer = new PHPMailer();
+    $mailer->CharSet = 'utf-8';
 
     //Server settings
     $mailer->SMTPDebug = SMTP::DEBUG_OFF;
@@ -140,8 +141,6 @@ function sendEmail($settings)
     $mailer->Body    = @$settings['body'];
     $mailer->AltBody = @$settings['body'];
 
-    logToConsole('$mailer', $mailer, __FILE__, __FUNCTION__, __LINE__);
-
     if ($mailer->send()) {
       $status->succeeded = true;
       $status->success   = 'Tu correo fue enviado correctamente, gracias por contactarte.';
@@ -151,7 +150,6 @@ function sendEmail($settings)
     }
   }
 
-  logToConsole('$status', $status, __FILE__, __FUNCTION__, __LINE__);
   return $status;
 }
 

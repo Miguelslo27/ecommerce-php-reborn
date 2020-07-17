@@ -302,8 +302,10 @@ function obtain_password()
     $user = getDB()->getObject($sql);
 
     if ($user != null) {
-      $url="http://demo.ecommerce.local/recuperar-clave/?email=$email&activation=$user->verification_code";
-      $body = "
+      $protocol  = (!empty(getServer('HTTPS')) && getServer('HTTPS') === 'on' ? 'https' : 'http');
+      $http_host = getServer('HTTP_HOST');
+      $url       = "$protocol://$http_host/recuperar-clave/?email=$email&activation=$user->verification_code";
+      $body      = "
         <html>
         <head>
         <title></title>
