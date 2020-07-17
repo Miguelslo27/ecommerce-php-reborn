@@ -111,13 +111,13 @@ function sendEmail($settings)
     $mailer->isSMTP();
     $mailer->SMTPOptions = array(
       'ssl' => array(
-        'verify_peer'       => false,
-        'verify_peer_name'  => false,
+        'verify_peer'       => true,
+        'verify_peer_name'  => true,
         'allow_self_signed' => true
       )
     );
-    $mailer->Host       = SMTPHOST;
     $mailer->SMTPAuth   = true;
+    $mailer->Host       = SMTPHOST;
     $mailer->Username   = SMTPUSER;
     $mailer->Password   = SMTPPASS;
     $mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
