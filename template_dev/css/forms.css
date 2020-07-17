@@ -40,6 +40,10 @@ form .help-line {
   margin-top: 1.5rem;
 }
 
+.page_forgot form .form-line {
+  margin: 0 auto 1rem auto;
+}
+
 form .form-placeholder>*:not(button),
 form .form-placeholder>*:not(button),
 form .form-line>*:not(button),
@@ -71,6 +75,14 @@ form .form-group>*:not(input):not(textarea):last-child {
 form .form-line>*:not(input):not(textarea) {
   padding-left: 0;
   width: 25%;
+}
+
+form .form-placeholder input:not([type=checkbox]):not([type=radio]):disabled,
+form .form-line input:not([type=checkbox]):not([type=radio]):disabled,
+form .form-group input:not([type=checkbox]):not([type=radio]):disabled {
+  background-color: #b3b3b363;
+  color: #6b6b6bad;
+  user-select: none;
 }
 
 form .form-placeholder input:not([type=checkbox]):not([type=radio]),

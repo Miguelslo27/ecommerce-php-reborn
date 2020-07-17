@@ -2,7 +2,9 @@
   <div class="header-inner">
     <div class="site-nav">
       <div class="logo">
-        DEMO
+        <a href="/" <?php if (getGlobal('page') == "home") echo 'is-active'; ?>>
+          DEMO
+        </a>
       </div>
     </div>
 
@@ -10,20 +12,28 @@
       <nav class="navigation">
         <a href="/" class="access-menu normal-tab <?php if (getGlobal('page') == "home") echo 'is-active'; ?>">Home</a>
 
-        <div class="dropdown-nav">
-          <a href="/categorias" class="access-menu dropdown-tab <?php if (getGlobal('page') == "categories") echo 'is-active'; ?>">
-            <i class="fas fa-bars"></i>
-            <span>Categorías</span>
-          </a>
-          <div class="dropdown">
-            <?php if (isAdmin()) : ?>
-              <a href="/categoria/nueva" class="access-menu dropdown-item">Nueva</a>
-              <hr>
-            <?php endif ?>
-            <a href="/categorias" class="access-menu dropdown-item">Test 1</a>
-            <a href="/categorias" class="access-menu dropdown-item">Test 2</a>
+        <?php if ((count(getGlobal('categories')) > 0) || isAdmin()) : ?>
+          <div class="dropdown-nav">
+            <a href="/categorias" class="access-menu dropdown-tab <?php if (getGlobal('page') == "categories") echo 'is-active'; ?>">
+              <i class="fas fa-bars"></i>
+              <span>Categorías</span>
+            </a>
+            <div class="dropdown">
+              <?php if (isAdmin()) : ?>
+                <a href="/categoria/nueva" class="access-menu dropdown-item">Nueva</a>
+                <hr>
+              <?php endif ?>
+              <?php if (count(getGlobal('categories')) > 0) : ?>
+                <?php foreach (getGlobal('categories') as $category) : ?>
+                  <?php
+                    setGlobal('category', $category);
+                    getTemplate('components/header/category-item')
+                  ?>
+                <?php endforeach ?>            
+              <?php endif ?>
+            </div>
           </div>
-        </div>
+        <?php endif ?>
 
         <?php if (isAdmin()) : ?>
           <div class="dropdown-nav">
@@ -43,7 +53,7 @@
 
       <div class="search-box">
         <form action="/busqueda/" method="GET">
-          <input type="text" name="clave" class="search-input" placeholder="Qué deseas encontrar?">
+          <input type="text" name="clave" class="search-input" placeholder="Buscar..." required>
           <button type="submit" class="search-button">
             <i class="fas fa-search"></i>
           </button>

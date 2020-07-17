@@ -17,7 +17,11 @@ newDocument([
   {
     $requestMessages = getSession('request_messages');
 
-    if (@$requestMessages->succeeded) {
+    if (@$requestMessages->succeeded && getCurrentUser()) {
+      setSession('user', loadUser(getCurrentUser()->email));
+    }
+
+    if (@$requestMessages->succeeded && !getCurrentUser()) {
       header('Location: ' . (
         getSession('redirectTo') !== getServer('HTTP_ORIGIN') . getServer('REQUEST_URI')
         ? getSession('redirectTo')
@@ -25,7 +29,10 @@ newDocument([
       ));
       exit;
     }
+    
+    $categories = getCategories();
 
+    setGlobal('categories', oneOf($categories, []));
     setSession('redirectTo', oneOf(@$_SERVER['HTTP_REFERER'], '/'));
 
     $classesHandler = function ($field, $class)

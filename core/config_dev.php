@@ -21,6 +21,10 @@ define('DB_HOST', getenv('DB_HOST'));
 define('DB_USER', getenv('DB_USER'));
 define('DB_PASS', getenv('DB_PASS'));
 
+define('SMTPHOST', getenv('SMTPHOST'));
+define('SMTPUSER', getenv('SMTPUSER'));
+define('SMTPPASS', getenv('SMTPPASS'));
+
 /* CONSTANTS FOR COMMON USE */
 define('ACTION_LOGIN', 'login');
 define('ACTION_LOGOUT', 'logout');
@@ -30,6 +34,8 @@ define('ACTION_SAVE_CATEGORY', 'save_category');
 define('ACTION_SAVE_ARTICLE', 'save_article');
 define('ACTION_ADD_TO_CART', 'add_to_cart');
 define('ACTION_SEND_EMAIL', 'send_email');
+define('ACTION_OBTAIN_PASSWORD', 'obtain_password');
+define('ACTION_CHANGE_PASSWORD', 'change_password');
 
 /* CONSTANTS FOR PAYMENT */
 define('ACTION_UPDATE_CART_BILLING_INFO', 'update_cart_billing_info');

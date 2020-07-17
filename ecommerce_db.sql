@@ -21,8 +21,8 @@ SET time_zone = "-03:00";
 --
 -- Base de datos: `ecommerce_db`
 --
--- CREATE DATABASE IF NOT EXISTS `ecommerce_db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
--- USE `ecommerce_db`;
+CREATE DATABASE IF NOT EXISTS `ecommerce_db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `ecommerce_db`;
 
 -- --------------------------------------------------------
 
