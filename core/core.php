@@ -5,7 +5,6 @@ require_once('requires.php');
 init();
 
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
 
 function init()
@@ -78,11 +77,33 @@ function processRequests()
   }
 
   if (getPostData('action') === ACTION_SEND_EMAIL) {
+    $from    = getPostData('sendemail_from');
+    $name    = getPostData('sendemail_name');
+    $phone   = getPostData('sendemail_phone');
+    $subject = getPostData('sendemail_subject');
+    $message = getPostData('sendemail_message');
+    $body    = "
+      <html>
+      <head>
+      <title></title>
+      </head>
+      <body>
+      <div style='width:70%;background:#f1f1f1;margin:auto;text-align:center;padding:3rem;'>
+        <h2>Contacto de $name</h2>
+        <h3>Nuevo mensaje desde $from</h3>
+        <h3>Asunto: $subject</h3>
+        <h3>Contacto: $phone</h3>
+        <p>$message</p>
+      </div>
+      </body>
+      </html>";
+
     setSession('request_messages', sendEmail([
-      'from'    => ['email' => getPostData('sendemail_from'), 'name' => getPostData('sendemail_name')],
-      'to'      => ['admin' => 'federicososa999@gmail.com', 'user' => getPostData('sendemail_from')],
-      'subject' => getPostData('sendemail_subject'),
-      'body'    => getPostData('sendemail_message'),
+      'from'    => ['email' => 'admin@e-com.uy'],
+      'to'      => ['user' => getPostData('sendemail_from')],
+      'bcc'     => ['admin' => 'miguelmail2006@gmail.com'],
+      'subject' => 'Contacto WEB: '.oneOf($subject, $from),
+      'body'    => $body,
     ]));
   }
 
@@ -106,21 +127,22 @@ function sendEmail($settings)
   
   if ($status->succeeded) {
     $mailer = new PHPMailer();
+    $mailer->CharSet = 'utf-8';
 
     //Server settings
     $mailer->SMTPDebug = SMTP::DEBUG_OFF;
     $mailer->isSMTP();
     $mailer->SMTPOptions = array(
       'ssl' => array(
-        'verify_peer'       => false,
-        'verify_peer_name'  => false,
+        'verify_peer'       => true,
+        'verify_peer_name'  => true,
         'allow_self_signed' => true
       )
     );
-    $mailer->Host       = 'smtp-relay.sendinblue.com';
     $mailer->SMTPAuth   = true;
-    $mailer->Username   = SBLUEUSR;
-    $mailer->Password   = SBLUEPSS;
+    $mailer->Host       = SMTPHOST;
+    $mailer->Username   = SMTPUSER;
+    $mailer->Password   = SMTPPASS;
     $mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mailer->Port       = 587;
 
@@ -152,7 +174,6 @@ function sendEmail($settings)
     }
   }
 
-  logToConsole('$status', $status, __FILE__, __FUNCTION__, __LINE__);
   return $status;
 }
 
@@ -169,13 +190,13 @@ function sendEmail_checkIncomingData($settings)
     $status->fieldsWithErrors['to'] = true;
     $status->errors[]               = 'El campo destinatario no puede ser vacío';
   } else {
-    checkEmailsAddresses($settings['to'], $status, 'El correo <strong>' . $settings['to']['user'] . '</strong> tiene un formato de email incorrecto');
+    checkEmailsAddresses($settings['to'], $status, 'El correo tiene un formato de email incorrecto');
   }
   if (!empty($settings['cc'])) {
-    checkEmailsAddresses($settings['cc'], $status, 'El correo <strong>' . $settings['cc'] . '</strong> tiene un formato de email incorrecto');
+    checkEmailsAddresses($settings['cc'], $status, 'El correo tiene un formato de email incorrecto');
   }
   if (!empty($settings['bcc'])) {
-    checkEmailsAddresses($settings['bcc'], $status, 'El correo <strong>' . $settings['bcc'] . '</strong> tiene un formato de email incorrecto');
+    checkEmailsAddresses($settings['bcc'], $status, 'El correo tiene un formato de email incorrecto');
   }
   if (empty($settings['body'])) {
     $status->fieldsWithErrors['sendemail_message'] = true;
@@ -196,7 +217,7 @@ function checkEmailsAddresses($emails, $status, $message, $field = null) {
       }
     break;
     case 'array':
-      foreach($emails as $value) {
+      foreach($emails as $key => $value) {
         if (!preg_match(REG_EXP_EMAIL_FORMAT, $value)) {
           $status->fieldsWithErrors['to'] = true;
           $status->errors[]               = $message;

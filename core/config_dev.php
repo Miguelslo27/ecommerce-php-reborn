@@ -21,8 +21,9 @@ define('DB_HOST', getenv('DB_HOST'));
 define('DB_USER', getenv('DB_USER'));
 define('DB_PASS', getenv('DB_PASS'));
 
-define('SBLUEUSR', getenv('SBLUEUSR'));
-define('SBLUEPSS', getenv('SBLUEPSS'));
+define('SMTPHOST', getenv('SMTPHOST'));
+define('SMTPUSER', getenv('SMTPUSER'));
+define('SMTPPASS', getenv('SMTPPASS'));
 
 /* CONSTANTS FOR COMMON USE */
 define('ACTION_LOGIN', 'login');
@@ -63,5 +64,6 @@ define('FORGOT_PASS_TEMPLATE', 'pages/forgot');
 define('ACCOUNT_TEMPLATE', 'pages/acount');
 define('CART_TEMPLATE', 'pages/cart');
 define('ORDER_TEMPLATE', 'pages/order');
+define('BILLING_FORM_TEMPLATE', 'pages/billing');
 define('PAYMENT_TEMPLATE', 'pages/payment');
 define('SHIPPING_TEMPLATE', 'pages/shipping');

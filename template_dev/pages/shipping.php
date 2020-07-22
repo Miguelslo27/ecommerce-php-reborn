@@ -2,7 +2,8 @@
 
 newDocument([
   'title' => 'eCommerce - Datos de envío',
-  'page' => 'shipping',
+  'page' => 'cart',
+  'sub_page' => 'shipping',
   'components' => [
     'components/header/header',
     'components/cart/shipping',

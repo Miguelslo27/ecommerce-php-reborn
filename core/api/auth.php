@@ -90,7 +90,7 @@ function runLogout()
   setSession('user', null);
   $status = newStatusObject();
   $status->succeeded = true;
-  $status->success   = 'Sesión cerrada';
+  $status->success   = 'Sesión finalizada';
 
   return $status;
 }

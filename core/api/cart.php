@@ -541,11 +541,11 @@ function saveOrderShippingInfo()
     );
   }
 
-  if (!getDB()->query($sql)) {
+  if (!getDB()->query($sql)){
     $status->succedded = false;
     $status->errors[]  = 'Error al guardar los datos, vuelve a intentar';
     return $status;
-  }
+  };
 
   $status->success = 'Listo para continuar';
 
@@ -591,11 +591,13 @@ function saveOrderShippingInfo_checkIncomingData()
       $status->fieldsWithErrors['shipping_zipcode'] = true;
       $status->errors[]                             = 'El código postal tiene un formato incorrecto, debe contener sólo números.';
     }
+  }
 
-    if (
-      !empty(getPostData('shipping_agency'))
-      && !preg_match(REG_EXP_NAME_FORMAT, getPostData('shipping_agency'))
-    ) {
+  if (getPostData('shipping') === 'receive') {
+    if (empty(getPostData('shipping_agency'))) {
+      $status->fieldsWithErrors['shipping_agency'] = true;
+      $status->errors[]                            = 'Agencia de envío es obligatoria.';
+    } elseif (!preg_match(REG_EXP_NAME_FORMAT, getPostData('shipping_agency'))) {
       $status->fieldsWithErrors['shipping_agency'] = true;
       $status->errors[]                            = 'La agencia tiene un formato incorrecto, puede incluir letras y signos de puntuación.';
     }
