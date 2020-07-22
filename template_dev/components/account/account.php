@@ -1,3 +1,7 @@
+<h1 class="shadowed-title title-account">
+          <span class="title-shadow"> Mi cuenta</span>
+          <span class="title"> Mi cuenta</span>
+        </h1>
   <div class="div-account inner">
     <aside class="info-section">
     <div class="photo">
@@ -66,8 +70,8 @@
     <section class="form-section">
       <form action="" class="form-margin">
         <h2 class="shadowed-title">
-          <span class="title-shadow"> Datos de Facturación</span>
-          <span class="title"> Datos de Facturación</span>
+          <span class="title-shadow"> Datos de la cuenta</span>
+          <span class="title"> Datos de la cuenta</span>
         </h2>
         <div class="form-group">
           <label for="">Nombre</label>

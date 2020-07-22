@@ -4,6 +4,10 @@
    padding: 0%;
    box-sizing: border-box;
   }
+
+  .title-account {
+    margin: 1.5em 0 !important;
+  }
   
   .form-section .info-section {
     box-sizing: border-box;
