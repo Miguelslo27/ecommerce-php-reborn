@@ -506,27 +506,40 @@ function saveOrderShippingInfo()
   }
 
   $orderid = getCurrentCart()->order->id;
+  $billinginfo = getOrderBillingInfo($orderid);
 
-  if (getPostData('shipping') === 'receive') {
-    $shippingMethod = 1;
+  if (getPostData('shipping') === 'receive') { 
+    empty(getPostData('copy-billing-address')) ? $shippingMethod = 1 : $shippingMethod = 2;
+    $sql = (
+      "UPDATE
+        `orders`
+        SET
+          `shipping_method` = \"" . $shippingMethod . "\",
+          `shipping_address` = \"" . (empty(getPostData('copy-billing-address')) ? getPostData('shipping_address') : $billinginfo->billing_address) . "\",
+          `shipping_state` = \"" . (empty(getPostData('copy-billing-address')) ? getPostData('shipping_state') : $billinginfo->billing_state) . "\",
+          `shipping_city` = \"" . (empty(getPostData('copy-billing-address')) ? getPostData('shipping_city') : $billinginfo->billing_city) . "\",
+          `shipping_zipcode` = \"" . (empty(getPostData('copy-billing-address')) ? getPostData('shipping_zipcode') : $billinginfo->billing_zipcode) . "\",
+          `shipping_agency` = \"" . oneOf(getPostData('shipping_agency'), '') . "\",
+          `additional_comments` = \"" . getPostData('copy-billing-address') . "\"
+        WHERE
+          `id` = $orderid"
+    );
   } else {
-    $shippingMethod = 0;
+    $sql = (
+      "UPDATE
+        `orders`
+        SET
+          `shipping_method` = \"" . 0 . "\",
+          `shipping_address` = \"" . "" . "\",
+          `shipping_state` = \"" . "" . "\",
+          `shipping_city` = \"" . "" . "\",
+          `shipping_agency` = \"" . "" . "\",
+          `shipping_zipcode` = \"" . "" . "\",
+          `additional_comments` = \"" . getPostData('additional_notes') . "\"
+        WHERE
+          `id` = $orderid"
+    );
   }
-
-  $sql = (
-    "UPDATE
-      `orders`
-      SET
-        `shipping_method` = \"" . $shippingMethod . "\",
-        `shipping_address` = \"" . getPostData('shipping_address') . "\",
-        `shipping_state` = \"" . getPostData('shipping_state') . "\",
-        `shipping_city` = \"" . getPostData('shipping_city') . "\",
-        `shipping_agency` = \"" . getPostData('shipping_agency') . "\",
-        `shipping_zipcode` = \"" . getPostData('shipping_zipcode') . "\",
-        `additional_comments` = \"" . getPostData('additional_notes') . "\"
-      WHERE
-        `id` = $orderid"
-  );
 
   if (!getDB()->query($sql)) {
     $status->succedded = false;
@@ -534,7 +547,7 @@ function saveOrderShippingInfo()
     return $status;
   }
 
-  $status->success = 'Información de envío guardada con éxito';
+  $status->success = 'Listo para continuar';
 
   return $status;
 }

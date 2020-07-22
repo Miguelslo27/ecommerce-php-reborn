@@ -7,4 +7,5 @@
     <?php getTemplate('components/forms/payment/payment') ?>
     <?php getTemplate('components/cart-summary/cart-summary') ?>
   </div>
+  <p><?php bind(printMessage())?></p>
 </section>

@@ -50,3 +50,4 @@ define('ACCOUNT_TEMPLATE', 'pages/acount');
 define('CART_TEMPLATE', 'pages/cart');
 define('ORDER_TEMPLATE', 'pages/order');
 define('PAYMENT_TEMPLATE', 'pages/payment');
+define('SHIPPING_TEMPLATE', 'pages/shipping');

@@ -104,6 +104,34 @@ newDocument([
   }
 ]);
 
+function printMessage() {
+  $order = getOrderShippingInfo(getCurrentCart()->order->id);
+  if ($order->shipping_method == 0) {
+    $message = "El pedido será retirado personalmente. Comentarios adicionales: $order->additional_comments";
+  }
+  if ($order->shipping_method == 1) {
+    $message = "El pedido va a ser enviado a domicilio.<br>
+                Direccion: $order->shipping_address<br>
+                Departamento: $order->shipping_city<br>
+                Localidad: $order->shipping_state<br>
+                Agencia: $order->shipping_agency<br>
+                Codigo postal: $order->shipping_zipcode<br>
+                Notas $order->additional_comments";
+  }
+
+  if ($order->shipping_method == 2) {
+    $user = getCurrentUser();
+    $message = "El pedido va a ser enviado al domicilio configurado.<br>
+                Direccion: $user->address<br>
+                Departamento: $user->city<br>
+                Localidad: $user->state<br>
+                Agencia: <br>
+                Codigo postal: <br>
+                Notas ";
+  }
+  return $message;
+}
+
 function billingInfoFormHasErrors()
 {
   if (!empty(getSession('request_messages'))) {
