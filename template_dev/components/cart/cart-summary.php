@@ -37,7 +37,7 @@
     <?php endif ?>
     <?php if (getGlobal('sub_page') == 'shipping') : ?>
       <a href="/carrito/pagar" 
-        class="button primary <?php bind((shippingInfoFormHasErrors() || shippingInfoIsIncomplete()) ? 'pre-disabled' : '') ?>" id="shipping-button">Continuar
+        class="button primary disabled" id="shipping-button">Continuar
       </a>
       <hr>
       <a href="/categorias" class="button secondary">Seguir comprando</a>

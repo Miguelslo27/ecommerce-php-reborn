@@ -6,27 +6,33 @@ const shippingReceiveRadio  = document.getElementById('shipping-receive');
 const shippingWithdrawRadio = document.getElementById('shipping-withdraw');
 const copyBillingAddrCheck  = document.getElementById('copy-billing-address');
 const shippingButton        = document.getElementById('shipping-button');
+const withdrawDivs           = document.querySelectorAll('.withdraw-auxiliar');
+const shippingAddressDiv    = document.getElementById('shipping-address-div');
 const TIMETORELOAD          = 600;
-
-if (shippingButton.classList.contains('pre-disabled')) {
-  shippingButton.classList.add('disabled');
-}
-
-if (shippingWithdrawRadio.checked && shippingWithdrawRadio.dataset.checked == 'checked') {
-  copyBillingAddrCheck.disabled = true;
-  shippingButton.classList.remove('disabled');
-}
-
-console.log(shippingButton.dataset);
-console.log(!(copyBillingAddrCheck.classList.contains('disabled')));
 
 collapsableBoxes.forEach(box => {
   box.dataset.height = box.scrollHeight;
 
   if (box.classList.contains('open')) {
     box.style.height = `${box.scrollHeight}px`
+  } else if (box.classList.contains('closed')) {
+    box.style.height = `0`
   }
 });
+
+if (shippingWithdrawRadio.checked) {
+  copyBillingAddrCheck.disabled = true;
+  copyBillingAddrCheck.checked = false;
+  withdrawDivs.forEach(div => { div.style.height = '0' });
+}
+
+if (shippingWithdrawRadio.checked && shippingWithdrawRadio.dataset.success != 'error') {
+  shippingButton.classList.remove('disabled');
+}
+
+if (shippingReceiveRadio.checked && shippingReceiveRadio.dataset.success) {
+  shippingButton.classList.remove('disabled');
+}
 
 function handleSwitchAction(ev) {
   const target         = document.querySelectorAll(this.dataset.selector);
@@ -53,6 +59,9 @@ function switchBox(target, perform) {
     target.style.height = `0`;
     target.classList.remove('open');
     target.classList.add('closed');
+    if (shippingWithdrawRadio.checked) {
+      withdrawDivs.forEach(div => { div.style.height = '0' });
+    }
   } else if (
     target.classList.contains('closed')
     && (
@@ -63,71 +72,61 @@ function switchBox(target, perform) {
     target.style.height = `${height}px`;
     target.classList.remove('closed');
     target.classList.add('open');
+    if (!shippingWithdrawRadio.checked) {
+      withdrawDivs.forEach(div => {
+        var height = div.dataset.height;
+        div.style.height = `${height}px`;
+      })
+    }
   }
 }
 
 shippingReceiveRadio.addEventListener('click', function (ev) {
   if (this.checked) {
-    //si no se ouede usar la direccion del usuario
-    if (!(copyBillingAddrCheck.classList.contains('disabled'))) {
-      copyBillingAddrCheck.disabled = false;
-    }
-    //si el formulario esta incompleto o contiene algun error
-    if (shippingButton.classList.contains('pre-disabled')) {
-      shippingButton.classList.add('disabled');
-      console.log('1.1');
-    } else {
+    copyBillingAddrCheck.disabled = false;
+    if (this.dataset.success && (shippingReceiveRadio.dataset.method == 1)) {
       shippingButton.classList.remove('disabled');
-      console.log('1.2');
+    } else {
+      shippingButton.classList.add('disabled');
     }
-  } else {
-    copyBillingAddrCheck.disabled = true;
-    console.log('2.1');
-  }
+  } 
 
   if (copyBillingAddrCheck.checked) {
-    console.log('3.1');
-    shippingButton.classList.remove('disabled');
     this.dataset.perform = 'close';
   } else {
-    console.log('3.2');
-    if (shippingButton.classList.contains('pre-disabled')) {
-      shippingButton.classList.add('disabled');
-    }
     this.dataset.perform = 'open';
   }
-
   handleSwitchAction.call(this, ev);
 });
 
 shippingWithdrawRadio.addEventListener('click', function (ev) {
+  if (this.checked) {
+    copyBillingAddrCheck.disabled = true;
+    copyBillingAddrCheck.checked = false; 
+    withdrawDivs[1].style.height = '0';
+  } 
   if (this.checked && this.dataset.checked == 'checked') {
-    copyBillingAddrCheck.disabled = true;
     shippingButton.classList.remove('disabled');
-    console.log('4.1');
-  } else if (this.checked) {
-    copyBillingAddrCheck.disabled = true;
-    copyBillingAddrCheck.checked = false;
   } else {
-    //si no se puede usar la direccion del usuario
-    if (!(copyBillingAddrCheck.classList.contains('disabled'))) {
-      copyBillingAddrCheck.disabled = false;
-    }
+    shippingButton.classList.add('disabled');
   }
 });
 
 copyBillingAddrCheck.addEventListener('click', function (ev) {
-  if (this.checked && shippingReceiveRadio.checked) {
+  if (this.checked) {
     shippingReceiveRadio.dataset.perform = 'close';
-    shippingButton.classList.remove('disabled');
-    console.log(copyBillingAddrCheck.dataset.selected);
-
+    shippingButton.classList.add('disabled');
   } else {
     shippingReceiveRadio.dataset.perform = 'open';
-    if (shippingButton.classList.contains('pre-disabled')) {
-      shippingButton.classList.add('disabled');
-      console.log(copyBillingAddrCheck.dataset.selected);
+    if (shippingReceiveRadio.dataset.method == 1 && shippingReceiveRadio.dataset.success) {
+      shippingButton.classList.remove('disabled');
     }
+  }
+
+  if (this.checked && shippingReceiveRadio.dataset.method == 2) {
+    shippingButton.classList.remove('disabled');
+  } else if (!(this.checked) && shippingReceiveRadio.dataset.method == 2) {
+    shippingButton.classList.add('disabled');
   }
 
   handleSwitchAction.call(shippingReceiveRadio, ev);

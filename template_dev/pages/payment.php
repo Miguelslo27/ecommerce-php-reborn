@@ -6,15 +6,15 @@ newDocument([
   'sub_page' => 'payment',
   'components' => [
     'components/header/header',
-    'components/payment/payment',
+    'components/cart/payment',
     'components/footer/footer'
   ],
   'styles' => [
     'css/fontawesome/css/all.min.css',
     'css/layout.css',
     'css/forms.css',
-    'components/forms/payment/payment.css',
-    'components/cart-summary/cart-summary.css'
+    'components/cart/payment.css',
+    'components/cart/cart-summary.css'
   ],
   'scripts' => [
     'components/forms/payment/payment.js'
@@ -124,14 +124,14 @@ function printMessage() {
   }
 
   if ($order->shipping_method == 2) {
-    $user = getCurrentUser();
+    $order_billling = getOrderBillingInfo(getCurrentCart()->order->id);
     $message = "El pedido va a ser enviado al domicilio configurado.<br>
-                Direccion: $user->address<br>
-                Departamento: $user->city<br>
-                Localidad: $user->state<br>
-                Agencia: <br>
-                Codigo postal: <br>
-                Notas ";
+                Direccion: $order_billling->billing_address<br>
+                Departamento: $order_billling->billing_city<br>
+                Localidad: $order_billling->billing_state<br>
+                Agencia: $order->shipping_agency<br>
+                Codigo postal: $order_billling->billing_zipcode<br>
+                Notas: $order->additional_comments";
   }
   return $message;
 }

@@ -4,7 +4,9 @@
     <span class="title">Completar datos de envío</span>
   </h1>
   <div class="payment-content">
-    <?php getTemplate('components/forms/shipping/shipping-info') ?>
-    <?php getTemplate('components/cart-summary/cart-summary') ?>
+    <section class="payment-form">
+      <?php getTemplate('components/forms/payment/shipping-info') ?>
+    </section>
+    <?php getTemplate('components/cart/cart-summary') ?>
   </div>
 </section>

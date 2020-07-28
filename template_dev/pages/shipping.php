@@ -35,7 +35,9 @@ newDocument([
     $shippingAddress     = $shippingInfo->shipping_address;
     $shippingState       = $shippingInfo->shipping_state;
     $shippingCity        = $shippingInfo->shipping_city;
+    $shippingAgency      = $shippingInfo->shipping_agency;
     $shippingZipcode     = $shippingInfo->shipping_zipcode;
+    $shippingComments    = $shippingInfo->additional_comments;
     $shippingFullAddress = array();
 
     if (!empty($shippingAddress)) {
@@ -56,23 +58,22 @@ newDocument([
 
     $categories = getCategories();
 
+    setGlobal('canUseBilling', canUseBilling());
     setGlobal('categories', oneOf($categories, []));
     setGlobal('shipping_method', $shippingInfo->shipping_method);
     setGlobal('shippingAddress', $shippingAddress);
     setGlobal('shippingState', $shippingState);
     setGlobal('shippingCity', $shippingCity);
+    setGlobal('shippingAgency', $shippingAgency);
     setGlobal('shippingZipcode', $shippingZipcode);
-
+    setGlobal('shippingComments', $shippingComments);
     setGlobal('shipping_fulladdress', implode(', ', $shippingFullAddress));
-    setGlobal('canUseDirection', useDirection());
-    logToConsole('isset', getGlobal('canUseDirection'), __FILE__, __FUNCTION__, __LINE__);
-    logToConsole('shippinginfo', empty(getCurrentUser()->address), __FILE__, __FUNCTION__, __LINE__);
-    logToConsole('shippinginfo', (getCurrentUser()), __FILE__, __FUNCTION__, __LINE__);
-    logToConsole('data', getPreformData('copy-billing-address', ''), __FILE__, __FUNCTION__, __LINE__);
-    logToConsole('equidad', getPreformData('shipping', '') == "withdraw", __FILE__, __FUNCTION__, __LINE__);
-    logToConsole('shipping_method', getGlobal('shipping_method'), __FILE__, __FUNCTION__, __LINE__);
 
-
+    logToConsole('field', checkedInput(1), __FILE__, __FUNCTION__, __LINE__);
+    logToConsole('shippinginfo', oneOf(getGlobal('shipping_method'), getGlobal('cart_shipping_method')), __FILE__, __FUNCTION__, __LINE__);
+    logToConsole('error', shippingInfoFormHasErrors() || shippingInfoIsIncomplete(), __FILE__, __FUNCTION__, __LINE__);
+    logToConsole('cart_method', getGlobal('cart_shipping_method'), __FILE__, __FUNCTION__, __LINE__);
+    logToConsole('ship_method', getGlobal('shipping_method'), __FILE__, __FUNCTION__, __LINE__);
   }
 ]);
 
@@ -114,13 +115,26 @@ function fieldHasError($field, $class)
 }
 
 
-function useDirection()
+function canUseBilling()
 {
-  if (empty(getCurrentUser()->address) || empty(getCurrentUser()->state) || empty(getCurrentUser()->city)) {
+  $billing = getOrderBillingInfo(getCurrentCart()->order->id);
+
+  if (empty($billing->billing_address) || empty($billing->billing_state) || empty($billing->billing_city)) {
     return false;
   } else {
     return true;
   }
+}
+
+function checkedInput($input)
+{
+  if (getGlobal('cart_shipping_method') !== null && getGlobal('cart_shipping_method') === $input) {
+    return true;
+  } else if (getGlobal('shipping_method') == $input && (getGlobal('cart_shipping_method') === null)) {
+    return true;
+  }
+
+  return false;
 }
 
 

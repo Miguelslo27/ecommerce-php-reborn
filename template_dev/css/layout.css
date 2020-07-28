@@ -323,6 +323,8 @@ i.fab+* {
   background: #efefef;
   border: 2px solid #999;
   color: #999;
+  /*pointer-events: none;
+  user-select: none;*/
 }
 
 .button.primary:active,

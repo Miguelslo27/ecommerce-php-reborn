@@ -499,6 +499,13 @@ function saveOrderBillingInfo_checkIncomingData() {
 
 function saveOrderShippingInfo()
 {
+  if (getPostData('shipping') === 'receive') { 
+    empty(getPostData('copy-billing-address')) ? $shippingMethod = 1 : $shippingMethod = 2;
+  } else {
+    $shippingMethod = 0;
+  }  
+  setGlobal('cart_shipping_method', $shippingMethod);
+
   $status = saveOrderShippingInfo_checkIncomingData();
 
   if (!$status->succeeded) {
@@ -509,7 +516,6 @@ function saveOrderShippingInfo()
   $billinginfo = getOrderBillingInfo($orderid);
 
   if (getPostData('shipping') === 'receive') { 
-    empty(getPostData('copy-billing-address')) ? $shippingMethod = 1 : $shippingMethod = 2;
     $sql = (
       "UPDATE
         `orders`
@@ -520,7 +526,7 @@ function saveOrderShippingInfo()
           `shipping_city` = \"" . (empty(getPostData('copy-billing-address')) ? getPostData('shipping_city') : $billinginfo->billing_city) . "\",
           `shipping_zipcode` = \"" . (empty(getPostData('copy-billing-address')) ? getPostData('shipping_zipcode') : $billinginfo->billing_zipcode) . "\",
           `shipping_agency` = \"" . oneOf(getPostData('shipping_agency'), '') . "\",
-          `additional_comments` = \"" . getPostData('copy-billing-address') . "\"
+          `additional_comments` = \"" . oneOf(getPostData('additional_notes'), ''). "\"
         WHERE
           `id` = $orderid"
     );
@@ -529,7 +535,7 @@ function saveOrderShippingInfo()
       "UPDATE
         `orders`
         SET
-          `shipping_method` = \"" . 0 . "\",
+          `shipping_method` = \"" . $shippingMethod . "\",
           `shipping_address` = \"" . "" . "\",
           `shipping_state` = \"" . "" . "\",
           `shipping_city` = \"" . "" . "\",
