@@ -68,12 +68,6 @@ newDocument([
     setGlobal('shippingZipcode', $shippingZipcode);
     setGlobal('shippingComments', $shippingComments);
     setGlobal('shipping_fulladdress', implode(', ', $shippingFullAddress));
-
-    logToConsole('field', checkedInput(1), __FILE__, __FUNCTION__, __LINE__);
-    logToConsole('shippinginfo', oneOf(getGlobal('shipping_method'), getGlobal('cart_shipping_method')), __FILE__, __FUNCTION__, __LINE__);
-    logToConsole('error', shippingInfoFormHasErrors() || shippingInfoIsIncomplete(), __FILE__, __FUNCTION__, __LINE__);
-    logToConsole('cart_method', getGlobal('cart_shipping_method'), __FILE__, __FUNCTION__, __LINE__);
-    logToConsole('ship_method', getGlobal('shipping_method'), __FILE__, __FUNCTION__, __LINE__);
   }
 ]);
 
@@ -86,6 +80,7 @@ function shippingInfoFormHasErrors()
       || @getSession('request_messages')->fieldsWithErrors['shipping_city']
       || @getSession('request_messages')->fieldsWithErrors['shipping_agency']
       || @getSession('request_messages')->fieldsWithErrors['shipping_zipcode']
+      || @getSession('request_messages')->fieldsWithErrors['additional_notes']
     ) {
       return true;
     }
@@ -114,7 +109,6 @@ function fieldHasError($field, $class)
   );
 }
 
-
 function canUseBilling()
 {
   $billing = getOrderBillingInfo(getCurrentCart()->order->id);
@@ -136,5 +130,3 @@ function checkedInput($input)
 
   return false;
 }
-
-

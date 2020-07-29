@@ -109,7 +109,6 @@
             data-perform="open"
             data-prevent-default="true"
             data-selector=".shipping-info-form"
-            disabled
           >
             <i class="fas fa-times"></i> Cancelar
           </button>
