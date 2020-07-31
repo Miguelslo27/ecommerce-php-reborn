@@ -4,69 +4,8 @@
     <span class="title"> Mi cuenta</span>
   </h1>
   <div class="div-account">
-    <aside class="info-section">
-      <div class="photo">
-        <img src="/statics/images/Foto.jpg" alt="FotoPerfil">
-      </div>
-      <h2 class="h2-account">Nombre Apellido</h2>
-      <nav>
-        <ul class="list-section">
-          <li>
-            <a href="">
-              <span>
-                <i class="fas fa-user"></i> | Cuenta
-              </span>
-              <i class="fas fa-angle-right"></i>
-            </a>
-          </li>
 
-          <li>
-            <a href="">
-              <span>
-                <i class="fas fa-key"></i> | Contraseña
-              </span>
-              <i class="fas fa-angle-right"></i>
-            </a>
-          </li>
-
-          <li>
-            <a href="">
-              <span>
-                <i class="far fa-credit-card"></i> | Datos de facturación
-              </span>
-              <i class="fas fa-angle-right"></i>
-            </a>
-          </li>
-
-          <li>
-            <a href="">
-              <span>
-                <i class="fas fa-truck-moving"></i> | Datos de envío
-              </span>
-              <i class="fas fa-angle-right"></i>
-            </a>
-          </li>
-
-          <li>
-            <a href="">
-              <span>
-                <i class="fas fa-shopping-cart"></i> | Historial de pedidos
-              </span>
-              <i class="fas fa-angle-right"></i>
-            </a>
-          </li>
-
-          <li>
-            <a href="">
-              <span>
-                <i class="fas fa-trash-alt"></i> | Eliminar cuenta
-              </span>
-              <i class="fas fa-angle-right"></i>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </aside>
+    <?php getTemplate('../template_dev/components/sidebar-account/sidebar'); ?>
 
     <section class="form-section">
       <form action="" class="form-margin">
