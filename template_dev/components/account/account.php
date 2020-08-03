@@ -1,77 +1,20 @@
-  <div class="div-account inner">
-    <aside class="info-section">
-    <div class="photo">
-      <img src="/statics/images/Foto.jpg" alt="FotoPerfil">
-    </div>
-      <h2 class= "h2-account">Nombre Apellido</h2>
-      <nav>
-      <ul class="list-section">
-      <li>
-      <a href="">
-    <span>
-      <i class="fas fa-user"></i> | Cuenta
-    </span>
-      <i class="fas fa-angle-right"></i>
-  </a>
-</li>
+<section class="inner">
+  <h1 class="shadowed-title">
+    <span class="title-shadow"> Mi cuenta</span>
+    <span class="title"> Mi cuenta</span>
+  </h1>
+  <div class="div-account">
 
-<li>
-  <a href="">
-    <span>
-      <i class="fas fa-key"></i> | Contraseña 
-    </span>
-      <i class="fas fa-angle-right"></i>
-  </a>
-</li>
-
-<li>
-  <a href="">
-    <span>
-      <i class="far fa-credit-card"></i> |  Datos de facturación
-    </span>
-      <i class="fas fa-angle-right"></i>
-  </a>
-</li>
-       
-<li>
-  <a href="">
-    <span>
-    <i class="fas fa-truck-moving"></i> | Datos de envío 
-    </span>
-      <i class="fas fa-angle-right"></i>
-  </a>
-</li>     
-    
-<li>
-  <a href="">
-    <span>
-      <i class="fas fa-shopping-cart"></i> | Historial de pedidos
-    </span>
-      <i class="fas fa-angle-right"></i>
-  </a>
-</li>
-
-<li>
-  <a href="">
-    <span>
-      <i class="fas fa-trash-alt"></i> | Eliminar cuenta 
-    </span>
-      <i class="fas fa-angle-right"></i>
-  </a>
-</li>
-        </ul>
-        </nav>
-</aside>
+    <?php getTemplate('../template_dev/components/sidebar-account/sidebar'); ?>
 
     <section class="form-section">
       <form action="" class="form-margin">
-        <h2 class="shadowed-title">
-          <span class="title-shadow"> Datos de Facturación</span>
-          <span class="title"> Datos de Facturación</span>
+        <h2 class="title-account">
+          Datos de la cuenta
         </h2>
         <div class="form-group">
           <label for="">Nombre</label>
-          <input type="text" placeholder="Nombre"> 
+          <input type="text" placeholder="Nombre">
           <label class="label-center" for="">Apellido</label>
           <input type="text" placeholder="Apellido">
         </div>
@@ -111,8 +54,8 @@
             <option value="Treinta y Tres">
           </datalist>
 
-            <label class="label-center" for="">Localidad</label>
-            <input type="text" placeholder="Barrio">
+          <label class="label-center" for="">Localidad</label>
+          <input type="text" placeholder="Barrio">
         </div>
 
         <div class="form-group">
@@ -127,6 +70,7 @@
         <button class="button secondary" id="button-center">Reset</button>
 
       </form>
-
     </section>
+
   </div>
+</section>
