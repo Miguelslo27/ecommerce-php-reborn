@@ -500,7 +500,7 @@ function saveOrderBillingInfo_checkIncomingData() {
 function saveOrderShippingInfo()
 {
   if (getPostData('shipping') === 'receive') { 
-    empty(getPostData('copy-billing-address')) ? $shippingMethod = 1 : $shippingMethod = 2;
+    $shippingMethod = empty(getPostData('copy-billing-address')) ? 1 : 2;
   } else {
     $shippingMethod = 0;
   }  
