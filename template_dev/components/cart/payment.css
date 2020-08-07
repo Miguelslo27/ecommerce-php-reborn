@@ -1,7 +1,22 @@
+
+.payment-content {
+  display: flex;
+  align-items: flex-start;
+}
+
+.payment-content >* {
+  flex: 1;
+}
+
 .payment-form {
   flex: 5;
   flex-grow: 5;
   margin-right: 2rem;
+}
+
+.payment-form form {
+  width: 100%;
+  max-width: 100%;
 }
 
 .payment-form form fieldset {
@@ -9,12 +24,14 @@
   border-radius: 1rem;
 }
 
-.payment-form form fieldset legend {
+.payment-form form fieldset legend,
+.shipping-form form fieldset legend {
   font-size: 1.6rem;
   padding: 0 1rem;
 }
 
-.payment-form form fieldset legend >span {
+.payment-form form fieldset legend >span,
+.shipping-form form fieldset legend >span {
   background: #930077;
   border-radius: 50%;
   color: #FFF;
@@ -27,7 +44,8 @@
   width: 60px;
 }
 
-.payment-form form .form-group.group-grid p {
+.payment-form form .form-group.group-grid p,
+.shipping-form form .form-group.group-grid p {
   line-height: 2rem;
   padding: 0;
   margin: 0;
@@ -49,6 +67,7 @@
   display: flex;
   justify-content: space-evenly;
   width: 20%;
+  height: 60px;
 }
 
 .billing-info .form-group.group-grid .side-actions >.button,
@@ -61,17 +80,20 @@
   width: 100%;
 }
 
-.payment-form form .form-group.group-grid >label {
+.payment-form form .form-group.group-grid >label,
+.shipping-form form .form-group.group-grid >label {
   display: flex;
   padding: 0.5rem;
   justify-content: flex-start;
   align-items: center;
 }
 
-.payment-form form .form-group.group-grid >label >input {
+.payment-form form .form-group.group-grid >label >input,
+.shipping-form form .form-group.group-grid >label >input {
   margin-right: 1rem;
 }
 
-.payment-form form .form-group.group-grid >label >span {
+.payment-form form .form-group.group-grid >label >span,
+.shipping-form form .form-group.group-grid >label >span {
   line-height: 1.5rem;
 }

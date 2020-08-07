@@ -499,6 +499,13 @@ function saveOrderBillingInfo_checkIncomingData() {
 
 function saveOrderShippingInfo()
 {
+  if (getPostData('shipping') === 'receive') { 
+    $shippingMethod = empty(getPostData('copy-billing-address')) ? 1 : 2;
+  } else {
+    $shippingMethod = 0;
+  }  
+  setGlobal('cart_shipping_method', $shippingMethod);
+
   $status = saveOrderShippingInfo_checkIncomingData();
 
   if (!$status->succeeded) {
@@ -506,35 +513,47 @@ function saveOrderShippingInfo()
   }
 
   $orderid = getCurrentCart()->order->id;
+  $billinginfo = getOrderBillingInfo($orderid);
 
-  if (getPostData('shipping') === 'receive') {
-    $shippingMethod = 1;
+  if (getPostData('shipping') === 'receive') { 
+    $sql = (
+      "UPDATE
+        `orders`
+        SET
+          `shipping_method` = \"" . $shippingMethod . "\",
+          `shipping_address` = \"" . (empty(getPostData('copy-billing-address')) ? getPostData('shipping_address') : $billinginfo->billing_address) . "\",
+          `shipping_state` = \"" . (empty(getPostData('copy-billing-address')) ? getPostData('shipping_state') : $billinginfo->billing_state) . "\",
+          `shipping_city` = \"" . (empty(getPostData('copy-billing-address')) ? getPostData('shipping_city') : $billinginfo->billing_city) . "\",
+          `shipping_zipcode` = \"" . (empty(getPostData('copy-billing-address')) ? getPostData('shipping_zipcode') : $billinginfo->billing_zipcode) . "\",
+          `shipping_agency` = \"" . oneOf(getPostData('shipping_agency'), '') . "\",
+          `additional_comments` = \"" . oneOf(getPostData('additional_notes'), ''). "\"
+        WHERE
+          `id` = $orderid"
+    );
   } else {
-    $shippingMethod = 0;
+    $sql = (
+      "UPDATE
+        `orders`
+        SET
+          `shipping_method` = \"" . $shippingMethod . "\",
+          `shipping_address` = \"" . "" . "\",
+          `shipping_state` = \"" . "" . "\",
+          `shipping_city` = \"" . "" . "\",
+          `shipping_agency` = \"" . "" . "\",
+          `shipping_zipcode` = \"" . "" . "\",
+          `additional_comments` = \"" . getPostData('additional_notes') . "\"
+        WHERE
+          `id` = $orderid"
+    );
   }
 
-  $sql = (
-    "UPDATE
-      `orders`
-      SET
-        `shipping_method` = \"" . $shippingMethod . "\",
-        `shipping_address` = \"" . getPostData('shipping_address') . "\",
-        `shipping_state` = \"" . getPostData('shipping_state') . "\",
-        `shipping_city` = \"" . getPostData('shipping_city') . "\",
-        `shipping_agency` = \"" . getPostData('shipping_agency') . "\",
-        `shipping_zipcode` = \"" . getPostData('shipping_zipcode') . "\",
-        `additional_comments` = \"" . getPostData('additional_notes') . "\"
-      WHERE
-        `id` = $orderid"
-  );
-
-  if (!getDB()->query($sql)) {
+  if (!getDB()->query($sql)){
     $status->succedded = false;
     $status->errors[]  = 'Error al guardar los datos, vuelve a intentar';
     return $status;
-  }
+  };
 
-  $status->success = 'Información de envío guardada con éxito';
+  $status->success = 'Listo para continuar';
 
   return $status;
 }
@@ -578,11 +597,13 @@ function saveOrderShippingInfo_checkIncomingData()
       $status->fieldsWithErrors['shipping_zipcode'] = true;
       $status->errors[]                             = 'El código postal tiene un formato incorrecto, debe contener sólo números.';
     }
+  }
 
-    if (
-      !empty(getPostData('shipping_agency'))
-      && !preg_match(REG_EXP_NAME_FORMAT, getPostData('shipping_agency'))
-    ) {
+  if (getPostData('shipping') === 'receive') {
+    if (empty(getPostData('shipping_agency'))) {
+      $status->fieldsWithErrors['shipping_agency'] = true;
+      $status->errors[]                            = 'Agencia de envío es obligatoria.';
+    } elseif (!preg_match(REG_EXP_NAME_FORMAT, getPostData('shipping_agency'))) {
       $status->fieldsWithErrors['shipping_agency'] = true;
       $status->errors[]                            = 'La agencia tiene un formato incorrecto, puede incluir letras y signos de puntuación.';
     }

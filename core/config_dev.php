@@ -64,4 +64,6 @@ define('FORGOT_PASS_TEMPLATE', 'pages/forgot');
 define('ACCOUNT_TEMPLATE', 'pages/acount');
 define('CART_TEMPLATE', 'pages/cart');
 define('ORDER_TEMPLATE', 'pages/order');
+define('BILLING_FORM_TEMPLATE', 'pages/billing');
 define('PAYMENT_TEMPLATE', 'pages/payment');
+define('SHIPPING_TEMPLATE', 'pages/shipping');

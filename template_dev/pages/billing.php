@@ -1,25 +1,29 @@
 <?php
 
 newDocument([
-  'title' => 'eCommerce - Mi Carrito',
+  'title' => 'Datos de facturación',
   'page' => 'cart',
+  'sub_page' => 'billing',
   'components' => [
     'components/header/header',
-    'components/cart/cart',
-    'components/lists/articles/recently-added-articles',
+    'components/cart/billing',
     'components/footer/footer'
   ],
   'styles' => [
     'css/fontawesome/css/all.min.css',
     'css/layout.css',
-    'css/tables.css',
+    'css/forms.css',
+    'components/cart/payment.css',
     'components/cart/cart-summary.css'
   ],
-  'beforeRender' => function ()
+  'beforeRender' => beforeRender()
+]);
+
+function beforeRender()
+{
+  return function ()
   {
     $categories = getCategories();
-    
     setGlobal('categories', oneOf($categories, []));
-    setGlobal('recentlyAddedArticles', getArticles(null, 0, 3));
-  }
-]);
+  };
+}

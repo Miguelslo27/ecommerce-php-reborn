@@ -77,11 +77,33 @@ function processRequests()
   }
 
   if (getPostData('action') === ACTION_SEND_EMAIL) {
+    $from    = getPostData('sendemail_from');
+    $name    = getPostData('sendemail_name');
+    $phone   = getPostData('sendemail_phone');
+    $subject = getPostData('sendemail_subject');
+    $message = getPostData('sendemail_message');
+    $body    = "
+      <html>
+      <head>
+      <title></title>
+      </head>
+      <body>
+      <div style='width:70%;background:#f1f1f1;margin:auto;text-align:center;padding:3rem;'>
+        <h2>Contacto de $name</h2>
+        <h3>Nuevo mensaje desde $from</h3>
+        <h3>Asunto: $subject</h3>
+        <h3>Contacto: $phone</h3>
+        <p>$message</p>
+      </div>
+      </body>
+      </html>";
+
     setSession('request_messages', sendEmail([
-      'from'    => ['email' => getPostData('sendemail_from'), 'name' => getPostData('sendemail_name')],
-      'to'      => ['admin' => 'admin@e-com.uy', 'user' => getPostData('sendemail_from')],
-      'subject' => getPostData('sendemail_subject'),
-      'body'    => getPostData('sendemail_message'),
+      'from'    => ['email' => 'admin@e-com.uy'],
+      'to'      => ['user' => getPostData('sendemail_from')],
+      'bcc'     => ['admin' => 'miguelmail2006@gmail.com'],
+      'subject' => 'Contacto WEB: '.oneOf($subject, $from),
+      'body'    => $body,
     ]));
   }
 
@@ -140,6 +162,8 @@ function sendEmail($settings)
     $mailer->Subject = @$settings['subject'];
     $mailer->Body    = @$settings['body'];
     $mailer->AltBody = @$settings['body'];
+
+    logToConsole('$mailer', $mailer, __FILE__, __FUNCTION__, __LINE__);
 
     if ($mailer->send()) {
       $status->succeeded = true;
