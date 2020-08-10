@@ -67,3 +67,4 @@ define('ORDER_TEMPLATE', 'pages/order');
 define('BILLING_FORM_TEMPLATE', 'pages/billing');
 define('PAYMENT_TEMPLATE', 'pages/payment');
 define('SHIPPING_TEMPLATE', 'pages/shipping');
+define('ADMIN_TEMPLATE', 'pages/admin');
