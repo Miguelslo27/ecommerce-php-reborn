@@ -2,18 +2,19 @@
 
 newDocument([
   'title' => 'eCommerce - Administrador',
-  'page' => 'admin-dashboard',
+  'page' => 'admin',
+  'sub_page' => 'dashboard',
   'components' => [
-    'components/admin/navbar',
-    'components/admin/searcher',
-    'components/admin/summary'
+    'components/navbar',
+    'components/searcher',
+    'components/summary'
   ],
   'styles' => [
-    'css/fontawesome/css/all.min.css',
-    'css/admin.css'
+    'components/css/fontawesome/css/all.min.css',
+    'components/css/admin.css'
   ],
   'scripts' => [
-    'components/admin/admin.js'
+    'components/admin.js'
   ],
   'beforeRender' => function ()
   {

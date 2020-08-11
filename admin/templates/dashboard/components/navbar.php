@@ -30,35 +30,35 @@
         <div class="arrow-right disabled"></div>
       </a>
       <?php setGlobal('actualItem', 'categories') ?>
-      <?php getTemplate('components/admin/navbar-item') ?>
+      <?php getTemplate('components/navbar-item') ?>
       <!-- ARTICLES ITEM -->
       <a href="#" class="link item-articles" data-open="false" data-type="articles">
         <i class="far fa-file"></i>
         <div class="arrow-right disabled"></div>
       </a>
       <?php setGlobal('actualItem', 'articles') ?>
-      <?php getTemplate('components/admin/navbar-item') ?>
+      <?php getTemplate('components/navbar-item') ?>
       <!-- USERS ITEM -->
       <a href="#" class="link item-users" data-open="false" data-type="users">
         <i class="fas fa-users"></i>
         <div class="arrow-right disabled"></div>
       </a>
       <?php setGlobal('actualItem', 'users') ?>
-      <?php getTemplate('components/admin/navbar-item') ?>
+      <?php getTemplate('components/navbar-item') ?>
       <!-- ORDERS ITEM -->
       <a href="#" class="link item-orders" data-open="false" data-type="orders">
         <i class="fas fa-shopping-cart"></i>
         <div class="arrow-right disabled"></div>
       </a>
       <?php setGlobal('actualItem', 'orders') ?>
-      <?php getTemplate('components/admin/navbar-item') ?>
+      <?php getTemplate('components/navbar-item') ?>
       <!-- CONFIGURATION ITEM -->
       <a href="#" class="link item-conf" data-open="false" data-type="conf">
         <i class="fas fa-cog"></i>
         <div class="arrow-right disabled"></div>
       </a>
       <?php setGlobal('actualItem', 'conf') ?>
-      <?php getTemplate('components/admin/navbar-item') ?>
+      <?php getTemplate('components/navbar-item') ?>
     </div>
     <div class="notifications">
       <a href="#" class="" >

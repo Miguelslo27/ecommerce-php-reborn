@@ -16,7 +16,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .admin-nav {
   display: flex;
-  position: absolute;
+  position: fixed;
   padding: .5rem 1rem;
   justify-content: space-between;
   align-items: center;

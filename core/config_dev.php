@@ -4,7 +4,9 @@ define('DEBUG', false);
 
 /* TEMPLATE */
 define('TEMPLATE_PATH', '/template_dev/');
+define('ADMIN_TEMPLATE_PATH', '/admin/templates/dashboard/');
 define('TEMPLATE_ROUTE', $_SERVER['DOCUMENT_ROOT'] . TEMPLATE_PATH);
+define('ADMIN_TEMPLATE_ROUTE', $_SERVER['DOCUMENT_ROOT'] . ADMIN_TEMPLATE_PATH);
 define('CORE_LOCATION', $_SERVER['DOCUMENT_ROOT'] . '/core/');
 
 /* DEFAULT SETTINGS */
