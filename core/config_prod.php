@@ -52,3 +52,4 @@ define('CART_TEMPLATE', 'pages/cart');
 define('ORDER_TEMPLATE', 'pages/order');
 define('PAYMENT_TEMPLATE', 'pages/payment');
 define('SHIPPING_TEMPLATE', 'pages/shipping');
+define('ADMIN_TEMPLATE', '/templates/dashboard/admin');

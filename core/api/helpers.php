@@ -153,9 +153,9 @@ function getPostAll()
 /**
  * Get Template Absolute Path
  */
-function getTemplateAbsolutePath()
+function getTemplateAbsolutePath($isAdmin = false)
 {
-  return TEMPLATE_ROUTE;
+  return ($isAdmin || getGlobal('page') == 'admin') ? ADMIN_TEMPLATE_ROUTE : TEMPLATE_ROUTE;
 }
 
 /**
@@ -164,7 +164,7 @@ function getTemplateAbsolutePath()
 function getTemplateRelativePath()
 {
   $template = getGlobal('dev_template');
-  return TEMPLATE_PATH;
+  return (getGlobal('page') == 'admin') ? ADMIN_TEMPLATE_PATH : TEMPLATE_PATH;
 }
 
 /**
@@ -172,7 +172,7 @@ function getTemplateRelativePath()
  */
 function getTemplate($template, $includepath = true, $includeextension = true)
 {
-  $templateLocation = ($includepath ? getTemplateAbsolutePath() : '') . $template . ($includeextension ? '.php' : '');
+  $templateLocation = ($includepath ? getTemplateAbsolutePath() : getTemplateAbsolutePath(true)) . $template . ($includeextension ? '.php' : '');
   /**
    * @TODO
    * Add the hability to include index.php without specify the file name
