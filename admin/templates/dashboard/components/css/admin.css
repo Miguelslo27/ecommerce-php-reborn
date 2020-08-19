@@ -149,7 +149,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .admin-nav .nav-items .arrow-right {
   position: absolute;
-  left: calc(5vw - .7rem);
+  left: calc(5vw - .6rem);
   width: 0; 
   height: 0; 
   margin-top: -2.3rem;
