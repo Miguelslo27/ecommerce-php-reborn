@@ -15,7 +15,7 @@
       </li>
 
       <li>
-        <a href="../account/password">
+        <a href="cuenta/clave">
           <span>
             <i class="fas fa-key"></i> | Contraseña
           </span>
