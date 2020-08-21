@@ -5,7 +5,7 @@
   </h1>
   <div class="div-account">
 
-    <?php getTemplate('../template_dev/components/sidebar-account/sidebar'); ?>
+    <?php $page = 'Mis Datos';getTemplate('../template_dev/components/sidebar-account/sidebar'); ?>
 
     <section class="form-section">
       <form action="" class="form-margin">

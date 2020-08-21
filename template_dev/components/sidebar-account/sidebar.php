@@ -6,7 +6,7 @@
   <nav>
     <ul class="list-section">
       <li>
-        <a href="">
+        <a href="/cuenta/">
           <span>
             <i class="fas fa-user"></i> | Cuenta
           </span>
@@ -15,7 +15,7 @@
       </li>
 
       <li>
-        <a href="cuenta/clave">
+        <a href="/../cuenta/clave">
           <span>
             <i class="fas fa-key"></i> | Contraseña
           </span>

@@ -1,1 +1,0 @@
-<?php getTemplate('../template_dev/components/sidebar-account/sidebar'); ?>
