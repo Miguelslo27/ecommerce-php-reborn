@@ -3,6 +3,7 @@
 newDocument([
   'title' => 'eCommerce - Mi Cuenta',
   'page' => 'account',
+  'sub_page' => 'mis_datos',
   'components' => [
     'components/header/header',
     'components/account/account',

@@ -79,6 +79,11 @@ ul.list-section li > a:hover {
   color: #b52299;
 }
 
+ul.list-section li > .active {
+  border-bottom: 1px solid #b52299;
+  color: #b52299;
+}
+
 ul.list-section li > a:hover > span {
   padding-left: 1rem;
 }
