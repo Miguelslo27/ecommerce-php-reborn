@@ -1,1 +1,4 @@
-<?php header('Location: /404') ?>
+<?php
+
+require_once '../core/core.php';
+getTemplate(ADMIN_TEMPLATE, false);

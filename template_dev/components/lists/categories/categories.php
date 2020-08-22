@@ -12,7 +12,7 @@
   </div>
   <?php endif ?>
 
-  <?php if (count(getGlobal('categories')) > 0) : ?>
+  <?php if (count(getGlobal('categoriesTotal')) > 0) : ?>
   <div class="list-actions">
     <?php setGlobal('pager', getGlobal('categories_pager')) ?>
     <?php setGlobal('pager_per_page', CATEGORIES_PER_PAGE) ?>
@@ -20,7 +20,7 @@
   </div>
 
   <ul class="categories">
-    <?php foreach (getGlobal('categories') as $category) : ?>
+    <?php foreach (getGlobal('categoriesTotal') as $category) : ?>
     <li>
       <?php
       setGlobal('category', $category);

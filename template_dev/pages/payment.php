@@ -6,15 +6,15 @@ newDocument([
   'sub_page' => 'payment',
   'components' => [
     'components/header/header',
-    'components/payment/payment',
+    'components/cart/payment',
     'components/footer/footer'
   ],
   'styles' => [
     'css/fontawesome/css/all.min.css',
     'css/layout.css',
     'css/forms.css',
-    'components/forms/payment/payment.css',
-    'components/cart-summary/cart-summary.css'
+    'components/cart/payment.css',
+    'components/cart/cart-summary.css'
   ],
   'scripts' => [
     'components/forms/payment/payment.js'
@@ -88,6 +88,9 @@ newDocument([
       $shippingFullAddress[] = $shippingZipcode;
     }
 
+    $categories = getCategories();
+
+    setGlobal('categories', oneOf($categories, []));
     setGlobal('billing_name', $billingName);
     setGlobal('billing_document', $billingDocument);
     setGlobal('billing_fulladdress', implode(', ', $billingFullAddress));
@@ -98,8 +101,40 @@ newDocument([
     setGlobal('phones', implode(' / ', $phones));
     setGlobal('shipping_method', $shippingInfo->shipping_method);
     setGlobal('shipping_fulladdress', implode(', ', $shippingFullAddress));
+    setGlobal('shipping_address', $shippingAddress);
+    setGlobal('shipping_state', $shippingState);
+    setGlobal('shipping_city', $shippingCity);
+    setGlobal('shipping_zipcode', $shippingZipcode);
   }
 ]);
+
+function printMessage() {
+  $order = getOrderShippingInfo(getCurrentCart()->order->id);
+  if ($order->shipping_method == 0) {
+    $message = "El pedido será retirado personalmente. Comentarios adicionales: $order->additional_comments";
+  }
+  if ($order->shipping_method == 1) {
+    $message = "El pedido va a ser enviado a domicilio.<br>
+                Direccion: $order->shipping_address<br>
+                Departamento: $order->shipping_city<br>
+                Localidad: $order->shipping_state<br>
+                Agencia: $order->shipping_agency<br>
+                Codigo postal: $order->shipping_zipcode<br>
+                Notas $order->additional_comments";
+  }
+
+  if ($order->shipping_method == 2) {
+    $order_billling = getOrderBillingInfo(getCurrentCart()->order->id);
+    $message = "El pedido va a ser enviado al domicilio configurado.<br>
+                Direccion: $order_billling->billing_address<br>
+                Departamento: $order_billling->billing_city<br>
+                Localidad: $order_billling->billing_state<br>
+                Agencia: $order->shipping_agency<br>
+                Codigo postal: $order_billling->billing_zipcode<br>
+                Notas: $order->additional_comments";
+  }
+  return $message;
+}
 
 function billingInfoFormHasErrors()
 {
@@ -150,7 +185,10 @@ function shippingInfoFormHasErrors()
 
 function shippingInfoIsIncomplete()
 {
-  if (empty(getGlobal('shipping_fulladdress'))) {
+  if (
+    empty(getGlobal('shipping_fulladdress'))
+    && empty(getPreformData('copy-billing-address', ''))
+  ) {
     return true;
   }
 

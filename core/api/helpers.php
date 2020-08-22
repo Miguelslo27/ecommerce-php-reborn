@@ -153,9 +153,9 @@ function getPostAll()
 /**
  * Get Template Absolute Path
  */
-function getTemplateAbsolutePath()
+function getTemplateAbsolutePath($isAdmin = false)
 {
-  return TEMPLATE_ROUTE;
+  return ($isAdmin || getGlobal('page') == 'admin') ? ADMIN_TEMPLATE_ROUTE : TEMPLATE_ROUTE;
 }
 
 /**
@@ -164,7 +164,7 @@ function getTemplateAbsolutePath()
 function getTemplateRelativePath()
 {
   $template = getGlobal('dev_template');
-  return TEMPLATE_PATH;
+  return (getGlobal('page') == 'admin') ? ADMIN_TEMPLATE_PATH : TEMPLATE_PATH;
 }
 
 /**
@@ -172,7 +172,7 @@ function getTemplateRelativePath()
  */
 function getTemplate($template, $includepath = true, $includeextension = true)
 {
-  $templateLocation = ($includepath ? getTemplateAbsolutePath() : '') . $template . ($includeextension ? '.php' : '');
+  $templateLocation = ($includepath ? getTemplateAbsolutePath() : getTemplateAbsolutePath(true)) . $template . ($includeextension ? '.php' : '');
   /**
    * @TODO
    * Add the hability to include index.php without specify the file name
@@ -186,15 +186,11 @@ function getRequestURIPath()
   return explode('?', getServer('REQUEST_URI'))[0];
 }
 
-/**
- * Get Query Parammeters
- */
-function getQueryParams($additions = null)
+function getQueryParamsByName($names = null)
 {
   $params     = getServer('QUERY_STRING');
   $paramsList = [];
   $paramsObj  = [];
-  $returnList = [];
 
   if (htmlspecialchars(trim($params)) != '') {
     $paramsList = explode('&', $params);
@@ -203,9 +199,23 @@ function getQueryParams($additions = null)
   foreach ($paramsList as $value) {
     $paramKeyValue        = explode('=', $value);
     $paramKey             = $paramKeyValue[0];
-    $parmaValue           = isset($paramKeyValue[1]) ? $paramKeyValue[1] : 'true';
-    $paramsObj[$paramKey] = $parmaValue;
+    $paramValue           = isset($paramKeyValue[1]) ? $paramKeyValue[1] : 'true';
+
+    if (!$names || in_array($paramKey, $names)) {
+      $paramsObj[$paramKey] = $paramValue;
+    }
   }
+
+  return $paramsObj;
+}
+
+/**
+ * Get Query Parammeters
+ */
+function getQueryParams($additions = null)
+{
+  $paramsObj  = getQueryParamsByName();
+  $returnList = [];
 
   if ($additions) {
     foreach ($additions as $addition => $value) {
@@ -221,6 +231,7 @@ function getQueryParams($additions = null)
     $returnList[] = "$param=$value";
   }
 
+  array_reverse($returnList);
   return implode('&', $returnList);
 }
 
@@ -248,7 +259,7 @@ function getPager($model, $where, $perpage) {
  */
 function constructPagerUrl($perpage, $perpage_param, $page_param)
 {
-  $url = getServer('QUERY_STRING') ? '?' . getServer('QUERY_STRING') : '?' . $perpage_param .  '={{per_page}}&' . $page_param . '={{page}}';
+  $url = '?' . getQueryParams([$perpage_param => '{{per_page}}', $page_param => '{{page}}']);
   $url = preg_replace('/' . $perpage_param . '=\d+/i', $perpage_param . '={{per_page}}', $url);
   $url = preg_replace('/' . $page_param . '=\d+/i', $page_param . '={{page}}', $url);
   $url = str_replace('{{per_page}}', $perpage, $url);

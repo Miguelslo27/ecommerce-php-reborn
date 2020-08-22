@@ -7,6 +7,10 @@ function getCurrentCart()
 
 function addToCart($qty = 1)
 {
+  if(getRequestData('qty') > 0){
+    $qty = getRequestData('qty');
+  }
+  
   $status = addToCart_checkIncommingData($qty);
 
   if (!$status->succeeded) {
@@ -41,6 +45,7 @@ function addToCart_checkIncommingData($qty)
 {
   $status = newStatusObject();
   $aid    = getRequestData('aid');
+  $qty    = intval($qty);
 
   if (
     gettype($qty) != 'integer'
@@ -147,21 +152,6 @@ function addToOrder($order, $article, $qty)
 {
   $price           = getArticlePrice($article);
   $subtotal        = $price * $qty;
-  $order->total    = $order->total + $subtotal;
-
-  $sqlUpdate = (
-    "UPDATE
-      `orders`
-      SET
-        `total` = $order->total
-      WHERE
-        `id` = $order->id"
-  );
-
-  if (!getDB()->query($sqlUpdate)) {
-    $order->total    = $order->total - $subtotal;
-    return null;
-  }
 
   $sqlInOrderArticle = (
     "SELECT
@@ -221,6 +211,25 @@ function addToOrder($order, $article, $qty)
   $inOrderArticleId = getDB()->insert($sqlInsert);
 
   if (!isset($inOrderArticleId)) {
+    return null;
+  }
+
+  if (($inOrderArticle->quantity + $qty) >= 0) {
+    $subtotal = $price * $qty;
+  } else {
+    $subtotal = $price * ($inOrderArticle->quantity * -1);
+  }
+  $order->total = $order->total + $subtotal;
+  $sqlUpdate = (
+    "UPDATE
+      `orders`
+      SET
+        `total` = $order->total
+      WHERE
+        `id` = $order->id"
+  );
+  if (!getDB()->query($sqlUpdate)) {
+    $order->total    = $order->total - $subtotal;
     return null;
   }
 
@@ -284,9 +293,104 @@ function loadCart()
 function transferOrder($fromUser, $toUser)
 {
   $sql   = getOrderSqlGenerator($fromUser);
+  $order_temporal = getDb()->getObject($sql);
+
+  $sql   = getOrderSqlGenerator($toUser);
   $order = getDb()->getObject($sql);
 
+  //TEMPORAL EMPTY RETURN
+  if (empty($order_temporal)) {
+    return;
+  }
+
+  //ACTUAL EMPTY TRANSFER ORDER TEMPORAL
   if (empty($order)) {
+    $sqlUpdate = (
+      "UPDATE
+        `orders`
+        SET
+          `user_id` = $toUser
+        WHERE
+          `user_id` = $fromUser"
+    );
+
+    getDB()->query($sqlUpdate);
+    return;
+  } else {
+    $oid_from        = getOrderByUserId($fromUser);
+    $oid_to          = getOrderByUserId($toUser);
+    $articles_from   = getArticlesInOrder($oid_from->id);
+    $articles_to     = getArticlesInOrder($oid_to->id);
+    $auxiliar_equal = false;
+
+    //SAME ARTICLES - UPDATE QUANTITY
+    foreach ($articles_from as $article_from) {
+      foreach ($articles_to as $article_to) {
+        if (($article_from->article_id) == ($article_to->article_id)) {
+          $sqlUpdate = (
+            "UPDATE
+              `in_order_articles`
+              SET
+                `quantity` = $article_to->quantity + $article_from->quantity, 
+                `subtotal` = $article_to->subtotal + $article_from->subtotal 
+              WHERE
+                `order_id` = $oid_to->id
+              AND
+                `article_id` = $article_to->article_id"
+          );
+          getDB()->query($sqlUpdate);
+          $auxiliar_equal = true;
+        }
+      }
+      //DIFFERENT ARTICLES - CHANGE OLD ORDER ID
+      if ($auxiliar_equal == false) {
+        $sqlUpdate = (
+          "UPDATE
+            `in_order_articles`
+            SET
+              `order_id` = $oid_to->id
+            WHERE
+              `order_id` = $oid_from->id
+            AND
+              `article_id` = $article_from->article_id"
+        );
+        getDB()->query($sqlUpdate);
+      }
+      $auxiliar_equal = false;
+    } 
+    
+    //DELETE OLD ORDER AND DERIVATIVES
+    $sqlUpdate = (
+      "DELETE FROM
+        `orders`
+        WHERE
+        `user_id` = $fromUser"
+    );
+    getDB()->query($sqlUpdate);
+
+    $sqlUpdate = (
+      "DELETE FROM
+        `in_order_articles`
+        WHERE
+        `order_id` = $oid_from->id"
+    );
+    getDB()->query($sqlUpdate);
+
+    refreshOrder($oid_to->id);
+  }
+}
+
+function refreshOrder($oid) {
+  $articles = getArticlesInOrder($oid);
+
+  $total = 0;
+  if (!empty($articles)) {
+    foreach ($articles as $article) {
+      $price           = $article->current_price;
+      $subtotal        = $price * $article->quantity;
+      $total           = $total + $subtotal;
+    }
+  } else {
     return;
   }
 
@@ -294,13 +398,11 @@ function transferOrder($fromUser, $toUser)
     "UPDATE
       `orders`
       SET
-        `user_id` = $toUser
+        `total` = $total
       WHERE
-        `user_id` = $fromUser"
+        `id` = $oid"
   );
-
   getDB()->query($sqlUpdate);
-  return;
 }
 
 function saveOrderBillingInfo() {
@@ -397,6 +499,13 @@ function saveOrderBillingInfo_checkIncomingData() {
 
 function saveOrderShippingInfo()
 {
+  if (getPostData('shipping') === 'receive') { 
+    $shippingMethod = empty(getPostData('copy-billing-address')) ? 1 : 2;
+  } else {
+    $shippingMethod = 0;
+  }  
+  setGlobal('cart_shipping_method', $shippingMethod);
+
   $status = saveOrderShippingInfo_checkIncomingData();
 
   if (!$status->succeeded) {
@@ -404,35 +513,47 @@ function saveOrderShippingInfo()
   }
 
   $orderid = getCurrentCart()->order->id;
+  $billinginfo = getOrderBillingInfo($orderid);
 
-  if (getPostData('shipping') === 'receive') {
-    $shippingMethod = 1;
+  if (getPostData('shipping') === 'receive') { 
+    $sql = (
+      "UPDATE
+        `orders`
+        SET
+          `shipping_method` = \"" . $shippingMethod . "\",
+          `shipping_address` = \"" . (empty(getPostData('copy-billing-address')) ? getPostData('shipping_address') : $billinginfo->billing_address) . "\",
+          `shipping_state` = \"" . (empty(getPostData('copy-billing-address')) ? getPostData('shipping_state') : $billinginfo->billing_state) . "\",
+          `shipping_city` = \"" . (empty(getPostData('copy-billing-address')) ? getPostData('shipping_city') : $billinginfo->billing_city) . "\",
+          `shipping_zipcode` = \"" . (empty(getPostData('copy-billing-address')) ? getPostData('shipping_zipcode') : $billinginfo->billing_zipcode) . "\",
+          `shipping_agency` = \"" . oneOf(getPostData('shipping_agency'), '') . "\",
+          `additional_comments` = \"" . oneOf(getPostData('additional_notes'), ''). "\"
+        WHERE
+          `id` = $orderid"
+    );
   } else {
-    $shippingMethod = 0;
+    $sql = (
+      "UPDATE
+        `orders`
+        SET
+          `shipping_method` = \"" . $shippingMethod . "\",
+          `shipping_address` = \"" . "" . "\",
+          `shipping_state` = \"" . "" . "\",
+          `shipping_city` = \"" . "" . "\",
+          `shipping_agency` = \"" . "" . "\",
+          `shipping_zipcode` = \"" . "" . "\",
+          `additional_comments` = \"" . getPostData('additional_notes') . "\"
+        WHERE
+          `id` = $orderid"
+    );
   }
 
-  $sql = (
-    "UPDATE
-      `orders`
-      SET
-        `shipping_method` = \"" . $shippingMethod . "\",
-        `shipping_address` = \"" . getPostData('shipping_address') . "\",
-        `shipping_state` = \"" . getPostData('shipping_state') . "\",
-        `shipping_city` = \"" . getPostData('shipping_city') . "\",
-        `shipping_agency` = \"" . getPostData('shipping_agency') . "\",
-        `shipping_zipcode` = \"" . getPostData('shipping_zipcode') . "\",
-        `additional_comments` = \"" . getPostData('additional_notes') . "\"
-      WHERE
-        `id` = $orderid"
-  );
-
-  if (!getDB()->query($sql)) {
+  if (!getDB()->query($sql)){
     $status->succedded = false;
     $status->errors[]  = 'Error al guardar los datos, vuelve a intentar';
     return $status;
-  }
+  };
 
-  $status->success = 'Información de envío guardada con éxito';
+  $status->success = 'Listo para continuar';
 
   return $status;
 }
@@ -476,11 +597,13 @@ function saveOrderShippingInfo_checkIncomingData()
       $status->fieldsWithErrors['shipping_zipcode'] = true;
       $status->errors[]                             = 'El código postal tiene un formato incorrecto, debe contener sólo números.';
     }
+  }
 
-    if (
-      !empty(getPostData('shipping_agency'))
-      && !preg_match(REG_EXP_NAME_FORMAT, getPostData('shipping_agency'))
-    ) {
+  if (getPostData('shipping') === 'receive') {
+    if (empty(getPostData('shipping_agency'))) {
+      $status->fieldsWithErrors['shipping_agency'] = true;
+      $status->errors[]                            = 'Agencia de envío es obligatoria.';
+    } elseif (!preg_match(REG_EXP_NAME_FORMAT, getPostData('shipping_agency'))) {
       $status->fieldsWithErrors['shipping_agency'] = true;
       $status->errors[]                            = 'La agencia tiene un formato incorrecto, puede incluir letras y signos de puntuación.';
     }

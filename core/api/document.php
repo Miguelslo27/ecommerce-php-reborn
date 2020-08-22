@@ -60,7 +60,7 @@ function renderDocument($settings)
 
   startNewDocument($settings);
   foreach ($components as $file) {
-    getTemplate($file);
+    getTemplate($file, getGlobal('page') == 'admin' ? false : true);
   }
   endNewDocument($settings);
 }

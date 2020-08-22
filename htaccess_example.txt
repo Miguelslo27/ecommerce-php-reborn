@@ -1,0 +1,11 @@
+SetEnv ENV 'dev'
+SetEnv DB_NAME 'dbname'
+SetEnv DB_HOST 'server'
+SetEnv DB_USER 'dbuser'
+SetEnv DB_PASS 'dbpass'
+
+Options +SymLinksIfOwnerMatch 
+RewriteEngine On 
+RewriteCond %{REQUEST_FILENAME} !-f 
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /404 [L]

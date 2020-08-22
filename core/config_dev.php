@@ -4,7 +4,9 @@ define('DEBUG', false);
 
 /* TEMPLATE */
 define('TEMPLATE_PATH', '/template_dev/');
+define('ADMIN_TEMPLATE_PATH', '/admin/templates/dashboard/');
 define('TEMPLATE_ROUTE', $_SERVER['DOCUMENT_ROOT'] . TEMPLATE_PATH);
+define('ADMIN_TEMPLATE_ROUTE', $_SERVER['DOCUMENT_ROOT'] . ADMIN_TEMPLATE_PATH);
 define('CORE_LOCATION', $_SERVER['DOCUMENT_ROOT'] . '/core/');
 
 /* DEFAULT SETTINGS */
@@ -21,6 +23,10 @@ define('DB_HOST', getenv('DB_HOST'));
 define('DB_USER', getenv('DB_USER'));
 define('DB_PASS', getenv('DB_PASS'));
 
+define('SMTPHOST', getenv('SMTPHOST'));
+define('SMTPUSER', getenv('SMTPUSER'));
+define('SMTPPASS', getenv('SMTPPASS'));
+
 /* CONSTANTS FOR COMMON USE */
 define('ACTION_LOGIN', 'login');
 define('ACTION_LOGOUT', 'logout');
@@ -30,6 +36,8 @@ define('ACTION_SAVE_CATEGORY', 'save_category');
 define('ACTION_SAVE_ARTICLE', 'save_article');
 define('ACTION_ADD_TO_CART', 'add_to_cart');
 define('ACTION_SEND_EMAIL', 'send_email');
+define('ACTION_OBTAIN_PASSWORD', 'obtain_password');
+define('ACTION_CHANGE_PASSWORD', 'change_password');
 
 /* CONSTANTS FOR PAYMENT */
 define('ACTION_UPDATE_CART_BILLING_INFO', 'update_cart_billing_info');
@@ -59,4 +67,7 @@ define('ACCOUNT_TEMPLATE', 'pages/acount');
 define('PASSWORD_TEMPLATE', 'pages/password');
 define('CART_TEMPLATE', 'pages/cart');
 define('ORDER_TEMPLATE', 'pages/order');
+define('BILLING_FORM_TEMPLATE', 'pages/billing');
 define('PAYMENT_TEMPLATE', 'pages/payment');
+define('SHIPPING_TEMPLATE', 'pages/shipping');
+define('ADMIN_TEMPLATE', 'pages/admin');

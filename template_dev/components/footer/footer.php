@@ -4,9 +4,14 @@
       <div>
         <h3>Categorías</h3>
         <ul class="links">
-          <li><a href="#">Categoría 1</a></li>
-          <li><a href="#">Categoría 2</a></li>
-          <li><a href="#">Categoría 3</a></li>
+          <?php foreach (getGlobal('categories') as $category) : ?>
+            <li>
+              <?php
+                setGlobal('category', $category);
+                getTemplate('components/header/category-item');
+              ?>
+            </li>
+          <?php endforeach ?>
         </ul>
       </div>
       <div>

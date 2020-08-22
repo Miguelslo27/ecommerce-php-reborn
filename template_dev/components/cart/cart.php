@@ -69,7 +69,7 @@
       <?php endforeach ?>
       </div>
     </section>
-    <?php getTemplate('components/cart-summary/cart-summary') ?>
+    <?php getTemplate('components/cart/cart-summary') ?>
   </div>
 <?php endif ?>
 </section>

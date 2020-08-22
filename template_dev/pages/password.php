@@ -15,4 +15,10 @@ newDocument([
     'css/forms.css',
     'components/account/password/form-password.css'
   ],
+
+  'beforeRender' => function ()
+  {
+    $categories = getCategories();
+    setGlobal('categories', oneOf($categories, []));
+  }
 ]);

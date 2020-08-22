@@ -1,0 +1,320 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:wght@300;400&display=swap');
+
+body {
+  margin: 0;
+  font-family: "Open Sans", "Arial", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Open Sans", "Arial", sans-serif;
+  font-weight: 300;
+}
+
+.disabled {
+  display: none !important;
+}
+
+.admin-nav {
+  display: flex;
+  position: fixed;
+  padding: .5rem 1rem;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin-left: 0;
+  width: 5%;
+  height: 100%;
+  background-color: #222222;
+}
+
+.admin-nav .nav-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.admin-nav .nav-items .item-box {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  top: 0;
+  left: 5vw;
+  height: 100vh;
+  width: 18vw;
+  background: #FFFFFF;
+  box-shadow: 6px 0px 8px #00000029;
+  opacity: 1;
+  transition: all ease .3s;
+}
+
+.admin-nav .nav-items .item-box .close-container {
+  padding-right: 1rem;
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.admin-nav .nav-items .item-box .close-container i {
+  color: #222222;
+  cursor: pointer;
+}
+
+.admin-nav .nav-items .item-box .item-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #347AB8;
+  color: #FFFFFF;
+  margin-bottom: 1rem;
+}
+
+.admin-nav .nav-items .item-box .item-icon i {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.admin-nav .nav-items .item-box .item-number {
+  font-size: 2.3rem;
+  margin: 0 auto
+}
+
+.admin-nav .nav-items .item-box .item-title {
+  margin-top: 0;
+}
+
+.admin-nav .nav-items .item-box h3 {
+  color: #707070;
+  margin-bottom: 10px;
+}
+
+.admin-nav .nav-items .item-box .picture {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid #333333;
+}
+
+.admin-nav .nav-items .item-box .picture i {
+  font-size: 7rem;
+  margin: 0;
+  color: #333333;
+}
+
+.admin-nav .nav-items .item-box .item-sub-links i {
+  font-size: 1rem;
+  margin: 0 .8rem;
+  color: #222222;
+}
+
+.admin-nav .nav-items .item-box ul {
+  list-style: none;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.admin-nav .nav-items .item-box ul li {
+  padding: 1rem 0;
+  box-shadow: 0px 3px 6px #00000029;
+  font-size: .8rem;
+  transition: .4s ease all;
+  cursor: pointer;
+}
+
+.admin-nav .nav-items .item-box li:hover {
+  box-shadow: 0px 5px 6px #0000004d;
+}
+
+.admin-nav i {
+  font-size: .9rem;
+  padding: 1.2rem 0;
+  color: #EEEEEE;
+}
+
+.admin-nav .nav-items .user {
+  margin-bottom: .4rem;
+  font-size: 1.4em;
+}
+
+.admin-nav .nav-items .arrow-right {
+  position: absolute;
+  left: calc(5vw - .6rem);
+  width: 0; 
+  height: 0; 
+  margin-top: -2.3rem;
+  border-top: .7rem solid transparent;
+  border-bottom: .7rem solid transparent;
+  border-right: .7rem solid #FFFFFF;
+  opacity: 1;
+  transition: opacity .2s ease;
+}
+
+.admin-nav .nav-items .user-link .arrow-right {
+  margin-top: -3rem;
+}
+
+.admin-nav .notifications {
+  bottom: 0;
+}
+
+.admin-searcher {
+  display: flex;
+  height: 10%;
+  width: 95%;
+  margin: auto;
+  margin-right: 0;
+  padding: 1rem 1.5rem;
+  box-sizing: border-box;
+  font-family: "Open Sans", "Arial", sans-serif;
+}
+
+.admin-searcher .container {
+  display: flex;
+  width: 100%;
+  padding: 1.1rem;
+  box-sizing: border-box;
+  border: 1px #707070 solid;
+  border-radius: 10px;
+  box-shadow: 0px 3px 6px #00000029;
+}
+
+.admin-searcher .container input{
+  border: none;
+  width: 35%;
+}
+
+.admin-searcher .container input:focus{
+  outline: none;
+}
+
+.admin-searcher .container .filters-container{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 65%;
+  font-size: .9rem;
+}
+
+.admin-searcher .container .filters-container span {
+  color: #222222;
+  margin: 0 .4rem;
+}
+
+.admin-searcher .container .filters-container i {
+  color: #707070;
+  font-size: 1rem;
+  margin: 0 .4rem;
+  margin-left: 1rem;
+}
+
+.summary-container {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin: auto;
+  margin-right: 0;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+}
+
+.summary-container h2 {
+  font-size: 1.8rem;
+  color: #707070;
+}
+
+.summary-container .summary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.summary-container .summary .box {
+  display: flex;
+  background-color: thistle;
+  padding: 2rem 1rem;
+  border-radius: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: box-shadow .2s ease;
+}
+
+.summary-container .summary .box:hover {
+  box-shadow: inset 0 0 20px #00000032;
+}
+
+.summary-container .summary .box .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  background-color: #FFFFFF;
+  font-size: 1.3rem;
+}
+
+.summary-container .summary .box .text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  color: #fff;
+  padding-left: 1.5rem;
+  font-size: 1.6rem;
+  font-family: "Open Sans", "Arial", sans-serif;
+  font-weight: 300;
+}
+
+
+.summary-container .summary .box-orders-today {
+  width: 47%;
+  background-color: #68AE00;
+  color: #68AE00;
+}
+
+.summary-container .summary .box-orders-pending {
+  width: 47%;
+  background-color: #FC8213;
+  color: #FC8213;
+}
+
+.summary-container .summary .box-categories,
+.summary-container .summary .box-articles,
+.summary-container .summary .box-users {
+  width: 30%;
+  background-color: #347AB8;
+  color: #347AB8;
+}
+
+@media only screen and (max-width: 1400px) {
+  .summary-container .summary .box-orders-today,
+  .summary-container .summary .box-orders-pending {
+    width: 46%;
+  }
+  
+  .summary-container .summary .box-categories,
+  .summary-container .summary .box-articles,
+  .summary-container .summary .box-users {
+    width: 29%;
+  }
+
+  .summary-container .summary .box .icon {
+    height: 75px;
+    width: 75px;
+  }
+
+  .summary-container .summary .box .text {
+    font-size: 1.3rem;
+  }
+}

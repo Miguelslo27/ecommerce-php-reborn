@@ -14,4 +14,8 @@ newDocument([
     'css/account.css',
     'css/forms.css'
   ],
+  'beforeRender' => function () {
+    $categories      = getCategories();
+    setGlobal('categories', oneOf($categories, []));
+  }
 ]);

@@ -1,0 +1,124 @@
+.not-found-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 5vh 0 10vh 0;
+}
+
+.not-found-section .not-found-title {
+  display: flex;
+  width: 60%;
+  justify-content: center;
+  align-items: center;
+}
+
+.not-found-section .not-found-title .ups-text,
+.not-found-section .not-found-title .error-text {
+  width: 50%;
+}
+
+.not-found-section .not-found-title .error-text {
+  text-align: right;
+}
+
+.not-found-section .not-found-title h2,
+.not-found-section .not-found-title h5 {
+  display: inline-block;
+}
+
+.not-found-section .not-found-title h2 {
+  font-size: 70px;
+  line-height: 6rem;
+  padding-right: 1rem;
+  border-right: 4px solid #b52299;
+}
+
+.not-found-section .not-found-title h5 {
+  font-size: 23px;
+  padding-left: 1rem;
+}
+
+.not-found-section .search-box {
+  width: 50%;
+}
+
+.not-found-section .search-box form {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  border-radius: 0;
+  box-shadow: unset;
+}
+
+.not-found-section .search-box form .search-input,
+.not-found-section .search-box form .search-button {
+  height: 2.8rem;
+  line-height: 2.8rem;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  outline: none;
+}
+
+.not-found-section .search-box form .search-input {
+  width: 90%;
+  padding: 0 1rem;
+  border: 2px solid #b52299;
+  border-radius: 0;
+  border-top-left-radius: 1.1rem;
+  border-bottom-left-radius: 1.1rem;
+  background-color: #f1f1f1;
+  transition: all .3s ease;
+}
+
+.not-found-section .search-box form .search-input:focus {
+  background-color: white;
+}
+
+.not-found-section .search-box form .search-button {
+  padding: 0 1rem;
+  border-radius: 0;
+  border-top-right-radius: 1.1rem;
+  border-bottom-right-radius: 1.1rem;
+  background-color: #b52299;
+  color: #f1f1f1;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 605px) {
+  .not-found-section .not-found-title {
+    width: 80%;
+  }
+
+  .not-found-section .not-found-title h5 {
+    font-size: 20px;
+  }
+
+  .not-found-section .search-box {
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 401px) {
+  .not-found-section .not-found-title {
+    width: 90%;
+  }
+
+  .not-found-section .not-found-title h5 {
+    font-size: 16px;
+  }
+
+  .not-found-section .not-found-title h2 {
+    font-size: 55px;
+  }
+
+  .not-found-section .search-box {
+    width: 85%;
+  }
+}

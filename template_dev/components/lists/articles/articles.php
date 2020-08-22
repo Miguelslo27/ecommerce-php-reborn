@@ -24,6 +24,12 @@
     </li>
     <?php endforeach ?>
   </ul>
+  
+  <div class="list-actions">
+    <?php setGlobal('pager', getGlobal('articles_pager')) ?>
+    <?php setGlobal('pager_per_page', ARTICLES_PER_PAGE) ?>
+    <?php getTemplate('components/lists/pager/pager') ?>
+  </div>
   <?php else : ?>
   <div class="empty-list">
     <h2 class>No se encontraron artículos</h2>

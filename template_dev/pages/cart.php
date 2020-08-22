@@ -13,10 +13,13 @@ newDocument([
     'css/fontawesome/css/all.min.css',
     'css/layout.css',
     'css/tables.css',
-    'components/cart-summary/cart-summary.css'
+    'components/cart/cart-summary.css'
   ],
   'beforeRender' => function ()
   {
+    $categories = getCategories();
+    
+    setGlobal('categories', oneOf($categories, []));
     setGlobal('recentlyAddedArticles', getArticles(null, 0, 3));
   }
 ]);

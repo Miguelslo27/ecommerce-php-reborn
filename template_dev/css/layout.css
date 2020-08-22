@@ -25,6 +25,7 @@
 html {
   font-size: 16px;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -103,6 +104,7 @@ i.fab+* {
 
 .spin {
   animation: spinAnimation .5s infinite ease;
+  pointer-events: none;
 }
 
 .blur {
@@ -321,6 +323,8 @@ i.fab+* {
   background: #efefef;
   border: 2px solid #999;
   color: #999;
+  pointer-events: none;
+  user-select: none;
 }
 
 .button.primary:active,
@@ -449,23 +453,41 @@ i.fab+* {
   left: 1rem;
 }
 
-.articles li article.new::before {
+.details .article-info.new::before,
+.details .article-info.featured::before,
+.details .article-info.offer::before,
+.details .article-info.spent::before {
+  position: absolute;
+  color: #FFF;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  top: 0;
+  right: -30px;
+  transform: rotate(25deg);
+}
+
+.articles li article.new::before,
+.details .article-info.new::before {
   content: "Nuevo";
   background: orange;
 }
 
-.articles li article.featured::before {
+.articles li article.featured::before,
+.details .article-info.featured::before {
   content: "Destacado";
   background: blueviolet;
 }
 
-.articles li article.offer::before {
+.articles li article.offer::before,
+.details .article-info.offer::before {
   content: "Oferta";
   background: greenyellow;
 }
 
-.articles li article.spent::before {
-  content: "spent";
+.articles li article.spent::before,
+.details .article-info.spent::before {
+  content: "Agotado";
   background: grey;
 }
 
@@ -508,5 +530,65 @@ i.fab+* {
 .articles li article.spent .article-info .price.before {
   font-size: 1.3rem;
   font-weight: normal;
+  opacity: .7;
   text-decoration: line-through;
+}
+
+@media only screen and (max-width: 750px) {
+  .page_search .articles li {
+    width: 46%;
+    margin: 0 2%;
+  }
+
+  .page_search section section section h2 {
+    font-size: 1.3rem;
+  }
+
+  .page_search section section section p {
+    font-size: .9rem;
+  }
+
+  .page_search .articles li article .article-info a {
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+  }
+
+  .page_search .articles li article .article-info .price,
+  .page_search .articles li article.new .article-info .price,
+  .page_search .articles li article.featured .article-info .price,
+  .page_search .articles li article.offer .article-info .price,
+  .page_search .articles li article.spent .article-info .price {
+    margin-right: 1rem;
+    font-size: 1.5rem;
+  }
+
+  .page_search .articles li article .article-info .price.before,
+  .page_search .articles li article.new .article-info .price.before,
+  .page_search .articles li article.featured .article-info .price.before,
+  .page_search .articles li article.offer .article-info .price.before,
+  .page_search .articles li article.spent .article-info .price.before {
+    margin-right: 1rem;
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .page_search .articles li {
+    width: 94%;
+    margin: 5% 3%;
+  }
+
+  .page_search .list-actions>div span,
+  .page_search .list-actions>div a {
+    padding: .3rem .9rem;
+  }
+
+  .page_search .list-actions {
+    flex-wrap: wrap;
+  }
+
+  .page_search .list-actions div{
+    margin-top: .5rem;
+    justify-content: center;
+  }
 }
