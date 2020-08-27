@@ -1,6 +1,7 @@
 <?php
   $actualItem = getGlobal('actualItem');
   $item = getGlobal($actualItem);
+  $uri = getRequestURIPath();
 ?>
 
 <div class="item-box disabled" id="<?php bind($actualItem)?>">
@@ -16,7 +17,7 @@
   <h3 class="item-title"><?php bind($item->title) ?></h3>
   <ul>
     <?php foreach ($item->links as $link) : ?>
-    <li><?php bind($link)?></li>
+    <a href="<?php bind($link[1]) ?>"><li><?php bind($link[0])?></li></a>
     <?php endforeach ?>
   </ul>
 </div>

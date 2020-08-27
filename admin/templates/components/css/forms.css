@@ -1,0 +1,284 @@
+/* USEFUL FORM */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/*  */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 95%;
+  margin: auto;
+  margin-right: 0;
+  margin-top: 2rem;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+}
+
+.form-container .form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.143);
+  border-radius: 15px;
+  width: 45%;
+  padding: 1rem 2rem;
+  margin-bottom: 3rem;
+  color: #222222;
+  box-sizing: border-box;
+  box-shadow:  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+  0 12.5px 10px rgba(0, 0, 0, 0.06),
+  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+  0 41.8px 33.4px rgba(0, 0, 0, 0.086);
+}
+
+.form-container .big-form {
+  width: 90%;
+}
+
+.form-container .form .form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+/* INPUTS */
+
+.form-container .form .form-group label {
+  margin-bottom: .3rem;
+  font-size: 1.1rem;
+}
+
+.form-container .form .form-group label i {
+  font-size: 1.4rem;
+  margin: 0 5px;
+}
+
+.form-container .form .form-group input,
+.form-container .form .form-group select,
+.form-container .form .form-group textarea {
+  height: 2.5rem;
+  padding: .3rem .6rem;
+  box-sizing: border-box;
+  border: 1px rgba(29, 29, 29, 0.719) solid;
+  border-radius: 5px;
+  font-size: .9rem;
+  background-color: #fff;
+}
+
+.form-container .form .form-group textarea {
+  height: 6rem;
+  font-family: "Open Sans", "Arial", sans-serif;
+  resize: none;
+}
+
+.form-container .form .form-group input:focus,
+.form-container .form .form-group textarea:focus {
+  border: 2px rgba(29, 29, 29, 0.639) solid;
+  outline: none;
+}
+
+.form-container .form .form-group input:disabled {
+  background-color: #ddddddc2;
+}
+
+.form-container .form .form-group .error {
+  border: 2px rgb(233, 31, 31) solid !important;
+}
+
+.form-container .form .form-group .input-group {
+  display: flex;
+  flex-direction: row;
+}
+
+.form-container .form .form-group .input-group input {
+  width: 80%;
+}
+
+.form-container .form .actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 19%;
+}
+
+/* BUTTONS */
+
+.form-container .form .actions a {
+  padding: .2rem .3rem;
+  cursor: pointer;
+  color: #f1f1f1;
+  background-color: rgb(120, 112, 183);
+  padding: .5rem .6rem;
+  box-sizing: border-box;
+  font-size: .8rem;
+  border-radius: 5px;
+  min-width: 2.2rem;
+  text-align: center;
+}  
+
+.form-container .form .actions .remove-button {
+  margin-left: .3rem;
+  background-color: rgb(226, 47, 47);
+}
+
+.form-container .form .button-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: .5rem;
+  width: 100%;
+}
+
+.form-container .form .button-container .button {
+  background-color: #28a745;
+  padding: 1rem 2rem;
+  font-size: .9rem;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.form-container .form .edit-form .button-container {
+  margin-top: 0;
+}
+
+.form-container .form .button-container a {
+  cursor: pointer;
+  padding: .5rem 0;
+  width: 100%;
+  font-size: .9rem;
+  text-align: center;
+}
+
+.form-container .form .form-group .example-text-container {
+  width: 100%;
+  font-size: .8rem;
+  margin-top: 5px;
+  opacity: .8;
+}
+
+/* ADD NETWORK BUTTON */
+.form-container .form .add-form,
+.form-container .form .edit-form {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  margin-bottom: 2rem;
+  height: 2.5rem;
+  width: 100%;
+} 
+
+.form-container .form .add-form .add-network-container {
+  width: 20%;
+  background-color: #28a745;
+  color: #fff;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: .9rem;
+  box-sizing: border-box;
+}
+
+.form-container .form .add-form .add-network-container .add-network-button {
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  background-color: #28a745
+} 
+
+.form-container .form .add-form select,
+.form-container .form .edit-form input {
+  padding: .2rem .4rem;
+  height: 2.5rem;
+  width: 80%;
+  height: 100%;
+}
+
+.form-container .form .arrow-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1.3rem;
+}
+
+.form-container .form .help-text-container {
+  width: 100%;
+  padding: 0 1rem;
+  font-size: .8rem;
+  text-align: left;
+}
+
+.form-container .form .admin-row {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  width: 100%;
+  padding: .7rem 0;
+}
+
+.form-container .form .list-admin-buttons {
+  width: 20%;
+}
+
+.form-container .form .background {
+  background-color: #87ceebdb;
+}
+
+.form-container .form .admin-row .admin-id,
+.form-container .form .admin-row .admin-name,
+.form-container .form .admin-row .admin-email,
+.form-container .form .admin-row .admin-role {
+  display: flex;
+  width: 40%;
+  justify-content: center;
+  padding: .5rem 0;
+  font-size: .9rem;
+}
+
+.form-container .form .admin-row .admin-role  {
+  width: 10%
+}
+
+.form-container .form .admin-row .admin-name {
+  width: 23%;
+}
+
+.form-container .form .admin-row .admin-id {
+  width: 7%;
+}
+
+.form-container .form .add-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.form-container .form .add-container .add-admin {
+  padding: .5rem .7rem;
+  box-sizing: border-box;
+  font-size: .9rem;
+  color: #fff;
+  background-color: #28a745;
+}
+
+.form-container .form .add-container i {
+  padding-right: 5px;
+}
+
+.form-container .text-not-elements {
+  font-weight: 800;
+  font-size: 1rem;
+}

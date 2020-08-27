@@ -101,7 +101,7 @@ function startNewDocument($settings)
 function endNewDocument($settings)
 {
   logDebugging();
-  getTemplate('components/notifications/notifications');
+  @getTemplate('components/notifications/notifications');
   getJavaScript($settings);
   ?>
   </body>

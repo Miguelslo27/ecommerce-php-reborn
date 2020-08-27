@@ -24,6 +24,22 @@ if ($request->action == ACTION_ADD_TO_CART) {
   $response     = json_encode($status);
 }
 
+if ($request->action == ACTION_EDIT_SITE) {
+  setRequestData('id', $request->input);
+  setRequestData('role', $request->role);
+  $status = siteAdminsEdition($request->type);
+
+  $response     = json_encode($status);
+}
+
+if ($request->action == ACTION_EDIT_SITE_NETWORKS) {
+  setRequestData('tag', $request->tag);
+  setRequestData('input', $request->input);
+  $status = siteNetworksEdition($request->type);
+
+  $response     = json_encode($status);
+}
+
 if (!isset($status)) {
   header(getServer('SERVER_PROTOCOL') . ' 500 Internal server error');
   exit;
