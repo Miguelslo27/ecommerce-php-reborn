@@ -50,7 +50,7 @@
     </form>  
   <?php endif ?>
 
-  <!-- ADD NETWORK -->
+  <!-- EDIT NETWORK -->
   <?php if (getGlobal('section') === 'redes' && getGlobal('query_param') !== null) : ?>
     <div class="form">
       <div class="arrow-container"><a href="/admin/config/?sid=redes"><i class="fas fa-arrow-left"></i></a></div>
@@ -59,9 +59,9 @@
         <?php if (getGlobal('networks_object')[$i]->name === getGlobal('query_param')) : ?>
           <div class="form-group">
             <label for="network_<?php bind(getGlobal('networks_object')[$i]->name)?>"><i class="fab <?php bind(getGlobal('networks_object')[$i]->icon)?>"></i><?php bind(getGlobal('networks_object')[$i]->title)?>:</label>
-            <div class="edit-form">
+            <div class="div-input-button">
               <input name="network_<?php bind(getGlobal('networks_object')[$i]->name)?>" id="network_<?php bind(getGlobal('networks_object')[$i]->name)?>" type="text" value="<?php bind(oneOf(getPreformData('network_facebook', ''), @getGlobal('networks_object')[$i]->uri)) ?>">
-              <div class="button-container"><a class="edit-network-button button" data-action="<?php bind(ACTION_EDIT_SITE_NETWORKS)?>" data-type="edit" data-input="network_<?php bind(getGlobal('networks_object')[$i]->name)?>" data-network="<?php bind(getGlobal('networks_object')[$i]->name)?>">Confirmar</a></div>
+              <div class="button-container"><a class="edit-network-button button-input" data-action="<?php bind(ACTION_EDIT_SITE_NETWORKS)?>" data-type="edit-network" data-input="network_<?php bind(getGlobal('networks_object')[$i]->name)?>" data-network="<?php bind(getGlobal('networks_object')[$i]->name)?>">Confirmar</a></div>
             </div>
           </div>
         <?php endif?>
@@ -74,8 +74,8 @@
     <div class="form">
       <h2>Redes Sociales</h2>
       <?php if (@count(getSiteNetworks()) < 4) : ?>
-        <div action="" method="POST" class="add-form">
-          <select id="add_network" name="add_network" class="add-network" required>
+        <div action="" method="POST" class="div-input-button">
+          <select id="add_network_select" name="add_network_select" class="add-network-select" required>
             <option value="" disabled>--Eliga otra red para agregar--</option>
             <?php if (@getGlobal('uri_networks')->instagram === null) : ?>
               <option value="instagram">Instagram</option>
@@ -90,7 +90,7 @@
               <option value="youtube">Youtube</option>
             <?php endif ?>
           </select>
-          <div class="add-network-container"><a class="add-network-button button" data-action="<?php bind(ACTION_EDIT_SITE_NETWORKS)?>" data-type="add">Agregar</a></div>
+          <div class="add-network-container button-container"><a class="add-network-button button-input" data-action="<?php bind(ACTION_EDIT_SITE_NETWORKS)?>" data-type="add-network">Agregar</a></div>
         </div>
       <?php endif ?>
       <?php for ($i = 0; $i < @count(getSiteNetworks()); $i++) : ?>
@@ -102,7 +102,7 @@
                 <input name="network_<?php bind(getGlobal('networks_object')[$iter]->name)?>" id="network_<?php bind(getGlobal('networks_object')[$iter]->name)?>" type="text" value="<?php bind(getGlobal('networks_object')[$iter]->uri) ?>" disabled>
                 <div class="actions">
                   <a href="/admin/config/?sid=redes&nid=<?php bind(getGlobal('networks_object')[$iter]->name)?>"><i class="fas fa-edit"></i></a>
-                  <a class="remove-button remove-network-button" data-action="<?php bind(ACTION_EDIT_SITE_NETWORKS)?>" data-type="remove" data-network="<?php bind(getGlobal('networks_object')[$iter]->name)?>"><i class="fas fa-trash-alt"></i></a>
+                  <a class="remove-button remove-network-button" data-action="<?php bind(ACTION_EDIT_SITE_NETWORKS)?>" data-type="remove-network" data-network="<?php bind(getGlobal('networks_object')[$iter]->name)?>"><i class="fas fa-trash-alt"></i></a>
                 </div>
               </div>
               <div class="example-text-container">
@@ -140,8 +140,15 @@
       <div class="form-group">
         <label for="admin-role">Role:</label>
         <select id="admin-role" name="admin-role" class="admin-role" value="superadmin" required>
-          <option value="admin">Admin</option>
-          <option value="superadmin">SuperAdmin</option>
+          <?php if (getGlobal('second_query_param') !== null) : ?>
+            <option value="admin" <?php bind((getAdmin(getGlobal('second_query_param'))->role === "admin") ? 'selected' : '')?>>Admin</option>
+            <option value="seller" <?php bind((getAdmin(getGlobal('second_query_param'))->role === "seller") ? 'selected' : '')?>>Vendedor</option>
+            <option value="marketer" <?php bind((getAdmin(getGlobal('second_query_param'))->role === "marketer") ? 'selected' : '')?>>Marketer</option>
+          <?php else : ?>
+            <option value="admin">Admin</option>
+            <option value="seller">Vendedor</option>
+            <option value="marketer">Marketer</option>
+          <?php endif ?>
         </select>
       </div>
       <div class="button-container"><a class="add-admin-button button" data-action="<?php bind(ACTION_EDIT_SITE)?>" data-type="<?php bind((getGlobal('second_query_param') !== null) ? 'edit-admin' : 'add-admin')?>" data-input="admin-id" data-role="admin-role">Confirmar</a></div>
@@ -161,13 +168,17 @@
         </div>
         <?php for($i = 0; $i < @count(getAdmins()); $i++) : ?>
           <div class="admin-row <?php bind(($i % 2 === 0) ? 'background' : '')?>">
-            <div class="admin-id"><?php bind(getAdmins()[$i]->id)?></div>
+            <div class="admin-id"><?php bind(getAdmins()[$i]->user_id)?></div>
             <div class="admin-name"><?php bind(getAdmins()[$i]->name)?></div>
             <div class="admin-email"><?php bind(getAdmins()[$i]->email)?></div>
-            <div class="admin-role"><?php bind(getRoleById(getAdmins()[$i]->id)->role)?></div>
+            <?php if (getAdmins()[$i]->role === "seller") : ?>
+              <div class="admin-role">Vendedor</div>
+            <?php else : ?>
+              <div class="admin-role"><?php bind(ucfirst(getAdmins()[$i]->role))?></div>
+            <?php endif ?>
             <div class="actions list-admin-buttons">
-              <a href="/admin/config/?sid=admins&action=edit&id=<?php bind(getAdmins()[$i]->id)?>"><i class="fas fa-edit"></i> Editar</a>
-              <a class="remove-button remove-admin-button" data-action="<?php bind(ACTION_EDIT_SITE)?>" data-type="remove-admin" data-input="<?php bind(getAdmins()[$i]->id)?>"><i class="fas fa-trash-alt"></i> Eliminar</a>
+              <a href="/admin/config/?sid=admins&action=edit&id=<?php bind(getAdmins()[$i]->user_id)?>"><i class="fas fa-edit"></i> Editar</a>
+              <a class="remove-button remove-admin-button" data-action="<?php bind(ACTION_EDIT_SITE)?>" data-type="remove-admin" data-input="<?php bind(getAdmins()[$i]->user_id)?>"><i class="fas fa-trash-alt"></i> Eliminar</a>
             </div>
           </div>
         <?php endfor ?>

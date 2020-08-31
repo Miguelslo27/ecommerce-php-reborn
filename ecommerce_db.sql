@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-08-2020 a las 21:26:50
+-- Tiempo de generación: 31-08-2020 a las 14:56:29
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -154,8 +154,7 @@ INSERT INTO `in_order_articles` (`id`, `order_id`, `article_id`, `current_price`
 (188, 65, 5, 194, 1, 194, '2020-07-22 22:36:50', '0000-00-00 00:00:00'),
 (193, 66, 2, 37, 1, 37, '2020-07-27 18:26:05', '0000-00-00 00:00:00'),
 (194, 67, 2, 37, 1, 37, '2020-08-11 16:15:12', '0000-00-00 00:00:00'),
-(195, 68, 2, 37, 1, 37, '2020-08-19 16:10:21', '0000-00-00 00:00:00'),
-(196, 69, 2, 37, 1, 37, '2020-08-24 17:11:45', '0000-00-00 00:00:00');
+(195, 68, 2, 37, 1, 37, '2020-08-19 16:10:21', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -207,7 +206,7 @@ INSERT INTO `orders` (`id`, `user_id`, `date`, `subtotal`, `taxes`, `discount`, 
 (66, '3', '2020-07-27 10:31:13', 0, 0, 0, 37, 'Federico', '51780924', 'Heraclio Fajardo 3435', 'Montevideo', 'Cerrito', '31000', 2, 'Heraclio Fajardo 3435', 'Montevideo', 'Cerrito', '31000', 'tr', 'asd', '', 0, 4, '2020-07-27 13:31:13', '0000-00-00 00:00:00'),
 (67, '3', '2020-08-11 13:15:12', 0, 0, 0, 37, '', '', '', '', '', '', 0, '', '', '', '', '', '', '', 0, 4, '2020-08-11 16:15:12', '0000-00-00 00:00:00'),
 (68, '3', '2020-08-19 13:10:21', 0, 0, 0, 37, '', '', '', '', '', '', 0, '', '', '', '', '', '', '', 0, 4, '2020-08-19 16:10:21', '0000-00-00 00:00:00'),
-(69, '3', '2020-08-24 14:11:45', 0, 0, 0, 37, '', '', '', '', '', '', 0, '', '', '', '', '', '', '', 0, 4, '2020-08-24 17:11:45', '0000-00-00 00:00:00');
+(69, '3', '2020-08-24 14:11:45', 0, 0, 0, 0, '', '', '', '', '', '', 0, '', '', '', '', '', '', '', 0, 4, '2020-08-24 17:11:45', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -224,9 +223,7 @@ CREATE TABLE `site` (
   `address` varchar(100) CHARACTER SET utf8 NOT NULL,
   `phone` varchar(100) CHARACTER SET utf8 NOT NULL,
   `contact_email` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `contact_phone` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `site_network` int(11) NOT NULL,
-  `site_admins` int(11) NOT NULL
+  `contact_phone` varchar(100) CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -238,7 +235,8 @@ CREATE TABLE `site` (
 CREATE TABLE `site_admins` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `role` varchar(100) CHARACTER SET utf8 NOT NULL
+  `role` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `site_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -253,7 +251,6 @@ CREATE TABLE `site_networks` (
   `uri` varchar(100) CHARACTER SET utf8 NOT NULL,
   `site_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 
 -- --------------------------------------------------------
 
@@ -298,11 +295,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `lastname`, `document`, `email`, `password`, `verification_code`, `address`, `phone`, `cellphone`, `state`, `city`, `isadmin`, `status`, `_created_at_`, `_updated_at_`) VALUES
-(1, 'Miguel', 'Sosa', '34900078', 'miguelmail2006@gmail.com', 'b6b2c10d1acdfcc71eb332c3a6c7f036', 'ae01ca4477d78b54248bbb2c24c6472a', '39 y J', '', '091 066 416', 'Canelones', 'Parque del Plata', 1, 1, '2020-03-10 22:56:46', '2020-03-11 18:39:48'),
-(2, 'Demo', 'Demo', '000', 'demo@demo.com', '123456', '53444f91e698c0c7caa2dbc3bdbf93fc', '', '', '111', '', '', 0, 1, '2020-03-11 21:17:05', '2020-03-15 17:38:37'),
-(3, 'Federico', 'SOSa', '123', 'fdsosa.35@gmail.com', 'd7415f76853dd5bac451f4a2e05f3af4', '5fa3efef8e662269245e95fe1886d0f2', 'Follas Novas 4542', '123', '123', 'Montevideo', 'Sayago', 0, 1, '2020-05-01 20:26:55', '0000-00-00 00:00:00'),
-(4, 'asd', 'asd', '123', 'fdsosa.351@gmail.com', '64ce5c835187c9a86372b883e7019fbc', '07104beaa3fff4e00d3cf44f9c2060f3', '', '123', '123', '', '', 0, 1, '2020-05-02 00:34:15', '0000-00-00 00:00:00'),
-(5, 'Federico', 'asd', '123', 'federicososa999@gmail.com', 'fb3f3d1369c52d3c2cbb949120bf1bba', '260ffc5e6fce4769d27b9b8c44975d21', '123', '123', '123', 'sd', 'asd', 0, 1, '2020-06-16 20:41:07', '0000-00-00 00:00:00');
+(1, 'Miguel', 'Sosa', '34900078', 'miguelmail2006@gmail.com', 'b6b2c10d1acdfcc71eb332c3a6c7f036', 'ae01ca4477d78b54248bbb2c24c6472a', '39 y J', '', '091 066 416', 'Canelones', 'Parque del Plata', 0, 1, '2020-03-10 22:56:46', '2020-03-11 18:39:48'),
+(2, 'Demo', 'Demo', '000', 'demo@demo.com', '123456', '53444f91e698c0c7caa2dbc3bdbf93fc', '', '', '111', '', '', 1, 1, '2020-03-11 21:17:05', '2020-03-15 17:38:37'),
+(3, 'Federico', 'SOSa', '123', 'fdsosa.35@gmail.com', 'd7415f76853dd5bac451f4a2e05f3af4', '5fa3efef8e662269245e95fe1886d0f2', 'Follas Novas 4542', '123', '123', 'Montevideo', 'Sayago', 1, 1, '2020-05-01 20:26:55', '0000-00-00 00:00:00'),
+(4, 'asd', 'asd', '123', 'fdsosa.351@gmail.com', '64ce5c835187c9a86372b883e7019fbc', '07104beaa3fff4e00d3cf44f9c2060f3', '', '123', '123', '', '', 1, 1, '2020-05-02 00:34:15', '0000-00-00 00:00:00'),
+(5, 'Federico', 'asd', '123', 'federicososa999@gmail.com', 'fb3f3d1369c52d3c2cbb949120bf1bba', '260ffc5e6fce4769d27b9b8c44975d21', '123', '123', '123', 'sd', 'asd', 1, 1, '2020-06-16 20:41:07', '0000-00-00 00:00:00');
 
 --
 -- Índices para tablas volcadas
@@ -407,19 +404,19 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT de la tabla `site`
 --
 ALTER TABLE `site`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT de la tabla `site_admins`
 --
 ALTER TABLE `site_admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `site_networks`
 --
 ALTER TABLE `site_networks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=148;
 
 --
 -- AUTO_INCREMENT de la tabla `subscriptions`

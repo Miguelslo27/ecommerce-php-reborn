@@ -40,25 +40,34 @@ const n_instagram         = document.getElementById('network_instagram');
 const n_twitter           = document.getElementById('network_twitter');
 const n_youtube           = document.getElementById('network_youtube');
 const addNetworkButton    = document.querySelector('.add-network-button');
-const editNetworkButton    = document.querySelector('.edit-network-button');
+const editNetworkButton   = document.querySelector('.edit-network-button');
 const deleteNetworkButton = document.querySelectorAll('.remove-network-button');
+const addSelectInput      = document.querySelector('.add-network-select');
 const form                = document.querySelector('.form');
-const addSelectInput      = document.querySelector('.add-network');
-const TIMETORELOAD      = 600;
+const TIMETORELOAD        = 600;
+
 
 const handleUpdateResponse = (res, type) => {
   console.log(res);
-  if (res.succeeded) {
-    if (type === 'edit') {
+  if (res.succeeded)
+  {
+    if (type == 'edit-network')
+    {
       var url = (window.location.origin + window.location.pathname + '?sid=redes');
       setTimeout(() => window.location.assign(url), 600);
-    } else if (type == 'add-admin' || type == 'edit-admin') {
+    } 
+    else if (type == 'add-admin' || type == 'edit-admin')
+    {
       var url = (window.location.origin + window.location.pathname + '?sid=admins');
       setTimeout(() => window.location.assign(url), 600);
-    } else {
+    }
+    else
+    {
       setTimeout(() => window.location.reload(), 600);
     }
-  } else {
+  }
+  else
+  {
     handleUpdateError(res.errors.join('\n'));
   }
 }
@@ -72,13 +81,13 @@ const handleNetwork = function (ev) {
 
   form.classList.add('blur');
   var inputValue = null;
-  if (this.dataset.type === "add") {
+  if (this.dataset.type === "add-network") {
     var tag = addSelectInput.value;
   } else {
     var tag = this.dataset.network;
   }
 
-  if (this.dataset.type === "edit") {
+  if (this.dataset.type === "edit-network") {
     var inputValue = document.getElementById(this.dataset.input).value;
   }
 

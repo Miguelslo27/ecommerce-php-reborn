@@ -3,9 +3,6 @@
 function loadSite()
 {
   logToConsole('', 'SITE');
-  logToConsole('', getAdmins());  
-  logToConsole('', getRoleById(2));
-  
   //CREATE SITE IF IT WASN´T
   $site_id = getIdSite();
   if ($site_id === null) {
@@ -13,41 +10,36 @@ function loadSite()
   }
 
   $site = getSite();
-  if (!empty($site)) {
-    setGlobal('site', $site);
-    //NETWORKS
-    $networks      = getSiteNetworks();
-    $site_networks = new stdClass();
-    $site_networks->facebook = null;
-    $site_networks->twitter = null;
-    $site_networks->instagram = null;
-    $site_networks->youtube = null;
+  
+  setGlobal('site', $site);
+  //NETWORKS
+  $networks      = getSiteNetworks();
+  $site_networks = new stdClass();
+  $site_networks->facebook = null;
+  $site_networks->twitter = null;
+  $site_networks->instagram = null;
+  $site_networks->youtube = null;
 
-    for ($i = 0; $i < @count($networks); $i++) {
-      switch ($networks[$i]->tag) {
-        case 'facebook':
-          $site_networks->facebook  = $networks[$i]->uri;
-          break;
-        case 'twitter':
-          $site_networks->twitter   = $networks[$i]->uri;
-          break;
-        case 'instagram':
-          $site_networks->instagram = $networks[$i]->uri;
-          break;
-        case 'youtube':
-          $site_networks->youtube   = $networks[$i]->uri;
-          break;
-        default:
-          logToConsole('', 'default'); 
-      }
+  for ($i = 0; $i < @count($networks); $i++) {
+    switch ($networks[$i]->tag) {
+      case 'facebook':
+        $site_networks->facebook  = $networks[$i]->uri;
+        break;
+      case 'twitter':
+        $site_networks->twitter   = $networks[$i]->uri;
+        break;
+      case 'instagram':
+        $site_networks->instagram = $networks[$i]->uri;
+        break;
+      case 'youtube':
+        $site_networks->youtube   = $networks[$i]->uri;
+        break;
+      default:
+        logToConsole('', 'default'); 
     }
-    setGlobal('uri_networks', $site_networks);
-  } else {
-    setGlobal('site', null);
-    setGlobal('uri_networks', null);
   }
-  logToConsole('', getGlobal('site'));
-  logToConsole('', getGlobal('networks'));
+  setGlobal('uri_networks', $site_networks);
+
 }
 
 function getIdSite() {
@@ -277,7 +269,7 @@ function siteEdition_checkIncomingData()
 }
 
 //SITE NETWORKS FUNCTION
-function siteNetworksEdition($type = "add") 
+function siteNetworksEdition($type) 
 {
   $status      = newStatusObject();
   $site_id     = getIdSite();
@@ -287,7 +279,7 @@ function siteNetworksEdition($type = "add")
   $uri         = getRequestData('input');
 
   //ADD NEW NETWORK
-  if ($type === "add") {
+  if ($type === "add-network") {
     $sql = (
       "INSERT
         INTO `site_networks` (
@@ -309,7 +301,7 @@ function siteNetworksEdition($type = "add")
     $status->success = 'Red añadida con éxito';
 
   //DELETE NETWORK 
-  } else if ($type === 'remove') {
+  } else if ($type === 'remove-network') {
     $sql = (
       "DELETE
         FROM 
@@ -325,7 +317,15 @@ function siteNetworksEdition($type = "add")
     $status->success = 'Red eliminada con éxito';
     
   //EDIT NETWORK
-  } else if ($type === 'edit') {
+  } else if ($type === 'edit-network') {
+    //CHECK URI
+    if (!empty($uri)) {
+      if (!preg_match(REG_EXP_URI_FORMAT, $uri)) {
+        $status->succeeded    = false;
+        $status->errors[]     = 'El formato es incorrecto';
+        return $status;
+      }
+    }
     $sql = (
       "UPDATE
         `site_networks`
@@ -349,39 +349,52 @@ function siteNetworksEdition($type = "add")
 }
 
 function getAdmins() {
+  $site_id = getIdSite();
   $sql = (
     "SELECT
-      `id`,
-      `name`,
-      `lastname`,
-      `email`
+      *
       FROM 
         `users`
+      JOIN
+        `site_admins`
       WHERE
-        `isadmin` = 1
+        users.id = site_admins.user_id
       AND
-        `status` = 1"
+        site_admins.site_id = $site_id"
   );
- 
+
   return getDB()->getObjects($sql);
 }
 
-function getRoleById($id) {
+function getAdmin($id) {
+  $site_id = getIdSite();
   $sql = (
     "SELECT
-      `role`
-      FROM `site_admins`
-      WHERE `user_id` = $id"
+      *
+      FROM 
+        `users`
+      JOIN
+        `site_admins`
+      WHERE
+        users.id = site_admins.user_id
+      AND
+        site_admins.site_id = $site_id
+      AND
+        site_admins.user_id = $id"
   );
-
-  $role = getDB()->getObjects($sql);
-  return @$role[0];
+  $admin = getDB()->getObjects($sql);
+  if ($admin !== null) {
+    return $admin[0];
+  } else {
+    return $admin;
+  }
 }
 
 function siteAdminsEdition($type = "add-admin") {
-  $status      = newStatusObject();
-  $id  = getRequestData('id');
-  $role  = getRequestData('role');
+  $status  = newStatusObject();
+  $site_id = getIdSite();
+  $id      = getRequestData('id');
+  $role    = getRequestData('role');
   
   //ADD ADMIN
   if ($type === "add-admin") {
@@ -434,11 +447,13 @@ function siteAdminsEdition($type = "add-admin") {
       "INSERT
         INTO `site_admins` (
           `user_id`,
-          `role`
+          `role`,
+          `site_id`
         )
         VALUES (
           $id,
-          '$role'
+          '$role',
+          $site_id
         )"
     );
     if(!getDB()->insert($sql)) {
@@ -475,7 +490,9 @@ function siteAdminsEdition($type = "add-admin") {
         FROM 
           `site_admins` 
         WHERE 
-          `user_id` = $id"
+          `user_id` = $id
+        AND 
+          `site_id` = $site_id"
       );
     if(!getDB()->query($sql)) {
       $status->succeeded = false;
@@ -493,9 +510,11 @@ function siteAdminsEdition($type = "add-admin") {
       "UPDATE
         `site_admins`
       SET
-        `role` = '$role'
+        `role`    = '$role'
       WHERE
-        `user_id` = $id  
+        `user_id` = $id
+      AND
+        `site_id` = $site_id
       "
     );
 

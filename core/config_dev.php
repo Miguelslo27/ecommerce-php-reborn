@@ -52,6 +52,7 @@ define('REG_EXP_STRING_FORMAT', '/^[\w \.\,\/]*$/');
 define('REG_EXP_NAME_FORMAT', '/^[\[a-zA-Z \.]*$/');
 define('REG_EXP_STRING_NUMBER_FORMAT', '/^[\d]+[\d \-]*[\d]+$/');
 define('REG_EXP_NUMBER_FORMAT', '/^[\d]+$/');
+define('REG_EXP_URI_FORMAT', '/^[-a-zA-Z0-9@:%_\+.~.\#?&\/=]*$/');
 
 /* DEFAULT REQUIRED TEMPLATES PATHS */
 define('ERROR_404_TEMPLATE', 'pages/404');

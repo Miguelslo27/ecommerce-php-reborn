@@ -168,17 +168,16 @@ input[type=number] {
 }
 
 /* ADD NETWORK BUTTON */
-.form-container .form .add-form,
-.form-container .form .edit-form {
+.form-container .form .div-input-button {
   display: flex;
   flex-direction: row;
-  align-items: baseline;
+  align-items: flex-end;
   margin-bottom: 2rem;
   height: 2.5rem;
   width: 100%;
 } 
 
-.form-container .form .add-form .add-network-container {
+.form-container .form .div-input-button .button-container {
   width: 20%;
   background-color: #28a745;
   color: #fff;
@@ -190,19 +189,20 @@ input[type=number] {
   box-sizing: border-box;
 }
 
-.form-container .form .add-form .add-network-container .add-network-button {
+.form-container .form .div-input-button .button-container .button-input {
   cursor: pointer;
   width: 100%;
   text-align: center;
   background-color: #28a745
 } 
 
-.form-container .form .add-form select,
-.form-container .form .edit-form input {
+.form-container .form .div-input-button select,
+.form-container .form .div-input-button input {
   padding: .2rem .4rem;
   height: 2.5rem;
   width: 80%;
   height: 100%;
+  border-radius: 5px 0 0 5px;
 }
 
 .form-container .form .arrow-container {
