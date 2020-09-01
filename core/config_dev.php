@@ -4,7 +4,7 @@ define('DEBUG', false);
 
 /* TEMPLATE */
 define('TEMPLATE_PATH', '/template_dev/');
-define('ADMIN_TEMPLATE_PATH', '/admin/templates/dashboard/');
+define('ADMIN_TEMPLATE_PATH', '/admin/templates/');
 define('TEMPLATE_ROUTE', $_SERVER['DOCUMENT_ROOT'] . TEMPLATE_PATH);
 define('ADMIN_TEMPLATE_ROUTE', $_SERVER['DOCUMENT_ROOT'] . ADMIN_TEMPLATE_PATH);
 define('CORE_LOCATION', $_SERVER['DOCUMENT_ROOT'] . '/core/');
@@ -38,6 +38,8 @@ define('ACTION_ADD_TO_CART', 'add_to_cart');
 define('ACTION_SEND_EMAIL', 'send_email');
 define('ACTION_OBTAIN_PASSWORD', 'obtain_password');
 define('ACTION_CHANGE_PASSWORD', 'change_password');
+define('ACTION_EDIT_SITE', 'site_edition');
+define('ACTION_EDIT_SITE_NETWORKS', 'site_networks_edition');
 
 /* CONSTANTS FOR PAYMENT */
 define('ACTION_UPDATE_CART_BILLING_INFO', 'update_cart_billing_info');
@@ -50,6 +52,7 @@ define('REG_EXP_STRING_FORMAT', '/^[\w \.\,\/]*$/');
 define('REG_EXP_NAME_FORMAT', '/^[\[a-zA-Z \.]*$/');
 define('REG_EXP_STRING_NUMBER_FORMAT', '/^[\d]+[\d \-]*[\d]+$/');
 define('REG_EXP_NUMBER_FORMAT', '/^[\d]+$/');
+define('REG_EXP_URI_FORMAT', '/^[-a-zA-Z0-9@:%_\+.~.\#?&\/=]*$/');
 
 /* DEFAULT REQUIRED TEMPLATES PATHS */
 define('ERROR_404_TEMPLATE', 'pages/404');
@@ -69,4 +72,7 @@ define('ORDER_TEMPLATE', 'pages/order');
 define('BILLING_FORM_TEMPLATE', 'pages/billing');
 define('PAYMENT_TEMPLATE', 'pages/payment');
 define('SHIPPING_TEMPLATE', 'pages/shipping');
-define('ADMIN_TEMPLATE', 'pages/admin');
+
+
+define('ADMIN_TEMPLATE', 'pages/dashboard');
+define('ADMIN_TEMPLATE_CONFIG', 'pages/configuration');

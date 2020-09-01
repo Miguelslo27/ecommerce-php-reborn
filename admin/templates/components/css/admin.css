@@ -5,13 +5,72 @@ body {
   font-family: "Open Sans", "Arial", sans-serif;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: "Open Sans", "Arial", sans-serif;
   font-weight: 300;
 }
 
+.blur {
+  filter: blur(2px);
+}
+
 .disabled {
   display: none !important;
+}
+
+.floating-messages {
+  position: fixed;
+  z-index: 11;
+  right: 1rem;
+  bottom: 0;
+}
+
+.floating-messages .message {
+  position: relative;
+  width: 300px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: .5rem;
+  color: #FFF;
+  text-align: center;
+  animation:
+    showMessage .5s ease,
+    hideMessage .5s ease 8s forwards;
+}
+
+.floating-messages .message.succeed {
+  background-color: rgba(63,191,63,.85);
+}
+
+.floating-messages .message.warning {
+  background-color: rgba(255,165,0,.85);
+}
+
+.floating-messages .message.error {
+  background-color: rgba(255,0,0,.85);
+}
+
+@keyframes showMessage {
+  from {
+    right: -120%;
+  }
+  to {
+    right: 0;
+  }
+}
+
+@keyframes hideMessage {
+  from {
+    right: 0;
+  }
+  to {
+    right: -120%;
+  }
 }
 
 .admin-nav {
@@ -49,6 +108,8 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 6px 0px 8px #00000029;
   opacity: 1;
   transition: all ease .3s;
+  -webkit-user-select: none;
+  -moz-user-select: none;
 }
 
 .admin-nav .nav-items .item-box .close-container {
@@ -162,6 +223,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .admin-nav .nav-items .user-link .arrow-right {
   margin-top: -3rem;
+}
+
+.admin-nav .nav-items .link {
+  cursor: pointer;
 }
 
 .admin-nav .notifications {

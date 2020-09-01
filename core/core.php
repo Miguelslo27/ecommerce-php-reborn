@@ -13,6 +13,7 @@ function init()
   logToConsole('', 'APP Version: ' . APP_VERSION);
   logToConsole('', 'API Version: ' . API_VERSION);
 
+  loadSite();
   loadCart();
 
   processRequests();
@@ -66,6 +67,14 @@ function processRequests()
 
   if (getRequestData('action') == ACTION_UPDATE_CART_SHIPPING_INFO) {
     setSession('request_messages', saveOrderShippingInfo());
+  }
+  
+  if (getRequestData('action') === ACTION_EDIT_SITE) {
+    setSession('request_messages', siteEdition());
+  }
+
+  if (getRequestData('action') === ACTION_EDIT_SITE_NETWORKS) {
+    setSession('request_messages', siteNetworksEdition());
   }
   
   if (getPostData('action') === ACTION_SAVE_CATEGORY) {
