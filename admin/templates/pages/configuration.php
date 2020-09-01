@@ -102,8 +102,6 @@ newDocument([
     setGlobal('query_param', $query_param);
     setGlobal('networks_object', $networks_object);
     setGlobal('second_query_param', $second_query_param);
-
-    logToConsole('', $query_param);
   }
 ]);
 

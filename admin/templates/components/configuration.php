@@ -169,7 +169,7 @@
         <?php for($i = 0; $i < @count(getAdmins()); $i++) : ?>
           <div class="admin-row <?php bind(($i % 2 === 0) ? 'background' : '')?>">
             <div class="admin-id"><?php bind(getAdmins()[$i]->user_id)?></div>
-            <div class="admin-name"><?php bind(getAdmins()[$i]->name)?></div>
+            <div class="admin-name"><?php bind(getAdmins()[$i]->name . ' ' . getAdmins()[$i]->lastname)?></div>
             <div class="admin-email"><?php bind(getAdmins()[$i]->email)?></div>
             <?php if (getAdmins()[$i]->role === "seller") : ?>
               <div class="admin-role">Vendedor</div>

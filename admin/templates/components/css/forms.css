@@ -41,7 +41,7 @@ input[type=number] {
 }
 
 .form-container .big-form {
-  width: 90%;
+  width: 95%;
 }
 
 .form-container .form .form-group {
@@ -241,10 +241,10 @@ input[type=number] {
 .form-container .form .admin-row .admin-email,
 .form-container .form .admin-row .admin-role {
   display: flex;
-  width: 40%;
+  width: 35%;
   justify-content: center;
   padding: .5rem 0;
-  font-size: .9rem;
+  font-size: .8rem;
 }
 
 .form-container .form .admin-row .admin-role  {
@@ -252,7 +252,7 @@ input[type=number] {
 }
 
 .form-container .form .admin-row .admin-name {
-  width: 23%;
+  width: 28%;
 }
 
 .form-container .form .admin-row .admin-id {

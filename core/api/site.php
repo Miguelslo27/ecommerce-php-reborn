@@ -2,17 +2,20 @@
 
 function loadSite()
 {
-  logToConsole('', 'SITE');
-  //CREATE SITE IF IT WASN´T
-  $site_id = getIdSite();
-  if ($site_id === null) {
-    initSite();
-  }
+  logToConsole('', getSite());
+  logToConsole('', getAdmins());
 
-  $site = getSite();
-  
+  //CREATE BASIC SITE IF IT WASN´T
+  $site_id = getIdSite();
+  $user_id = getUserId();
+  $site    = null;
+  if ($site_id === null && $user_id !== null) {
+    initSite();
+    $site = getSite(); 
+  }
   setGlobal('site', $site);
-  //NETWORKS
+
+  //SET NETWORKS
   $networks      = getSiteNetworks();
   $site_networks = new stdClass();
   $site_networks->facebook = null;
@@ -39,10 +42,27 @@ function loadSite()
     }
   }
   setGlobal('uri_networks', $site_networks);
-
 }
 
-function getIdSite() {
+//SITE FUNCTIONS
+function initSite() 
+{
+  $user_id   = getUserId();
+  $sqlInsert = (
+    "INSERT
+      INTO `site` (
+        `user_admin`
+      )
+      VALUES (
+        $user_id
+      )"
+  );
+  
+  getDB()->insert($sqlInsert);
+}
+
+function getIdSite()
+{
   $admin_id = getUserId();
   $sql = (
     "SELECT
@@ -50,20 +70,21 @@ function getIdSite() {
     FROM `site`
     WHERE `user_admin` = $admin_id"
   );
-
   $result = getDB()->getObjects($sql);
-  if ($result !== null) {
-    $result = $result[0]->id;
-  } 
 
+  if ($result !== null) {
+    $result = end($result)->id;
+  } 
   return $result;
 }
 
 
-function getSite() {
+function getSite()
+{
   $site_id = getIdSite();
   $sql = (
     "SELECT
+      `version_history`,
       `name`,
       `description`,
       `phone`,
@@ -81,71 +102,6 @@ function getSite() {
   return $result;
 }
 
-function getIdSiteNetworks() {
-  $site_id = getIdSite();
-  $sql = (
-    "SELECT
-      `id`
-    FROM `site_networks`
-    WHERE `site_id` = $site_id"
-  );
-
-  $result = getDB()->getObjects($sql);
-  if ($result !== null) {
-    $result = $result[0]->id;
-  } 
-
-  return $result;
-}
-
-function getSiteNetworks()
-{
-  $site_id = getIdSite();
-  $sql = (
-    "SELECT
-      `tag`,
-      `uri`
-    FROM `site_networks`
-    WHERE `site_id` = $site_id"
-  );  
-
-  return getDB()->getObjects($sql);
-}
-
-function allSiteNetworksDisplayed()
-{
-  $networks = getSiteNetworks();
-  if ($networks === null) {
-    $displayed = false;
-  } else {
-    if (count($networks) === 4) {
-      $displayed = true;
-    } else {
-      $displayed = false;
-    }
-  }
-  
-  return $displayed;
-}
-
-function initSite() 
-{
-  $user_id   = getUserId();
-  $sqlInsert = (
-    "INSERT
-      INTO `site` (
-        `user_admin`,
-        `name`
-      )
-      VALUES (
-        $user_id,
-        'DEMO'
-      )"
-  );
-  
-  getDB()->insert($sqlInsert);
-}
-
 function siteEdition()
 {
   $status = siteEdition_checkIncomingData();
@@ -154,58 +110,39 @@ function siteEdition()
   };
 
   $site_id = getIdSite();
-  $site = getSite();
-  if (!empty($site_id)) {
-    $sql = (
-      'UPDATE
-        `site`
-        SET 
-          `name`          = "' . oneOf(getPostData('site_name'), $site->name) . '",
-          `description`   = "' . oneOf(getPostData('site_dscp'), $site->description) . '",
-          `phone`         = "' . oneOf(getPostData('site_phone'), $site->phone) . '",
-          `address`       = "' . oneOf(getPostData('site_address'), $site->address) . '",
-          `contact_email` = "' . oneOf(getPostData('site_c_email'), $site->contact_email) . '",
-          `contact_phone` = "' . oneOf(getPostData('site_c_phone'), $site->contact_phone) . '"
-        WHERE
-          `id` = "' . $site_id . '"'
-      );
-    if(!getDB()->query($sql)) {
-      setSession('message', 'error al editar sitio');
-      $status->succeeded = false;
-      $status->errors[]  = 'Error al guardar los datos, vuelve a intentar';
-      return $status;
-    }     
-  } else {
-    $sqlInsert = (
-    'INSERT
-        INTO `site` (
-          `user_admin`,
-          `name`,
-          `description`,
-          `phone`,
-          `address`,
-          `contact_email`,
-          `contact_phone`
-        )
-        VALUES (
-          "' . getUserId() . '",
-          "' . oneOf(getPostData('site_name'), 'DEMO') . '",
-          "' . oneOf(getPostData('site_dscp'), '') . '",
-          "' . oneOf(getPostData('site_phone'), '') . '",
-          "' . oneOf(getPostData('site_address'), '') . '",
-          "' . oneOf(getPostData('site_c_email'), '') . '",
-          "' . oneOf(getPostData('site_c_phone'), '') . '"
-        )'
-    );
-    if(!getDB()->insert($sqlInsert)) {
-      setSession('message', 'error al crear sitio');
-      $status->succeeded = false;
-      $status->errors[]  = 'Error al guardar los datos, vuelve a intentar';
-      return $status;
-    } 
-  }
+  $site    = getSite();
 
-  $status->success = 'Información guardada con éxito';
+  $sqlInsert = (
+  'INSERT
+      INTO `site` (
+        `user_admin`,
+        `version_history`,
+        `name`,
+        `description`,
+        `phone`,
+        `address`,
+        `contact_email`,
+        `contact_phone`
+      )
+      VALUES (
+        "' . getUserId() . '",
+        "' . ($site->version_history + 1) . '",
+        "' . oneOf(getPostData('site_name'), $site->name) . '",
+        "' . oneOf(getPostData('site_dscp'), $site->description) . '",
+        "' . oneOf(getPostData('site_phone'), $site->phone) . '",
+        "' . oneOf(getPostData('site_address'), $site->address) . '",
+        "' . oneOf(getPostData('site_c_email'), $site->contact_email) . '",
+        "' . oneOf(getPostData('site_c_phone'), $site->contact_phone) . '"
+      )'
+  );
+  if(!getDB()->insert($sqlInsert)) {
+    $status->succeeded = false;
+    $status->errors[]  = 'Error al guardar los datos del sitio, vuelve a intentar';
+    return $status;
+  } 
+
+  updateNetworksAdminId($site_id);
+  $status->success = 'Información del sitio guardada con éxito';
   return $status;
 }
 
@@ -268,15 +205,76 @@ function siteEdition_checkIncomingData()
   return $status;
 }
 
-//SITE NETWORKS FUNCTION
+function updateNetworksAdminId($site_id)
+{
+  $current_id = getIdSite();
+  $status    = newStatusObject();
+
+  $sqlAdmin = (
+    "UPDATE
+        `site_admins`
+      SET 
+        `site_id` = $current_id
+      WHERE
+        `site_id` = $site_id"
+  );
+  if(!getDB()->query($sqlAdmin)) {
+    $status->errors[]  = 'Error al actualizar admin, vuelve a intentar';
+    return $status;
+  }
+
+  $sqlNetwork = (
+    "UPDATE
+        `site_networks`
+      SET 
+        `site_id` = $current_id
+      WHERE
+        `site_id` = $site_id"
+  );
+  if(!getDB()->query($sqlNetwork)) {
+    $status->errors[]  = 'Error al actualizar redes, vuelve a intentar';
+    return $status;
+  }
+}
+
+//NETWORKS FUNCTIONS
+function getSiteNetworks()
+{
+  $site_id = getIdSite();
+  $sql = (
+    "SELECT
+      `tag`,
+      `uri`
+    FROM `site_networks`
+    WHERE `site_id` = $site_id"
+  );  
+
+  return getDB()->getObjects($sql);
+}
+
+function allSiteNetworksDisplayed()
+{
+  $networks = getSiteNetworks();
+  if ($networks === null) {
+    $displayed = false;
+  } else {
+    if (count($networks) === 4) {
+      $displayed = true;
+    } else {
+      $displayed = false;
+    }
+  }
+  
+  return $displayed;
+}
+
 function siteNetworksEdition($type) 
 {
-  $status      = newStatusObject();
-  $site_id     = getIdSite();
-  $networks_id = getIdSiteNetworks();
-  $networks    = @getGlobal('uri_networks');
-  $tag         = getRequestData('tag');
-  $uri         = getRequestData('input');
+  $status    = newStatusObject();
+  $site_id   = getIdSite();
+  $networks  = @getGlobal('uri_networks');
+  $tag       = getRequestData('tag');
+  $uri       = getRequestData('input');
 
   //ADD NEW NETWORK
   if ($type === "add-network") {
@@ -294,7 +292,6 @@ function siteNetworksEdition($type)
         )"
       );
     if(!getDB()->insert($sql)) {
-      $status->succeeded = false;
       $status->errors[]  = "La red no se pudo añadir, intente de nuevo";
       return $status;
     }
@@ -310,9 +307,10 @@ function siteNetworksEdition($type)
           `site_id` = $site_id
         AND
           `tag`     =  '$tag'"
-      );
+    );
     if(!getDB()->query($sql)) {
-      $status->errors[]  = 'La red no se puedo eliminar, intente de nuevo';
+      $status->errors[] = 'La red no se puedo eliminar, intente de nuevo';
+      return $status;
     }
     $status->success = 'Red eliminada con éxito';
     
@@ -321,7 +319,6 @@ function siteNetworksEdition($type)
     //CHECK URI
     if (!empty($uri)) {
       if (!preg_match(REG_EXP_URI_FORMAT, $uri)) {
-        $status->succeeded    = false;
         $status->errors[]     = 'El formato es incorrecto';
         return $status;
       }
@@ -337,7 +334,6 @@ function siteNetworksEdition($type)
           `tag`     = '$tag'"
       );
     if(!getDB()->query($sql)) {
-      $status->succeeded = false;
       $status->errors[]  = 'Error al editar red, vuelve a intentar';
       return $status;
     }
@@ -348,7 +344,9 @@ function siteNetworksEdition($type)
   return $status;
 }
 
-function getAdmins() {
+//ADMINS FUNCTION
+function getAdmins()
+{
   $site_id = getIdSite();
   $sql = (
     "SELECT
@@ -366,7 +364,8 @@ function getAdmins() {
   return getDB()->getObjects($sql);
 }
 
-function getAdmin($id) {
+function getAdmin($id)
+{
   $site_id = getIdSite();
   $sql = (
     "SELECT
@@ -390,7 +389,8 @@ function getAdmin($id) {
   }
 }
 
-function siteAdminsEdition($type = "add-admin") {
+function siteAdminsEdition($type = "add-admin")
+{
   $status  = newStatusObject();
   $site_id = getIdSite();
   $id      = getRequestData('id');
@@ -403,9 +403,8 @@ function siteAdminsEdition($type = "add-admin") {
     $admins = getAdmins();
     if ($admins !== null) {
       for ($i = 0; $i < count($admins); $i++) {
-        if ($admins[$i]->id === $id) {
-          $status->errors[] = 'Este usuario ya es administrador';
-          $status->succeeded = false;
+        if ($admins[$i]->user_id === $id) {
+          $status->errors[]  = 'Este usuario ya es administrador';
           return $status;
         }
       }
@@ -416,13 +415,12 @@ function siteAdminsEdition($type = "add-admin") {
       "SELECT
         `id`
         FROM `users`
-        WHERE `id` = $id
+        WHERE `id`   = $id
         AND `status` = 1"
     );
     $user = getDB()->getObjects($sql);
     if ($user === null) {
-      $status->errors[] = 'Este usuario no existe';
-      $status->succeeded = false;
+      $status->errors[]  = 'Este usuario no existe';
       return $status;
     }
     
@@ -437,7 +435,6 @@ function siteAdminsEdition($type = "add-admin") {
       "
     );
     if(!getDB()->query($sql)) {
-      $status->succeeded = false;
       $status->errors[]  = 'Error al añadir admin, vuelve a intentar';
       return $status;
     }
@@ -457,14 +454,10 @@ function siteAdminsEdition($type = "add-admin") {
         )"
     );
     if(!getDB()->insert($sql)) {
-      $status->succeeded = false;
       $status->errors[]  = "Error al añadir admin, vuelve a intentar";
       return $status;
     }
-
-    $status->success = 'Admin añadido con éxito';
-    $status->succeeded = true;
-    return $status;
+    $status->success   = 'Admin añadido con éxito';
     
   } else if ($type === 'remove-admin') {
     //CHANGE ISADMIN IN USERS
@@ -477,9 +470,7 @@ function siteAdminsEdition($type = "add-admin") {
         `id` = $id  
       "
     );
-
     if(!getDB()->query($sql)) {
-      $status->succeeded = false;
       $status->errors[]  = 'Error al eliminar admin, vuelve a intentar';
       return $status;
     }
@@ -495,14 +486,10 @@ function siteAdminsEdition($type = "add-admin") {
           `site_id` = $site_id"
       );
     if(!getDB()->query($sql)) {
-      $status->succeeded = false;
       $status->errors[]  = 'Error al eliminar admin, vuelve a intentar';
       return $status;
     }
-
-    $status->success = 'Admin eliminado con éxito';
-    $status->succeeded = true;
-    return $status;
+    $status->success   = 'Admin eliminado con éxito';
 
   //EDIT ADMIN
   } else if ('edit-admin') {
@@ -519,13 +506,13 @@ function siteAdminsEdition($type = "add-admin") {
     );
 
     if(!getDB()->query($sql)) {
-      $status->succeeded = false;
       $status->errors[]  = "Error al editar admin, vuelve a intentar $role $id";
       return $status;
     }
 
-    $status->success = 'Admin editado con éxito';
-    $status->succeeded = true;
-    return $status;
+    $status->success   = 'Admin editado con éxito';
   }
+
+  $status->succeeded = true;
+  return $status;
 }
