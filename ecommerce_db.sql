@@ -54,7 +54,8 @@ ALTER TABLE `articles`
   ADD PRIMARY KEY (`id`),
   ADD KEY `name` (`name`,`code`),
   ADD KEY `category_id` (`category_id`),
-  ADD KEY `offer` (`offer`);
+  ADD KEY `offer` (`offer`),
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Volcado de datos para la tabla `articles`
@@ -104,7 +105,8 @@ CREATE TABLE `categories` (
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `title` (`title`),
-  ADD KEY `category_id` (`category_id`,`title`);
+  ADD KEY `category_id` (`category_id`,`title`),
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Volcado de datos para la tabla `categories`
@@ -141,7 +143,8 @@ CREATE TABLE `in_order_articles` (
 --
 ALTER TABLE `in_order_articles`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `order_id` (`order_id`,`article_id`);
+  ADD KEY `order_id` (`order_id`,`article_id`),
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Volcado de datos para la tabla `in_order_articles`
@@ -185,7 +188,8 @@ CREATE TABLE `orders` (
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `user_id` (`user_id`),
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Volcado de datos para la tabla `orders`
@@ -215,7 +219,8 @@ CREATE TABLE `site` (
 ALTER TABLE `site`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `version_history` (`version_history`),
-  ADD KEY `user_admin` (`user_admin`);
+  ADD KEY `user_admin` (`user_admin`),
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -234,7 +239,8 @@ CREATE TABLE `site_admins` (
 -- Indices de la tabla `site_admins`
 --
 ALTER TABLE `site_admins`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -254,7 +260,8 @@ CREATE TABLE `site_networks` (
 --
 ALTER TABLE `site_networks`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `site_id` (`site_id`);
+  ADD KEY `site_id` (`site_id`),
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -274,7 +281,8 @@ CREATE TABLE `subscriptions` (
 --
 ALTER TABLE `subscriptions`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `email` (`email`);
+  ADD KEY `email` (`email`),
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -307,7 +315,8 @@ CREATE TABLE `users` (
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`),
-  ADD KEY `name` (`name`,`lastname`,`email`);
+  ADD KEY `name` (`name`,`lastname`,`email`),
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Volcado de datos para la tabla `users`
