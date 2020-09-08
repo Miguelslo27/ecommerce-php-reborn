@@ -5,15 +5,8 @@ function loadSite()
   logToConsole('', getSite());
   logToConsole('', getAdmins());
 
-  //CREATE BASIC SITE IF IT WASN´T
-  $site_id = getIdSite();
-  $user_id = getUserId();
-  $site    = null;
-  if ($site_id === null && $user_id !== null) {
-    initSite();
-    $site = getSite(); 
-  }
-  setGlobal('site', $site);
+  //LOAD SITE
+  setGlobal('site', getSite());
 
   //SET NETWORKS
   $networks      = getSiteNetworks();
@@ -44,26 +37,31 @@ function loadSite()
   setGlobal('uri_networks', $site_networks);
 }
 
-//SITE FUNCTIONS
-function initSite() 
+function isSuperAdmin()
 {
-  $user_id   = getUserId();
-  $sqlInsert = (
-    "INSERT
-      INTO `site` (
-        `user_admin`
-      )
-      VALUES (
-        $user_id
-      )"
+  $actual_user   = getUserId();
+  $superadmin_id = getSuperAdminId();
+  if ($actual_user === $superadmin_id) {
+    return true;
+  }
+  return false;
+}
+
+function getSuperAdminId()
+{
+  $sql = (
+    "SELECT
+      `user_id`
+    FROM `site_admins`
+    WHERE `role` = 'superadmin'"
   );
-  
-  getDB()->insert($sqlInsert);
+  $result = getDB()->getObjects($sql);
+  return $result[0]->user_id;
 }
 
 function getIdSite()
 {
-  $admin_id = getUserId();
+  $admin_id = getSuperAdminId();
   $sql = (
     "SELECT
       `id`
@@ -125,7 +123,7 @@ function siteEdition()
         `contact_phone`
       )
       VALUES (
-        "' . getUserId() . '",
+        "' . getSuperAdminId() . '",
         "' . ($site->version_history + 1) . '",
         "' . oneOf(getPostData('site_name'), $site->name) . '",
         "' . oneOf(getPostData('site_dscp'), $site->description) . '",

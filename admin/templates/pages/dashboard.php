@@ -18,6 +18,11 @@ newDocument([
   ],
   'beforeRender' => function ()
   {
+    if (!isAdmin()) {
+      header('Location: /');
+      exit;
+    }
+
     $users         = new stdClass();
     $users->title  = 'Usuarios';
     $users->number = '9745';
