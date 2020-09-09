@@ -3,6 +3,7 @@
 newDocument([
   'title' => 'eCommerce - Mi Cuenta',
   'page' => 'password',
+  'sub_page' => 'modify_password',
   'components' => [
     'components/header/header',
     'components/account/password/password',

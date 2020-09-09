@@ -7,7 +7,7 @@
   <nav>
     <ul class="list-section">
       <li>
-        <a href="/cuenta/" class="<?php bind(getGlobal('sub_page') == 'mis_datos' ? 'active' : ' ')?>">
+        <a href="/cuenta/" class="<?php bind(getGlobal('sub_page') == 'my_data' ? 'active' : ' ')?>">
           <span>
             <i class="fas fa-user"></i> | Mis datos
           </span>
@@ -16,7 +16,7 @@
       </li>
 
       <li>
-        <a href="/cuenta/clave/">
+        <a href="/cuenta/clave/" class="<?php bind(getGlobal('sub_page') == 'modify_password' ? 'active' : ' ')?>">
           <span>
             <i class="fas fa-key"></i> | Contraseña
           </span>
