@@ -19,6 +19,16 @@ newDocument([
   ],
   'beforeRender' => function ()
   {
+    if (!isAdmin()) {
+      header('Location: /');
+      exit;
+    }
+
+    if (!isSuperAdmin()) {
+      header('Location: /admin');
+      exit;
+    }
+
     $id = getServer('REQUEST_URI');
     $id = explode("=", $id);
     $query_param = null;

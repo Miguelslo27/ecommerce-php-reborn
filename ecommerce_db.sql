@@ -8,9 +8,8 @@
 -- Versión de PHP: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
-SET time_zone = "+00:00";
+SET time_zone = "-03:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -45,7 +44,7 @@ CREATE TABLE `articles` (
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `_created_at_` timestamp NOT NULL DEFAULT current_timestamp(),
   `_updated_at_` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
 -- Indices de la tabla `articles`
@@ -97,7 +96,7 @@ CREATE TABLE `categories` (
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `_created_at_` timestamp NOT NULL DEFAULT current_timestamp(),
   `_updated_at_` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
 -- Indices de la tabla `categories`
@@ -120,6 +119,7 @@ INSERT INTO `categories` (`id`, `position`, `title`, `brief_description`, `descr
 (5, 0, 'Multimedia', '', '', '', 0, 1, '2020-03-09 21:47:32', '2020-03-09 21:47:32'),
 (6, 0, 'Redes y Adaptadores', '', '', '', 0, 1, '2020-03-09 21:48:01', '2020-03-09 21:48:01'),
 (7, 0, 'AMD', '', '', '', 1, 1, '2020-06-02 15:13:01', '0000-00-00 00:00:00');
+
 
 -- --------------------------------------------------------
 
@@ -144,7 +144,7 @@ CREATE TABLE `users` (
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `_created_at_` timestamp NOT NULL DEFAULT current_timestamp(),
   `_updated_at_` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
 -- Indices de la tabla `users`
@@ -153,15 +153,79 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`),
   ADD KEY `name` (`name`,`lastname`,`email`),
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `lastname`, `document`, `email`, `password`, `verification_code`, `address`, `phone`, `cellphone`, `state`, `city`, `isadmin`, `status`, `_created_at_`, `_updated_at_`) VALUES
-(1, 'Miguel', 'Sosa', '34900078', 'miguelmail2006@gmail.com', 'b6b2c10d1acdfcc71eb332c3a6c7f036', 'ae01ca4477d78b54248bbb2c24c6472a', '39 y J', '', '091 066 416', 'Canelones', 'Parque del Plata', 0, 1, '2020-03-10 22:56:46', '2020-03-11 18:39:48'),
-(2, 'Demo', 'Demo', '000', 'demo@demo.com', '123456', '53444f91e698c0c7caa2dbc3bdbf93fc', '', '', '111', '', '', 0, 1, '2020-03-11 21:17:05', '2020-03-15 17:38:37');
+(1, 'admin', 'admin', '', 'admin@admin.com', 'd7bc022064c982dbcfb36a5e733712ad', '64e1b8d34f425d19e1ee2ea7236d3028', '', '', '', '', '', 1, 1, '2020-09-08 19:11:36', '0000-00-00 00:00:00'),
+(2, 'Miguel', 'Sosa', '34900078', 'miguelmail2006@gmail.com', 'b6b2c10d1acdfcc71eb332c3a6c7f036', 'ae01ca4477d78b54248bbb2c24c6472a', '39 y J', '', '091 066 416', 'Canelones', 'Parque del Plata', 0, 1, '2020-03-10 22:56:46', '2020-03-11 18:39:48'),
+(3, 'Demo', 'Demo', '000', 'demo@demo.com', '123456', '53444f91e698c0c7caa2dbc3bdbf93fc', '', '', '111', '', '', 0, 1, '2020-03-11 21:17:05', '2020-03-15 17:38:37');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `site`
+--
+
+CREATE TABLE `site` (
+  `id` int(11) NOT NULL,
+  `user_admin` int(11) NOT NULL,
+  `version_history` float NOT NULL,
+  `name` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `description` text CHARACTER SET utf8 NOT NULL,
+  `address` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `phone` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `contact_email` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `contact_phone` varchar(100) CHARACTER SET utf8 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+--
+-- Indices de la tabla `site`
+--
+ALTER TABLE `site`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `version_history` (`version_history`),
+  ADD KEY `user_admin` (`user_admin`),
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Volcado de datos para la tabla `site`
+--
+
+INSERT INTO `site` (`id`, `user_admin`, `version_history`, `name`, `description`, `address`, `phone`, `contact_email`, `contact_phone`) VALUES
+(1, 1, 1, 'Demo', '', '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `site_admins`
+--
+
+CREATE TABLE `site_admins` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `role` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `site_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+--
+-- Indices de la tabla `site_admins`
+--
+ALTER TABLE `site_admins`
+  ADD PRIMARY KEY (`id`),
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Volcado de datos para la tabla `site_admins`
+--
+
+INSERT INTO `site_admins` (`id`, `user_id`, `role`, `site_id`) VALUES
+(1, 1, 'superadmin', 1);
+
+-- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `in_order_articles`
@@ -176,7 +240,7 @@ CREATE TABLE `in_order_articles` (
   `subtotal` double NOT NULL,
   `_created_at_` timestamp NOT NULL DEFAULT current_timestamp(),
   `_updated_at_` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
 -- Indices de la tabla `in_order_articles`
@@ -186,10 +250,6 @@ ALTER TABLE `in_order_articles`
   ADD KEY `order_id` (`order_id`,`article_id`),
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
---
--- Volcado de datos para la tabla `in_order_articles`
---
--- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `orders`
@@ -221,7 +281,7 @@ CREATE TABLE `orders` (
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `_created_at_` timestamp NOT NULL DEFAULT current_timestamp(),
   `_updated_at_` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
 -- Indices de la tabla `orders`
@@ -231,56 +291,6 @@ ALTER TABLE `orders`
   ADD KEY `user_id` (`user_id`),
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
---
--- Volcado de datos para la tabla `orders`
---
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `site`
---
-
-CREATE TABLE `site` (
-  `id` int(11) NOT NULL,
-  `user_admin` int(11) NOT NULL,
-  `version_history` float NOT NULL,
-  `name` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `description` text CHARACTER SET utf8 NOT NULL,
-  `address` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `phone` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `contact_email` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `contact_phone` varchar(100) CHARACTER SET utf8 NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Indices de la tabla `site`
---
-ALTER TABLE `site`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `version_history` (`version_history`),
-  ADD KEY `user_admin` (`user_admin`),
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `site_admins`
---
-
-CREATE TABLE `site_admins` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `role` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `site_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Indices de la tabla `site_admins`
---
-ALTER TABLE `site_admins`
-  ADD PRIMARY KEY (`id`),
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -293,7 +303,7 @@ CREATE TABLE `site_networks` (
   `tag` varchar(100) CHARACTER SET utf8 NOT NULL,
   `uri` varchar(100) CHARACTER SET utf8 NOT NULL,
   `site_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
 -- Indices de la tabla `site_networks`
@@ -314,7 +324,7 @@ CREATE TABLE `subscriptions` (
   `email` varchar(255) NOT NULL,
   `_created_at_` timestamp NOT NULL DEFAULT current_timestamp(),
   `_updated_at_` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  AUTO_INCREMENT=1;
 
 --
 -- Indices de la tabla `subscriptions`
