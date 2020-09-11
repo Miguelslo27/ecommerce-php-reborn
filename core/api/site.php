@@ -56,7 +56,11 @@ function getSuperAdminId()
     WHERE `role` = 'superadmin'"
   );
   $result = getDB()->getObjects($sql);
-  return $result[0]->user_id;
+  
+  if ($result !== null) {
+    $result = $result[0]->user_id;
+  }
+  return $result;
 }
 
 function getIdSite()
