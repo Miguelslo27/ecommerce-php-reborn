@@ -55,7 +55,7 @@ ALTER TABLE `articles`
   ADD KEY `name` (`name`,`code`),
   ADD KEY `category_id` (`category_id`),
   ADD KEY `offer` (`offer`),
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Volcado de datos para la tabla `articles`
@@ -106,7 +106,7 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `title` (`title`),
   ADD KEY `category_id` (`category_id`,`title`),
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Volcado de datos para la tabla `categories`
@@ -153,7 +153,7 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`),
   ADD KEY `name` (`name`,`lastname`,`email`),
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Volcado de datos para la tabla `users`
