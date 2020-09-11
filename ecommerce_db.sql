@@ -54,7 +54,7 @@ ALTER TABLE `articles`
   ADD KEY `name` (`name`,`code`),
   ADD KEY `category_id` (`category_id`),
   ADD KEY `offer` (`offer`),
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Volcado de datos para la tabla `articles`
@@ -105,7 +105,7 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `title` (`title`),
   ADD KEY `category_id` (`category_id`,`title`),
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Volcado de datos para la tabla `categories`
@@ -192,7 +192,7 @@ ALTER TABLE `site`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- Volcado de datos para la tabla `site_admins`
+-- Volcado de datos para la tabla `site`
 --
 
 INSERT INTO `site` (`id`, `user_admin`, `version_history`, `name`, `description`, `address`, `phone`, `contact_email`, `contact_phone`) VALUES
@@ -248,12 +248,8 @@ CREATE TABLE `in_order_articles` (
 ALTER TABLE `in_order_articles`
   ADD PRIMARY KEY (`id`),
   ADD KEY `order_id` (`order_id`,`article_id`),
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
---
--- Volcado de datos para la tabla `in_order_articles`
---
--- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `orders`
@@ -293,11 +289,7 @@ CREATE TABLE `orders` (
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`),
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Volcado de datos para la tabla `orders`
---
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 
 -- --------------------------------------------------------
@@ -319,7 +311,7 @@ CREATE TABLE `site_networks` (
 ALTER TABLE `site_networks`
   ADD PRIMARY KEY (`id`),
   ADD KEY `site_id` (`site_id`),
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -340,8 +332,9 @@ CREATE TABLE `subscriptions` (
 ALTER TABLE `subscriptions`
   ADD PRIMARY KEY (`id`),
   ADD KEY `email` (`email`),
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
+-- --------------------------------------------------------
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
