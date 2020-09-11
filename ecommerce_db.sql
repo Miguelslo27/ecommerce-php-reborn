@@ -54,7 +54,8 @@ ALTER TABLE `articles`
   ADD PRIMARY KEY (`id`),
   ADD KEY `name` (`name`,`code`),
   ADD KEY `category_id` (`category_id`),
-  ADD KEY `offer` (`offer`);
+  ADD KEY `offer` (`offer`),
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Volcado de datos para la tabla `articles`
@@ -104,7 +105,8 @@ CREATE TABLE `categories` (
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `title` (`title`),
-  ADD KEY `category_id` (`category_id`,`title`);
+  ADD KEY `category_id` (`category_id`,`title`),
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Volcado de datos para la tabla `categories`
@@ -120,6 +122,46 @@ INSERT INTO `categories` (`id`, `position`, `title`, `brief_description`, `descr
 (7, 0, 'AMD', '', '', '', 1, 1, '2020-06-02 15:13:01', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `lastname` varchar(100) NOT NULL,
+  `document` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `verification_code` varchar(100) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `phone` varchar(100) NOT NULL,
+  `cellphone` varchar(100) NOT NULL,
+  `state` varchar(100) NOT NULL,
+  `city` varchar(100) NOT NULL,
+  `isadmin` tinyint(1) NOT NULL DEFAULT 0,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `_created_at_` timestamp NOT NULL DEFAULT current_timestamp(),
+  `_updated_at_` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Indices de la tabla `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `name` (`name`,`lastname`,`email`),
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+--
+-- Volcado de datos para la tabla `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `lastname`, `document`, `email`, `password`, `verification_code`, `address`, `phone`, `cellphone`, `state`, `city`, `isadmin`, `status`, `_created_at_`, `_updated_at_`) VALUES
+(1, 'Miguel', 'Sosa', '34900078', 'miguelmail2006@gmail.com', 'b6b2c10d1acdfcc71eb332c3a6c7f036', 'ae01ca4477d78b54248bbb2c24c6472a', '39 y J', '', '091 066 416', 'Canelones', 'Parque del Plata', 0, 1, '2020-03-10 22:56:46', '2020-03-11 18:39:48'),
+(2, 'Demo', 'Demo', '000', 'demo@demo.com', '123456', '53444f91e698c0c7caa2dbc3bdbf93fc', '', '', '111', '', '', 0, 1, '2020-03-11 21:17:05', '2020-03-15 17:38:37');
 
 --
 -- Estructura de tabla para la tabla `in_order_articles`
@@ -141,7 +183,8 @@ CREATE TABLE `in_order_articles` (
 --
 ALTER TABLE `in_order_articles`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `order_id` (`order_id`,`article_id`);
+  ADD KEY `order_id` (`order_id`,`article_id`),
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Volcado de datos para la tabla `in_order_articles`
@@ -185,7 +228,8 @@ CREATE TABLE `orders` (
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `user_id` (`user_id`),
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Volcado de datos para la tabla `orders`
@@ -215,7 +259,8 @@ CREATE TABLE `site` (
 ALTER TABLE `site`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `version_history` (`version_history`),
-  ADD KEY `user_admin` (`user_admin`);
+  ADD KEY `user_admin` (`user_admin`),
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -234,7 +279,8 @@ CREATE TABLE `site_admins` (
 -- Indices de la tabla `site_admins`
 --
 ALTER TABLE `site_admins`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -254,7 +300,8 @@ CREATE TABLE `site_networks` (
 --
 ALTER TABLE `site_networks`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `site_id` (`site_id`);
+  ADD KEY `site_id` (`site_id`),
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -274,48 +321,10 @@ CREATE TABLE `subscriptions` (
 --
 ALTER TABLE `subscriptions`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `email` (`email`);
+  ADD KEY `email` (`email`),
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `users`
---
-
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `lastname` varchar(100) NOT NULL,
-  `document` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `verification_code` varchar(100) NOT NULL,
-  `address` varchar(100) NOT NULL,
-  `phone` varchar(100) NOT NULL,
-  `cellphone` varchar(100) NOT NULL,
-  `state` varchar(100) NOT NULL,
-  `city` varchar(100) NOT NULL,
-  `isadmin` tinyint(1) NOT NULL DEFAULT 0,
-  `status` tinyint(1) NOT NULL DEFAULT 1,
-  `_created_at_` timestamp NOT NULL DEFAULT current_timestamp(),
-  `_updated_at_` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Indices de la tabla `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`),
-  ADD KEY `name` (`name`,`lastname`,`email`);
-
---
--- Volcado de datos para la tabla `users`
---
-
-INSERT INTO `users` (`id`, `name`, `lastname`, `document`, `email`, `password`, `verification_code`, `address`, `phone`, `cellphone`, `state`, `city`, `isadmin`, `status`, `_created_at_`, `_updated_at_`) VALUES
-(1, 'Miguel', 'Sosa', '34900078', 'miguelmail2006@gmail.com', 'b6b2c10d1acdfcc71eb332c3a6c7f036', 'ae01ca4477d78b54248bbb2c24c6472a', '39 y J', '', '091 066 416', 'Canelones', 'Parque del Plata', 0, 1, '2020-03-10 22:56:46', '2020-03-11 18:39:48'),
-(2, 'Demo', 'Demo', '000', 'demo@demo.com', '123456', '53444f91e698c0c7caa2dbc3bdbf93fc', '', '', '111', '', '', 0, 1, '2020-03-11 21:17:05', '2020-03-15 17:38:37');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
