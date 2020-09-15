@@ -26,8 +26,7 @@
         </div>
         <button class="button primary" id="button-center">Guardar</button>
         <button class="button secondary" id="button-center">Reset</button>
+      </form>
+    </section>
   </div>
-  </form>
-</section>
-</div>
 </section>
