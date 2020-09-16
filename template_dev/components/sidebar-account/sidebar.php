@@ -1,3 +1,4 @@
+<?php getGlobal('sub_page'); ?>
 <aside class="info-section">
   <div class="photo">
     <img src="/statics/images/Foto.jpg" alt="FotoPerfil">
@@ -6,16 +7,16 @@
   <nav>
     <ul class="list-section">
       <li>
-        <a href="">
+        <a href="/cuenta/" class="<?php bind(getGlobal('sub_page') == 'my_data' ? 'active' : ' ')?>">
           <span>
-            <i class="fas fa-user"></i> | Cuenta
+            <i class="fas fa-user"></i> | Mis datos
           </span>
           <i class="fas fa-angle-right"></i>
         </a>
       </li>
 
       <li>
-        <a href="">
+        <a href="/cuenta/clave/" class="<?php bind(getGlobal('sub_page') == 'modify_password' ? 'active' : ' ')?>">
           <span>
             <i class="fas fa-key"></i> | Contraseña
           </span>

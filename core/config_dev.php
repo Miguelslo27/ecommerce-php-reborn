@@ -67,6 +67,7 @@ define('REGISTER_TEMPLATE', 'pages/register');
 define('LOGIN_TEMPLATE', 'pages/login');
 define('FORGOT_PASS_TEMPLATE', 'pages/forgot');
 define('ACCOUNT_TEMPLATE', 'pages/acount');
+define('PASSWORD_TEMPLATE', 'pages/password');
 define('CART_TEMPLATE', 'pages/cart');
 define('ORDER_TEMPLATE', 'pages/order');
 define('BILLING_FORM_TEMPLATE', 'pages/billing');
