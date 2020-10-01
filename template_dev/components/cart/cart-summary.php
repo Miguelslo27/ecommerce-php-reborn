@@ -31,13 +31,20 @@
 
   <?php if (isLoggedIn()) : ?>
     <?php if (getGlobal('sub_page') == 'payment') : ?>
-      <a href="/carrito/envio" class="button primary">Continuar</a>
+      <a href="/" class="button primary">Continuar</a>
       <hr>
       <a href="/carrito" class="button secondary">Editar el carrito</a>
     <?php endif ?>
     <?php if (getGlobal('sub_page') == 'shipping') : ?>
       <a href="/carrito/pagar" 
         class="button primary disabled" id="shipping-button">Continuar
+      </a>
+      <hr>
+      <a href="/categorias" class="button secondary">Seguir comprando</a>
+    <?php endif ?>
+    <?php if (getGlobal('sub_page') == 'billing') : ?>
+      <a href="/carrito/envio" 
+        class="button primary disabled" id="billing-button">Continuar
       </a>
       <hr>
       <a href="/categorias" class="button secondary">Seguir comprando</a>

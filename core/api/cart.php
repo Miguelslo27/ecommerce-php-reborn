@@ -119,6 +119,7 @@ function createNewOrder($userid) {
   $h         = "-3";
   $hm        = $h * 60;
   $ms        = $hm * 60;
+  $user      = getCurrentUser();
   $gmdate    = gmdate("Y-m-d H:i:s", time() + ($ms));
   $sqlSelect = getOrderSqlGenerator($userid);
   $sqlInsert = (
@@ -127,13 +128,23 @@ function createNewOrder($userid) {
         `user_id`,
         `date`,
         `total`,
-        `status`
+        `status`,
+        `billing_name`,
+        `billing_document`,
+        `billing_address`,
+        `billing_state`,
+        `billing_city`
       )
       VALUES (
         \"$userid\",
         \"$gmdate\",
         0,
-        4
+        4,
+        \"$user->name" . " "  . "$user->lastname\",
+        \"$user->document\",
+        \"" . oneOf($user->address, '') . "\",
+        \"" . oneOf($user->state, '') . "\",
+        \"" . oneOf($user->city, '') . "\"
       )"
   );
 
@@ -524,7 +535,7 @@ function saveOrderShippingInfo()
           `shipping_address` = \"" . (empty(getPostData('copy-billing-address')) ? getPostData('shipping_address') : $billinginfo->billing_address) . "\",
           `shipping_state` = \"" . (empty(getPostData('copy-billing-address')) ? getPostData('shipping_state') : $billinginfo->billing_state) . "\",
           `shipping_city` = \"" . (empty(getPostData('copy-billing-address')) ? getPostData('shipping_city') : $billinginfo->billing_city) . "\",
-          `shipping_zipcode` = \"" . (empty(getPostData('copy-billing-address')) ? getPostData('shipping_zipcode') : $billinginfo->billing_zipcode) . "\",
+          `shipping_zipcode` = \"" . (empty(getPostData('copy-billing-address')) || (!empty(getPostData('shipping_zipcode'))) ? getPostData('shipping_zipcode') : $billinginfo->billing_zipcode) . "\",
           `shipping_agency` = \"" . oneOf(getPostData('shipping_agency'), '') . "\",
           `additional_comments` = \"" . oneOf(getPostData('additional_notes'), ''). "\"
         WHERE
