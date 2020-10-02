@@ -9,5 +9,4 @@
     </section>
     <?php getTemplate('components/cart/cart-summary') ?>
   </div>
-  <p><?php bind(printMessage())?></p>
 </section>

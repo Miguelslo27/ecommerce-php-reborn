@@ -2,6 +2,7 @@
 .payment-content {
   display: flex;
   align-items: flex-start;
+  margin-bottom: 2rem;
 }
 
 .payment-content >* {

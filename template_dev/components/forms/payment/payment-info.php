@@ -1,4 +1,4 @@
-<!-- <form action="">
+<form action="">
   <fieldset>
     <legend>Método de pago</legend>
 
@@ -44,4 +44,4 @@
       </label>
     </div>
   </fieldset>
-</form> -->
+</form>

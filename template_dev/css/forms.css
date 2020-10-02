@@ -121,6 +121,10 @@ form .form-group .second-label {
   padding-right: 1rem;
 }
 
+form .form-group.group-grid.columns-2 .full-width {
+  width: 100%;
+}
+
 form .form-group.group-grid.columns-2>* {
   width: 50%;
 }
