@@ -9,14 +9,6 @@
     <span class="title">Artículos nuevos</span>
   </h1>
 
-  <?php if (isAdmin()) : ?>
-  <div class="list-actions">
-    <div class="admin-actions">
-      <a href="/articulo/nuevo">Nuevo artículo +</a>
-    </div>
-  </div>
-  <?php endif ?>
-
   <?php if (count(getGlobal('recentlyAddedArticles')) > 0) : ?>
   <ul class="articles">
     <?php foreach (getGlobal('recentlyAddedArticles') as $article) : ?>

@@ -71,13 +71,6 @@ if (getGlobal('currentArticle')->description === '') {
     <?php if (getGlobal('currentArticle')->description) : ?>
       <a class="link-description" href="#description">>> Ver descripción <<</a>
     <?php endif ?>
-    <!--  ADMIN OPTIONS   -->
-    <?php if (isAdmin()) : ?>
-      <div class="admin-article-controls">
-        <a href="/articulo/editar/?aid=<?php bind(getGlobal('currentArticle')->id) ?>"><i class="far fa-edit"></i></a>
-        <a href="/articulo/eliminar/?aid=<?php bind(getGlobal('currentArticle')->id) ?>"><i class="far fa-trash-alt"></i></a>
-      </div>
-    <?php endif ?>
   </div>
 </article>
 <?php if (getGlobal('currentArticle')->description) : ?>

@@ -28,11 +28,4 @@ if (getGlobal('article')->spent === '1') {
   <div class="actions">
     <a href="<?php if (getGlobal('articleURI')) : ?>/<?php endif ?>?<?php bind(getQueryParams(['action' => ACTION_ADD_TO_CART, 'aid' => getGlobal('article')->id])) ?>">Agregar al carrito +</a>
   </div>
-
-  <?php if (isAdmin()) : ?>
-    <div class="admin-article-controls">
-      <a href="/articulo/editar/?aid=<?php bind(getGlobal('article')->id) ?>"><i class="far fa-edit"></i></a>
-      <a href="/articulo/eliminar/?aid=<?php bind(getGlobal('article')->id) ?>"><i class="far fa-trash-alt"></i></a>
-    </div>
-  <?php endif ?>
 </article>
