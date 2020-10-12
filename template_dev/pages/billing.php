@@ -30,6 +30,8 @@ newDocument([
       exit;
     }
 
+    transferUserToBillingInfo();
+    
     $billingInfo        = getOrderBillingInfo(getCurrentCart()->order->id);
     $billingName        = $billingInfo->billing_name;
     $billingDocument    = $billingInfo->billing_document;

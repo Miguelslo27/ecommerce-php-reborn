@@ -59,6 +59,7 @@
 
 .billing-info .form-group.group-grid.columns-3 >.span-2,
 .shipping-info .form-group.group-grid.columns-3 >.span-2 {
+  align-items: baseline;
   width: 80%;
 }
 

@@ -128,23 +128,13 @@ function createNewOrder($userid) {
         `user_id`,
         `date`,
         `total`,
-        `status`,
-        `billing_name`,
-        `billing_document`,
-        `billing_address`,
-        `billing_state`,
-        `billing_city`
+        `status`
       )
       VALUES (
         \"$userid\",
         \"$gmdate\",
         0,
-        4,
-        \"$user->name" . " "  . "$user->lastname\",
-        \"$user->document\",
-        \"" . oneOf($user->address, '') . "\",
-        \"" . oneOf($user->state, '') . "\",
-        \"" . oneOf($user->city, '') . "\"
+        4
       )"
   );
 
@@ -414,6 +404,31 @@ function refreshOrder($oid) {
         `id` = $oid"
   );
   getDB()->query($sqlUpdate);
+}
+
+function transferUserToBillingInfo() {
+  $orderId     = getCurrentCart()->order->id;
+  $billingInfo = getOrderBillingInfo($orderId);
+  $userInfo    = getCurrentUser();
+
+  $sql = (
+    "UPDATE
+      `orders`
+      SET
+        `billing_name` = \"" . oneOf($billingInfo->billing_name, ($userInfo->name . ' ' .  $userInfo->lastname)) . "\",
+        `billing_document` = \"" . oneOf($billingInfo->billing_document, $userInfo->document) . "\",
+        `billing_address` = \"" . oneOf($billingInfo->billing_address, $userInfo->address) . "\",
+        `billing_state` = \"" . oneOf($billingInfo->billing_state, $userInfo->state) . "\",
+        `billing_city` = \"" . oneOf($billingInfo->billing_city, $userInfo->city) . "\"
+      WHERE
+        `id` = $orderId"
+  );
+
+  $status = newStatusObject();
+  if (!getDB()->query($sql)) {
+    $status->succedded = false;
+    return $status;
+  }
 }
 
 function saveOrderBillingInfo() {
