@@ -20,19 +20,18 @@
         </div>
 
         <div class="form-line">
-          <label for="">Nombre de Empresa</label>
-          <input type="text" placeholder="Nombre Empresa">
-        </div>
-
-        <div class="form-line">
           <label for="">Dirección Completa</label>
           <input type="text" placeholder="Calle 1245, esq Dir"
             value="<?php bind(oneOf(getGlobal('user')->address, '')) ?>">
         </div>
 
         <div class="form-group">
+
+          <label class="label-center" for="">Localidad</label>
+          <input type="text" placeholder="Barrio" value="<?php bind(oneOf(getGlobal('user')->city, '')) ?>">
+
           <Label>Departamento</Label>
-          <input list="city" placeholder="Montevideo" value="<?php bind(oneOf(getGlobal('user')->city, '')) ?>">
+          <input list="city" placeholder="Montevideo" value="<?php bind(oneOf(getGlobal('user')->state, '')) ?>">
           <datalist id="city">
             <option value="Artigas">
             <option value="Canelones">
@@ -54,9 +53,6 @@
             <option value="Tacuarembo">
             <option value="Treinta y Tres">
           </datalist>
-
-          <label class="label-center" for="">Localidad</label>
-          <input type="text" placeholder="Barrio">
         </div>
 
         <div class="form-group">
