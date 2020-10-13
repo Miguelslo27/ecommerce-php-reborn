@@ -63,8 +63,8 @@
           <input type="tel" placeholder="12345678" value="<?php bind(oneOf(getGlobal('user')->cellphone, '')) ?>">
         </div>
 
-        <button class="button primary" id="button-center">Guardar</button>
-        <button class="button secondary" id="button-center">Reset</button>
+        <button class="button primary" id="save-account">Guardar</button>
+        <button class="button secondary" id="reset-account">Reset</button>
 
       </form>
     </section>
