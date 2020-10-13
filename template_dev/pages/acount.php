@@ -16,7 +16,10 @@ newDocument([
     'css/forms.css'
   ],
   'beforeRender' => function () {
-    $categories      = getCategories();
+    $categories = getCategories();
+    $userData = getCurrentUser();
+
     setGlobal('categories', oneOf($categories, []));
+    setGlobal('user', $userData);
   }
 ]);
