@@ -10,10 +10,4 @@
     <!-- articles in the category -->
     <span>0 articulos</span>
   </div>
-  <?php if (isAdmin()) : ?>
-    <div class="admin-category-controls">
-      <a href="/categoria/editar/?cid=<?php bind(getGlobal('category')->id) ?>"><i class="far fa-edit"></i></a>
-      <a href="/categoria/eliminar/?cid=<?php bind(getGlobal('category')->id) ?>"><i class="far fa-trash-alt"></i></a>
-    </div>
-  <?php endif ?>
 </article>

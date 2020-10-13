@@ -18,13 +18,6 @@
   <?php else : ?>
   <div class="empty-list">
     <h2 class>No se encontraron categorías destacadas</h2>
-    <?php if (isAdmin()) : ?>
-    <div class="list-actions">
-      <div class="admin-actions">
-        <a href="/categoria/nueva">Nueva categoría +</a>
-      </div>
-    </div>
-    <?php endif ?>
   </div>
   <?php endif ?>
 </section>

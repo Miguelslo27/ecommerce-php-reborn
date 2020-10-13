@@ -1,11 +1,4 @@
 <section class="inner articles-component">
-  <?php if (isAdmin()) : ?>
-  <div class="list-actions">
-    <div class="admin-actions">
-      <a href="/articulo/nuevo">Nuevo artículo +</a>
-    </div>
-  </div>
-  <?php endif ?>
 
   <?php if (count(getGlobal('articles')) > 0) : ?>
   <div class="list-actions">

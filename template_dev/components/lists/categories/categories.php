@@ -4,14 +4,6 @@
     <span class="title">Categorías</span>
   </h1>
 
-  <?php if (isAdmin()) : ?>
-  <div class="list-actions">
-    <div class="admin-actions">
-      <a href="/categoria/nueva">Nueva categoría +</a>
-    </div>
-  </div>
-  <?php endif ?>
-
   <?php if (count(getGlobal('categoriesTotal')) > 0) : ?>
   <div class="list-actions">
     <?php setGlobal('pager', getGlobal('categories_pager')) ?>
