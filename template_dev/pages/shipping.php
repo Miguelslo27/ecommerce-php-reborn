@@ -56,7 +56,7 @@ newDocument([
       $shippingFullAddress[] = $shippingZipcode;
     }
 
-    $categories = getCategories();
+    $categories = getCategories('`category_id` = 0 AND `status` = 1');
 
     setGlobal('canUseBilling', canUseBilling());
     setGlobal('categories', oneOf($categories, []));

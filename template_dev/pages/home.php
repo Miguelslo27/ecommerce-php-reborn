@@ -16,13 +16,11 @@ newDocument([
   ],
   'beforeRender' => function ()
   {
-    $categories            = getCategories();
     $featuredCategories    = getCategories('`status` = 1', 0, 4);
     $recentlyAddedArticles = getArticles('`status` = 1', 3, 3);
     $featuredArticles      = getArticles('`status` = 1', 0, 3);
-    $categories            = getCategories();
+    $categories            = getCategories('`category_id` = 0 AND `status` = 1');
     
-    setGlobal('categories', oneOf($categories, []));
     setGlobal('categories', oneOf($categories, []));
     setGlobal('featuredCategories', oneOf($featuredCategories, []));
     setGlobal('recentlyAddedArticles', oneOf($recentlyAddedArticles, []));
