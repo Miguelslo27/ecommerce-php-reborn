@@ -27,7 +27,7 @@ newDocument([
       );
     };
 
-    $categories = getCategories();
+    $categories = getCategories('`category_id` = 0 AND `status` = 1');
 
     setGlobal('request_messages', getSession('request_messages'));
     setGlobal('classesHandler', $classesHandler);

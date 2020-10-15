@@ -21,7 +21,7 @@ newDocument([
     $where                   = '`status` = 1';
     $pager                   = getPager('articles', $where, ARTICLES_PER_PAGE);
     $articles                = getArticles($where, $pager->offset, $pager->per_page);
-    $categories              = getCategories();
+    $categories              = getCategories('`category_id` = 0 AND `status` = 1');
 
     setGlobal('categories', oneOf($categories, []));
     setGlobal('currentCategory', $currentCategory);
