@@ -9,8 +9,8 @@
   <div class="summary resume">
     <span class="label">Subtotal</span>
     <span class="value">$ <?php bind($orderSubTotal) ?></span>
-    <span class="label">Impuestos</span>
-    <span class="value">$ <?php bind($orderTaxes) ?></span>
+    <!-- <span class="label">Impuestos</span>
+    <span class="value">$ <?php bind($orderTaxes) ?></span> -->
   </div>
   <hr>
   <!-- <div class="summary discounts">
@@ -29,35 +29,33 @@
   </div>
   <div class="summary actions">
 
-  <?php if (isLoggedIn()) : ?>
+    <?php if (isLoggedIn()) : ?>
     <?php if (getGlobal('sub_page') == 'payment') : ?>
-      <a href="/" class="button primary">Continuar</a>
-      <hr>
-      <a href="/carrito" class="button secondary">Editar el carrito</a>
+    <a href="/" class="button primary">Continuar</a>
+    <hr>
+    <a href="/carrito" class="button secondary">Editar el carrito</a>
     <?php endif ?>
     <?php if (getGlobal('sub_page') == 'shipping') : ?>
-      <a href="/carrito/pagar" 
-        class="button primary disabled" id="shipping-button">Continuar
-      </a>
-      <hr>
-      <a href="/categorias" class="button secondary">Seguir comprando</a>
+    <a href="/carrito/pagar" class="button primary disabled" id="shipping-button">Continuar
+    </a>
+    <hr>
+    <a href="/categorias" class="button secondary">Seguir comprando</a>
     <?php endif ?>
     <?php if (getGlobal('sub_page') == 'billing') : ?>
-      <a href="/carrito/envio" 
-        class="button primary disabled" id="billing-button">Continuar
-      </a>
-      <hr>
-      <a href="/categorias" class="button secondary">Seguir comprando</a>
+    <a href="/carrito/envio" class="button primary disabled" id="billing-button">Continuar
+    </a>
+    <hr>
+    <a href="/categorias" class="button secondary">Seguir comprando</a>
     <?php endif ?>
     <?php if (getGlobal('page') == 'cart' && getGlobal('sub_page') == '') : ?>
-      <a href="/carrito/datos-facturacion" class="button primary">Pagar</a>
-      <hr>
-      <a href="/categorias" class="button secondary">Seguir comprando</a>
+    <a href="/carrito/datos-facturacion" class="button primary">Pagar</a>
+    <hr>
+    <a href="/categorias" class="button secondary">Seguir comprando</a>
     <?php endif ?>
-  <?php else : ?>
+    <?php else : ?>
     <a href="/login" class="button primary">Ingresar</a>
     <hr>
     <a href="/registro" class="button secondary">Registrarme</a>
-  <?php endif ?>
+    <?php endif ?>
   </div>
 </aside>
