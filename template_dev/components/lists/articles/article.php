@@ -26,6 +26,10 @@ if (getGlobal('article')->spent === '1') {
   </div>
   <hr>
   <div class="actions">
-    <a href="<?php if (getGlobal('articleURI')) : ?>/<?php endif ?>?<?php bind(getQueryParams(['action' => ACTION_ADD_TO_CART, 'aid' => getGlobal('article')->id])) ?>">Agregar al carrito +</a>
+    <?php if (getGlobal('articleURI')) : ?>
+      <a href="?<?php bind(getQueryParams(['action' => ACTION_ADD_TO_CART, 'aid' => getGlobal('article')->id, 'aaid' => getGlobal('currentArticleId')])) ?>">Agregar al carrito +</a>
+    <?php else : ?>
+      <a href="?<?php bind(getQueryParams(['action' => ACTION_ADD_TO_CART, 'aid' => getGlobal('article')->id])) ?>">Agregar al carrito +</a>
+    <?php endif ?>
   </div>
 </article>
