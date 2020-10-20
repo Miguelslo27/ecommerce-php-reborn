@@ -22,14 +22,15 @@ if (getGlobal('article')->spent === '1') {
     <?php else : ?>
       <span class="price">$<?php bind(getGlobal('article')->price) ?></span>
     <?php endif ?>
-    
   </div>
-  <hr>
-  <div class="actions">
-    <?php if (getGlobal('articleURI')) : ?>
-      <a href="?<?php bind(getQueryParams(['action' => ACTION_ADD_TO_CART, 'aid' => getGlobal('article')->id, 'aaid' => getGlobal('currentArticleId')])) ?>">Agregar al carrito +</a>
-    <?php else : ?>
-      <a href="?<?php bind(getQueryParams(['action' => ACTION_ADD_TO_CART, 'aid' => getGlobal('article')->id])) ?>">Agregar al carrito +</a>
-    <?php endif ?>
-  </div>
+  <?php if (getGlobal('article')->spent === '0') : ?>
+    <hr>
+    <div class="actions">
+      <?php if (getGlobal('articleURI')) : ?>
+        <a href="?<?php bind(getQueryParams(['action' => ACTION_ADD_TO_CART, 'aid' => getGlobal('article')->id, 'aaid' => getGlobal('currentArticleId')])) ?>">Agregar al carrito +</a>
+      <?php else : ?>
+        <a href="?<?php bind(getQueryParams(['action' => ACTION_ADD_TO_CART, 'aid' => getGlobal('article')->id])) ?>">Agregar al carrito +</a>
+      <?php endif ?>
+    </div>
+  <?php endif ?>
 </article>
