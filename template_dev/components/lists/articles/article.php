@@ -23,7 +23,7 @@ if (getGlobal('article')->spent === '1') {
       <span class="price">$<?php bind(getGlobal('article')->price) ?></span>
     <?php endif ?>
   </div>
-  <?php if ($class !== 'spent') : ?>
+  <?php if (getGlobal('article')->spent === '0') : ?>
     <hr>
     <div class="actions">
       <?php if (getGlobal('articleURI')) : ?>
