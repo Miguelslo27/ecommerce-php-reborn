@@ -79,6 +79,10 @@ function processRequests()
   
   if (getRequestData('action') === ACTION_EDIT_SITE) {
     setSession('request_messages', siteEdition());
+    $query_str  = getQueryParams();
+    $redirectTo = getRequestURIPath() . (!empty($query_str) ? "?$query_str" : '');
+    header("Location: $redirectTo");
+    exit;
   }
 
   if (getRequestData('action') === ACTION_EDIT_SITE_NETWORKS) {
