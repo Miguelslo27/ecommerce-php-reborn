@@ -8,7 +8,7 @@
     <?php getTemplate('../template_dev/components/sidebar-account/sidebar'); ?>
 
     <section class="form-pass">
-      <form action="" class="form-margin">
+      <form action="" method="post" class="form-margin">
         <h2 class="title-account">
           Cambiar Contraseña
         </h2>

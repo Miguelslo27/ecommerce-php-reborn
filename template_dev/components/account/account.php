@@ -8,7 +8,7 @@
     <?php getTemplate('../template_dev/components/sidebar-account/sidebar'); ?>
 
     <section class="form-section">
-      <form action="" class="form-margin">
+      <form action="" method="post" class="form-margin">
         <h2 class="title-account">
           Datos de la cuenta
         </h2>
