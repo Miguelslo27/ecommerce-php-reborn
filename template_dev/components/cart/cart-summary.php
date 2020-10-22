@@ -2,15 +2,13 @@
   <h2>Resumen</h2>
   <?php
     $orderSubTotal = number_format(intval(getCurrentCart()->order->total) / 1.22, 2, ',', '');
-    $orderTaxes    = number_format((intval(getCurrentCart()->order->total) / 1.22) * 0.22, 2, ',', '');
     $orderTotal    = number_format(getCurrentCart()->order->total, 2, ',', '');
   ?>
   <hr>
   <div class="summary resume">
     <span class="label">Subtotal</span>
-    <span class="value">$ <?php bind($orderSubTotal) ?></span>
-    <!-- <span class="label">Impuestos</span>
-    <span class="value">$ <?php bind($orderTaxes) ?></span> -->
+    <span class="value">$ <?php bind($orderTotal) ?></span>
+
   </div>
   <hr>
   <!-- <div class="summary discounts">
