@@ -13,24 +13,24 @@
           Datos de la cuenta
         </h2>
         <div class="form-group">
-          <label for="">Nombre</label>
+          <label for="name">Nombre</label>
           <input type="text" placeholder="Nombre" value="<?php bind(oneOf(getGlobal('user')->name, '')) ?>">
-          <label class="label-center" for="">Apellido</label>
+          <label class="label-center" for="lasname">Apellido</label>
           <input type="text" placeholder="Apellido" value="<?php bind(oneOf(getGlobal('user')->lastname, '')) ?>">
         </div>
 
         <div class="form-line">
-          <label for="">Dirección Completa</label>
+          <label for="adress">Dirección Completa</label>
           <input type="text" placeholder="Calle 1245, esq Dir"
             value="<?php bind(oneOf(getGlobal('user')->address, '')) ?>">
         </div>
 
         <div class="form-group">
 
-          <label class="label-center" for="">Localidad</label>
+          <label class="label-center" for="city">Localidad</label>
           <input type="text" placeholder="Barrio" value="<?php bind(oneOf(getGlobal('user')->city, '')) ?>">
 
-          <Label>Departamento</Label>
+          <Label for="state">Departamento</Label>
           <input list="city" placeholder="Montevideo" value="<?php bind(oneOf(getGlobal('user')->state, '')) ?>">
           <datalist id="city">
             <option value="Artigas">
@@ -56,10 +56,10 @@
         </div>
 
         <div class="form-group">
-          <label for="">Teléfono</label>
+          <label for="phone">Teléfono</label>
           <input type="tel" placeholder="12345678" value="<?php bind(oneOf(getGlobal('user')->phone, '')) ?>">
 
-          <label class="label-center" for="">Celular</label>
+          <label class="label-center" for="celphone">Celular</label>
           <input type="tel" placeholder="12345678" value="<?php bind(oneOf(getGlobal('user')->cellphone, '')) ?>">
         </div>
 
