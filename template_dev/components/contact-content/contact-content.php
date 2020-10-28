@@ -6,22 +6,22 @@
   <div class="contact-container">
     <div class="contact-div info-container">
       <!-- INFO SECTION -->
-      <?php if (getGlobal('site')->address !== '' || getGlobal('site')->contact_phone !== '' || getGlobal('site')->contact_email !== '') : ?>
+      <?php if (!empty(getGlobal('site')->address) || !empty(getGlobal('site')->contact_phone) || !empty(getGlobal('site')->contact_email)) : ?>
         <div class="info-div">
           <ul>
-            <?php if (getGlobal('site')->address !== '') : ?>
+            <?php if (!empty(getGlobal('site')->address)) : ?>
               <li>
                 <i class="fas fa-map-marker-alt"></i>
                 <span><?php bind(getGlobal('site')->address)?></span>
               </li>
             <?php endif ?>
-            <?php if (getGlobal('site')->contact_phone !== '') : ?>
+            <?php if (!empty(getGlobal('site')->contact_phone)) : ?>
               <li>
                 <i class="fas fa-phone-alt"></i>
                 <span><?php bind(getGlobal('site')->contact_phone)?></span>
               </li>
             <?php endif ?>
-            <?php if (getGlobal('site')->contact_email !== '') : ?>
+            <?php if (!empty(getGlobal('site')->contact_email)) : ?>
               <li>
                 <i class="fas fa-envelope"></i>
                 <a href="#"><?php bind(getGlobal('site')->contact_email)?></a>
@@ -40,11 +40,11 @@
         </form>
       </div>
       <!-- SOCIAL SECTION -->
-      <?php if (getGlobal('networks') !== null) : ?>
+      <?php if (!empty(getGlobal('networks'))) : ?>
         <div class="social-networks">
           <ul>
             <?php foreach(getGlobal('networks') as $network) : ?>
-              <?php if ($network->uri !== '') : ?>
+              <?php if (!empty($network->uri)) : ?>
                 <li>
                   <a href="<?php bind($network->uri)?>" target="_blank"><i class="<?php bind($network->icon)?>"></i></a>
                 </li>

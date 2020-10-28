@@ -30,22 +30,24 @@ newDocument([
     $networks   = getSiteNetworks();
     $categories = getCategories('`category_id` = 0 AND `status` = 1');
 
-    foreach($networks as $network) {
-      switch ($network->tag) {
-        case 'facebook':
-          $network->{"icon"} = 'fab fa-facebook-square';
-        break;
-        case 'instagram':
-          $network->{"icon"} = 'fab fa-instagram';
-        break;
-        case 'twitter':
-          $network->{"icon"} = 'fab fa-twitter';
-        break;
-        case 'youtube':
-          $network->{"icon"} = 'fab fa-youtube';
-        break;
-        default:
-          logToConsole('Unexpected switch case', '', '', '');
+    if (!empty($networks)) {
+      foreach($networks as $network) {
+        switch ($network->tag) {
+          case 'facebook':
+            $network->{"icon"} = 'fab fa-facebook-square';
+          break;
+          case 'instagram':
+            $network->{"icon"} = 'fab fa-instagram';
+          break;
+          case 'twitter':
+            $network->{"icon"} = 'fab fa-twitter';
+          break;
+          case 'youtube':
+            $network->{"icon"} = 'fab fa-youtube';
+          break;
+          default:
+            logToConsole('Unexpected switch case', '', '', '');
+        }
       }
     }
 
