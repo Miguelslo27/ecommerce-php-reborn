@@ -114,27 +114,27 @@ function siteEdition()
   $site_id = getIdSite();
   $site    = getSite();
 
-  if (getPostData('site_name') === '') { 
+  if (empty(getPostData('site_name'))) { 
     $site->name = '';
   }
 
-  if (getPostData('site_dscp') === '') { 
+  if (empty(getPostData('site_dscp'))) { 
     $site->description = '';
   }
 
-  if (getPostData('site_phone') === '') { 
+  if (empty(getPostData('site_phone'))) { 
     $site->phone = '';
   }
 
-  if (getPostData('site_address') === '') { 
+  if (empty(getPostData('site_address'))) { 
     $site->address = '';
   }
 
-  if (getPostData('site_c_email') === '') { 
+  if (empty(getPostData('site_c_email'))) { 
     $site->contact_email = '';
   }
 
-  if (getPostData('site_c_phone') === '') { 
+  if (empty(getPostData('site_c_phone'))) { 
     $site->contact_phone = '';
   }
 

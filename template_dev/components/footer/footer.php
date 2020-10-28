@@ -29,22 +29,22 @@
       </div>
     </section>
     <section class="contact-info">
-      <?php if ($site->address !== '' || $site->contact_phone !== '' || $site->contact_email !== '') : ?>
+      <?php if (!empty($site->address) || !empty($site->contact_phone) || !empty($site->contact_email)) : ?>
         <h3>Contacto</h3>
         <ul>
-          <?php if ($site->address !== '') : ?>
+          <?php if (!empty($site->address)) : ?>
             <li>
               <i class="fas fa-map-marker-alt"></i>
               <span><?php bind($site->address) ?></span>
             </li>
           <?php endif ?>
-          <?php if ($site->contact_phone !== '') : ?>
+          <?php if (!empty($site->contact_phone)) : ?>
             <li>
               <i class="fas fa-phone-alt"></i>
               <span class="contact-phone"><?php bind($site->contact_phone) ?></span>
             </li>
           <?php endif ?>
-          <?php if ($site->contact_email !== '') : ?>
+          <?php if (!empty($site->contact_email)) : ?>
             <li>
               <i class="fas fa-envelope"></i>
               <a href="#"><?php bind($site->contact_email) ?></a>
@@ -52,7 +52,7 @@
           <?php endif ?>
         </ul>
       <?php endif ?>
-      <?php if ($networks !== null) : ?>
+      <?php if (!empty($networks)) : ?>
         <h3>Redes sociales</h3>
         <ul>
           <?php foreach($networks as $network) : ?>
