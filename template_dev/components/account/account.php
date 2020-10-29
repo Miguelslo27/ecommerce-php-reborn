@@ -15,18 +15,11 @@
           Datos de la cuenta
         </h2>
         <div class="form-group">
-<<<<<<< Updated upstream
-          <label for="">Nombre</label>
-          <input type="text" placeholder="Nombre">
-          <label class="label-center" for="">Apellido</label>
-          <input type="text" placeholder="Apellido">
-=======
           <label for="name">Nombre</label>
           <input type="text" placeholder="Nombre" id="name" value="<?php bind(oneOf(getGlobal('user')->name, '')) ?>">
           <label class="label-center" for="lastname">Apellido</label>
           <input type="text" placeholder="Apellido" id="lastname"
             value="<?php bind(oneOf(getGlobal('user')->lastname, '')) ?>">
->>>>>>> Stashed changes
         </div>
 
         <div class="form-line">
@@ -35,15 +28,6 @@
         </div>
 
         <div class="form-line">
-<<<<<<< Updated upstream
-          <label for="">Dirección Completa</label>
-          <input type="text" placeholder="Calle 1245, esq Dir">
-        </div>
-
-        <div class="form-group">
-          <Label>Departamento</Label>
-          <input list="city" placeholder="Montevideo">
-=======
           <label for="address">Dirección Completa</label>
           <input type="text" placeholder="Direccion" id="address"
             value="<?php bind(oneOf(getGlobal('user')->address, '')) ?>">
@@ -57,7 +41,6 @@
           <Label class="label-center" for="state">Departamento</Label>
           <input list="city" placeholder="Departamento" id="state"
             value="<?php bind(oneOf(getGlobal('user')->state, '')) ?>">
->>>>>>> Stashed changes
           <datalist id="city">
             <option value="Artigas">
             <option value="Canelones">
@@ -80,23 +63,6 @@
             <option value="Treinta y Tres">
           </datalist>
 
-<<<<<<< Updated upstream
-          <label class="label-center" for="">Localidad</label>
-          <input type="text" placeholder="Barrio">
-        </div>
-
-        <div class="form-group">
-          <label for="">Teléfono</label>
-          <input type="tel" placeholder="12345678">
-
-          <label class="label-center" for="">Celular</label>
-          <input type="tel" placeholder="12345678">
-        </div>
-
-        <button class="button primary" id="button-center">Guardar</button>
-        <button class="button secondary" id="button-center">Reset</button>
-
-=======
         </div>
 
         <div class="form-group">
@@ -113,7 +79,6 @@
           <button type="submit" class="button primary" id="button-center">Guardar</button>
           <button type="reset" class="button secondary" id="button-center">Cancelar</button>
         </div>
->>>>>>> Stashed changes
       </form>
     </section>
 
