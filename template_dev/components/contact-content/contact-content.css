@@ -134,7 +134,7 @@
   color: #930077;
 }
 
-.contact-section .contact-div .social-networks ul li:nth-child(3) {
+.contact-section .contact-div .social-networks ul li:last-child {
   margin: 0;
 }
 
