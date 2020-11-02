@@ -1,9 +1,9 @@
 <?php
 
 newDocument([
-  'title' => 'eCommerce - Administrador',
+  'title' => 'eCommerce - Administrar Configuración',
   'page' => 'admin',
-  'sub_page' => 'dashboard',
+  'sub_page' => 'configuration',
   'components' => [
     'components/navbar',
     'components/searcher',
@@ -77,13 +77,13 @@ newDocument([
     $users         = new stdClass();
     $users->title  = 'Usuarios';
     $users->number = '9745';
-    $users->links  = [['Todos los usuarios', '/admin/usuarios?uid=todos'],['Usuarios suscriptos', '/admin/usuarios?uid=suscriptos'],['Nuevo usuario', '/admin/usuarios?uid=nuevo'],['Usuarios suspendidos', '/admin/usuarios?uid=suspendidos']];
+    $users->links  = [['Todos los usuarios', '/admin/usuarios?uid=lista'],['Usuarios suscriptos', '/admin/usuarios?uid=suscriptos'],['Nuevo usuario', '/admin/usuarios?uid=nuevo'],['Usuarios suspendidos', '/admin/usuarios?uid=suspendidos']];
     $users->icon   = 'fas fa-users';
 
     $categories         = new stdClass();
     $categories->title  = 'Categorías';
     $categories->number = '9';
-    $categories->links  = [['Todos las categorías', '/admin/categorias?cid=todos'],['Nueva categoría', '/admin/categorias?cid=nuevo'],['Categorías eliminadas', '/admin/categorias?cid=eliminadas']];
+    $categories->links  = [['Todos las categorías', '/admin/categorias/?cid=lista'],['Nueva categoría', '/admin/categorias?cid=nuevo'],['Categorías eliminadas', '/admin/categorias?cid=eliminadas']];
     $categories->icon   = 'fas fa-th-large';
 
     $articles         = new stdClass();

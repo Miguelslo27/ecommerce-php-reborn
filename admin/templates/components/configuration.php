@@ -155,21 +155,21 @@
     <div class="form big-form" data-success="" id="list-admin">
       <h2>Administradores</h2>
       <?php if (@count(getAdmins()) > 0) : ?>
-        <div class="admin-row">
-          <div class="admin-id"><b>ID</b></div>
-          <div class="admin-name"><b>Nombre</b></div>
-          <div class="admin-email"><b>Email</b></div>
-          <div class="admin-role"><b>Rol</b></div>
+        <div class="table-row">
+          <div class="cell admin-id"><b>ID</b></div>
+          <div class="cell admin-name"><b>Nombre</b></div>
+          <div class="cell admin-email"><b>Email</b></div>
+          <div class="cell admin-role"><b>Rol</b></div>
         </div>
         <?php for($i = 0; $i < @count(getAdmins()); $i++) : ?>
-          <div class="admin-row <?php bind(($i % 2 === 0) ? 'background' : '')?>">
-            <div class="admin-id"><?php bind(getAdmins()[$i]->user_id)?></div>
-            <div class="admin-name"><?php bind(getAdmins()[$i]->name . ' ' . getAdmins()[$i]->lastname)?></div>
-            <div class="admin-email"><?php bind(getAdmins()[$i]->email)?></div>
+          <div class="table-row <?php bind(($i % 2 === 0) ? 'background' : '')?>">
+            <div class="cell admin-id"><?php bind(getAdmins()[$i]->user_id)?></div>
+            <div class="cell admin-name"><?php bind(getAdmins()[$i]->name . ' ' . getAdmins()[$i]->lastname)?></div>
+            <div class="cell admin-email"><?php bind(getAdmins()[$i]->email)?></div>
             <?php if (getAdmins()[$i]->role === "seller") : ?>
-              <div class="admin-role">Vendedor</div>
+              <div class="cell admin-role">Vendedor</div>
             <?php else : ?>
-              <div class="admin-role"><?php bind(ucfirst(getAdmins()[$i]->role))?></div>
+              <div class="cell admin-role"><?php bind(ucfirst(getAdmins()[$i]->role))?></div>
             <?php endif ?>
             <div class="actions list-admin-buttons">
               <a href="/admin/config/?sid=admins&action=edit&id=<?php bind(getAdmins()[$i]->user_id)?>"><i class="fas fa-edit"></i> Editar</a>

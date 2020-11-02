@@ -1,17 +1,18 @@
 <?php
 
 newDocument([
-  'title' => 'eCommerce - Administrador',
+  'title' => 'eCommerce - Administrar Categorias',
   'page' => 'admin',
-  'sub_page' => 'dashboard',
+  'sub_page' => 'categories',
   'components' => [
     'components/navbar',
     'components/searcher',
-    'components/summary'
+    'components/categories'
   ],
   'styles' => [
     'components/css/fontawesome/css/all.min.css',
-    'components/css/admin.css'
+    'components/css/admin.css',
+    'components/css/forms.css'
   ],
   'scripts' => [
     'components/admin.js'
@@ -23,6 +24,45 @@ newDocument([
       exit;
     }
 
+    if (!isSuperAdmin()) {
+      header('Location: /admin');
+      exit;
+    }
+
+    $id = '';
+    if (!empty(getQueryParamsByName(['cid']))) {
+        $id = getQueryParamsByName(['cid'])['cid'];
+    }
+    
+    /*
+    //NETWORKS
+    $facebook         = new stdClass();
+    $facebook->title  = 'Facebook';
+    $facebook->name   = 'facebook';
+    $facebook->icon   = 'fa-facebook-square';
+    $facebook->uri    = @getGlobal('uri_networks')->facebook;
+
+    $instagram        = new stdClass();
+    $instagram->title = 'Instagram';
+    $instagram->name  = 'instagram';
+    $instagram->icon  = 'fa-instagram-square';
+    $instagram->uri   = @getGlobal('uri_networks')->instagram;
+
+    $twitter          = new stdClass();
+    $twitter->title   = 'Twitter';
+    $twitter->name    = 'twitter';
+    $twitter->icon    = 'fa-twitter';
+    $twitter->uri     = @getGlobal('uri_networks')->twitter;
+
+    $youtube          = new stdClass();
+    $youtube->title   = 'Youtube';
+    $youtube->name    = 'youtube';
+    $youtube->icon    = 'fa-youtube';
+    $youtube->uri     = @getGlobal('uri_networks')->youtube;
+
+    $networks_object = [$facebook, $instagram, $twitter, $youtube];
+    */
+    //NAVBAR
     $users         = new stdClass();
     $users->title  = 'Usuarios';
     $users->number = '9745';
@@ -57,5 +97,17 @@ newDocument([
     setGlobal('articles', $articles);
     setGlobal('orders', $orders);
     setGlobal('conf', $conf);
+    setGlobal('section', $id);
   }
 ]);
+
+function fieldHasError($field, $class)
+{
+  bind(
+    !empty(getSession('request_messages'))
+    && isset(getSession('request_messages')->fieldsWithErrors[$field])
+    && getSession('request_messages')->fieldsWithErrors[$field]
+      ? $class
+      : ''
+  );
+}
