@@ -61,9 +61,9 @@
       <?php getTemplate('components/navbar-item') ?>
     </div>
     <div class="notifications">
-      <div class="link" >
-        <i class="far fa-bell"></i>
+      <div class="link">
+        <a href="/"><i class="fas fa-sign-in-alt"></i></a>
       </div>
     </div>
   </nav>
-</div>    
+</div>
