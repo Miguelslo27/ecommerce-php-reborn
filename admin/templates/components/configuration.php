@@ -106,17 +106,12 @@
                 </div>
               </div>
               <div class="example-text-container">
-                <span>Ejemplo: https://www.<?php bind(getGlobal('networks_object')[$iter]->name)?>.com/<b>nombre-de-ejemplo</b></span>
+                <span>Ejemplo: https://www.<?php bind(getGlobal('networks_object')[$iter]->name)?>.com/nombre-de-ejemplo</span>
               </div>
             </div>
           <?php endif ?>
         <?php endfor ?>  
-      <?php endfor ?>  
-      <?php if (@count(getSiteNetworks()) > 0) : ?>
-        <div class="help-text-container">
-          <p>El url de la red social a insertar debe ser el <b>texto que aparece despues de la primer barra (/).</b></p>
-        </div>
-      <?php endif ?>
+      <?php endfor ?>
     </div>  
   <?php endif ?>
 

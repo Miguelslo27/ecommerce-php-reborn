@@ -17,6 +17,16 @@ function addToCart($qty = 1)
     return $status;
   }
 
+  $aid     = getRequestData('aid');
+  $article = getArticle($aid);
+
+  if ($article->spent === '1') {
+    $status->succeeded = false;
+    $status->success   = null;
+    $status->errors[]  = 'No se pueden agregar articulos agotados al carrito';
+    return $status;
+  }
+
   $user = getCurrentUser();
 
   if (empty($user) && empty(getSession('temp_user_id'))) {
@@ -24,9 +34,7 @@ function addToCart($qty = 1)
   }
 
   $userid       = oneOf(@$user->id, getSession('temp_user_id'));
-  $aid          = getRequestData('aid');
   $order        = getOrderByUserId($userid);
-  $article      = getArticle($aid);
 
   if (!addToOrder($order, $article, $qty)) {
     $status->succeeded = false;

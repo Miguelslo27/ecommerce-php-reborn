@@ -41,5 +41,6 @@ newDocument([
     setGlobal('articles_pager', $pager);
     setGlobal('articles', oneOf($articles, []));
     setGlobal('currentArticle', $currentArticle);
+    setGlobal('currentArticleId', $id[1]);
   }
 ]);

@@ -114,6 +114,30 @@ function siteEdition()
   $site_id = getIdSite();
   $site    = getSite();
 
+  if (empty(getPostData('site_name'))) { 
+    $site->name = '';
+  }
+
+  if (empty(getPostData('site_dscp'))) { 
+    $site->description = '';
+  }
+
+  if (empty(getPostData('site_phone'))) { 
+    $site->phone = '';
+  }
+
+  if (empty(getPostData('site_address'))) { 
+    $site->address = '';
+  }
+
+  if (empty(getPostData('site_c_email'))) { 
+    $site->contact_email = '';
+  }
+
+  if (empty(getPostData('site_c_phone'))) { 
+    $site->contact_phone = '';
+  }
+
   $sqlInsert = (
   'INSERT
       INTO `site` (
@@ -289,7 +313,7 @@ function siteNetworksEdition($type)
         ) 
         VALUES (
           '$tag',
-          'nombre-de-ejemplo',
+          '',
           $site_id
         )"
       );

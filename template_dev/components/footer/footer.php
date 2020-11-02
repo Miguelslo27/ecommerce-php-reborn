@@ -1,3 +1,8 @@
+<?php
+  $site     = getSite();
+  $networks = getSiteNetworks();
+?>
+
 <footer>
   <div class="footer-columns">
     <section class="links">
@@ -24,27 +29,37 @@
       </div>
     </section>
     <section class="contact-info">
-      <h3>Contacto</h3>
-      <ul>
-        <li>
-          <i class="fas fa-map-marker-alt"></i>
-          <span>Direccion 1 y 2</span>
-        </li>
-        <li>
-          <i class="fas fa-phone-alt"></i>
-          <span>000 0000 000</span>
-        </li>
-        <li>
-          <i class="fas fa-envelope"></i>
-          <a href="#">mail@mail.com</a>
-        </li>
-      </ul>
-      <h3>Redes sociales</h3>
-      <ul>
-        <li><a href="#">Facebook</a></li>
-        <li><a href="#">Twitter</a></li>
-        <li><a href="#">Youtube</a></li>
-      </ul>
+      <?php if (!empty($site->address) || !empty($site->contact_phone) || !empty($site->contact_email)) : ?>
+        <h3>Contacto</h3>
+        <ul>
+          <?php if (!empty($site->address)) : ?>
+            <li>
+              <i class="fas fa-map-marker-alt"></i>
+              <span><?php bind($site->address) ?></span>
+            </li>
+          <?php endif ?>
+          <?php if (!empty($site->contact_phone)) : ?>
+            <li>
+              <i class="fas fa-phone-alt"></i>
+              <span class="contact-phone"><?php bind($site->contact_phone) ?></span>
+            </li>
+          <?php endif ?>
+          <?php if (!empty($site->contact_email)) : ?>
+            <li>
+              <i class="fas fa-envelope"></i>
+              <a href="#"><?php bind($site->contact_email) ?></a>
+            </li>
+          <?php endif ?>
+        </ul>
+      <?php endif ?>
+      <?php if (!empty($networks)) : ?>
+        <h3>Redes sociales</h3>
+        <ul>
+          <?php foreach($networks as $network) : ?>
+            <li><a href="<?php bind($network->uri)?>" target="_blank"><?php bind(ucwords($network->tag)) ?></a></li>
+          <?php endforeach ?>
+        </ul>
+      <?php endif ?>
     </section>
     <section class="subscribe">
       <h3>Suscribirme</h3>

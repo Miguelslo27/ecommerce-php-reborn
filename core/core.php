@@ -54,8 +54,16 @@ function processRequests()
 
   if (getRequestData('action') == ACTION_ADD_TO_CART) {
     setSession('request_messages', addToCart());
-    $query_str  = getQueryParams(['action' => null, 'aid' => null, 'qty' => null]);
-    $redirectTo = getRequestURIPath() . (!empty($query_str) ? "?$query_str" : '');
+    if (getRequestURIPath() === "/articulo/") {
+      $subarticles = getQueryParamsByName(['aaid'])['aaid'];
+      $subarticles !== null ? $subarticles = "aid=$subarticles" : '';
+      $query_str   = getQueryParams(['action' => null, 'qty' => null, 'aaid' => null]);
+      $next_query  = oneOf($subarticles, $query_str);
+      $redirectTo  = getRequestURIPath() . (!empty($query_str) ? "?$next_query" : '');
+    } else {
+      $query_str  = getQueryParams(['action' => null, 'aid' => null, 'qty' => null]);
+      $redirectTo = getRequestURIPath() . (!empty($query_str) ? "?$query_str" : '');
+    }
     header("Location: $redirectTo");
     exit;
   }
@@ -71,6 +79,10 @@ function processRequests()
   
   if (getRequestData('action') === ACTION_EDIT_SITE) {
     setSession('request_messages', siteEdition());
+    $query_str  = getQueryParams();
+    $redirectTo = getRequestURIPath() . (!empty($query_str) ? "?$query_str" : '');
+    header("Location: $redirectTo");
+    exit;
   }
 
   if (getRequestData('action') === ACTION_EDIT_SITE_NETWORKS) {

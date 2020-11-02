@@ -6,23 +6,31 @@
   <div class="contact-container">
     <div class="contact-div info-container">
       <!-- INFO SECTION -->
-      <div class="info-div">
-        <ul>
-          <li>
-            <i class="fas fa-map-marker-alt"></i>
-            <span>Direccion 1 y 2</span>
-          </li>
-          <li>
-            <i class="fas fa-phone-alt"></i>
-            <span>000 0000 000</span>
-          </li>
-          <li>
-            <i class="fas fa-envelope"></i>
-            <a href="#">mail@mail.com</a>
-          </li>
-        </ul>
-      </div>
-      <!-- NESLATTER SECTION -->
+      <?php if (!empty(getGlobal('site')->address) || !empty(getGlobal('site')->contact_phone) || !empty(getGlobal('site')->contact_email)) : ?>
+        <div class="info-div">
+          <ul>
+            <?php if (!empty(getGlobal('site')->address)) : ?>
+              <li>
+                <i class="fas fa-map-marker-alt"></i>
+                <span><?php bind(getGlobal('site')->address)?></span>
+              </li>
+            <?php endif ?>
+            <?php if (!empty(getGlobal('site')->contact_phone)) : ?>
+              <li>
+                <i class="fas fa-phone-alt"></i>
+                <span><?php bind(getGlobal('site')->contact_phone)?></span>
+              </li>
+            <?php endif ?>
+            <?php if (!empty(getGlobal('site')->contact_email)) : ?>
+              <li>
+                <i class="fas fa-envelope"></i>
+                <a href="#"><?php bind(getGlobal('site')->contact_email)?></a>
+              </li>
+            <?php endif ?>
+          </ul>
+        </div>
+      <?php endif ?>
+      <!-- NEWSLATTER SECTION -->
       <div class="news-div">
         <h4>Suscribirme</h4>
         <p>Suscribite y recibí ofertas especiales, promociones y todas las novedades</p>
@@ -32,19 +40,19 @@
         </form>
       </div>
       <!-- SOCIAL SECTION -->
-      <div class="social-networks">
-        <ul>
-          <li>
-            <a href="https://www.youtube.com"><i class="fab fa-youtube"></i></a>
-          </li>
-          <li>
-            <a href="https://www.twitter.com"><i class="fab fa-twitter"></i></a>
-          </li>
-          <li>
-            <a href="https://www.facebook.com"><i class="fab fa-facebook-square"></i></a>
-          </li>
-        </ul>
-      </div>
+      <?php if (!empty(getGlobal('networks'))) : ?>
+        <div class="social-networks">
+          <ul>
+            <?php foreach(getGlobal('networks') as $network) : ?>
+              <?php if (!empty($network->uri)) : ?>
+                <li>
+                  <a href="<?php bind($network->uri)?>" target="_blank"><i class="<?php bind($network->icon)?>"></i></a>
+                </li>
+              <?php endif ?>
+            <?php endforeach ?>
+          </ul>
+        </div>
+      <?php endif ?>  
     </div>
     <div class="contact-div form-container">
       <?php getTemplate('components/forms/contact') ?>
