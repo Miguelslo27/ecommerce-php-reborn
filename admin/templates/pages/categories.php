@@ -33,7 +33,6 @@ newDocument([
     if (!empty(getQueryParamsByName(['cid']))) {
         $id = getQueryParamsByName(['cid'])['cid'];
     }
-
     setGlobal('section', $id);
   }
 ]);
