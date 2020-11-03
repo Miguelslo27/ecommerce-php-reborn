@@ -1,12 +1,11 @@
 <?php
-  $actualItem = getGlobal('actualItem');
-  $item = getGlobal($actualItem);
+  $item = getGlobal('actualItem');
   $uri = getRequestURIPath();
 ?>
 
-<div class="item-box disabled" id="<?php bind($actualItem)?>">
+<div class="item-box disabled" id="<?php bind($item->name)?>">
   <div class="close-container">
-    <i class="fas fa-times close-box" data-close-type="<?php bind($actualItem)?>"></i>
+    <i class="fas fa-times close-box" data-close-type="<?php bind($item->name)?>"></i>
   </div>
   <div class="item-icon">
     <i class="<?php bind($item->icon) ?>"></i>
