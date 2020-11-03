@@ -34,34 +34,6 @@ newDocument([
         $id = getQueryParamsByName(['cid'])['cid'];
     }
     
-    /*
-    //NETWORKS
-    $facebook         = new stdClass();
-    $facebook->title  = 'Facebook';
-    $facebook->name   = 'facebook';
-    $facebook->icon   = 'fa-facebook-square';
-    $facebook->uri    = @getGlobal('uri_networks')->facebook;
-
-    $instagram        = new stdClass();
-    $instagram->title = 'Instagram';
-    $instagram->name  = 'instagram';
-    $instagram->icon  = 'fa-instagram-square';
-    $instagram->uri   = @getGlobal('uri_networks')->instagram;
-
-    $twitter          = new stdClass();
-    $twitter->title   = 'Twitter';
-    $twitter->name    = 'twitter';
-    $twitter->icon    = 'fa-twitter';
-    $twitter->uri     = @getGlobal('uri_networks')->twitter;
-
-    $youtube          = new stdClass();
-    $youtube->title   = 'Youtube';
-    $youtube->name    = 'youtube';
-    $youtube->icon    = 'fa-youtube';
-    $youtube->uri     = @getGlobal('uri_networks')->youtube;
-
-    $networks_object = [$facebook, $instagram, $twitter, $youtube];
-    */
     //NAVBAR
     $users         = new stdClass();
     $users->title  = 'Usuarios';
