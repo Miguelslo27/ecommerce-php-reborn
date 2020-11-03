@@ -41,7 +41,7 @@
         <?php $parentCategories = getCategories('`category_id` = 0 AND `status` = 1');?>
         <form class="form" action="" method="POST">
             <h2>Crear Categoría</h2>
-            <input type="hidden" name="action" value="<?php bind('ACTION_EDIT_SITE') ?>">
+            <input type="hidden" name="action" value="<?php bind('ACTION_CREATE_CATEGORY') ?>">
             <div class="form-group">
                 <label for="category_title">Titulo:</label>
                 <input name="category_title" id="category_title" type="text" class="<?php fieldHasError('category_title', 'error') ?>" value="<?php bind(getPreformData('category_title', '')) ?>">

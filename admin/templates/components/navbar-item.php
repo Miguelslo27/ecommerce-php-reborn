@@ -3,7 +3,7 @@
   $uri = getRequestURIPath();
 ?>
 
-<div class="item-box disabled" id="<?php bind($item->name)?>">
+<div class="item-box hide-box" id="<?php bind($item->name)?>">
   <div class="close-container">
     <i class="fas fa-times close-box" data-close-type="<?php bind($item->name)?>"></i>
   </div>
