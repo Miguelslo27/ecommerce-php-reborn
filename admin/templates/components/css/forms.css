@@ -220,7 +220,7 @@ input[type=number] {
   text-align: left;
 }
 
-.form-container .form .admin-row {
+.form-container .form .table-row {
   display: flex;
   justify-content: flex-start;
   flex-direction: row;
@@ -236,27 +236,54 @@ input[type=number] {
   background-color: #87ceebdb;
 }
 
-.form-container .form .admin-row .admin-id,
-.form-container .form .admin-row .admin-name,
-.form-container .form .admin-row .admin-email,
-.form-container .form .admin-row .admin-role {
+.form-container .form .table-row .cell {
   display: flex;
   width: 35%;
   justify-content: center;
-  padding: .5rem 0;
+  align-items: center;
+  padding: .5rem .2rem;
   font-size: .8rem;
 }
 
-.form-container .form .admin-row .admin-role  {
+.form-container .form .table-row .cell p {
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+.form-container .form .table-row .admin-role  {
   width: 10%
 }
 
-.form-container .form .admin-row .admin-name {
+.form-container .form .table-row .admin-name {
   width: 28%;
 }
 
-.form-container .form .admin-row .admin-id {
+.form-container .form .table-row .admin-id {
   width: 7%;
+}
+
+.form-container .form .table-row .cat-id  {
+  max-width: 6%
+}
+
+.form-container .form .table-row .cat-title {
+  max-width: 13%;
+}
+
+.form-container .form .table-row .cat-dscp {
+  max-width: 23%;
+}
+
+.form-container .form .table-row .cat-b-dscp {
+  max-width: 15%;
+}
+
+.form-container .form .table-row .cat-url {
+  max-width: 17%;
+}
+
+.form-container .form .table-row .cat-parent {
+  max-width: 6%;
 }
 
 .form-container .form .add-container {
@@ -281,4 +308,8 @@ input[type=number] {
 .form-container .text-not-elements {
   font-weight: 800;
   font-size: 1rem;
+}
+
+.text-center {
+  text-align: center;
 }
