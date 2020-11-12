@@ -76,6 +76,7 @@
         <label for="category_parent">Categoría Padre:</label>
         <select name="category_parent" id="category_parent" type="text" value="<?php bind(getPreformData('category_parent', '')) ?>" <?php empty($parentCategories) ? bind('disabled') : '' ?>>
           <?php if (!empty($parentCategories)) : ?>
+            <option selected> - </option>
             <?php foreach ($parentCategories as $category) : ?>
               <option value="<?php bind($category->title) ?>"><?php bind($category->title) ?></option>
             <?php endforeach ?>
