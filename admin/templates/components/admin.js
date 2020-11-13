@@ -6,18 +6,21 @@ var previousItem = null;
 const handleMenuLink = function () {
   if (this.dataset.open === "false") {
     if (previousItem !== null) {
-      document.getElementById(previousItem).classList.add('disabled');
+      document.getElementById(previousItem).classList.remove('show-box');
+      document.getElementById(previousItem).classList.add('hide-box');
       document.querySelector('.item-' + previousItem).children[1].classList.add('disabled');
       document.querySelector('.item-' + previousItem).dataset.open = "false";
     }
     this.dataset.open = "true";
-    document.getElementById(this.dataset.type).classList.remove('disabled');
+    document.getElementById(this.dataset.type).classList.remove('hide-box');
+    document.getElementById(this.dataset.type).classList.add('show-box');
     //remove disabled to triangle
     this.children[1].classList.remove('disabled');
     previousItem = this.dataset.type;
   } else {
     this.dataset.open = "false";
-    document.getElementById(this.dataset.type).classList.add('disabled');
+    document.getElementById(this.dataset.type).classList.remove('show-box');
+    document.getElementById(this.dataset.type).classList.add('hide-box');
     //add disabled to triangle
     this.children[1].classList.add('disabled');
   }
