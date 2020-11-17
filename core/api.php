@@ -47,6 +47,13 @@ if ($request->action == ACTION_REMOVE_CATEGORY) {
   $response = json_encode($status);
 }
 
+if ($request->action == ACTION_RESTORE_CATEGORY) {
+  setRequestData('input', $request->input);
+  $status = restoreCategory();
+
+  $response = json_encode($status);
+}
+
 if (!isset($status)) {
   header(getServer('SERVER_PROTOCOL') . ' 500 Internal server error');
   exit;

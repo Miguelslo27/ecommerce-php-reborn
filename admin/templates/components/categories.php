@@ -1,10 +1,14 @@
 <div class="form-container">
-  <?php logToConsole('print', getGlobal('catName')) ?>
-  <!-- LIST CATEGORIES -->
-  <?php if (getGlobal('section') === 'lista' && getGlobal('action') === null) : ?>
-    <?php $categories = getCategories('`status` = 1'); ?>
+  <!-- LIST CATEGORIES / DELETED CATEGORIES -->
+  <?php if ((getGlobal('section') === 'lista' || getGlobal('section') === 'eliminadas') && getGlobal('action') === null) : ?>
     <div class="form big-form" data-success="" id="list-categories">
-      <h2>Categorias</h2>
+      <?php if (getGlobal('section') === 'lista') : ?>
+        <?php $categories = getCategories('`status` = 1'); ?>
+        <h2>Categorias</h2>
+      <?php else : ?>
+        <?php $categories = getCategories('`status` = 0'); ?>
+        <h2>Categorias Eliminadas</h2>
+      <?php endif ?>
       <?php if (@count($categories) > 0) : ?>
         <div class="table-row text-center">
           <div class="cell cat-id"><b>ID</b></div>
@@ -40,10 +44,16 @@
                 <p><?php bind($categories[$i]->category_id) ?></p>
               </div>
             <?php endif ?>
-            <div class="actions list-admin-buttons">
-              <a href="/admin/categorias/?cid=lista&action=edit&id=<?php bind($categories[$i]->id) ?>"><i class="fas fa-edit"></i> Editar</a>
-              <a class="remove-button remove-category-button" data-action="<?php bind(ACTION_REMOVE_CATEGORY) ?>" data-type="remove-category" data-input="<?php bind($categories[$i]->id)?>"><i class="fas fa-trash-alt"></i> Eliminar</a>
-            </div>
+            <?php if (getGlobal('section') === 'lista') : ?>
+              <div class="actions list-admin-buttons">
+                <a href="/admin/categorias/?cid=lista&action=edit&id=<?php bind($categories[$i]->id) ?>"><i class="fas fa-edit"></i> Editar</a>
+                <a class="remove-button remove-category-button" data-action="<?php bind(ACTION_REMOVE_CATEGORY) ?>" data-type="remove-category" data-input="<?php bind($categories[$i]->id)?>"><i class="fas fa-trash-alt"></i> Eliminar</a>
+              </div>
+              <?php else : ?>
+                <div class="actions list-admin-buttons">
+                <a class="restore-button restore-category-button" data-action="<?php bind(ACTION_RESTORE_CATEGORY) ?>" data-type="restore-category" data-input="<?php bind($categories[$i]->id)?>"><i class="fas fa-trash-restore"></i> Restaurar</a>
+              </div>
+            <?php endif ?>
           </div>
         <?php endfor ?>
       <?php else : ?>

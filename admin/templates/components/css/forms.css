@@ -142,6 +142,11 @@ input[type=number] {
   background-color: rgb(226, 47, 47);
 }
 
+.form-container .form .actions .restore-button {
+  margin-left: .3rem;
+  background-color: #28a745;
+}
+
 .form-container .form .button-container {
   display: flex;
   justify-content: flex-end;

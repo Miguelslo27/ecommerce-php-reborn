@@ -70,6 +70,30 @@ function checkIfTitleExists($title)
   return getDB()->countOf('categories', "`title` = '$title'") > 0;
 }
 
+function restoreCategory()
+{
+  $cid = getRequestData('input');
+  $status = newStatusObject();
+
+  //UPDATE CATEGORY STATUS
+  $sql = (
+    "UPDATE
+        `categories` 
+      SET
+        `status` = 1
+      WHERE 
+        `id` = $cid"
+  );
+  if(!getDB()->query($sql)) {
+    $status->errors[] = 'La red no se puedo restaurar, intente de nuevo';
+    return $status;
+  }
+
+  $status->succeeded = true;
+  $status->success   = 'Red restaurada con éxito';
+  return $status;
+}
+
 function removeCategory()
 {
   $cid = getRequestData('input');

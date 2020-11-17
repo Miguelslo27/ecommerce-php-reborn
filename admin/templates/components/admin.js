@@ -192,20 +192,12 @@ removeAdminButtons.forEach(removeButton => { removeButton.addEventListener('clic
 
 
 //CATEGORIES 
-const addCategoryButton = document.querySelector('.add-category-button');
+const restoreCategoryButton = document.querySelectorAll('.restore-category-button');
 const removeCategoryButtons = document.querySelectorAll('.remove-category-button');
 
 const handleCategory = function (ev) {
   ev.preventDefault();
   form.classList.add('blur');
-  var inputValue = null;
-
-  if (this.dataset.type === "add-admin" || this.dataset.type === "edit-admin") {
-    var inputValue = document.getElementById(this.dataset.input).value;
-    var roleValue = document.getElementById(this.dataset.role).value;
-  } else if (this.dataset.type === "remove-category") {
-    var inputValue = this.dataset.input;
-  }
 
   const options  = {
     method: 'POST',
@@ -215,7 +207,7 @@ const handleCategory = function (ev) {
     body: JSON.stringify({
       'action': this.dataset.action,
       'type': this.dataset.type,
-      'input': inputValue
+      'input': this.dataset.input
     })
   };
 
@@ -235,3 +227,4 @@ const handleCategory = function (ev) {
 }
 
 removeCategoryButtons.forEach(removeButton => { removeButton.addEventListener('click', handleCategory) });
+restoreCategoryButton.forEach(restoreButton => { restoreButton.addEventListener('click', handleCategory) });
