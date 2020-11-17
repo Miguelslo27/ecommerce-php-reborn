@@ -27,7 +27,8 @@ const handleMenuLink = function () {
 }
 
 const handleCloseMenuLink = function () {
-  document.getElementById(this.dataset.closeType).classList.add('disabled');
+  document.getElementById(this.dataset.closeType).classList.remove('show-box');
+  document.getElementById(this.dataset.closeType).classList.add('hide-box');
   document.querySelector('.item-' + this.dataset.closeType).children[1].classList.add('disabled');
   document.querySelector('.item-' + this.dataset.closeType).dataset.open = "false";
 }

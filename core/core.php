@@ -89,6 +89,14 @@ function processRequests()
     setSession('request_messages', createCategory());
   }
 
+  if (getPostData('action') === ACTION_EDIT_CATEGORY) {
+    setSession('request_messages', editCategory());
+  }
+
+  if (getPostData('action') === ACTION_REMOVE_CATEGORY) {
+    setSession('request_messages', removeCategory());
+  }
+
   if (getRequestData('action') === ACTION_EDIT_SITE_NETWORKS) {
     setSession('request_messages', siteNetworksEdition());
   }

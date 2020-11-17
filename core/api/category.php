@@ -36,6 +36,11 @@ function getCategoriesByParentId($cid)
   return getCategories("`category_id` = '$cid'");
 }
 
+function getCategoryByTitle($title)
+{
+  return getCategories("`title` = '$title'");
+}
+
 function getCurrentCategory()
 {
   return getCategoryById(getGetData('cid'));
@@ -65,7 +70,8 @@ function checkIfTitleExists($title)
   return getDB()->countOf('categories', "`title` = '$title'") > 0;
 }
 
-function removeCategory() {
+function removeCategory()
+{
   $cid = getRequestData('input');
   $status = newStatusObject();
 
@@ -126,9 +132,54 @@ function removeCategory() {
   return $status;
 }
 
+function editCategory()
+{
+  $status = category_checkIncomingData('edit');
+  if (!$status->succeeded) {
+    return $status;
+  }
+
+  //DEFINE PARENT CATEGORY
+  $parent_category = 0;
+  if (!empty(getPostData('category_parent')) && getPostData('category_parent') !== 'no-category') {
+    $parent_category = explode("+", getPostData('category_parent'));
+    $parent_category = $parent_category[1];
+
+    //IF THE PARENT CATEGORY IS ALSO A CHILD CATEGORY RETURN ERROR
+    if (getCategoryById($parent_category)->category_id !== '0') {
+      $status->succeeded        = false;
+      $status->errors           = ['Error, categoria padre inválida'];
+      return $status;
+    }
+  }
+
+  $sql = (
+    'UPDATE
+      `categories`
+    SET
+      `title` = "' . getPostData('category_title') . '",
+      `description` = "' . getPostData('category_dscp') . '",
+      `brief_description` = "' . getPostData('category_dscp_short') . '",
+      `images_url` = "' . getPostData('category_img_url') . '",
+      `category_id` = "' . $parent_category . '"
+    WHERE
+      `id` = "' . getPostData('category_id') . '"
+    '
+  );
+
+  if(!getDB()->query($sql)) {
+    $status->errors[] = 'La categoría no se pudo actualizar, intente de nuevo';
+    return $status;
+  }
+
+  $status->succeeded = true;
+  $status->success   = 'Categoría actualizada con éxito';
+  return $status;
+}
+
 function createCategory()
 {
-  $status = category_checkIncomingData();
+  $status = category_checkIncomingData('create');
   if (!$status->succeeded) {
     return $status;
   }
@@ -185,18 +236,43 @@ function createCategory()
   return $status;
 }
 
-function category_checkIncomingData() {
+function category_checkIncomingData($action)
+{
   $status = newStatusObject();
 
   if (empty(getPostData('category_title'))) {
     $status->fieldsWithErrors['category_title'] = true;
-    $status->errors[]                           = 'El titulo no puede ser vacío';
-  } elseif (checkIfTitleExists(getPostData('category_title'))) {
-    $status->fieldsWithErrors['category_title'] = true;
-    $status->errors[]                      = 'Ingrese un titulo diferente';
-    return $status;
+    $status->errors[] = 'El titulo no puede ser vacío';
   }
 
+  if ($action === 'create') {
+    if (checkIfTitleExists(getPostData('category_title'))) {
+      if (getCategoryByTitle(getPostData('category_title'))[0]->status === 1) {
+        $status->fieldsWithErrors['category_title'] = true;
+        $status->errors[] = 'Ingrese un titulo diferente';
+        return $status;
+      } else {
+        $status->fieldsWithErrors['category_title'] = true;
+        $status->errors[] = 'El titulo pertenece a una categoría eliminada';
+        return $status;
+      }
+    }
+  } else {
+    if (getPostData('category_title') !== getCategoryById(getPostData('category_id'))->title) {
+      if (checkIfTitleExists(getPostData('category_title'))) {
+        if (getCategoryByTitle(getPostData('category_title'))[0]->status === 1) {
+          $status->fieldsWithErrors['category_title'] = true;
+          $status->errors[] = 'Ingrese un titulo diferente';
+          return $status;
+        } else {
+          $status->fieldsWithErrors['category_title'] = true;
+          $status->errors[] = 'El titulo pertenece a una categoría eliminada';
+          return $status;
+        }
+      }
+    }
+  }
+  
   if (count($status->errors) == 0) {
     $status->succeeded = true;
   }

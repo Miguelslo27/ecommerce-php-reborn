@@ -50,6 +50,17 @@ input[type=number] {
   margin-bottom: 1rem;
   width: 100%;
 }
+.form-container .form .form-group .explication-container {
+  display: flex;
+  justify-content: center;
+  margin-top: .4rem;
+}
+
+.form-container .form .form-group .explication-container small {
+  width: 95%;
+  color: #ed4337e9;
+  font-size: .9rem;
+}
 
 /* INPUTS */
 
@@ -76,7 +87,7 @@ input[type=number] {
 }
 
 .form-container .form .form-group textarea {
-  height: 6rem;
+  height: 4rem;
   font-family: "Open Sans", "Arial", sans-serif;
   resize: none;
 }

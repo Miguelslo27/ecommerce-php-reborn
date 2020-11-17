@@ -28,12 +28,7 @@ newDocument([
       header('Location: /admin');
       exit;
     }
-
-    logToConsole('test', getQueryParams(), '', ''); 
-    logToConsole('cid', getQueryParamsByName(['cid'])['cid'], '', ''); 
-    logToConsole('action', getQueryParamsByName(['action'])['action'], '', ''); 
-    logToConsole('id', getQueryParamsByName(['id'])['id'], '', ''); 
-
+    
     $action = null;
     $id     = null;
     $cid    = null;
@@ -51,6 +46,8 @@ newDocument([
     }
 
     setGlobal('section', $cid);
+    setGlobal('action', $action);
+    setGlobal('id', $id);
   }
 ]);
 

@@ -1,7 +1,7 @@
 <div class="form-container">
   <?php logToConsole('print', getGlobal('catName')) ?>
   <!-- LIST CATEGORIES -->
-  <?php if (getGlobal('section') === 'lista') : ?>
+  <?php if (getGlobal('section') === 'lista' && getGlobal('action') === null) : ?>
     <?php $categories = getCategories('`status` = 1'); ?>
     <div class="form big-form" data-success="" id="list-categories">
       <h2>Categorias</h2>
@@ -51,38 +51,54 @@
       <?php endif ?>
     </div>
   <?php endif ?>
-  <!-- NEW CATEGORY -->
-  <?php if (getGlobal('section') === 'nueva') : ?>
-    <?php $parentCategories = getCategories('`status` = 1'); ?>
+  <!-- NEW / EDIT CATEGORY -->
+  <?php if (getGlobal('section') === 'nueva' || getGlobal('action') === 'edit') : ?>
+    <?php $parentCategories = getCategories('`category_id` = 0 AND `status` = 1'); ?>
     <form class="form" action="" method="POST">
-      <h2>Crear Categoría</h2>
-      <input type="hidden" name="action" value="<?php bind(ACTION_CREATE_CATEGORY) ?>">
+      <?php if (getGlobal('action') === 'edit') : ?>
+        <?php $current_category = getCategoryById(getGlobal('id'));
+              $current_category_childrens = getCategoriesByParentId(getGlobal('id'));
+              $cat_parent = getCategoryById($current_category->category_id);
+              $cat_parent_value = $current_category->category_id === '0' ? "" : "$cat_parent->title+$cat_parent->id";?>
+        <input type="hidden" name="category_id" value="<?php bind($current_category->id) ?>">
+        <h2>Editar Categoría</h2>
+      <?php else : ?>
+        <?php $cat_parent = null;
+              $current_category = null?>
+        <h2>Crear Categoría</h2>
+      <?php endif ?>
+      <input type="hidden" name="action" value="<?php bind(getGlobal('action') === 'edit' ? ACTION_EDIT_CATEGORY : ACTION_CREATE_CATEGORY) ?>">
       <div class="form-group">
         <label for="category_title">Titulo:</label>
-        <input name="category_title" id="category_title" type="text" class="<?php fieldHasError('category_title', 'error') ?>" value="<?php bind(getPreformData('category_title', '')) ?>">
+        <input name="category_title" id="category_title" type="text" class="<?php fieldHasError('category_title', 'error') ?>" value="<?php getGlobal('action') === 'edit' ? bind(oneOf(getPreformData('category_title', ''), $current_category->title)) : bind(getPreformData('category_title', '')) ?>">
       </div>
       <div class="form-group">
         <label for="category_dscp">Descripción:</label>
-        <input name="category_dscp" id="category_dscp" type="text" class="<?php fieldHasError('category_dscp', 'error') ?>" value="<?php bind(getPreformData('category_dscp', '')) ?>">
+        <textarea name="category_dscp" id="category_dscp" type="text" class="<?php fieldHasError('category_dscp', 'error') ?>" value="<?php getGlobal('action') === 'edit' ? bind(oneOf(getPreformData('category_dscp', ''), $current_category->description)) : bind(getPreformData('category_dscp', '')) ?>"></textarea>
       </div>
       <div class="form-group">
         <label for="category_dscp_short">Descripción Corta:</label>
-        <input name="category_dscp_short" id="category_dscp_short" type="text" class="<?php fieldHasError('category_dscp_short', 'error') ?>" value="<?php bind(getPreformData('category_dscp_short', '')) ?>">
+        <textarea name="category_dscp_short" id="category_dscp_short" type="text" class="<?php fieldHasError('category_dscp_short', 'error') ?>" value="<?php getGlobal('action') === 'edit' ? bind(oneOf(getPreformData('category_dscp_short', ''), $current_category->brief_description)) : bind(getPreformData('category_dscp_short', '')) ?>"></textarea>
       </div>
       <div class="form-group">
         <label for="category_img_url">Imagenes (URL):</label>
-        <input name="category_img_url" id="category_img_url" type="text" class="<?php fieldHasError('category_img_url', 'error') ?>" value="<?php bind(getPreformData('category_img_url', '')) ?>">
+        <input name="category_img_url" id="category_img_url" type="text" class="<?php fieldHasError('category_img_url', 'error') ?>" value="<?php getGlobal('action') === 'edit' ? bind(oneOf(getPreformData('category_img_url', ''), $current_category->images_url)) : bind(getPreformData('category_img_url', '')) ?>">
       </div>
       <div class="form-group">
         <label for="category_parent">Categoría Padre:</label>
-        <select name="category_parent" id="category_parent" type="text" value="<?php bind(getPreformData('category_parent', '')) ?>" <?php empty($parentCategories) ? bind('disabled') : '' ?>>
+        <select name="category_parent" id="category_parent" type="text" value="<?php getGlobal('action') === 'edit' ? bind(oneOf(getPreformData('category_parent', ''), $cat_parent_value)) : bind(getPreformData('category_parent', '')) ?>" <?php empty($parentCategories) || (isset($current_category_childrens) && !empty($current_category_childrens)) ? bind('disabled') : '' ?>>
           <?php if (!empty($parentCategories)) : ?>
-            <option value="no-category" selected> - </option>
+            <option value="no-category"> - </option>
             <?php foreach ($parentCategories as $category) : ?>
-              <option value="<?php bind($category->title) ?>+<?php bind($category->id) ?>"><?php bind($category->title) ?></option>
+              <option value="<?php bind($category->title) ?>+<?php bind($category->id) ?>" <?php bind((isset($cat_parent) && $category->id == $cat_parent->id) ? 'selected' : '')?>><?php bind($category->title) ?></option>
             <?php endforeach ?>
           <?php endif ?>
         </select>
+        <?php if (isset($current_category_childrens) && !empty($current_category_childrens)) : ?>
+          <div class="explication-container">
+            <small>Esta categoría no puede contener categoría padre porque tiene categorías hijas.</small>
+          </div>
+        <?php endif ?>
       </div>
       <div class="button-container">
         <button class="button" type="submit">
