@@ -85,16 +85,12 @@ function processRequests()
     exit;
   }
 
-  if (getRequestData('action') === ACTION_EDIT_SITE_NETWORKS) {
-    setSession('request_messages', siteNetworksEdition());
-  }
-  
-  if (getPostData('action') === ACTION_SAVE_CATEGORY) {
-    // @TODO
+  if (getPostData('action') === ACTION_CREATE_CATEGORY) {
+    setSession('request_messages', createCategory());
   }
 
-  if (getPostData('action') === ACTION_SAVE_ARTICLE) {
-    // @TODO
+  if (getRequestData('action') === ACTION_EDIT_SITE_NETWORKS) {
+    setSession('request_messages', siteNetworksEdition());
   }
 
   if (getPostData('action') === ACTION_SEND_EMAIL) {

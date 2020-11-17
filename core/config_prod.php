@@ -34,6 +34,7 @@ define('ACTION_SAVE_ARTICLE', 'save_article');
 define('ACTION_ADD_TO_CART', 'add_to_cart');
 define('ACTION_OBTAIN_PASSWORD', 'obtain_password');
 define('ACTION_CHANGE_PASSWORD', 'change_password');
+define('ACTION_CREATE_CATEGORY', 'create_category');
 
 /* DEFAULT REQUIRED TEMPLATES PATHS */
 define('ERROR_404_TEMPLATE', 'pages/404');

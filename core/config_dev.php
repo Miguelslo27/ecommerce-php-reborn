@@ -40,6 +40,8 @@ define('ACTION_OBTAIN_PASSWORD', 'obtain_password');
 define('ACTION_CHANGE_PASSWORD', 'change_password');
 define('ACTION_EDIT_SITE', 'site_edition');
 define('ACTION_EDIT_SITE_NETWORKS', 'site_networks_edition');
+define('ACTION_CREATE_CATEGORY', 'create_category');
+define('ACTION_REMOVE_CATEGORY', 'remove_category');
 
 /* CONSTANTS FOR PAYMENT */
 define('ACTION_UPDATE_CART_BILLING_INFO', 'update_cart_billing_info');

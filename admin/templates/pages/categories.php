@@ -29,11 +29,28 @@ newDocument([
       exit;
     }
 
-    $id = '';
-    if (!empty(getQueryParamsByName(['cid']))) {
-        $id = getQueryParamsByName(['cid'])['cid'];
+    logToConsole('test', getQueryParams(), '', ''); 
+    logToConsole('cid', getQueryParamsByName(['cid'])['cid'], '', ''); 
+    logToConsole('action', getQueryParamsByName(['action'])['action'], '', ''); 
+    logToConsole('id', getQueryParamsByName(['id'])['id'], '', ''); 
+
+    $action = null;
+    $id     = null;
+    $cid    = null;
+
+    if (!empty(getQueryParamsByName(['action']))) {
+      $action = getQueryParamsByName(['action'])['action'];
     }
-    setGlobal('section', $id);
+
+    if (!empty(getQueryParamsByName(['id']))) {
+      $id = getQueryParamsByName(['id'])['id'];
+    }
+
+    if (!empty(getQueryParamsByName(['cid']))) {
+      $cid = getQueryParamsByName(['cid'])['cid'];
+    }
+
+    setGlobal('section', $cid);
   }
 ]);
 

@@ -154,7 +154,6 @@ const handleAdmin = function (ev) {
   } else if (this.dataset.type === "remove-admin") {
     var inputValue = this.dataset.input;
   }
-  console.log(roleValue);
 
   const options  = {
     method: 'POST',
@@ -189,3 +188,49 @@ if (addAdminButton !== null) {
 }
 
 removeAdminButtons.forEach(removeButton => { removeButton.addEventListener('click', handleAdmin) });
+
+
+//CATEGORIES 
+const addCategoryButton = document.querySelector('.add-category-button');
+const removeCategoryButtons = document.querySelectorAll('.remove-category-button');
+
+const handleCategory = function (ev) {
+  ev.preventDefault();
+  form.classList.add('blur');
+  var inputValue = null;
+
+  if (this.dataset.type === "add-admin" || this.dataset.type === "edit-admin") {
+    var inputValue = document.getElementById(this.dataset.input).value;
+    var roleValue = document.getElementById(this.dataset.role).value;
+  } else if (this.dataset.type === "remove-category") {
+    var inputValue = this.dataset.input;
+  }
+
+  const options  = {
+    method: 'POST',
+    headers:{
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'action': this.dataset.action,
+      'type': this.dataset.type,
+      'input': inputValue
+    })
+  };
+
+  fetch('/core/api.php', options)
+    .then(res => res.json())
+    .then(res => {
+      setTimeout(() => {
+        form.classList.remove('blur');
+      }, TIMETORELOAD);
+
+      handleUpdateResponse(res, this.dataset.type);
+    })
+    .catch(err => {
+      form.classList.remove('blur');
+      handleUpdateError('error');
+    });
+}
+
+removeCategoryButtons.forEach(removeButton => { removeButton.addEventListener('click', handleCategory) });

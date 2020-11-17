@@ -1,4 +1,5 @@
 <div class="form-container">
+  <?php logToConsole('print', getGlobal('catName')) ?>
   <!-- LIST CATEGORIES -->
   <?php if (getGlobal('section') === 'lista') : ?>
     <?php $categories = getCategories('`status` = 1'); ?>
@@ -41,7 +42,7 @@
             <?php endif ?>
             <div class="actions list-admin-buttons">
               <a href="/admin/categorias/?cid=lista&action=edit&id=<?php bind($categories[$i]->id) ?>"><i class="fas fa-edit"></i> Editar</a>
-              <a class="remove-button remove-admin-button" data-action="<?php bind(ACTION_EDIT_SITE) ?>" data-type="remove-admin" data-input="<?php bind($categories[$i]->id) ?>"><i class="fas fa-trash-alt"></i> Eliminar</a>
+              <a class="remove-button remove-category-button" data-action="<?php bind(ACTION_REMOVE_CATEGORY) ?>" data-type="remove-category" data-input="<?php bind($categories[$i]->id)?>"><i class="fas fa-trash-alt"></i> Eliminar</a>
             </div>
           </div>
         <?php endfor ?>
@@ -52,10 +53,10 @@
   <?php endif ?>
   <!-- NEW CATEGORY -->
   <?php if (getGlobal('section') === 'nueva') : ?>
-    <?php $parentCategories = getCategories('`category_id` = 0 AND `status` = 1'); ?>
+    <?php $parentCategories = getCategories('`status` = 1'); ?>
     <form class="form" action="" method="POST">
       <h2>Crear Categoría</h2>
-      <input type="hidden" name="action" value="<?php bind('ACTION_CREATE_CATEGORY') ?>">
+      <input type="hidden" name="action" value="<?php bind(ACTION_CREATE_CATEGORY) ?>">
       <div class="form-group">
         <label for="category_title">Titulo:</label>
         <input name="category_title" id="category_title" type="text" class="<?php fieldHasError('category_title', 'error') ?>" value="<?php bind(getPreformData('category_title', '')) ?>">
@@ -76,9 +77,9 @@
         <label for="category_parent">Categoría Padre:</label>
         <select name="category_parent" id="category_parent" type="text" value="<?php bind(getPreformData('category_parent', '')) ?>" <?php empty($parentCategories) ? bind('disabled') : '' ?>>
           <?php if (!empty($parentCategories)) : ?>
-            <option selected> - </option>
+            <option value="no-category" selected> - </option>
             <?php foreach ($parentCategories as $category) : ?>
-              <option value="<?php bind($category->title) ?>"><?php bind($category->title) ?></option>
+              <option value="<?php bind($category->title) ?>+<?php bind($category->id) ?>"><?php bind($category->title) ?></option>
             <?php endforeach ?>
           <?php endif ?>
         </select>
