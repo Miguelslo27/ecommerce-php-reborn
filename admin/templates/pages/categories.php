@@ -28,7 +28,7 @@ newDocument([
       header('Location: /admin');
       exit;
     }
-    
+
     $action = null;
     $id     = null;
     $cid    = null;
@@ -48,6 +48,8 @@ newDocument([
     setGlobal('section', $cid);
     setGlobal('action', $action);
     setGlobal('id', $id);
+
+    logToConsole('sect', (getGlobal('section')));
   }
 ]);
 

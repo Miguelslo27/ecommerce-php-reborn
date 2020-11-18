@@ -85,12 +85,9 @@ function processRequests()
     exit;
   }
 
-  if (getPostData('action') === ACTION_CREATE_CATEGORY) {
-    setSession('request_messages', createCategory());
-  }
-
-  if (getPostData('action') === ACTION_EDIT_CATEGORY) {
-    setSession('request_messages', editCategory());
+  if (getPostData('action') === ACTION_HANDLE_CATEGORY) {
+    $action = (getQueryParamsByName(['cid'])['cid'] === 'nueva') ? 'create' : 'edit';
+    setSession('request_messages', handleCategory($action));
   }
 
   if (getPostData('action') === ACTION_REMOVE_CATEGORY) {

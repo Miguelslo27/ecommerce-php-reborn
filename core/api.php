@@ -41,14 +41,14 @@ if ($request->action == ACTION_EDIT_SITE_NETWORKS) {
 }
 
 if ($request->action == ACTION_REMOVE_CATEGORY) {
-  setRequestData('input', $request->input);
+  setRequestData('id', $request->id);
   $status = removeCategory();
 
   $response = json_encode($status);
 }
 
 if ($request->action == ACTION_RESTORE_CATEGORY) {
-  setRequestData('input', $request->input);
+  setRequestData('id', $request->id);
   $status = restoreCategory();
 
   $response = json_encode($status);

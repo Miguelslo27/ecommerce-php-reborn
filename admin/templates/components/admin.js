@@ -207,7 +207,7 @@ const handleCategory = function (ev) {
     body: JSON.stringify({
       'action': this.dataset.action,
       'type': this.dataset.type,
-      'input': this.dataset.input
+      'id': this.dataset.id
     })
   };
 

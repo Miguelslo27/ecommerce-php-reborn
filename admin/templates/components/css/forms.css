@@ -50,13 +50,13 @@ input[type=number] {
   margin-bottom: 1rem;
   width: 100%;
 }
-.form-container .form .form-group .explication-container {
+.form-container .form .form-group .explanation-container {
   display: flex;
   justify-content: center;
   margin-top: .4rem;
 }
 
-.form-container .form .form-group .explication-container small {
+.form-container .form .form-group .explanation-container small {
   width: 95%;
   color: #ed4337e9;
   font-size: .9rem;
