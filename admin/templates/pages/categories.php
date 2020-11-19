@@ -48,8 +48,6 @@ newDocument([
     setGlobal('section', $cid);
     setGlobal('action', $action);
     setGlobal('id', $id);
-
-    logToConsole('sect', (getGlobal('section')));
   }
 ]);
 
