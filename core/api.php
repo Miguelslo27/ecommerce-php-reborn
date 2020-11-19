@@ -29,7 +29,7 @@ if ($request->action == ACTION_EDIT_SITE) {
   setRequestData('role', $request->role);
   $status = siteAdminsEdition($request->type);
 
-  $response     = json_encode($status);
+  $response = json_encode($status);
 }
 
 if ($request->action == ACTION_EDIT_SITE_NETWORKS) {
@@ -37,7 +37,21 @@ if ($request->action == ACTION_EDIT_SITE_NETWORKS) {
   setRequestData('input', $request->input);
   $status = siteNetworksEdition($request->type);
 
-  $response     = json_encode($status);
+  $response = json_encode($status);
+}
+
+if ($request->action == ACTION_REMOVE_CATEGORY) {
+  setRequestData('id', $request->id);
+  $status = removeCategory();
+
+  $response = json_encode($status);
+}
+
+if ($request->action == ACTION_RESTORE_CATEGORY) {
+  setRequestData('id', $request->id);
+  $status = restoreCategory();
+
+  $response = json_encode($status);
 }
 
 if (!isset($status)) {

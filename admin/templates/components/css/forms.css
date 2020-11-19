@@ -50,6 +50,17 @@ input[type=number] {
   margin-bottom: 1rem;
   width: 100%;
 }
+.form-container .form .form-group .explanation-container {
+  display: flex;
+  justify-content: center;
+  margin-top: .4rem;
+}
+
+.form-container .form .form-group .explanation-container small {
+  width: 95%;
+  color: #ed4337e9;
+  font-size: .9rem;
+}
 
 /* INPUTS */
 
@@ -76,7 +87,7 @@ input[type=number] {
 }
 
 .form-container .form .form-group textarea {
-  height: 6rem;
+  height: 4rem;
   font-family: "Open Sans", "Arial", sans-serif;
   resize: none;
 }
@@ -129,6 +140,11 @@ input[type=number] {
 .form-container .form .actions .remove-button {
   margin-left: .3rem;
   background-color: rgb(226, 47, 47);
+}
+
+.form-container .form .actions .restore-button {
+  margin-left: .3rem;
+  background-color: #28a745;
 }
 
 .form-container .form .button-container {

@@ -40,7 +40,7 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
   animation:
     showMessage .5s ease,
-    hideMessage .5s ease 8s forwards;
+    hideMessage .5s ease 6s forwards;
 }
 
 .floating-messages .message.succeed {
@@ -53,6 +53,24 @@ h1, h2, h3, h4, h5, h6 {
 
 .floating-messages .message.error {
   background-color: rgba(255,0,0,.85);
+}
+
+@keyframes showMessage {
+  from {
+    right: -120%;
+  }
+  to {
+    right: 0;
+  }
+}
+
+@keyframes hideMessage {
+  from {
+    right: 0;
+  }
+  to {
+    right: -120%;
+  }
 }
 
 .hide-box {

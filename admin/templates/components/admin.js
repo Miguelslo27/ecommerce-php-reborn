@@ -27,7 +27,8 @@ const handleMenuLink = function () {
 }
 
 const handleCloseMenuLink = function () {
-  document.getElementById(this.dataset.closeType).classList.add('disabled');
+  document.getElementById(this.dataset.closeType).classList.remove('show-box');
+  document.getElementById(this.dataset.closeType).classList.add('hide-box');
   document.querySelector('.item-' + this.dataset.closeType).children[1].classList.add('disabled');
   document.querySelector('.item-' + this.dataset.closeType).dataset.open = "false";
 }
@@ -154,7 +155,6 @@ const handleAdmin = function (ev) {
   } else if (this.dataset.type === "remove-admin") {
     var inputValue = this.dataset.input;
   }
-  console.log(roleValue);
 
   const options  = {
     method: 'POST',
@@ -189,3 +189,42 @@ if (addAdminButton !== null) {
 }
 
 removeAdminButtons.forEach(removeButton => { removeButton.addEventListener('click', handleAdmin) });
+
+
+//CATEGORIES 
+const restoreCategoryButton = document.querySelectorAll('.restore-category-button');
+const removeCategoryButtons = document.querySelectorAll('.remove-category-button');
+
+const handleCategory = function (ev) {
+  ev.preventDefault();
+  form.classList.add('blur');
+
+  const options  = {
+    method: 'POST',
+    headers:{
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'action': this.dataset.action,
+      'type': this.dataset.type,
+      'id': this.dataset.id
+    })
+  };
+
+  fetch('/core/api.php', options)
+    .then(res => res.json())
+    .then(res => {
+      setTimeout(() => {
+        form.classList.remove('blur');
+      }, TIMETORELOAD);
+
+      handleUpdateResponse(res, this.dataset.type);
+    })
+    .catch(err => {
+      form.classList.remove('blur');
+      handleUpdateError('error');
+    });
+}
+
+removeCategoryButtons.forEach(removeButton => { removeButton.addEventListener('click', handleCategory) });
+restoreCategoryButton.forEach(restoreButton => { restoreButton.addEventListener('click', handleCategory) });
