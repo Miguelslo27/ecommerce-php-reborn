@@ -88,6 +88,12 @@ function processRequests()
   if (getPostData('action') === ACTION_HANDLE_CATEGORY) {
     $action = (getQueryParamsByName(['cid'])['cid'] === 'nueva') ? 'create' : 'edit';
     setSession('request_messages', handleCategory($action));
+
+    if ($action === 'create' && getSession('request_messages')->succeeded) {
+      $redirectTo = getRequestURIPath() . "?cid=lista";
+      header("Location: $redirectTo");
+      exit;
+    }
   }
 
   if (getPostData('action') === ACTION_REMOVE_CATEGORY) {
