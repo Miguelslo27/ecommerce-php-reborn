@@ -63,7 +63,7 @@
   <?php endif ?>
   <!-- NEW / EDIT CATEGORY -->
   <?php if (getGlobal('section') === 'nueva' || getGlobal('action') === 'edit') : ?>
-    <form class="form" action="" method="POST">
+    <form class="form" action="" method="POST" id="category-form">
       <?php if (getGlobal('action') === 'edit') : ?>
         <?php $current_category = getCategoryById(getGlobal('id'));
               $current_category_children = getCategoriesByParentId(getGlobal('id'));
@@ -79,6 +79,7 @@
         <h2>Crear Categoría</h2>
       <?php endif ?>
       <input type="hidden" name="action" value="<?php bind(ACTION_HANDLE_CATEGORY) ?>">
+      <input type="hidden" name="button-action" id="button-action" value="">
       <div class="form-group">
         <label for="category_title">Titulo:</label>
         <input name="category_title" id="category_title" type="text" class="<?php fieldHasError('category_title', 'error') ?>" value="<?php getGlobal('action') === 'edit' ? bind(oneOf(getPreformData('category_title', ''), $current_category->title)) : bind(getPreformData('category_title', '')) ?>">
@@ -111,11 +112,22 @@
           </div>
         <?php endif ?>
       </div>
-      <div class="button-container">
-        <button class="button" type="submit">
-          <i class="fas fa-check"></i> Guardar
-        </button>
-      </div>
+      <?php if (getGlobal('action') === 'edit') : ?>
+        <div class="button-container">
+          <button class="button" type="submit">
+            <i class="fas fa-check"></i> Guardar
+          </button>
+        </div>
+      <?php else : ?>
+        <div class="button-container multiple-buttons">
+          <button class="button" type="submit">
+            <i class="fas fa-check"></i> Guardar
+          </button>
+          <button class="button button-secondary" data-success="<?php bind(!empty(getSession('request_messages')) ? getSession('request_messages')->succeeded : "")?>" id="category-button-secondary" type="submit">
+            <i class="fas fa-check"></i> Guardar y crear otra
+          </button>
+        </div>
+      <?php endif ?>
     </form>
   <?php endif ?>
 </div>

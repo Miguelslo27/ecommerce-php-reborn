@@ -88,8 +88,9 @@ function processRequests()
   if (getPostData('action') === ACTION_HANDLE_CATEGORY) {
     $action = (getQueryParamsByName(['cid'])['cid'] === 'nueva') ? 'create' : 'edit';
     setSession('request_messages', handleCategory($action));
+    $secondary_button = getPostData('button-action');
 
-    if ($action === 'create' && getSession('request_messages')->succeeded) {
+    if ($action === 'create' && getSession('request_messages')->succeeded && $secondary_button !== 'secondary-button') {
       $redirectTo = getRequestURIPath() . "?cid=lista";
       header("Location: $redirectTo");
       exit;

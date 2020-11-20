@@ -164,6 +164,19 @@ input[type=number] {
   cursor: pointer;
 }
 
+.form-container .form .button-container .button:focus {
+  outline: none;
+}
+
+.form-container .form .button-container .button-secondary {
+  background-color: rgb(120, 112, 183);
+}
+
+.form-container .form .multiple-buttons .button {
+  margin-left: 1rem;
+  padding: 1rem 1.5rem;
+}
+
 .form-container .form .edit-form .button-container {
   margin-top: 0;
 }
@@ -284,6 +297,7 @@ input[type=number] {
 
 .form-container .form .table-row .cat-title {
   max-width: 13%;
+  text-align: center;
 }
 
 .form-container .form .table-row .cat-dscp {

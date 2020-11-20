@@ -192,8 +192,10 @@ removeAdminButtons.forEach(removeButton => { removeButton.addEventListener('clic
 
 
 //CATEGORIES 
-const restoreCategoryButton = document.querySelectorAll('.restore-category-button');
-const removeCategoryButtons = document.querySelectorAll('.remove-category-button');
+const restoreCategoryButton   = document.querySelectorAll('.restore-category-button');
+const removeCategoryButtons   = document.querySelectorAll('.remove-category-button');
+const categoryButtonSecondary = document.getElementById('category-button-secondary');
+const categoryForm            = document.getElementById('category-form');
 
 const handleCategory = function (ev) {
   ev.preventDefault();
@@ -226,5 +228,22 @@ const handleCategory = function (ev) {
     });
 }
 
+const handleSecondaryButton = () => {
+  let input = document.getElementById('button-action');
+  input.value = "secondary-button";
+}
+
+if (categoryButtonSecondary && categoryButtonSecondary.dataset.success) {
+  categoryForm.reset();
+  document.getElementById('category_title').focus();
+  document.getElementById('category_title').value = '';
+  document.getElementById('category_description').value = '';
+  document.getElementById('category_brief_description').value = '';
+  document.getElementById('category_img_url').value = '';
+  document.getElementById('category_parent').value = 'no-category';
+
+}
+
 removeCategoryButtons.forEach(removeButton => { removeButton.addEventListener('click', handleCategory) });
 restoreCategoryButton.forEach(restoreButton => { restoreButton.addEventListener('click', handleCategory) });
+categoryButtonSecondary ? categoryButtonSecondary.addEventListener('click', handleSecondaryButton) : '';
