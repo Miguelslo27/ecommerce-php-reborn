@@ -228,3 +228,41 @@ const handleCategory = function (ev) {
 
 removeCategoryButtons.forEach(removeButton => { removeButton.addEventListener('click', handleCategory) });
 restoreCategoryButton.forEach(restoreButton => { restoreButton.addEventListener('click', handleCategory) });
+
+//ARTICLES
+const offerCheckBox          = document.getElementById('article_offer');
+const articePriceOfferInput  = document.getElementById('article_price_offer');
+const articlePriceOfferLabel = document.getElementById('article_price_offer_label');
+const collapsableBox         = document.querySelector('.collapsable-box');
+
+collapsableBox.dataset.height = collapsableBox.scrollHeight;
+
+if (collapsableBox.classList.contains('open')) {
+  collapsableBox.style.height = `${collapsableBox.scrollHeight}px`
+} else if (collapsableBox.classList.contains('closed')) {
+  collapsableBox.style.height = `0`
+}
+
+if (offerCheckBox.checked) {
+  collapsableBox.classList.add('open');
+  collapsableBox.classList.remove('closed');
+  collapsableBox.style.height = `${collapsableBox.dataset.height}px`;
+} else {
+  collapsableBox.classList.add('closed');
+  collapsableBox.classList.remove('open');
+  collapsableBox.style.height = 0;
+}
+
+const handleOfferCheckBox = (ev) => {
+  if (offerCheckBox.checked) {
+    collapsableBox.classList.add('open');
+    collapsableBox.classList.remove('closed');
+    collapsableBox.style.height = `${collapsableBox.dataset.height}px`;
+  } else {
+    collapsableBox.classList.add('closed');
+    collapsableBox.classList.remove('open');
+    collapsableBox.style.height = 0;
+  } 
+}
+
+offerCheckBox.addEventListener('click', handleOfferCheckBox);
