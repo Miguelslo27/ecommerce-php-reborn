@@ -82,23 +82,23 @@
       <input type="hidden" name="button-action" id="button-action" value="">
       <div class="form-group">
         <label for="category_title">Titulo:</label>
-        <input name="category_title" id="category_title" type="text" class="<?php fieldHasError('category_title', 'error') ?>" value="<?php getGlobal('action') === 'edit' ? bind(oneOf(getPreformData('category_title', ''), $current_category->title)) : bind(getPreformData('category_title', '')) ?>">
+        <input name="category_title" id="category_title" type="text" class="<?php fieldHasError('category_title', 'error') ?>" value="<?php getGlobal('action') === 'edit' ? bind(oneOf(getPreformData('category_title', ''), $current_category->title)) : bind(getGlobal('category_success') ? '' : getPreformData('category_title', '')) ?>">
       </div>
       <div class="form-group">
         <label for="category_description">Descripción:</label>
-        <textarea name="category_description" id="category_description" type="text" class="<?php fieldHasError('category_description', 'error') ?>"><?php getGlobal('action') === 'edit' ? bind(oneOf(getPreformData('category_description', ''), $current_category->description)) : bind(getPreformData('category_description', '')) ?></textarea>
+        <textarea name="category_description" id="category_description" type="text" class="<?php fieldHasError('category_description', 'error') ?>"><?php getGlobal('action') === 'edit' ? bind(oneOf(getPreformData('category_description', ''), $current_category->description)) : bind(getGlobal('category_success') ? '' : getPreformData('category_description', '')) ?></textarea>
       </div>
       <div class="form-group">
         <label for="category_brief_description">Descripción Corta:</label>
-        <textarea name="category_brief_description" id="category_brief_description" type="text" class="<?php fieldHasError('category_brief_description', 'error') ?>"><?php getGlobal('action') === 'edit' ? bind(oneOf(getPreformData('category_brief_description', ''), $current_category->brief_description)) : bind(getPreformData('category_brief_description', '')) ?></textarea>
+        <textarea name="category_brief_description" id="category_brief_description" type="text" class="<?php fieldHasError('category_brief_description', 'error') ?>"><?php getGlobal('action') === 'edit' ? bind(oneOf(getPreformData('category_brief_description', ''), $current_category->brief_description)) : bind(getGlobal('category_success') ? '' : getPreformData('category_brief_description', '')) ?></textarea>
       </div>
       <div class="form-group">
         <label for="category_img_url">Imagenes (URL):</label>
-        <input name="category_img_url" id="category_img_url" type="text" class="<?php fieldHasError('category_img_url', 'error') ?>" value="<?php getGlobal('action') === 'edit' ? bind(oneOf(getPreformData('category_img_url', ''), $current_category->images_url)) : bind(getPreformData('category_img_url', '')) ?>">
+        <input name="category_img_url" id="category_img_url" type="text" class="<?php fieldHasError('category_img_url', 'error') ?>" value="<?php getGlobal('action') === 'edit' ? bind(oneOf(getPreformData('category_img_url', ''), $current_category->images_url)) : bind(getGlobal('category_success') ? '' : getPreformData('category_img_url', '')) ?>">
       </div>
       <div class="form-group">
         <label for="category_parent">Categoría Padre:</label>
-        <select name="category_parent" id="category_parent" type="text" value="<?php getGlobal('action') === 'edit' ? bind(oneOf(getPreformData('category_parent', ''), $cat_parent_value)) : bind(getPreformData('category_parent', '')) ?>" <?php empty($parentCategories) || (isset($current_category_children) && !empty($current_category_children)) ? bind('disabled') : '' ?>>
+        <select name="category_parent" id="category_parent" type="text" value="<?php getGlobal('action') === 'edit' ? bind(oneOf(getPreformData('category_parent', ''), $cat_parent_value)) : bind(getGlobal('category_success') ? '' : getPreformData('category_parent', '')) ?>" <?php empty($parentCategories) || (isset($current_category_children) && !empty($current_category_children)) ? bind('disabled') : '' ?>>
           <?php if (!empty($parentCategories)) : ?>
             <option value="no-category"> - </option>
             <?php foreach ($parentCategories as $category) : ?>
@@ -123,7 +123,7 @@
           <button class="button" type="submit">
             <i class="fas fa-check"></i> Guardar
           </button>
-          <button class="button button-secondary" data-success="<?php bind(!empty(getSession('request_messages')) ? getSession('request_messages')->succeeded : "")?>" id="category-button-secondary" type="submit">
+          <button class="button save-and-create-new-button" data-success="<?php bind(getGlobal('category_success'))?>" id="save-and-create-new-button" type="submit">
             <i class="fas fa-check"></i> Guardar y crear otra
           </button>
         </div>

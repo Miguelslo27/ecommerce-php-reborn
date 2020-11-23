@@ -168,7 +168,7 @@ input[type=number] {
   outline: none;
 }
 
-.form-container .form .button-container .button-secondary {
+.form-container .form .button-container .save-and-create-new-button {
   background-color: rgb(120, 112, 183);
 }
 
