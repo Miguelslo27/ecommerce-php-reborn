@@ -45,9 +45,13 @@ newDocument([
       $cid = getQueryParamsByName(['cid'])['cid'];
     }
 
+    $categorySuccess = false;
+    !empty(getSession('request_messages')) ? $categorySuccess = getSession('request_messages')->succeeded : "";
+
     setGlobal('section', $cid);
     setGlobal('action', $action);
     setGlobal('id', $id);
+    setGlobal('category_success', $categorySuccess);
   }
 ]);
 

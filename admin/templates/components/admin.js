@@ -192,8 +192,10 @@ removeAdminButtons.forEach(removeButton => { removeButton.addEventListener('clic
 
 
 //CATEGORIES 
-const restoreCategoryButton = document.querySelectorAll('.restore-category-button');
-const removeCategoryButtons = document.querySelectorAll('.remove-category-button');
+const restoreCategoryButton   = document.querySelectorAll('.restore-category-button');
+const removeCategoryButtons   = document.querySelectorAll('.remove-category-button');
+const saveAndCreateNewButton  = document.getElementById('save-and-create-new-button');
+const categoryForm            = document.getElementById('category-form');
 
 const handleCategory = function (ev) {
   ev.preventDefault();
@@ -226,5 +228,16 @@ const handleCategory = function (ev) {
     });
 }
 
+const handleSecondaryButton = () => {
+  let input = document.getElementById('button-action');
+  input.value = "secondary-button";
+}
+
+if (saveAndCreateNewButton && saveAndCreateNewButton.dataset.success) {
+  categoryForm.reset();
+  document.getElementById('category_title').focus();
+}
+
 removeCategoryButtons.forEach(removeButton => { removeButton.addEventListener('click', handleCategory) });
 restoreCategoryButton.forEach(restoreButton => { restoreButton.addEventListener('click', handleCategory) });
+saveAndCreateNewButton ? saveAndCreateNewButton.addEventListener('click', handleSecondaryButton) : '';
