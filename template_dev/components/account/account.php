@@ -14,27 +14,30 @@
         <h2 class="title-account">
           Datos de la cuenta
         </h2>
+
         <div class="form-group">
           <label for="name">Nombre</label>
-          <input type="text" placeholder="Nombre" id="name" value="<?php bind(oneOf(getGlobal('user')->name, '')) ?>">
+          <input type="text" placeholder="Nombre" id="name" name="name"
+            value="<?php bind(oneOf(getGlobal('user')->name, '')) ?>">
           <label class="label-center" for="lastname">Apellido</label>
-          <input type="text" placeholder="Apellido" id="lastname"
+          <input type="text" placeholder="Apellido" id="lastname" name="lastname"
             value="<?php bind(oneOf(getGlobal('user')->lastname, '')) ?>">
         </div>
 
         <div class="form-line">
           <label for="address">Dirección Completa</label>
-          <input type="text" placeholder="Direccion" id="address"
+          <input type="text" placeholder="Direccion" id="address" name="address"
             value="<?php bind(oneOf(getGlobal('user')->address, '')) ?>">
         </div>
 
         <div class="form-group">
 
           <label for="city">Localidad</label>
-          <input type="text" placeholder="Barrio" id="city" value="<?php bind(oneOf(getGlobal('user')->city, '')) ?>">
+          <input type="text" placeholder="Barrio" id="city" name="city"
+            value="<?php bind(oneOf(getGlobal('user')->city, '')) ?>">
 
           <Label class="label-center" for="state">Departamento</Label>
-          <input list="city" placeholder="Departamento" id="state"
+          <input list="city" placeholder="Departamento" id="state" name="state"
             value="<?php bind(oneOf(getGlobal('user')->state, '')) ?>">
           <datalist id="city">
             <option value="Artigas">
@@ -62,11 +65,11 @@
 
         <div class="form-group">
           <label for="phone">Teléfono</label>
-          <input type="tel" placeholder="Telefono" id="phone"
+          <input type="tel" placeholder="Telefono" id="phone" name="phone"
             value="<?php bind(oneOf(getGlobal('user')->phone, '')) ?>">
 
           <label class="label-center" for="cellphone">Celular</label>
-          <input type="tel" placeholder="Celular" id="cellphone"
+          <input type="tel" placeholder="Celular" id="cellphone" name="cellphone"
             value="<?php bind(oneOf(getGlobal('user')->cellphone, '')) ?>">
         </div>
 
