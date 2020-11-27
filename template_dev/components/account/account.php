@@ -39,28 +39,28 @@
           <Label class="label-center" for="state">Departamento</Label>
           <input list="city" placeholder="Departamento" id="state" name="state"
             value="<?php bind(oneOf(getGlobal('user')->state, '')) ?>">
-          <datalist id="city">
-            <option value="Artigas">
-            <option value="Canelones">
-            <option value="Cerro Largo">
-            <option value="Colonia">
-            <option value="Durazno">
-            <option value="Flores">
-            <option value="Florida">
-            <option value="Lavalleja">
-            <option value="Maldonado">
-            <option value="Montevideo">
-            <option value="Paysandu">
-            <option value="Rio Negro">
-            <option value="Rivera">
-            <option value="Rocha">
-            <option value="Salto">
-            <option value="San Jose">
-            <option value="Soriano">
-            <option value="Tacuarembo">
-            <option value="Treinta y Tres">
-          </datalist>
 
+          <datalist type="text" id="city">
+            <option>Artigas</option>
+            <option>Canelones</option>
+            <option>Cerro Largo</option>
+            <option>Colonia</option>
+            <option>Durazno</option>
+            <option>Flores</option>
+            <option>Florida</option>
+            <option>Lavalleja</option>
+            <option>Maldonado</option>
+            <option>Montevideo</option>
+            <option>Paysandu</option>
+            <option>Rio Negro</option>
+            <option>Rivera</option>
+            <option>Rocha</option>
+            <option>Salto</option>
+            <option>San Jose</option>
+            <option>Soriano</option>
+            <option>Tacuarembo</option>
+            <option>Treinta y Tres</option>
+          </datalist>
         </div>
 
         <div class="form-group">
