@@ -37,10 +37,9 @@
             value="<?php bind(oneOf(getGlobal('user')->city, '')) ?>">
 
           <Label class="label-center" for="state">Departamento</Label>
-          <input list="city" placeholder="Departamento" id="state" name="state"
+          <select list="city" placeholder="Departamento" id="state" name="state"
             value="<?php bind(oneOf(getGlobal('user')->state, '')) ?>">
 
-          <datalist type="text" id="city">
             <option>Artigas</option>
             <option>Canelones</option>
             <option>Cerro Largo</option>
@@ -60,7 +59,7 @@
             <option>Soriano</option>
             <option>Tacuarembo</option>
             <option>Treinta y Tres</option>
-          </datalist>
+          </select>
         </div>
 
         <div class="form-group">
