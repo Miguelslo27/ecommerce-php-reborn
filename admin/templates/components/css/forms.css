@@ -9,6 +9,11 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+.collapsable-box {
+  overflow: hidden;
+  transition: height .3s ease;
+}
+
 /*  */
 .form-container {
   display: flex;
@@ -113,6 +118,21 @@ input[type=number] {
 
 .form-container .form .form-group .input-group input {
   width: 80%;
+}
+
+.form-container .form .form-checkbox-group {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  margin:  .5rem 0 1rem 0;
+  width: 100%;
+}
+
+.form-container .form .form-checkbox-group label {
+  user-select: none;
+  margin-right: 1rem;
+  cursor: pointer;
+  font-size: 1.1rem;
 }
 
 .form-container .form .actions {
