@@ -3,7 +3,7 @@
 newDocument([
   'title' => 'eCommerce - Administrar Articulos',
   'page' => 'admin',
-  'sub_page' => 'categories',
+  'sub_page' => 'articles',
   'components' => [
     'components/navbar',
     'components/searcher',
