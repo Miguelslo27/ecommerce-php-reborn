@@ -40,25 +40,25 @@
           <select list="city" placeholder="Departamento" id="state" name="state"
             value="<?php bind(oneOf(getGlobal('user')->state, '')) ?>">
 
-            <option>Artigas</option>
-            <option>Canelones</option>
-            <option>Cerro Largo</option>
-            <option>Colonia</option>
-            <option>Durazno</option>
-            <option>Flores</option>
-            <option>Florida</option>
-            <option>Lavalleja</option>
-            <option>Maldonado</option>
-            <option>Montevideo</option>
-            <option>Paysandu</option>
-            <option>Rio Negro</option>
-            <option>Rivera</option>
-            <option>Rocha</option>
-            <option>Salto</option>
-            <option>San Jose</option>
-            <option>Soriano</option>
-            <option>Tacuarembo</option>
-            <option>Treinta y Tres</option>
+            <option value="Artigas">Artigas</option>
+            <option value="Canelones">Canelones</option>
+            <option value="Cerro Largo">Cerro Largo</option>
+            <option value="Colonia">Colonia</option>
+            <option value="Durazno">Durazno</option>
+            <option value="Flores">Flores</option>
+            <option value="Florida">Florida</option>
+            <option value="Lavalleja">Lavalleja</option>
+            <option value="Maldonado">Maldonado</option>
+            <option value="Montevideo">Montevideo</option>
+            <option value="Paysandu">Paysandu</option>
+            <option value="Rio Negro">Rio Negro</option>
+            <option value="Rivera">Rivera</option>
+            <option value="Rocha">Rocha</option>
+            <option value="Salto">Salto</option>
+            <option value="San Jose">San Jose</option>
+            <option value="Soriano">Soriano</option>
+            <option value="Tacuarembo">Tacuarembo</option>
+            <option value="Treinta y Tres">Treinta y Tres</option>
           </select>
         </div>
 
