@@ -23,11 +23,6 @@
         </div>
 
         <div class="form-line">
-          <label for="">Nombre de Empresa</label>
-          <input type="text" placeholder="Nombre Empresa">
-        </div>
-
-        <div class="form-line">
           <label for="address">Dirección Completa</label>
           <input type="text" placeholder="Direccion" id="address"
             value="<?php bind(oneOf(getGlobal('user')->address, '')) ?>">
