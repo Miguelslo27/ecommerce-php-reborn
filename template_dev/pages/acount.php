@@ -21,5 +21,11 @@ newDocument([
 
     setGlobal('categories', oneOf($categories, []));
     setGlobal('user', $userData);
+
+    if (!isLoggedIn()) {
+      header('Location: /login');
+      exit;
+    }
   }
+
 ]);

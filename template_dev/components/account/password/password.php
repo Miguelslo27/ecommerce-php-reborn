@@ -8,10 +8,11 @@
     <?php getTemplate('../template_dev/components/sidebar-account/sidebar'); ?>
 
     <section class="form-pass">
-      <form action="" class="form-margin">
+      <form action="" method="POST" class="form-margin">
         <h2 class="title-account">
           Cambiar Contraseña
         </h2>
+        <input type="hidden" name="action" value="<?php bind(ACTION_CHANGE_PASSWORD) ?>">
         <div class="form-line">
           <label class="label-center" for="">Contraseña vieja</label>
           <input type="password">
