@@ -85,16 +85,24 @@ function processRequests()
     exit;
   }
 
-  if (getRequestData('action') === ACTION_EDIT_SITE_NETWORKS) {
-    setSession('request_messages', siteNetworksEdition());
-  }
-  
-  if (getPostData('action') === ACTION_SAVE_CATEGORY) {
-    // @TODO
+  if (getPostData('action') === ACTION_HANDLE_CATEGORY) {
+    $action = (getQueryParamsByName(['cid'])['cid'] === 'nueva') ? 'create' : 'edit';
+    setSession('request_messages', handleCategory($action));
+    $secondary_button = getPostData('button-action');
+
+    if ($action === 'create' && getSession('request_messages')->succeeded && $secondary_button !== 'secondary-button') {
+      $redirectTo = getRequestURIPath() . "?cid=lista";
+      header("Location: $redirectTo");
+      exit;
+    }
   }
 
-  if (getPostData('action') === ACTION_SAVE_ARTICLE) {
-    // @TODO
+  if (getPostData('action') === ACTION_REMOVE_CATEGORY) {
+    setSession('request_messages', removeCategory());
+  }
+
+  if (getRequestData('action') === ACTION_EDIT_SITE_NETWORKS) {
+    setSession('request_messages', siteNetworksEdition());
   }
 
   if (getPostData('action') === ACTION_SEND_EMAIL) {

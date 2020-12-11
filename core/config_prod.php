@@ -34,6 +34,7 @@ define('ACTION_SAVE_ARTICLE', 'save_article');
 define('ACTION_ADD_TO_CART', 'add_to_cart');
 define('ACTION_OBTAIN_PASSWORD', 'obtain_password');
 define('ACTION_CHANGE_PASSWORD', 'change_password');
+define('ACTION_CREATE_CATEGORY', 'create_category');
 
 /* DEFAULT REQUIRED TEMPLATES PATHS */
 define('ERROR_404_TEMPLATE', 'pages/404');
@@ -53,4 +54,7 @@ define('CART_TEMPLATE', 'pages/cart');
 define('ORDER_TEMPLATE', 'pages/order');
 define('PAYMENT_TEMPLATE', 'pages/payment');
 define('SHIPPING_TEMPLATE', 'pages/shipping');
-define('ADMIN_TEMPLATE', '/templates/dashboard/admin');
+
+define('ADMIN_TEMPLATE', 'pages/dashboard');
+define('ADMIN_TEMPLATE_CONFIG', 'pages/configuration');
+define('ADMIN_TEMPLATE_CATEGORIES', 'pages/categories');

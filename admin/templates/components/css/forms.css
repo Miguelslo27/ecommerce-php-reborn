@@ -9,6 +9,11 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+.collapsable-box {
+  overflow: hidden;
+  transition: height .3s ease;
+}
+
 /*  */
 .form-container {
   display: flex;
@@ -50,6 +55,17 @@ input[type=number] {
   margin-bottom: 1rem;
   width: 100%;
 }
+.form-container .form .form-group .explanation-container {
+  display: flex;
+  justify-content: center;
+  margin-top: .4rem;
+}
+
+.form-container .form .form-group .explanation-container small {
+  width: 95%;
+  color: #ed4337e9;
+  font-size: .9rem;
+}
 
 /* INPUTS */
 
@@ -76,7 +92,7 @@ input[type=number] {
 }
 
 .form-container .form .form-group textarea {
-  height: 6rem;
+  height: 4rem;
   font-family: "Open Sans", "Arial", sans-serif;
   resize: none;
 }
@@ -102,6 +118,21 @@ input[type=number] {
 
 .form-container .form .form-group .input-group input {
   width: 80%;
+}
+
+.form-container .form .form-checkbox-group {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  margin:  .5rem 0 1rem 0;
+  width: 100%;
+}
+
+.form-container .form .form-checkbox-group label {
+  user-select: none;
+  margin-right: 1rem;
+  cursor: pointer;
+  font-size: 1.1rem;
 }
 
 .form-container .form .actions {
@@ -131,6 +162,11 @@ input[type=number] {
   background-color: rgb(226, 47, 47);
 }
 
+.form-container .form .actions .restore-button {
+  margin-left: .3rem;
+  background-color: #28a745;
+}
+
 .form-container .form .button-container {
   display: flex;
   justify-content: flex-end;
@@ -146,6 +182,19 @@ input[type=number] {
   color: #fff;
   border: none;
   cursor: pointer;
+}
+
+.form-container .form .button-container .button:focus {
+  outline: none;
+}
+
+.form-container .form .button-container .save-and-create-new-button {
+  background-color: rgb(120, 112, 183);
+}
+
+.form-container .form .multiple-buttons .button {
+  margin-left: 1rem;
+  padding: 1rem 1.5rem;
 }
 
 .form-container .form .edit-form .button-container {
@@ -220,7 +269,7 @@ input[type=number] {
   text-align: left;
 }
 
-.form-container .form .admin-row {
+.form-container .form .table-row {
   display: flex;
   justify-content: flex-start;
   flex-direction: row;
@@ -236,27 +285,55 @@ input[type=number] {
   background-color: #87ceebdb;
 }
 
-.form-container .form .admin-row .admin-id,
-.form-container .form .admin-row .admin-name,
-.form-container .form .admin-row .admin-email,
-.form-container .form .admin-row .admin-role {
+.form-container .form .table-row .cell {
   display: flex;
   width: 35%;
   justify-content: center;
-  padding: .5rem 0;
+  align-items: center;
+  padding: .5rem .2rem;
   font-size: .8rem;
 }
 
-.form-container .form .admin-row .admin-role  {
+.form-container .form .table-row .cell p {
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+.form-container .form .table-row .admin-role  {
   width: 10%
 }
 
-.form-container .form .admin-row .admin-name {
+.form-container .form .table-row .admin-name {
   width: 28%;
 }
 
-.form-container .form .admin-row .admin-id {
+.form-container .form .table-row .admin-id {
   width: 7%;
+}
+
+.form-container .form .table-row .cat-id  {
+  max-width: 6%
+}
+
+.form-container .form .table-row .cat-title {
+  max-width: 13%;
+  text-align: center;
+}
+
+.form-container .form .table-row .cat-dscp {
+  max-width: 23%;
+}
+
+.form-container .form .table-row .cat-b-dscp {
+  max-width: 15%;
+}
+
+.form-container .form .table-row .cat-url {
+  max-width: 17%;
+}
+
+.form-container .form .table-row .cat-parent {
+  max-width: 6%;
 }
 
 .form-container .form .add-container {
@@ -281,4 +358,8 @@ input[type=number] {
 .form-container .text-not-elements {
   font-weight: 800;
   font-size: 1rem;
+}
+
+.text-center {
+  text-align: center;
 }
