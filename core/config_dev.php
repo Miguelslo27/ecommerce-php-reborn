@@ -76,4 +76,11 @@ define('SHIPPING_TEMPLATE', 'pages/shipping');
 
 
 define('ADMIN_TEMPLATE', 'pages/dashboard');
+<<<<<<< Updated upstream
 define('ADMIN_TEMPLATE_CONFIG', 'pages/configuration');
+=======
+define('ADMIN_TEMPLATE_CONFIG', 'pages/configuration');
+define('ADMIN_TEMPLATE_CATEGORIES', 'pages/categories');
+define('ADMIN_TEMPLATE_ARTICLES', 'pages/articles');
+define('ADMIN_TEMPLATE_LIST_ARTICLES', 'pages/list-articles');
+>>>>>>> Stashed changes

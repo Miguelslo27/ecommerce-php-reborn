@@ -18,27 +18,28 @@
         <div class="form-group">
           <label for="name">Nombre</label>
           <input type="text" placeholder="Nombre" id="name" name="name"
-            value="<?php bind(oneOf(getGlobal('user')->name, '')) ?>">
-          <label class="label-center" for="lastname">Apellido</label>
+            value="<?php bind(oneOf(getPreformData('name', ''), getGlobal('user')->name)) ?>">
+
+          <label class=" label-center" for="lastname">Apellido</label>
           <input type="text" placeholder="Apellido" id="lastname" name="lastname"
-            value="<?php bind(oneOf(getGlobal('user')->lastname, '')) ?>">
+            value="<?php bind(oneOf(getPreformData('lastname', ''), getGlobal('user')->lastname)) ?>">
         </div>
 
         <div class="form-line">
           <label for="address">Dirección Completa</label>
           <input type="text" placeholder="Direccion" id="address" name="address"
-            value="<?php bind(oneOf(getGlobal('user')->address, '')) ?>">
+            value="<?php bind(oneOf(getPreformData('address', ''), getGlobal('user')->address)) ?>">
         </div>
 
         <div class="form-group">
 
           <label for="city">Localidad</label>
           <input type="text" placeholder="Barrio" id="city" name="city"
-            value="<?php bind(oneOf(getGlobal('user')->city, '')) ?>">
+            value="<?php bind(oneOf(getPreformData('city', ''), getGlobal('user')->city)) ?>">
 
           <Label class="label-center" for="state">Departamento</Label>
-          <select list="city" placeholder="Departamento" id="state" name="state"
-            value="<?php bind(oneOf(getGlobal('user')->state, '')) ?>">
+          <select list="city" id="state" name="state"
+            value="<?php bind(oneOf(getPreformData('state', ''), getGlobal('user')->state)) ?>">
 
             <option value="Artigas">Artigas</option>
             <option value="Canelones">Canelones</option>
@@ -65,11 +66,11 @@
         <div class="form-group">
           <label for="phone">Teléfono</label>
           <input type="tel" placeholder="Telefono" id="phone" name="phone"
-            value="<?php bind(oneOf(getGlobal('user')->phone, '')) ?>">
+            value="<?php bind(oneOf(getPreformData('phone', ''), getGlobal('user')->phone)) ?>">
 
           <label class="label-center" for="cellphone">Celular</label>
           <input type="tel" placeholder="Celular" id="cellphone" name="cellphone"
-            value="<?php bind(oneOf(getGlobal('user')->cellphone, '')) ?>">
+            value="<?php bind(oneOf(getPreformData('cellphone', ''), getGlobal('user')->cellphone)) ?>">
         </div>
 
         <div class="form-actions">

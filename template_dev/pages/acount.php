@@ -17,7 +17,7 @@ newDocument([
   ],
   'beforeRender' => function () {
     $categories = getCategories('`category_id` = 0 AND `status` = 1');
-    $userData = getCurrentUser();
+    $email = getCurrentUser()->email; $userData = loadUser($email);
 
     setGlobal('categories', oneOf($categories, []));
     setGlobal('user', $userData);
