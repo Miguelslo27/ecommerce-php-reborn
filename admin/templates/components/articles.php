@@ -91,6 +91,7 @@
               </div>
             </div>
           <?php endfor ?>
+          <hr class="list-articles-hr" />
           <div class="list-details">
             <h2>Aclaraciones:</h2>
             <p><b>N</b> - Nuevo</p>
