@@ -243,11 +243,12 @@ restoreCategoryButton.forEach(restoreButton => { restoreButton.addEventListener(
 saveAndCreateNewButton ? saveAndCreateNewButton.addEventListener('click', handleSecondaryButton) : '';
 
 //ARTICLES
-const offerCheckBox          = document.getElementById('article_offer');
-const articePriceOfferInput  = document.getElementById('article_price_offer');
-const articlePriceOfferLabel = document.getElementById('article_price_offer_label');
-const collapsableBox         = document.querySelector('.collapsable-box');
-
+const offerArticleCheckBox    = document.getElementById('article_offer');
+const newArticleCheckBox      = document.getElementById('article_new');
+const spentArticleCheckBox    = document.getElementById('article_spent');
+const articePriceOfferInput   = document.getElementById('article_price_offer');
+const articlePriceOfferLabel  = document.getElementById('article_price_offer_label');
+const collapsableBox          = document.querySelector('.collapsable-box');
 collapsableBox.dataset.height = collapsableBox.scrollHeight;
 
 if (collapsableBox.classList.contains('open')) {
@@ -256,7 +257,7 @@ if (collapsableBox.classList.contains('open')) {
   collapsableBox.style.height = `0`
 }
 
-if (offerCheckBox.checked) {
+if (offerArticleCheckBox.checked) {
   collapsableBox.classList.add('open');
   collapsableBox.classList.remove('closed');
   collapsableBox.style.height = `${collapsableBox.dataset.height}px`;
@@ -266,16 +267,38 @@ if (offerCheckBox.checked) {
   collapsableBox.style.height = 0;
 }
 
-const handleOfferCheckBox = (ev) => {
-  if (offerCheckBox.checked) {
+const handleOfferArticleCheckBox = (ev) => {
+  if (offerArticleCheckBox.checked) {
+    offerArticleCheckBox.value = 'offer'
     collapsableBox.classList.add('open');
     collapsableBox.classList.remove('closed');
     collapsableBox.style.height = `${collapsableBox.dataset.height}px`;
   } else {
+    offerArticleCheckBox.value = ''
     collapsableBox.classList.add('closed');
     collapsableBox.classList.remove('open');
     collapsableBox.style.height = 0;
   } 
 }
 
-offerCheckBox.addEventListener('click', handleOfferCheckBox);
+const handleNewArticleCheckBox = (ev) => {
+  ev.preventDefault;
+  if (newArticleCheckBox.checked) {
+    newArticleCheckBox.value = 'new';
+  } else {
+    newArticleCheckBox.value = '';
+  }
+}
+
+const handleSpentArticleCheckBox = (ev) => {
+  ev.preventDefault;
+  if (spentArticleCheckBox.checked) {
+    spentArticleCheckBox.value = 'spent';
+  } else {
+    spentArticleCheckBox.value = '';
+  }
+}
+
+offerArticleCheckBox.addEventListener('click', handleOfferArticleCheckBox);
+newArticleCheckBox.addEventListener('click', handleNewArticleCheckBox);
+spentArticleCheckBox.addEventListener('click', handleSpentArticleCheckBox)
