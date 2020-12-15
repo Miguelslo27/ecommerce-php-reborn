@@ -26,8 +26,8 @@ newDocument([
     $pager                 = getPager('articles', $where, ARTICLES_PER_PAGE);
     $articles              = getArticles($where, $pager->offset, $pager->per_page);
     $currentArticle        = getArticle($id[1]);
-    $currentCategory       = getCategoryById($currentArticle->category_id);
-    $mainCategory          = getCategoryById($currentCategory->category_id);
+    $currentCategory       = $currentArticle->category_id !== '0' ? getCategoryById($currentArticle->category_id) : '';
+    $mainCategory          = !empty($currentCategory) ? getCategoryById($currentCategory->category_id) : '';
     $recentlyAddedArticles = getArticles('`status` = 1', 3, 3);
     $featuredArticles      = getArticles('`status` = 1', 0, 3);
     $categories            = getCategories('`category_id` = 0 AND `status` = 1');

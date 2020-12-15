@@ -4,7 +4,7 @@
   <?php if (getGlobal('section') === 'nuevo') : ?>
     <form class="form" action="" method="POST">
         <h2>Crear Articulo</h2>
-      <input type="hidden" name="action" value="<?php bind('ACTION_HANDLE_ARTICLE') ?>">
+      <input type="hidden" name="action" value="<?php bind(ACTION_HANDLE_ARTICLE) ?>">
       <div class="form-group">
         <label for="article_name">Nombre:</label>
         <input 
@@ -12,7 +12,7 @@
           id="article_name" 
           type="text" 
           class="<?php fieldHasError('article_name', 'error') ?>" 
-          value="<?php getPreformData('article_name', '') ?>"
+          value="<?php bind(getPreformData('article_name', '')) ?>"
         >
       </div>
       <div class="form-group">
@@ -22,7 +22,7 @@
           id="article_code" 
           type="text" class="<?php fieldHasError('article_code', 'error') ?>" 
           class="<?php fieldHasError('article_code', 'error') ?>" 
-          value="<?php getPreformData('article_code', '') ?>"
+          value="<?php bind(getPreformData('article_code', '')) ?>"
         >
       </div>
       <div class="form-group">
@@ -31,9 +31,7 @@
           name="article_description" 
           id="article_description" 
           type="text" 
-          class="<?php fieldHasError('article_description', 'error') ?>">
-          <?php getPreformData('article_description', '') ?>
-        </textarea>
+          class="<?php fieldHasError('article_description', 'error') ?>"><?php bind(getPreformData('article_description', '')) ?></textarea>
       </div>
       <div class="form-group">
         <label for="article_brief_description">Descripción Corta:</label>
@@ -41,9 +39,7 @@
           name="article_brief_description" 
           id="article_brief_description" 
           type="text" 
-          class="<?php fieldHasError('article_brief_description', 'error') ?>">
-          <?php getPreformData('article_brief_description', '') ?>
-        </textarea>
+          class="<?php fieldHasError('article_brief_description', 'error') ?>"><?php bind(getPreformData('article_brief_description', '')) ?></textarea>
       </div>
       <div class="form-group">
         <label for="article_price">Precio:</label>
@@ -52,7 +48,7 @@
           id="article_price" 
           type="number" 
           class="<?php fieldHasError('article_price', 'error') ?>" 
-          value="<?php getPreformData('article_price', '') ?>"
+          value="<?php bind(getPreformData('article_price', '')) ?>"
         >
       </div>
       <div class="form-group">
@@ -62,7 +58,7 @@
           id="article_img_url" 
           type="text" 
           class="<?php fieldHasError('article_img_url', 'error') ?>" 
-          value="<?php getPreformData('article_img_url', '') ?>"
+          value="<?php bind(getPreformData('article_img_url', '')) ?>"
         >
       </div>
       <div class="form-group">
@@ -71,7 +67,7 @@
           name="article_category" 
           id="article_category" 
           type="text" 
-          value="<?php getPreformData('article_category', '')?>" 
+          value="<?php bind(getPreformData('article_category', '')) ?>" 
           <?php empty($categories) ? bind('disabled') : '' ?>>
           <?php if (!empty($categories)) : ?>
             <option value="no-category"> - </option>
@@ -87,6 +83,8 @@
             type="checkbox"
             name="article_new"
             id="article_new"
+            value="<?php bind(getPreformData('article_new', '')) ?>" 
+            <?php bind(!empty(getPreformData('article_new', '')) ? 'checked' : '')?>
           >
           <span>Nuevo</span>
         </label>
@@ -95,6 +93,8 @@
             type="checkbox"
             name="article_spent"
             id="article_spent"
+            value="<?php bind(getPreformData('article_spent', '')) ?>" 
+            <?php bind(!empty(getPreformData('article_spent', '')) ? 'checked' : '')?>
           >
           <span>Agotado</span>
         </label>
@@ -103,6 +103,8 @@
             type="checkbox"
             name="article_offer"
             id="article_offer"
+            value="<?php bind(getPreformData('article_offer', '')) ?>" 
+            <?php bind(!empty(getPreformData('article_offer', '')) ? 'checked' : '')?>
           >
           <span>En oferta</span>
         </label>
@@ -114,7 +116,7 @@
           id="article_price_offer" 
           type="number" 
           class="<?php fieldHasError('article_price_offer', 'error') ?>" 
-          value="<?php getPreformData('article_price_offer', '') ?>"
+          value="<?php bind(getPreformData('article_price_offer', '')) ?>"
         >
       </div>
       <div class="button-container">

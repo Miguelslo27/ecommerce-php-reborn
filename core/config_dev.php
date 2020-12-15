@@ -43,6 +43,7 @@ define('ACTION_EDIT_SITE_NETWORKS', 'site_networks_edition');
 define('ACTION_HANDLE_CATEGORY', 'handle_category');
 define('ACTION_REMOVE_CATEGORY', 'remove_category');
 define('ACTION_RESTORE_CATEGORY', 'restore_category');
+define('ACTION_HANDLE_ARTICLE', 'handle_article');
 
 /* CONSTANTS FOR PAYMENT */
 define('ACTION_UPDATE_CART_BILLING_INFO', 'update_cart_billing_info');
