@@ -41,25 +41,42 @@
           <select list="city" id="state" name="state"
             value="<?php bind(oneOf(getPreformData('state', ''), getGlobal('user')->state)) ?>">
 
-            <option value="Artigas">Artigas</option>
-            <option value="Canelones">Canelones</option>
-            <option value="Cerro Largo">Cerro Largo</option>
-            <option value="Colonia">Colonia</option>
-            <option value="Durazno">Durazno</option>
-            <option value="Flores">Flores</option>
-            <option value="Florida">Florida</option>
-            <option value="Lavalleja">Lavalleja</option>
-            <option value="Maldonado">Maldonado</option>
-            <option value="Montevideo">Montevideo</option>
-            <option value="Paysandu">Paysandu</option>
-            <option value="Rio Negro">Rio Negro</option>
-            <option value="Rivera">Rivera</option>
-            <option value="Rocha">Rocha</option>
-            <option value="Salto">Salto</option>
-            <option value="San Jose">San Jose</option>
-            <option value="Soriano">Soriano</option>
-            <option value="Tacuarembo">Tacuarembo</option>
-            <option value="Treinta y Tres">Treinta y Tres</option>
+            <option <?php bind(getGlobal('user')->state === "Artigas" ? 'selected' : '') ?> value="Artigas">Artigas
+            </option>
+            <option <?php bind(getGlobal('user')->state === "Canelones" ? 'selected' : '') ?> value="Canelones">
+              Canelones</option>
+            <option <?php bind(getGlobal('user')->state === "Cerro Largo" ? 'selected' : '') ?> value="Cerro Largo">
+              Cerro Largo</option>
+            <option <?php bind(getGlobal('user')->state === "Colonia" ? 'selected' : '') ?> value="Colonia">Colonia
+            </option>
+            <option <?php bind(getGlobal('user')->state === "Durazno" ? 'selected' : '') ?> value="Durazno">Durazno
+            </option>
+            <option <?php bind(getGlobal('user')->state === "Flores" ? 'selected' : '') ?> value="Flores">Flores
+            </option>
+            <option <?php bind(getGlobal('user')->state === "Florida" ? 'selected' : '') ?> value="Florida">Florida
+            </option>
+            <option <?php bind(getGlobal('user')->state === "Lavalleja" ? 'selected' : '') ?> value="Lavalleja">
+              Lavalleja</option>
+            <option <?php bind(getGlobal('user')->state === "Maldonado" ? 'selected' : '') ?> value="Maldonado">
+              Maldonado</option>
+            <option <?php bind(getGlobal('user')->state === "Montevideo" ? 'selected' : '') ?> value="Montevideo">
+              Montevideo</option>
+            <option <?php bind(getGlobal('user')->state === "Paysandu" ? 'selected' : '') ?> value="Paysandu">Paysandu
+            </option>
+            <option <?php bind(getGlobal('user')->state === "Rio Negro" ? 'selected' : '') ?> value="Rio Negro">Rio
+              Negro</option>
+            <option <?php bind(getGlobal('user')->state === "Rivera" ? 'selected' : '') ?> value="Rivera">Rivera
+            </option>
+            <option <?php bind(getGlobal('user')->state === "Rocha" ? 'selected' : '') ?> value="Rocha">Rocha</option>
+            <option <?php bind(getGlobal('user')->state === "Salto" ? 'selected' : '') ?> value="Salto">Salto</option>
+            <option <?php bind(getGlobal('user')->state === "San Jose" ? 'selected' : '') ?> value="San Jose">San Jose
+            </option>
+            <option <?php bind(getGlobal('user')->state === "Soriano" ? 'selected' : '') ?> value="Soriano">Soriano
+            </option>
+            <option <?php bind(getGlobal('user')->state === "Tacuarembo" ? 'selected' : '') ?> value="Tacuarembo">
+              Tacuarembo</option>
+            <option <?php bind(getGlobal('user')->state === "Treinta y Tres" ? 'selected' : '') ?>
+              value="Treinta y Tres">Treinta y Tres</option>
           </select>
         </div>
 
