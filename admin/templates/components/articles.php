@@ -7,45 +7,37 @@
         <h2>Articulos Eliminados</h2>
         <?php if (@count($articles) > 0) : ?>
           <div class="table-row text-center">
-            <div class="cell article-id"><b>ID</b></div>
             <div class="cell article-name"><b>Nombre</b></div>
             <div class="cell article-code"><b>Código</b></div>
-            <div class="cell article-dscp"><b>Descripcion</b></div>
             <div class="cell article-b-dscp"><b>Descripcion Corta</b></div>
             <div class="cell article-price"><b>Precio</b></div>
             <div class="cell article-offer-price"><b>Precio Oferta</b></div>
-            <div class="cell article-new"><b>N</b></div>
-            <div class="cell article-spent"><b>A</b></div>
-            <div class="cell article-offer"><b>O</b></div>
+            <div class="cell article-new"><b>Nuevo</b></div>
+            <div class="cell article-spent"><b>Agotado</b></div>
+            <div class="cell article-offer"><b>Oferta</b></div>
             <div class="cell article-url"><b>Imagen</b></div>
-            <div class="cell article-parent"><b>Categoria Padre</b></div>
+            <div class="cell article-parent"><b>Categoria</b></div>
           </div>
           <?php for ($i = 0; $i < @count($articles); $i++) : ?>
             <div class="table-row <?php bind(($i % 2 === 0) ? 'background' : '') ?>">
-              <div class="cell article-id">
-                <p><?php bind($articles[$i]->id) ?></p>
-              </div>
               <div class="cell article-name">
                 <p><?php bind($articles[$i]->name) ?></p>
               </div>
               <div class="cell article-code">
                 <p><?php bind($articles[$i]->code) ?></p>
               </div>
-              <div class="cell article-dscp">
-                <p><?php bind($articles[$i]->description) ?></p>
-              </div>
               <div class="cell article-b-dscp">
                 <p><?php bind($articles[$i]->brief_description) ?></p>
               </div>
               <div class="cell article-price">
-                <p><?php bind($articles[$i]->price) ?></p>
+                <p>$<?php bind($articles[$i]->price) ?></p>
               </div>
               <div class="cell article-offer-price">
                 <p>
                   <?php if ($articles[$i]->price_offer === '0') : ?>
                     -
                   <?php else : ?>
-                    <?php bind($articles[$i]->price_offer) ?>
+                    $<?php bind($articles[$i]->price_offer) ?>
                   <?php endif ?>
                 </p>
               </div>
@@ -87,17 +79,10 @@
                 </div>
               <?php endif ?>
               <div class="actions list-admin-buttons">
-                <a class="restore-button restore-article-button" data-action="<?php bind('ACTION_RESTORE_ARTICLE') ?>" data-type="restore-article" data-id="<?php bind($articles[$i]->id) ?>"><i class="fas fa-trash-restore"></i> Restaurar</a>
+                <a class="restore-button restore-article-button" data-action="<?php bind(ACTION_RESTORE_ARTICLE) ?>" data-type="restore-article" data-id="<?php bind($articles[$i]->id) ?>"><i class="fas fa-trash-restore"></i> Restaurar</a>
               </div>
             </div>
           <?php endfor ?>
-          <hr class="list-articles-hr" />
-          <div class="list-details">
-            <h2>Aclaraciones:</h2>
-            <p><b>N</b> - Nuevo</p>
-            <p><b>A</b> - Agotado</p>
-            <p><b>O</b> - Oferta</p>
-          </div>
         <?php else : ?>
           <h5 class="text-not-elements">De momento no hay articulos eliminados.</h5>
         <?php endif ?>
@@ -108,7 +93,7 @@
     <?php if (getGlobal('section') === 'nuevo') : ?>
       <form class="form" action="" method="POST">
         <h2>Crear Articulo</h2>
-        <input type="hidden" name="action" value="<?php bind('ACTION_HANDLE_ARTICLE') ?>">
+        <input type="hidden" name="action" value="<?php bind(ACTION_HANDLE_ARTICLE) ?>">
         <div class="form-group">
           <label for="article_name">Nombre:</label>
           <input name="article_name" id="article_name" type="text" class="<?php fieldHasError('article_name', 'error') ?>" value="<?php getPreformData('article_name', '') ?>">
@@ -119,15 +104,11 @@
         </div>
         <div class="form-group">
           <label for="article_description">Descripción:</label>
-          <textarea name="article_description" id="article_description" type="text" class="<?php fieldHasError('article_description', 'error') ?>">
-          <?php getPreformData('article_description', '') ?>
-        </textarea>
+          <textarea name="article_description" id="article_description" type="text" class="<?php fieldHasError('article_description', 'error') ?>"><?php getPreformData('article_description', '') ?></textarea>
         </div>
         <div class="form-group">
           <label for="article_brief_description">Descripción Corta:</label>
-          <textarea name="article_brief_description" id="article_brief_description" type="text" class="<?php fieldHasError('article_brief_description', 'error') ?>">
-          <?php getPreformData('article_brief_description', '') ?>
-        </textarea>
+          <textarea name="article_brief_description" id="article_brief_description" type="text" class="<?php fieldHasError('article_brief_description', 'error') ?>"><?php getPreformData('article_brief_description', '') ?></textarea>
         </div>
         <div class="form-group">
           <label for="article_price">Precio:</label>
