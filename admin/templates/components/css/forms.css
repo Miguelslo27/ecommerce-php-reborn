@@ -277,7 +277,7 @@ input[type="number"] {
   flex-direction: row;
   width: 100%;
   max-height: 15vh;
-  padding: 0.7rem 0;
+  padding: 0.7rem .5rem;
 }
 
 .form-container .form .list-admin-buttons {
@@ -293,6 +293,7 @@ input[type="number"] {
   width: 35%;
   justify-content: center;
   align-items: center;
+  text-align: center;
   padding: 0.5rem 0.2rem;
   font-size: 0.8rem;
 }
@@ -341,7 +342,6 @@ input[type="number"] {
   max-width: 6%;
 }
 
-.form-container .form .table-row .article-id,
 .form-container .form .table-row .article-code,
 .form-container .form .table-row .article-price,
 .form-container .form .table-row .article-offer-price,
@@ -349,11 +349,10 @@ input[type="number"] {
 .form-container .form .table-row .article-spent,
 .form-container .form .table-row .article-offer,
 .form-container .form .table-row .article-parent {
-  max-width: 4%;
+  max-width: 6%;
 }
 
 .form-container .form .table-row .article-name,
-.form-container .form .table-row .article-dscp,
 .form-container .form .table-row .article-url,
 .form-container .form .table-row .article-b-dscp {
   max-width: 12%;
@@ -376,22 +375,6 @@ input[type="number"] {
 
 .form-container .form .add-container i {
   padding-right: 5px;
-}
-.form-container .form .list-articles-hr {
-  border: 0;
-  width: 100%;
-  height: 1px;
-  margin: 1.5rem 0;
-  background: #333;
-  background-image: linear-gradient(to right, #ccc, #333, #ccc);
-}
-.form-container .form .list-details {
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-  margin-left: 3rem;
-  width: 100%;
-  font-size: 0.75em;
 }
 
 h2 {

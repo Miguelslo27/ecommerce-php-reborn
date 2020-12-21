@@ -183,3 +183,27 @@ function article_checkIncomingData()
 
   return $status;
 }
+
+function restoreArticle()
+{
+  $article_id = getRequestData('id');
+  $status = newStatusObject();
+
+  $sql = (
+    "UPDATE 
+        `articles`
+      SET
+        `status` = 1
+      WHERE
+        `id` = $article_id"
+  );
+
+  if (!getDB()->query($sql)) {
+    $status->errors[] = 'El artículo no se puedo restaurar, intente de nuevo';
+    return $status;
+  }
+
+  $status->succeeded = true;
+  $status->success   = "Artículo restaurado con éxito";
+  return $status;
+}

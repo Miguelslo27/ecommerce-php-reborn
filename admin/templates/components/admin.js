@@ -249,22 +249,27 @@ const spentArticleCheckBox    = document.getElementById('article_spent');
 const articePriceOfferInput   = document.getElementById('article_price_offer');
 const articlePriceOfferLabel  = document.getElementById('article_price_offer_label');
 const collapsableBox          = document.querySelector('.collapsable-box');
-collapsableBox.dataset.height = collapsableBox.scrollHeight;
+const restoreArticleButtons   = document.querySelectorAll('.restore-article-button');
 
-if (collapsableBox.classList.contains('open')) {
-  collapsableBox.style.height = `${collapsableBox.scrollHeight}px`
-} else if (collapsableBox.classList.contains('closed')) {
-  collapsableBox.style.height = `0`
+if(collapsableBox) {
+  collapsableBox.dataset.height = collapsableBox.scrollHeight;
+  if (collapsableBox.classList.contains('open')) {
+    collapsableBox.style.height = `${collapsableBox.scrollHeight}px`
+  } else if (collapsableBox.classList.contains('closed')) {
+    collapsableBox.style.height = `0`
+  }
 }
 
-if (offerArticleCheckBox.checked) {
-  collapsableBox.classList.add('open');
-  collapsableBox.classList.remove('closed');
-  collapsableBox.style.height = `${collapsableBox.dataset.height}px`;
-} else {
-  collapsableBox.classList.add('closed');
-  collapsableBox.classList.remove('open');
-  collapsableBox.style.height = 0;
+if (offerArticleCheckBox) {
+  if (offerArticleCheckBox.checked) {
+    collapsableBox.classList.add('open');
+    collapsableBox.classList.remove('closed');
+    collapsableBox.style.height = `${collapsableBox.dataset.height}px`;
+  } else {
+    collapsableBox.classList.add('closed');
+    collapsableBox.classList.remove('open');
+    collapsableBox.style.height = 0;
+  }
 }
 
 const handleOfferArticleCheckBox = (ev) => {
@@ -299,6 +304,41 @@ const handleSpentArticleCheckBox = (ev) => {
   }
 }
 
-offerArticleCheckBox.addEventListener('click', handleOfferArticleCheckBox);
-newArticleCheckBox.addEventListener('click', handleNewArticleCheckBox);
-spentArticleCheckBox.addEventListener('click', handleSpentArticleCheckBox)
+const handleRestorArticle = function (ev) {
+  ev.preventDefault();
+  form.classList.add('blur');
+
+  const options  = {
+    method: 'POST',
+    headers:{
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'action': this.dataset.action,
+      'id': this.dataset.id
+    })
+  };
+
+  fetch('/core/api.php', options)
+    .then(res => res.json())
+    .then(res => {
+      setTimeout(() => {
+        form.classList.remove('blur');
+      }, TIMETORELOAD);
+
+      handleUpdateResponse(res, this.dataset.type);
+    })
+    .catch(err => {
+      form.classList.remove('blur');
+      handleUpdateError('error');
+    });
+}
+
+if (offerArticleCheckBox) {
+  offerArticleCheckBox.addEventListener('click', handleOfferArticleCheckBox);
+  newArticleCheckBox.addEventListener('click', handleNewArticleCheckBox);
+  spentArticleCheckBox.addEventListener('click', handleSpentArticleCheckBox)
+}
+restoreArticleButtons.forEach(button => {
+  button.addEventListener("click", handleRestorArticle);
+});
