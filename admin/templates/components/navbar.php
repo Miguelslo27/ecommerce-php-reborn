@@ -111,6 +111,3 @@
   <?php setGlobal('actualItem', $conf) ?>
   <?php getTemplate('components/navbar-item') ?>
 </div>
-</div>
-
-</div>
