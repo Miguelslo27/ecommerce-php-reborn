@@ -74,40 +74,40 @@
       </div>
     </div>
   </nav>
-  <div class="nav-boxes">
-    <!-- USER BOX -->
-    <div class="user-box item-box hide-box" id="user">
-      <div class="close-container">
-        <i class="fas fa-times close-box" data-close-type="user"></i>
-      </div>
-      <div class="picture">
-        <i class="fas fa-user-circle user"></i>
-      </div>
-      <h3>User Name</h3>
-      <div class="item-sub-links">
-        <i class="fas fa-envelope"></i>
-        <i class="fas fa-bell"></i>
-      </div>
-      <ul>
-        <li>Editar datos de usuario</li>
-        <li>Correo nuevo</li>
-        <li>Cuenta</li>
-      </ul>
+</div>
+<div class="nav-boxes">
+  <!-- USER BOX -->
+  <div class="user-box item-box hide-box" id="user">
+    <div class="close-container">
+      <i class="fas fa-times close-box" data-close-type="user"></i>
     </div>
-    <!-- CATEGORIES BOX -->
-    <?php setGlobal('actualItem', $categories) ?>
-    <?php getTemplate('components/navbar-item') ?>
-    <!-- ARTICLES BOX -->
-    <?php setGlobal('actualItem', $articles) ?>
-    <?php getTemplate('components/navbar-item') ?>
-    <!-- USERS BOX -->
-    <?php setGlobal('actualItem', $users) ?>
-    <?php getTemplate('components/navbar-item') ?>
-    <!-- ORDERS BOX -->
-    <?php setGlobal('actualItem', $orders) ?>
-    <?php getTemplate('components/navbar-item') ?>
-    <!-- CONFIGURATION BOX -->
-    <?php setGlobal('actualItem', $conf) ?>
-    <?php getTemplate('components/navbar-item') ?>
+    <div class="picture">
+      <i class="fas fa-user-circle user"></i>
+    </div>
+    <h3>User Name</h3>
+    <div class="item-sub-links">
+      <i class="fas fa-envelope"></i>
+      <i class="fas fa-bell"></i>
+    </div>
+    <ul>
+      <li>Editar datos de usuario</li>
+      <li>Correo nuevo</li>
+      <li>Cuenta</li>
+    </ul>
   </div>
-</div>    
+  <!-- CATEGORIES BOX -->
+  <?php setGlobal('actualItem', $categories) ?>
+  <?php getTemplate('components/navbar-item') ?>
+  <!-- ARTICLES BOX -->
+  <?php setGlobal('actualItem', $articles) ?>
+  <?php getTemplate('components/navbar-item') ?>
+  <!-- USERS BOX -->
+  <?php setGlobal('actualItem', $users) ?>
+  <?php getTemplate('components/navbar-item') ?>
+  <!-- ORDERS BOX -->
+  <?php setGlobal('actualItem', $orders) ?>
+  <?php getTemplate('components/navbar-item') ?>
+  <!-- CONFIGURATION BOX -->
+  <?php setGlobal('actualItem', $conf) ?>
+  <?php getTemplate('components/navbar-item') ?>
+</div>
