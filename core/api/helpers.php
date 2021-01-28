@@ -209,6 +209,12 @@ function getQueryParamsByName($names = null)
   return $paramsObj;
 }
 
+function getQueryParam($name)
+{
+  if (!$name) return null;
+  return getQueryParamsByName([$name])[$name];
+}
+
 /**
  * Get Query Parammeters
  */

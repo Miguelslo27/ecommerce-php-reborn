@@ -1,7 +1,7 @@
 <div class="form-container">
   <!-- NEW ARTICLE -->
   <?php $categories = getCategories('`status` = 1')?>
-  <?php if (getGlobal('section') === 'nuevo') : ?>
+  <?php if (getQueryParam('section') === 'nuevo') : ?>
     <form class="form" action="" method="POST">
         <h2>Crear Articulo</h2>
       <input type="hidden" name="action" value="<?php bind('ACTION_HANDLE_ARTICLE') ?>">
@@ -123,5 +123,8 @@
         </button>
       </div>
     </form>
+  <?php endif ?>
+  <?php if (getQueryParam('section') === 'lista') : ?>
+    <!-- LISTA DE ARTICULOS -->
   <?php endif ?>
 </div>
