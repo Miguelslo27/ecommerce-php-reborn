@@ -54,6 +54,13 @@ if ($request->action == ACTION_RESTORE_CATEGORY) {
   $response = json_encode($status);
 }
 
+if ($request->action == ACTION_RESTORE_ARTICLE) {
+  setRequestData('id', $request->id);
+  $status = restoreArticle();
+
+  $response = json_encode($status);
+}
+
 if (!isset($status)) {
   header(getServer('SERVER_PROTOCOL') . ' 500 Internal server error');
   exit;
@@ -66,5 +73,3 @@ if ($status->succeeded) {
 }
 
 echo $response;
-
-?>
