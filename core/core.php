@@ -101,6 +101,10 @@ function processRequests()
     setSession('request_messages', removeCategory());
   }
 
+  if (getPostData('action') === ACTION_HANDLE_ARTICLE) {
+    setSession('request_messages', handleArticle());
+  }
+
   if (getRequestData('action') === ACTION_EDIT_SITE_NETWORKS) {
     setSession('request_messages', siteNetworksEdition());
   }

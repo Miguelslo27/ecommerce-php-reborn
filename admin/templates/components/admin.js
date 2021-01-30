@@ -243,31 +243,25 @@ restoreCategoryButton.forEach(restoreButton => { restoreButton.addEventListener(
 saveAndCreateNewButton ? saveAndCreateNewButton.addEventListener('click', handleSecondaryButton) : '';
 
 //ARTICLES
-const offerCheckBox          = document.getElementById('article_offer');
-const articePriceOfferInput  = document.getElementById('article_price_offer');
-const articlePriceOfferLabel = document.getElementById('article_price_offer_label');
-const collapsableBox         = document.querySelector('.collapsable-box');
+const offerArticleCheckBox    = document.getElementById('article_offer');
+const newArticleCheckBox      = document.getElementById('article_new');
+const spentArticleCheckBox    = document.getElementById('article_spent');
+const articePriceOfferInput   = document.getElementById('article_price_offer');
+const articlePriceOfferLabel  = document.getElementById('article_price_offer_label');
+const collapsableBox          = document.querySelector('.collapsable-box');
+const restoreArticleButtons   = document.querySelectorAll('.restore-article-button');
 
-collapsableBox.dataset.height = collapsableBox.scrollHeight;
-
-if (collapsableBox.classList.contains('open')) {
-  collapsableBox.style.height = `${collapsableBox.scrollHeight}px`
-} else if (collapsableBox.classList.contains('closed')) {
-  collapsableBox.style.height = `0`
+if(collapsableBox) {
+  collapsableBox.dataset.height = collapsableBox.scrollHeight;
+  if (collapsableBox.classList.contains('open')) {
+    collapsableBox.style.height = `${collapsableBox.scrollHeight}px`
+  } else if (collapsableBox.classList.contains('closed')) {
+    collapsableBox.style.height = `0`
+  }
 }
 
-if (offerCheckBox.checked) {
-  collapsableBox.classList.add('open');
-  collapsableBox.classList.remove('closed');
-  collapsableBox.style.height = `${collapsableBox.dataset.height}px`;
-} else {
-  collapsableBox.classList.add('closed');
-  collapsableBox.classList.remove('open');
-  collapsableBox.style.height = 0;
-}
-
-const handleOfferCheckBox = (ev) => {
-  if (offerCheckBox.checked) {
+if (offerArticleCheckBox) {
+  if (offerArticleCheckBox.checked) {
     collapsableBox.classList.add('open');
     collapsableBox.classList.remove('closed');
     collapsableBox.style.height = `${collapsableBox.dataset.height}px`;
@@ -275,7 +269,76 @@ const handleOfferCheckBox = (ev) => {
     collapsableBox.classList.add('closed');
     collapsableBox.classList.remove('open');
     collapsableBox.style.height = 0;
+  }
+}
+
+const handleOfferArticleCheckBox = (ev) => {
+  if (offerArticleCheckBox.checked) {
+    offerArticleCheckBox.value = 'offer'
+    collapsableBox.classList.add('open');
+    collapsableBox.classList.remove('closed');
+    collapsableBox.style.height = `${collapsableBox.dataset.height}px`;
+  } else {
+    offerArticleCheckBox.value = ''
+    collapsableBox.classList.add('closed');
+    collapsableBox.classList.remove('open');
+    collapsableBox.style.height = 0;
   } 
 }
 
-offerCheckBox.addEventListener('click', handleOfferCheckBox);
+const handleNewArticleCheckBox = (ev) => {
+  ev.preventDefault;
+  if (newArticleCheckBox.checked) {
+    newArticleCheckBox.value = 'new';
+  } else {
+    newArticleCheckBox.value = '';
+  }
+}
+
+const handleSpentArticleCheckBox = (ev) => {
+  ev.preventDefault;
+  if (spentArticleCheckBox.checked) {
+    spentArticleCheckBox.value = 'spent';
+  } else {
+    spentArticleCheckBox.value = '';
+  }
+}
+
+const handleRestorArticle = function (ev) {
+  ev.preventDefault();
+  form.classList.add('blur');
+
+  const options  = {
+    method: 'POST',
+    headers:{
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'action': this.dataset.action,
+      'id': this.dataset.id
+    })
+  };
+
+  fetch('/core/api.php', options)
+    .then(res => res.json())
+    .then(res => {
+      setTimeout(() => {
+        form.classList.remove('blur');
+      }, TIMETORELOAD);
+
+      handleUpdateResponse(res, this.dataset.type);
+    })
+    .catch(err => {
+      form.classList.remove('blur');
+      handleUpdateError('error');
+    });
+}
+
+if (offerArticleCheckBox) {
+  offerArticleCheckBox.addEventListener('click', handleOfferArticleCheckBox);
+  newArticleCheckBox.addEventListener('click', handleNewArticleCheckBox);
+  spentArticleCheckBox.addEventListener('click', handleSpentArticleCheckBox)
+}
+restoreArticleButtons.forEach(button => {
+  button.addEventListener("click", handleRestorArticle);
+});

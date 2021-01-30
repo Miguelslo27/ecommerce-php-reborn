@@ -78,7 +78,7 @@ A step by step series of examples that tell you how to get a development environ
 - Open your **Apache virtual host** settings file
 
   ```
-  C:\xampp\apache\conf\extra\httpd-vhosts.conf
+  C:/xampp/apache/conf/extra/httpd-vhosts.conf
   ```
 
 - Add your **Virtual Host** settings at the end of the file

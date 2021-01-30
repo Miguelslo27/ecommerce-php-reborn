@@ -28,11 +28,13 @@ if (getGlobal('currentArticle')->description === '') {
   <div class="article-info <?php bind($class) ?>">
     <!--  ARTICLE PATH   -->
     <div class="article-path">
-      <a href="/">Inicio / </a>
-      <?php if (getGlobal('mainCategory')) : ?>
-        <a href="/"><?php bind(getGlobal('mainCategory')->title)?> / </a>
+      <a href="/">Inicio </a>
+      <?php if (!empty(getGlobal('mainCategory'))) : ?>
+        <a href="/">/ <?php bind(getGlobal('mainCategory')->title)?> / </a>
       <?php endif ?>
-      <a href="/"><?php bind(getGlobal('currentCategory')->title)?></a>
+      <?php if (!empty(getGlobal('currentCategory'))) : ?>
+        <a href="/"><?php bind(!empty(getGlobal('currentCategory')) ? getGlobal('currentCategory')->title : '' )?></a>
+      <?php endif ?>
     </div>
     <!--  TITLE   -->
     <h4><?php bind(getGlobal('currentArticle')->name) ?></h4>
