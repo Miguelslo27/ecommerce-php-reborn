@@ -83,7 +83,7 @@
   <?php endif ?>
   <?php if (getQueryParam('section') === 'lista') : ?>
   <!-- LISTA DE ARTICULOS -->
-
+  <h1>Hola</h1>
 
   <?php endif ?>
 </div>
