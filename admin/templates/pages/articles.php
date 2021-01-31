@@ -23,7 +23,7 @@ newDocument([
       header('Location: /');
       exit;
     }
-
+   
     if (!isSuperAdmin()) {
       header('Location: /admin');
       exit;
