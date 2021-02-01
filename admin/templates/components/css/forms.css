@@ -357,15 +357,11 @@ input[type="number"] {
   max-width: 13.3%;
 }
 
-.form-container .form .table-row .user-address {
-  max-width: 13.3%;
+.form-container .form .table-row .user-location {
+  max-width: 26.6%;
 }
 
 .form-container .form .table-row .user-phone {
-  max-width: 13.3%;
-}
-
-.form-container .form .table-row .user-state {
   max-width: 13.3%;
 }
 

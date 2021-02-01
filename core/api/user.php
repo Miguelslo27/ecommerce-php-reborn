@@ -407,14 +407,11 @@ function getUsers($where = null)
       `lastname`,
       `document`,
       `email`,
-      `password`,
-      `verification_code`,
       `address`,
       `phone`,
       `cellphone`,
       `state`,
-      `city`,
-      `isadmin`
+      `city`
     FROM `users`"
   );
 
