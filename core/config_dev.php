@@ -45,6 +45,7 @@ define('ACTION_REMOVE_CATEGORY', 'remove_category');
 define('ACTION_RESTORE_CATEGORY', 'restore_category');
 define('ACTION_HANDLE_ARTICLE', 'handle_article');
 define('ACTION_RESTORE_ARTICLE', 'restore_article');
+define('ACTION_SUSPEND_USER', 'suspend_user');
 
 /* CONSTANTS FOR PAYMENT */
 define('ACTION_UPDATE_CART_BILLING_INFO', 'update_cart_billing_info');
