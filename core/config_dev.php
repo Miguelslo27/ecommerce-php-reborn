@@ -84,3 +84,4 @@ define('ADMIN_TEMPLATE', 'pages/dashboard');
 define('ADMIN_TEMPLATE_CONFIG', 'pages/configuration');
 define('ADMIN_TEMPLATE_CATEGORIES', 'pages/categories');
 define('ADMIN_TEMPLATE_ARTICLES', 'pages/articles');
+define('ADMIN_TEMPLATE_USERS', 'pages/users');

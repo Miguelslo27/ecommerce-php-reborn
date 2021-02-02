@@ -397,3 +397,27 @@ function change_password()
   
   return $status;
 }
+
+function getUsers($where = null)
+{
+  $sql = (
+    "SELECT
+      `id`,
+      `name`,
+      `lastname`,
+      `document`,
+      `email`,
+      `address`,
+      `phone`,
+      `cellphone`,
+      `state`,
+      `city`
+    FROM `users`"
+  );
+
+  if (isset($where)) {
+    $sql .= " WHERE $where";
+  }
+
+  return getDB()->getObjects($sql);
+}

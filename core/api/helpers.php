@@ -236,6 +236,15 @@ function getQueryParams($additions = null)
 }
 
 /**
+ * Get Parameter
+ */
+function getParam($paramName)
+{
+  $paramValue = getQueryParamsByName([$paramName])[$paramName];
+  return $paramValue;
+}
+
+/**
  * Get Pagination
  */
 function getPager($model, $where, $perpage) {
