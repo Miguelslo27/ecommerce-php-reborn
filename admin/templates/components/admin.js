@@ -342,3 +342,40 @@ if (offerArticleCheckBox) {
 restoreArticleButtons.forEach(button => {
   button.addEventListener("click", handleRestorArticle);
 });
+
+//USERS
+const suspendUserButtons = document.querySelectorAll('.suspend-button');
+
+const handleSuspendUser = function (ev) {
+  ev.preventDefault();
+  form.classList.add('blur');
+
+  const options  = {
+    method: 'POST',
+    headers:{
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'action': this.dataset.action,
+      'id': this.dataset.id
+    })
+  };
+
+  fetch('/core/api.php', options)
+    .then(res => res.json())
+    .then(res => {
+      setTimeout(() => {
+        form.classList.remove('blur');
+      }, TIMETORELOAD);
+
+      handleUpdateResponse(res, this.dataset.type);
+    })
+    .catch(err => {
+      form.classList.remove('blur');
+      handleUpdateError('error');
+    });
+}
+
+suspendUserButtons.forEach(button => {
+  button.addEventListener("click", handleSuspendUser);
+});

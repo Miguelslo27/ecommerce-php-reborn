@@ -41,7 +41,7 @@
                 </p>
               </div>
               <div class="actions list-admin-buttons">
-                <a class="suspend-button" data-action="<?php bind('ACTION_SUSPEND_USER') ?>" data-type="suspend-user"><i class="fas fa-times-circle"></i> Suspender</a>
+                <a class="suspend-button" data-action="<?php bind(ACTION_SUSPEND_USER) ?>" data-type="suspend-user" data-id="<?php bind($users[$i]->id)?>"><i class="fas fa-times-circle"></i> Suspender</a>
               </div>
             </div>
           <?php endfor ?>
