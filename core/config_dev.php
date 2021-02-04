@@ -45,6 +45,7 @@ define('ACTION_REMOVE_CATEGORY', 'remove_category');
 define('ACTION_RESTORE_CATEGORY', 'restore_category');
 define('ACTION_HANDLE_ARTICLE', 'handle_article');
 define('ACTION_RESTORE_ARTICLE', 'restore_article');
+define('ACTION_SUSPEND_USER', 'suspend_user');
 
 /* CONSTANTS FOR PAYMENT */
 define('ACTION_UPDATE_CART_BILLING_INFO', 'update_cart_billing_info');
@@ -84,3 +85,5 @@ define('ADMIN_TEMPLATE', 'pages/dashboard');
 define('ADMIN_TEMPLATE_CONFIG', 'pages/configuration');
 define('ADMIN_TEMPLATE_CATEGORIES', 'pages/categories');
 define('ADMIN_TEMPLATE_ARTICLES', 'pages/articles');
+define('ADMIN_TEMPLATE_ARTICLES', 'pages/articles');
+define('ADMIN_TEMPLATE_USERS', 'pages/users');

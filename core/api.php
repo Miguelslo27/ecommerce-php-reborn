@@ -61,6 +61,13 @@ if ($request->action == ACTION_RESTORE_ARTICLE) {
   $response = json_encode($status);
 }
 
+if ($request->action == ACTION_SUSPEND_USER) {
+  setRequestData('id', $request->id);
+  $status = suspendUser();
+
+  $response = json_encode($status);
+}
+
 if (!isset($status)) {
   header(getServer('SERVER_PROTOCOL') . ' 500 Internal server error');
   exit;
