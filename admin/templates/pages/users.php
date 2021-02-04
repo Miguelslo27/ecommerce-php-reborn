@@ -30,3 +30,14 @@ newDocument([
     }
   }
 ]);
+
+function fieldHasError($field, $class)
+{
+  bind(
+    !empty(getSession('request_messages'))
+    && isset(getSession('request_messages')->fieldsWithErrors[$field])
+    && getSession('request_messages')->fieldsWithErrors[$field]
+      ? $class
+      : ''
+  );
+}
