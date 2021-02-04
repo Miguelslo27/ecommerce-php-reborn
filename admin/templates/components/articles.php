@@ -84,25 +84,20 @@
   <?php if (getQueryParam('section') === 'lista') : ?>
   <!-- LISTA DE ARTICULOS -->
 
-  <?php if (getGlobal('section') === 'lista' && getGlobal('action') === null) : ?>
   <div class="form big-form" data-success="" id="list-articles">
     <?php $articles = getArticles('`status` = 0'); ?>
 
     <h2>Lista De Articulos</h2>
     <div class="table-row text-center">
+      <div class="cell article-url"><b>Imagen</b></div>
       <div class="cell article-name"><b>Nombre</b></div>
       <div class="cell article-code"><b>Código</b></div>
       <div class="cell article-b-dscp"><b>Descripcion Corta</b></div>
       <div class="cell article-price"><b>Precio</b></div>
-      <div class="cell article-offer-price"><b>Precio Oferta</b></div>
       <div class="cell article-new"><b>Nuevo</b></div>
-      <div class="cell article-spent"><b>Agotado</b></div>
-      <div class="cell article-offer"><b>Oferta</b></div>
-      <div class="cell article-url"><b>Imagen</b></div>
       <div class="cell article-parent"><b>Categoria</b></div>
     </div>
 
-    <?php endif ?>
   </div>
 
   <?php endif ?>
