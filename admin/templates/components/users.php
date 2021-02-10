@@ -114,5 +114,59 @@
         <?php endif ?>
       </div>
     <?php endif ?>
+    <?php if (getParam('uid') === 'nuevo') : ?>
+      <form class="form" action="" method="POST" id="user-form">
+        <h2>Crear Usuario</h2>
+        <input type="hidden" name="action" value="<?php bind('ACTION_CREATE_USER') ?>"></input>
+        <div class="form-group">
+          <label for="user_name">Nombre:</label>
+          <input name="user_name" id="user_name" type="text" class="<?php fieldHasError('user_name', 'error') ?>" value="<?php bind(getPreformData('user_name', '')) ?>">
+        </div>
+        <div class="form-group">
+          <label for="user_lastname">Apellido:</label>
+          <input name="user_lastname" id="user_lastname" type="text" class="<?php fieldHasError('user_lastname', 'error') ?>" value="<?php bind(getPreformData('user_lastname', '')) ?>"></input>
+        </div>
+        <div class="form-group">
+          <label for="user_document">Documento:</label>
+          <input name="user_document" id="user_document" type="text" class="<?php fieldHasError('user_document', 'error') ?>" value="<?php bind(getPreformData('user_document', '')) ?>"></input>
+        </div>
+        <div class="form-group">
+          <label for="user_address">Dirección:</label>
+          <input name="user_address" id="user_address" type="text" class="<?php fieldHasError('user_address', 'error') ?>" value="<?php bind(getPreformData('user_address', '')) ?>">
+        </div>
+        <div class="form-group">
+          <label for="user_state">Departamento:</label>
+          <input name="user_state" id="user_state" type="text" class="<?php fieldHasError('user_state', 'error') ?>" value="<?php bind(getPreformData('user_state', '')) ?>">
+        </div>
+        <div class="form-group">
+          <label for="user_city">Ciudad:</label>
+          <input name="user_city" id="user_city" type="text" class="<?php fieldHasError('user_city', 'error') ?>" value="<?php bind(getPreformData('user_city', '')) ?>">
+        </div>
+        <div class="form-group">
+          <label for="user_phone">Teléfono:</label>
+          <input name="user_phone" id="user_phone" type="text" class="<?php fieldHasError('user_phone', 'error') ?>" value="<?php bind(getPreformData('user_phone', '')) ?>">
+        </div>
+        <div class="form-group">
+          <label for="user_cellphone">Celular:</label>
+          <input name="user_cellphone" id="user_cellphone" type="text" class="<?php fieldHasError('user_cellphone', 'error') ?>" value="<?php bind(getPreformData('user_cellphone', '')) ?>">
+        </div>
+        <div class="form-group">
+          <label for="user_email">Email:</label>
+          <input name="user_email" id="user_email" type="text" class="<?php fieldHasError('user_email', 'error') ?>" value="<?php bind(getPreformData('user_email', '')) ?>">
+        </div>
+        <div class="form-group">
+          <label for="user_password">Contraseña:</label>
+          <input name="user_password" id="user_password" type="password" class="<?php fieldHasError('user_password', 'error') ?>" value="<?php bind(getPreformData('user_password', '')) ?>">
+        </div>
+        <div class="button-container multiple-buttons">
+          <button class="button" type="submit">
+            <i class="fas fa-check"></i> Guardar
+          </button>
+          <button class="button save-and-create-new-button" type="submit">
+            <i class="fas fa-check"></i> Guardar y crear otra
+          </button>
+        </div>
+      </form>
+    <?php endif ?>
   </div>
 </div>
