@@ -5,7 +5,7 @@
       <div class="form big-form" data-success="" id="list-users">
         <?php $users = getUsers('`status` = 1'); ?>
         <h2>Lista de Usuarios</h2>
-        <?php if (@count($users) > 0) : ?>
+        <?php if ($users !== null) : ?>
           <div class="table-row text-center">
             <div class="cell user-name"><b>Nombre</b></div>
             <div class="cell user-id"><b>Documento</b></div>
@@ -41,10 +41,17 @@
                 </p>
               </div>
               <div class="actions list-admin-buttons">
-                <a class="suspend-button" data-action="<?php bind(ACTION_SUSPEND_USER) ?>" data-type="suspend-user" data-id="<?php bind($users[$i]->id)?>"><i class="fas fa-times-circle"></i> Suspender</a>
+                <a 
+                  class="suspend-button" 
+                  data-action="<?php bind(ACTION_HANDLE_SUSPEND_USER) ?>" 
+                  data-type="suspend-user"  
+                  data-id="<?php bind($users[$i]->id)?>">
+                  <i class="fas fa-times-circle"></i> Suspender
+                </a>
               </div>
             </div>
           <?php endfor ?>
+          </div>
         <?php else : ?>
           <h5 class="text-not-elements">De momento no hay usuarios.</h5>
         <?php endif ?>
@@ -55,7 +62,7 @@
       <div class="form big-form" id="list-suspended-users">
         <?php $users = getUsers('`status` = 0'); ?>
         <h2>Lista de Usuarios Suspendidos</h2>
-        <?php if (@count($users) > 0) : ?>
+        <?php if ($users !== null) : ?>
           <div class="table-row text-center">
             <div class="cell user-name"><b>Nombre</b></div>
             <div class="cell user-id"><b>Documento</b></div>
@@ -91,10 +98,17 @@
                 </p>
               </div>
               <div class="actions list-admin-buttons">
-                <a class="restore-button unsuspend-button" data-action="<?php bind('ACTION_UNSUSPEND_USER') ?>" data-type="unsuspend-user"><i class="fas fa-check"></i>  Restablecer</a>
+                <a 
+                  class="restore-button unsuspend-button" 
+                  data-action="<?php bind(ACTION_HANDLE_SUSPEND_USER) ?>"
+                  data-type="unsuspend-user" 
+                  data-id="<?php bind($users[$i]->id)?>">
+                  <i class="fas fa-check"></i>  Restablecer
+                </a>
               </div>
             </div>
           <?php endfor ?>
+          </div>
         <?php else : ?>
           <h5 class="text-not-elements">De momento no hay usuarios suspendidos.</h5>
         <?php endif ?>
