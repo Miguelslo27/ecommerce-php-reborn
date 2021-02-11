@@ -117,52 +117,57 @@
     <?php if (getParam('uid') === 'nuevo') : ?>
       <form class="form" action="" method="POST" id="user-form">
         <h2>Crear Usuario</h2>
-        <input type="hidden" name="action" value="<?php bind('ACTION_CREATE_USER') ?>"></input>
+        <input type="hidden" name="action" value="<?php bind(ACTION_CREATE_USER) ?>">
+        <input type="hidden" name="button-action-user" id="button-action-user" value="">
         <div class="form-group">
-          <label for="user_name">Nombre:</label>
-          <input name="user_name" id="user_name" type="text" class="<?php fieldHasError('user_name', 'error') ?>" value="<?php bind(getPreformData('user_name', '')) ?>">
+          <label for="name">Nombre:</label>
+          <input name="name" id="name" type="text" class="<?php fieldHasError('name', 'error') ?>" value="<?php bind(getGlobal('user_success') ? '' : getPreformData('name', '')) ?>">
         </div>
         <div class="form-group">
-          <label for="user_lastname">Apellido:</label>
-          <input name="user_lastname" id="user_lastname" type="text" class="<?php fieldHasError('user_lastname', 'error') ?>" value="<?php bind(getPreformData('user_lastname', '')) ?>"></input>
+          <label for="lastname">Apellido:</label>
+          <input name="lastname" id="lastname" type="text" class="<?php fieldHasError('lastname', 'error') ?>" value="<?php bind(getGlobal('user_success') ? '' : getPreformData('lastname', '')) ?>"></input>
         </div>
         <div class="form-group">
-          <label for="user_document">Documento:</label>
-          <input name="user_document" id="user_document" type="text" class="<?php fieldHasError('user_document', 'error') ?>" value="<?php bind(getPreformData('user_document', '')) ?>"></input>
+          <label for="reg_email">Email:</label>
+          <input name="reg_email" id="reg_email" type="text" class="<?php fieldHasError('reg_email', 'error') ?>" value="<?php bind(getGlobal('user_success') ? '' : getPreformData('reg_email', '')) ?>">
         </div>
         <div class="form-group">
-          <label for="user_address">Dirección:</label>
-          <input name="user_address" id="user_address" type="text" class="<?php fieldHasError('user_address', 'error') ?>" value="<?php bind(getPreformData('user_address', '')) ?>">
+          <label for="reg_pass">Contraseña:</label>
+          <input name="reg_pass" id="reg_pass" type="password" class="<?php fieldHasError('reg_pass', 'error') ?>" value="<?php bind(getGlobal('user_success') ? '' : getPreformData('reg_pass', '')) ?>">
         </div>
         <div class="form-group">
-          <label for="user_state">Departamento:</label>
-          <input name="user_state" id="user_state" type="text" class="<?php fieldHasError('user_state', 'error') ?>" value="<?php bind(getPreformData('user_state', '')) ?>">
+          <label for="pass2">Repetir Contraseña:</label>
+          <input name="pass2" id="pass2" type="password" class="<?php fieldHasError('pass2', 'error') ?>" value="<?php bind(getGlobal('user_success') ? '' : getPreformData('pass2', '')) ?>">
         </div>
         <div class="form-group">
-          <label for="user_city">Ciudad:</label>
-          <input name="user_city" id="user_city" type="text" class="<?php fieldHasError('user_city', 'error') ?>" value="<?php bind(getPreformData('user_city', '')) ?>">
+          <label for="document">Documento:</label>
+          <input name="document" id="document" type="text" class="<?php fieldHasError('document', 'error') ?>" value="<?php bind(getGlobal('user_success') ? '' : getPreformData('document', '')) ?>"></input>
         </div>
         <div class="form-group">
-          <label for="user_phone">Teléfono:</label>
-          <input name="user_phone" id="user_phone" type="text" class="<?php fieldHasError('user_phone', 'error') ?>" value="<?php bind(getPreformData('user_phone', '')) ?>">
+          <label for="address">Dirección:</label>
+          <input name="address" id="address" type="text" class="<?php fieldHasError('address', 'error') ?>" value="<?php bind(getGlobal('user_success') ? '' : getPreformData('address', '')) ?>">
         </div>
         <div class="form-group">
-          <label for="user_cellphone">Celular:</label>
-          <input name="user_cellphone" id="user_cellphone" type="text" class="<?php fieldHasError('user_cellphone', 'error') ?>" value="<?php bind(getPreformData('user_cellphone', '')) ?>">
+          <label for="state">Departamento:</label>
+          <input name="state" id="state" type="text" class="<?php fieldHasError('state', 'error') ?>" value="<?php bind(getGlobal('user_success') ? '' : getPreformData('state', '')) ?>">
         </div>
         <div class="form-group">
-          <label for="user_email">Email:</label>
-          <input name="user_email" id="user_email" type="text" class="<?php fieldHasError('user_email', 'error') ?>" value="<?php bind(getPreformData('user_email', '')) ?>">
+          <label for="city">Ciudad:</label>
+          <input name="city" id="city" type="text" class="<?php fieldHasError('city', 'error') ?>" value="<?php bind(getGlobal('user_success') ? '' : getPreformData('city', '')) ?>">
         </div>
         <div class="form-group">
-          <label for="user_password">Contraseña:</label>
-          <input name="user_password" id="user_password" type="password" class="<?php fieldHasError('user_password', 'error') ?>" value="<?php bind(getPreformData('user_password', '')) ?>">
+          <label for="phone">Teléfono:</label>
+          <input name="phone" id="phone" type="text" class="<?php fieldHasError('phone', 'error') ?>" value="<?php bind(getGlobal('user_success') ? '' : getPreformData('phone', '')) ?>">
+        </div>
+        <div class="form-group">
+          <label for="cellphone">Celular:</label>
+          <input name="cellphone" id="cellphone" type="text" class="<?php fieldHasError('cellphone', 'error') ?>" value="<?php bind(getGlobal('user_success') ? '' : getPreformData('cellphone', '')) ?>">
         </div>
         <div class="button-container multiple-buttons">
           <button class="button" type="submit">
             <i class="fas fa-check"></i> Guardar
           </button>
-          <button class="button save-and-create-new-button" type="submit">
+          <button class="button save-and-create-new-button" data-success="<?php bind(getGlobal('user_success'))?>" id="save-and-create-new-user" type="submit">
             <i class="fas fa-check"></i> Guardar y crear otra
           </button>
         </div>

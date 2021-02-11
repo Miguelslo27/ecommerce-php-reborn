@@ -75,7 +75,11 @@ function registerNewUser() {
     $status->warnings         = [];
     $status->fieldsWithErrors = [];
   } else {
-    $status->success = 'Te has registrado con éxito';
+    if (getParam('uid') === 'nuevo') {
+      $status->success = 'Usuario registrado con éxito';
+    } else {
+      $status->success = 'Te has registrado con éxito';
+    }
   }
   
   return $status;
@@ -136,15 +140,15 @@ function user_checkIncomingData($isANewUser = false)
     $status->errors[]                 = 'Tu nombre no puede ser vacío';
   } elseif (!preg_match(REG_EXP_NAME_FORMAT, getPostData('name'))) {
     $status->fieldsWithErrors['name'] = true;
-    $status->errors[]                 = 'El nombre tiene un formato incorrecto. Tu nombre puede incluir letras, espacios y puntos';
+    $status->errors[]                 = getParam('uid') === 'nuevo' ? 'El nombre tiene un formato incorrecto. Puede incluir letras, espacios y puntos' : 'El nombre tiene un formato incorrecto. Tu nombre puede incluir letras, espacios y puntos';
   }
 
   if (empty(getPostData('lastname'))) {
     $status->fieldsWithErrors['lastname'] = true;
-    $status->errors[]                     = 'Tu apellido no puede ser vacío';
+    $status->errors[]                     = getParam('uid') === 'nuevo' ? 'El apellido no puede ser vacío' : 'Tu apellido no puede ser vacío';
   } elseif (!preg_match(REG_EXP_NAME_FORMAT, getPostData('lastname'))) {
     $status->fieldsWithErrors['lastname'] = true;
-    $status->errors[]                     = 'El apellido tiene un formato incorrecto. Tu nombre puede incluir letras, espacios y puntos';
+    $status->errors[]                     = getParam('uid') === 'nuevo' ? 'El apellido tiene un formato incorrecto. El apellido puede incluir letras, espacios y puntos' : 'El apellido tiene un formato incorrecto. Tu apellido puede incluir letras, espacios y puntos';
   }
 
   if (!preg_match(REG_EXP_STRING_FORMAT, getPostData('address'))) {
@@ -219,7 +223,7 @@ function user_checkIncomingData($isANewUser = false)
     || empty(getPostData('state'))
     || empty(getPostData('city'))
   ) {
-    $status->warnings[] = 'Tu dirección, departamento y ciudad, serán necesarias para recibir tus compras, recuerda completar estos datos más adelante';
+    $status->warnings[] = getParam('uid') === 'nuevo' ? 'La dirección, departamento y ciudad, serán necesarias para recibir las compras, recuerda completar estos datos más adelante' : 'Tu dirección, departamento y ciudad, serán necesarias para recibir tus compras, recuerda completar estos datos más adelante';
   }
 
   if (

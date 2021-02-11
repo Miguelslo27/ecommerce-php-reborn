@@ -109,6 +109,17 @@ function processRequests()
     setSession('request_messages', siteNetworksEdition());
   }
 
+  if (getRequestData('action') === ACTION_CREATE_USER) {
+    setSession('request_messages', registerNewUser());
+    $secondary_button = getPostData('button-action-user');
+
+    if (getSession('request_messages')->succeeded && $secondary_button !== 'secondary-button') {
+      $redirectTo = getRequestURIPath() . "?uid=todos";
+      header("Location: $redirectTo");
+      exit;
+    }
+  }
+
   if (getPostData('action') === ACTION_SEND_EMAIL) {
     $from    = getPostData('sendemail_from');
     $name    = getPostData('sendemail_name');
