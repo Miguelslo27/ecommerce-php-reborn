@@ -422,15 +422,22 @@ function getUsers($where = null)
   return getDB()->getObjects($sql);
 }
 
-function suspendUser()
+function handleSuspendUser()
 {
-  $id = getRequestData('id');
-  $status     = newStatusObject();
+  $id        = getRequestData('id');
+  $type = getRequestData('type');
+  $status    = newStatusObject();
+  $newStatus = 0;
+
+  if ($type === "unsuspend-user") {
+    $newStatus = 1;
+  }
+
   $sql = (
     "UPDATE
       `users`
     SET
-      `status` = 0
+      `status` = $newStatus
     WHERE
       `id` = $id"
   );
@@ -439,13 +446,13 @@ function suspendUser()
     $status->succeeded        = false;
     $status->success          = '';
     $status->errors           = [
-      'Hubo un error al suspender el usuario, inténtalo de nuevo'
+      'Hubo un error al manipular el usuario, inténtalo de nuevo'
     ];
     $status->warnings         = [];
     $status->fieldsWithErrors = [];
   } else {
     $status->succeeded        = true;
-    $status->success = 'Usuario suspendido con éxito';
+    $status->success = 'Acción realizada con éxito';
   }
 
   return $status;

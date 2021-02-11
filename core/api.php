@@ -61,9 +61,10 @@ if ($request->action == ACTION_RESTORE_ARTICLE) {
   $response = json_encode($status);
 }
 
-if ($request->action == ACTION_SUSPEND_USER) {
+if ($request->action == ACTION_HANDLE_SUSPEND_USER) {
   setRequestData('id', $request->id);
-  $status = suspendUser();
+  setRequestData('type', $request->type);
+  $status = handleSuspendUser();
 
   $response = json_encode($status);
 }

@@ -344,7 +344,9 @@ restoreArticleButtons.forEach(button => {
 });
 
 //USERS
-const suspendUserButtons = document.querySelectorAll('.suspend-button');
+const suspendUserButtons   = document.querySelectorAll('.suspend-button');
+const unsuspendUserButtons = document.querySelectorAll('.unsuspend-button');
+
 
 const handleSuspendUser = function (ev) {
   ev.preventDefault();
@@ -357,6 +359,7 @@ const handleSuspendUser = function (ev) {
     },
     body: JSON.stringify({
       'action': this.dataset.action,
+      'type': this.dataset.type,
       'id': this.dataset.id
     })
   };
@@ -377,5 +380,9 @@ const handleSuspendUser = function (ev) {
 }
 
 suspendUserButtons.forEach(button => {
+  button.addEventListener("click", handleSuspendUser);
+});
+
+unsuspendUserButtons.forEach(button => {
   button.addEventListener("click", handleSuspendUser);
 });
