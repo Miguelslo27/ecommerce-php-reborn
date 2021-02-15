@@ -1,6 +1,6 @@
 <div class="form-container">
   <!-- NEW ARTICLE -->
-  <?php $categories = getCategories('`status` = 1')?>
+  <?php $categories = getCategories('`status` = 1') ?>
   <?php if (getQueryParam('section') === 'nuevo') : ?>
   <form class="form" action="" method="POST">
     <h2>Crear Articulo</h2>
@@ -43,12 +43,12 @@
     <div class="form-group">
       <label for="article_category">Categoría Padre:</label>
       <select name="article_category" id="article_category" type="text"
-        value="<?php getPreformData('article_category', '')?>" <?php empty($categories) ? bind('disabled') : '' ?>>
+        value="<?php getPreformData('article_category', '') ?>" <?php empty($categories) ? bind('disabled') : '' ?>>
         <?php if (!empty($categories)) : ?>
         <option value="no-category"> - </option>
         <?php foreach ($categories as $category) : ?>
         <option value="<?php bind($category->title) ?>+<?php bind($category->id) ?>"
-          <?php bind((isset($cat_parent) && $category->id == $cat_parent->id) ? 'selected' : '')?>>
+          <?php bind((isset($cat_parent) && $category->id == $cat_parent->id) ? 'selected' : '') ?>>
           <?php bind($category->title) ?></option>
         <?php endforeach ?>
         <?php endif ?>
@@ -81,12 +81,10 @@
     </div>
   </form>
   <?php endif ?>
+
   <?php if (getQueryParam('section') === 'lista') : ?>
   <!-- LISTA DE ARTICULOS -->
-
-  <div class="form big-form" data-success="" id="list-articles">
-    <?php $articles = getArticles('`status` = 0'); ?>
-
+  <div class="form big-form" id="list-articles">
     <h2>Lista De Articulos</h2>
     <div class="table-row text-center">
       <div class="cell article-url"><b>Imagen</b></div>
@@ -97,10 +95,55 @@
       <div class="cell article-new"><b>Nuevo</b></div>
       <div class="cell article-parent"><b>Categoria</b></div>
     </div>
+    <?php $articles = getArticles('`status` = 1'); ?>
+    <?php logToConsole('Count articles', count($articles)) ?>
 
+    <?php for ($a = 0; $a < @count($articles); $a++) : ?>
+    <div class="table-row <?php bind(($a % 2 === 0) ? 'background' : '') ?>">
+
+      <div class="cell article-url">
+        <img href="<?php bind($articles[$a]->images_url) ?>">
+      </div>
+      <div class="cell article-name">
+        <?php bind($articles[$a]->name) ?>
+      </div>
+      <div class="cell article-code">
+        <?php bind($articles[$a]->code) ?>
+      </div>
+      <div class="cell article-b-dscp">
+        <?php bind($articles[$a]->brief_description) ?></p>
+      </div>
+      <div class="cell article-price">
+        <?php bind($articles[$a]->price) ?>
+      </div>
+      <div class="cell article-new">
+        <?php bind($articles[$a]->new) ?>
+      </div>
+      <div class="cell article-parent">
+        <?php bind($articles[$a]->category_id) ?>
+      </div>
+
+      <?php if (getGlobal('section') === 'lista') : ?>
+      <div class="actions list-admin-buttons">
+        <a href="/admin/articulos/?section=lista<?php bind($articles[$a]->code) ?>"><i class="fas fa-edit"></i>
+          Editar</a>
+        <a class="remove-button " data-action="<?php bind(ACTION_REMOVE_ARTICLE) ?>" data-type="remove-article"
+          data-id="<?php bind($articles[$a]->code)?>"><i class="fas fa-trash-alt"></i>
+          Eliminar</a>
+      </div>
+      <?php else : ?>
+      <div class="actions list-admin-buttons">
+        <a class="restore-button" data-action="<?php bind(ACTION_RESTORE_ARTICLE) ?>" data-type="restore-article"
+          data-id="<?php bind($articles[$a]->code)?>"><i class="fas fa-trash-restore"></i>
+          Restaurar</a>
+      </div>
+      <?php endif ?>
+
+    </div>
+    <?php endfor ?>
   </div>
-
   <?php endif ?>
+
   <div class="form-container form-xl">
     <div class="form-container">
       <!-- DELETED ARTICLES -->
