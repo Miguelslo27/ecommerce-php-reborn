@@ -17,9 +17,13 @@ newDocument([
   {
     if (isLoggedIn()) {
       header('Location: ' . (
-        getSession('redirectTo') !== getServer('HTTP_ORIGIN') . getServer('REQUEST_URI')
-        ? getSession('redirectTo')
-        : '/'
+        isAdmin()
+          ? '/admin'
+          : (
+            getSession('redirectTo') !== getServer('HTTP_ORIGIN') . getServer('REQUEST_URI')
+            ? getSession('redirectTo')
+            : '/'
+          )
       ));
       exit;
     }

@@ -397,3 +397,63 @@ function change_password()
   
   return $status;
 }
+
+function getUsers($where = null)
+{
+  $sql = (
+    "SELECT
+      `id`,
+      `name`,
+      `lastname`,
+      `document`,
+      `email`,
+      `address`,
+      `phone`,
+      `cellphone`,
+      `state`,
+      `city`
+    FROM `users`"
+  );
+
+  if (isset($where)) {
+    $sql .= " WHERE $where";
+  }
+
+  return getDB()->getObjects($sql);
+}
+
+function handleSuspendUser()
+{
+  $id        = getRequestData('id');
+  $type = getRequestData('type');
+  $status    = newStatusObject();
+  $newStatus = 0;
+
+  if ($type === "unsuspend-user") {
+    $newStatus = 1;
+  }
+
+  $sql = (
+    "UPDATE
+      `users`
+    SET
+      `status` = $newStatus
+    WHERE
+      `id` = $id"
+  );
+
+  if(!getDB()->query($sql)) {
+    $status->succeeded        = false;
+    $status->success          = '';
+    $status->errors           = [
+      'Hubo un error al manipular el usuario, inténtalo de nuevo'
+    ];
+    $status->warnings         = [];
+    $status->fieldsWithErrors = [];
+  } else {
+    $status->succeeded        = true;
+    $status->success = 'Acción realizada con éxito';
+  }
+
+  return $status;
+}
