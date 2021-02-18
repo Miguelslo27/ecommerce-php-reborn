@@ -220,10 +220,11 @@ input[type="number"] {
 }
 
 /* LIST ARTICLES */
-.article-offer { 
+.article-offer {
+  margin-bottom: 2rem;
+  font-size: 1rem;
 
 }
-
 
 /* ADD NETWORK BUTTON */
 .form-container .form .div-input-button {
