@@ -113,7 +113,7 @@
       <div class="cell article-b-dscp">
         <?php bind($articles[$a]->brief_description) ?></p>
       </div>
-      <div class="cell article-price">
+      <div class="cell article-price article-offer">
         <?php bind($articles[$a]->price) ?>
       </div>
       <div class="cell article-new">
@@ -123,7 +123,7 @@
         <?php bind($articles[$a]->category_id) ?>
       </div>
 
-      <?php if (getGlobal('section') === 'lista') : ?>
+      <?php if (getQueryParam('section') === 'lista') : ?>
       <div class="actions list-admin-buttons">
         <a href="/admin/articulos/?section=lista<?php bind($articles[$a]->code) ?>"><i class="fas fa-edit"></i>
           Editar</a>
