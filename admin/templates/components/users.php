@@ -168,7 +168,7 @@
             <i class="fas fa-check"></i> Guardar
           </button>
           <button class="button save-and-create-new-button" data-success="<?php bind(getGlobal('user_success'))?>" id="save-and-create-new-user" type="submit">
-            <i class="fas fa-check"></i> Guardar y crear otra
+            <i class="fas fa-check"></i> Guardar y registrar otro
           </button>
         </div>
       </form>
