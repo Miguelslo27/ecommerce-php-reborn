@@ -120,7 +120,7 @@
           $<?php bind($articles[$a]->price_offer)?>
           <?php endif ?></span> <br>
 
-        <?php bind($articles[$a]->price) ?>
+        $<?php bind($articles[$a]->price) ?>
       </div>
       <div class="cell article-new">
         <?php bind($articles[$a]->new) ?>
