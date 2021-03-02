@@ -113,14 +113,16 @@
       <div class="cell article-b-dscp">
         <?php bind($articles[$a]->brief_description) ?></p>
       </div>
+
       <div class="cell article-price">
-        <span class="article-offer "> <?php if ($articles[$a]->price_offer === '0') : ?>
-
-          <?php else : ?>
-          $<?php bind($articles[$a]->price_offer)?>
-          <?php endif ?></span> <br>
-
-        $<?php bind($articles[$a]->price) ?>
+        <?php if ($articles[$a]->price_offer !== '0') : ?>
+        <span class="price-offer">
+          $<?php bind($articles[$a]->price_offer) ?>
+        </span>
+        <?php endif ?>
+        <span class="price <?php bind($articles[$a]->price_offer !== "0" ? 'line-through' : '') ?>">
+          $<?php bind($articles[$a]->price) ?>
+        </span>
       </div>
       <div class="cell article-new">
         <?php bind($articles[$a]->new) ?>
