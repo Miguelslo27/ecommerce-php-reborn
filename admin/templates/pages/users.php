@@ -28,6 +28,11 @@ newDocument([
       header('Location: /admin');
       exit;
     }
+
+    $userSuccess = false;
+    !empty(getSession('request_messages')) ? $userSuccess = getSession('request_messages')->succeeded : "";
+
+    setGlobal('user_success', $userSuccess);
   }
 ]);
 

@@ -344,9 +344,10 @@ restoreArticleButtons.forEach(button => {
 });
 
 //USERS
-const suspendUserButtons   = document.querySelectorAll('.suspend-button');
-const unsuspendUserButtons = document.querySelectorAll('.unsuspend-button');
-
+const suspendUserButtons      = document.querySelectorAll('.suspend-button');
+const unsuspendUserButtons    = document.querySelectorAll('.unsuspend-button');
+const saveAndCreateNewUser    = document.getElementById('save-and-create-new-user');
+const userForm                = document.getElementById('user-form');
 
 const handleSuspendUser = function (ev) {
   ev.preventDefault();
@@ -379,6 +380,16 @@ const handleSuspendUser = function (ev) {
     });
 }
 
+const handleSaveAndCreateButton = () => {
+  let input = document.getElementById('button-action-user');
+  input.value = "secondary-button";
+}
+
+if (saveAndCreateNewUser && saveAndCreateNewUser.dataset.success) {
+  userForm.reset();
+  document.getElementById('name').focus();
+}
+
 suspendUserButtons.forEach(button => {
   button.addEventListener("click", handleSuspendUser);
 });
@@ -386,3 +397,5 @@ suspendUserButtons.forEach(button => {
 unsuspendUserButtons.forEach(button => {
   button.addEventListener("click", handleSuspendUser);
 });
+
+saveAndCreateNewUser ? saveAndCreateNewUser.addEventListener('click', handleSaveAndCreateButton) : '';
