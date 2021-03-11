@@ -128,8 +128,16 @@
         <?php bind($articles[$a]->new !== "0" ? 'Si' : '')?>
         <?php endif ?>
       </div>
+
       <div class="cell article-parent">
-        <?php bind($articles[$a]->category_id) ?>
+        <?php $category_id = getCategoryById($cid)
+          function checkIfTitleExists($title)
+          {
+            return $title
+          }
+           ?>
+        <?php bind($articles[$a]->category_id) > "0" ? $title : '' ?>
+
       </div>
 
       <?php if (getQueryParam('section') === 'lista') : ?>
