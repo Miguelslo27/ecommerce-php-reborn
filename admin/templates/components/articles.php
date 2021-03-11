@@ -124,8 +124,14 @@
           $<?php bind($articles[$a]->price) ?>
         </span>
       </div>
+
       <div class="cell article-new">
+        <?php if ($articles[$a]->new !== '0') : ?>
         <?php bind($articles[$a]->new) ?>
+        <?php endif ?>
+        <?php bind($articles[$a]->new !== "0" ? 'Si' : '') ?>
+
+
       </div>
       <div class="cell article-parent">
         <?php bind($articles[$a]->category_id) ?>
