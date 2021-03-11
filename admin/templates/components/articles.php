@@ -113,7 +113,6 @@
       <div class="cell article-b-dscp">
         <?php bind($articles[$a]->brief_description) ?></p>
       </div>
-
       <div class="cell article-price">
         <?php if ($articles[$a]->price_offer !== '0') : ?>
         <span class="price-offer">
@@ -124,14 +123,10 @@
           $<?php bind($articles[$a]->price) ?>
         </span>
       </div>
-
       <div class="cell article-new">
         <?php if ($articles[$a]->new !== '0') : ?>
-        <?php bind($articles[$a]->new) ?>
+        <?php bind($articles[$a]->new !== "0" ? 'Si' : '')?>
         <?php endif ?>
-        <?php bind($articles[$a]->new !== "0" ? 'Si' : '') ?>
-
-
       </div>
       <div class="cell article-parent">
         <?php bind($articles[$a]->category_id) ?>
