@@ -219,6 +219,17 @@ input[type="number"] {
   opacity: 0.8;
 }
 
+/* LIST ARTICLES */
+.table-row .article-price {
+ flex-direction: column;
+}
+.table-row .article-price .price-offer {
+  font-size: 1rem;
+}
+.table-row .article-price .price.line-through {
+ text-decoration: line-through;
+}
+
 /* ADD NETWORK BUTTON */
 .form-container .form .div-input-button {
   display: flex;

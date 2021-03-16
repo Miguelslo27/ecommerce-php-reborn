@@ -23,31 +23,11 @@ newDocument([
       header('Location: /');
       exit;
     }
-
+   
     if (!isSuperAdmin()) {
       header('Location: /admin');
       exit;
     }
-
-    $action = null;
-    $id     = null;
-    $aid    = null;
-
-    if (!empty(getQueryParamsByName(['action']))) {
-      $action = getQueryParamsByName(['action'])['action'];
-    }
-
-    if (!empty(getQueryParamsByName(['id']))) {
-      $id = getQueryParamsByName(['id'])['id'];
-    }
-
-    if (!empty(getQueryParamsByName(['aid']))) {
-      $aid = getQueryParamsByName(['aid'])['aid'];
-    }
-
-    setGlobal('section', $aid);
-    setGlobal('action', $action);
-    setGlobal('id', $id);
   }
 ]);
 

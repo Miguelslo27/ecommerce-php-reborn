@@ -16,7 +16,7 @@
   $articles         = new stdClass();
   $articles->title  = 'Artículos';
   $articles->number = '94';
-  $articles->links  = [['Todos los artículos', '/admin/articulos?aid=todos'],['Nuevo artículo', '/admin/articulos?aid=nuevo'],['Artículos eliminados', '/admin/articulos?aid=eliminados']];
+  $articles->links  = [['Todos los artículos', '/admin/articulos/?section=lista'],['Nuevo artículo', '/admin/articulos?section=nuevo'],['Artículos eliminados', '/admin/articulos?section=eliminados']];
   $articles->icon   = 'far fa-file';
   $articles->name   = 'articles';
 
