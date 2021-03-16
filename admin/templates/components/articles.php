@@ -130,15 +130,8 @@
       </div>
 
       <div class="cell article-parent">
-        <?php
-        $cid = getArticles($articles[$a]->$category_id);
-      $category_id = getCategoryById($cid);
-      {
-        return $title;
-      }
-      ?>
+        <?php $category = getCategoryById($articles[$a]->category_id);?>
         <?php bind(oneOf(@$category->title, '')) ?>
-
       </div>
 
       <?php if (getQueryParam('section') === 'lista') : ?>
