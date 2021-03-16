@@ -130,13 +130,14 @@
       </div>
 
       <div class="cell article-parent">
-        <?php $category_id = getCategoryById($cid)
-          function checkIfTitleExists($title)
-          {
-            return $title
-          }
-           ?>
-        <?php bind($articles[$a]->category_id) > "0" ? $title : '' ?>
+        <?php
+        $cid = getArticles($articles[$a]->$category_id);
+      $category_id = getCategoryById($cid);
+      {
+        return $title;
+      }
+      ?>
+        <?php bind(oneOf(@$category->title, '')) ?>
 
       </div>
 
