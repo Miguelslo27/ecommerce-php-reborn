@@ -136,7 +136,7 @@
 
       <?php if (getQueryParam('section') === 'lista') : ?>
       <div class="actions list-admin-buttons">
-        <a href="/admin/articulos/?section=lista<?php bind($articles[$a]->code) ?>"><i class="fas fa-edit"></i>
+        <a href="/admin/articulos/?section=editar&aid1<?php bind($articles[$a]->code) ?>"><i class="fas fa-edit"></i>
           Editar</a>
         <a class="remove-button " data-action="<?php bind(ACTION_REMOVE_ARTICLE) ?>" data-type="remove-article"
           data-id="<?php bind($articles[$a]->code)?>"><i class="fas fa-trash-alt"></i>
