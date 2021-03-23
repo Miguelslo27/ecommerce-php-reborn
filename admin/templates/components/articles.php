@@ -1,7 +1,7 @@
 <div class="form-container">
   <!-- NEW ARTICLE -->
   <?php $categories = getCategories('`status` = 1') ?>
-  <?php if (getQueryParam('section') === 'nuevo') : ?>
+  <?php if (getQueryParam('section') === 'nuevo' || getQueryParam('section') === 'editar') : ?>
   <form class="form" action="" method="POST">
     <h2>Crear Articulo</h2>
     <input type="hidden" name="action" value="<?php bind('ACTION_HANDLE_ARTICLE') ?>">
