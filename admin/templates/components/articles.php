@@ -3,7 +3,11 @@
   <?php $categories = getCategories('`status` = 1') ?>
   <?php if (getQueryParam('section') === 'nuevo' || getQueryParam('section') === 'editar') : ?>
   <form class="form" action="" method="POST">
+    <?php if (getGlobal('section') === 'nuevo') : ?>
     <h2>Crear Articulo</h2>
+    <?php else : ?>
+    <h2>Editar Articulo</h2>
+    <?php endif ?>
     <input type="hidden" name="action" value="<?php bind('ACTION_HANDLE_ARTICLE') ?>">
     <div class="form-group">
       <label for="article_name">Nombre:</label>
