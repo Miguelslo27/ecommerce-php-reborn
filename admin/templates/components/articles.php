@@ -14,43 +14,44 @@
     <div class="form-group">
       <label for="article_name">Nombre:</label>
       <input name="article_name" id="article_name" type="text" class="<?php fieldHasError('article_name', 'error') ?>"
-        value="<?php getGlobal('section') === 'edit' ? :  bind(oneOf(getPreformData('article_name', ''), $current_article->name)) ?>">
+        value="<?php getGlobal('section') === 'editar' ? :  bind(oneOf(getPreformData('article_name', ''), $current_article->name)) ?>">
     </div>
     <div class="form-group">
       <label for="article_code">Código:</label>
       <input name="article_code" id="article_code" type="text" class="<?php fieldHasError('article_code', 'error') ?>"
-        value="<?php getGlobal('section') === 'edit' ? :  bind(oneOf(getPreformData('article_code', ''), $current_article->code)) ?>">
+        value="<?php getGlobal('section') === 'editar' ? :  bind(oneOf(getPreformData('article_code', ''), $current_article->code)) ?>">
     </div>
     <div class="form-group">
       <label for="article_description">Descripción:</label>
       <textarea name="article_description" id="article_description" type="text"
         class="<?php fieldHasError('article_description', 'error') ?>"
-        value="<?php getGlobal('section') === 'edit' ? :  bind(oneOf(getPreformData('article_description', ''), $current_article->description))?>">
+        value="<?php getGlobal('section') === 'editar' ? :  bind(oneOf(getPreformData('article_description', ''), $current_article->description))?>">
         </textarea>
     </div>
     <div class="form-group">
       <label for="article_brief_description">Descripción Corta:</label>
       <textarea name="article_brief_description" id="article_brief_description" type="text"
         class="<?php fieldHasError('article_brief_description', 'error') ?>"
-        value="<?php getGlobal('section') === 'edit' ? :  bind(oneOf(getPreformData('article_brief_description', ''), $current_article->brief_description)) ?>">
+        value="<?php getGlobal('section') === 'editar' ? :  bind(oneOf(getPreformData('article_brief_description', ''), $current_article->brief_description)) ?>">
         </textarea>
     </div>
     <div class="form-group">
       <label for="article_price">Precio:</label>
       <input name="article_price" id="article_price" type="number"
         class="<?php fieldHasError('article_price', 'error') ?>"
-        value="<?php getGlobal('section') === 'edit' ? :  bind(oneOf(getPreformData('article_price', ''), $current_article->price)) ?>">
+        value="<?php getGlobal('section') === 'editar' ? :  bind(oneOf(getPreformData('article_price', ''), $current_article->price)) ?>">
     </div>
     <div class="form-group">
       <label for="article_img_url">Imagenes (URL):</label>
       <input name="article_img_url" id="article_img_url" type="text"
         class="<?php fieldHasError('article_img_url', 'error') ?>"
-        value="<?php getGlobal('section') === 'edit' ? :  bind(oneOf(getPreformData('article_img_url', ''), $current_article->images_url)) ?>">
+        value="<?php getGlobal('section') === 'editar' ? :  bind(oneOf(getPreformData('article_img_url', ''), $current_article->images_url)) ?>">
     </div>
     <div class="form-group">
       <label for="article_category">Categoría Padre:</label>
       <select name="article_category" id="article_category" type="text"
-        value="<?php getPreformData('article_category', '') ?>" <?php empty($categories) ? bind('disabled') : '' ?>>
+        value="<?php getGlobal('section') === 'editar' ? :  bind(oneOf(getPreformData('article_category', ''), $current_article->category_id)) ?>"
+        <?php empty($categories) ? bind('disabled') : '' ?>>
         <?php if (!empty($categories)) : ?>
         <option value="no-category"> - </option>
         <?php foreach ($categories as $category) : ?>
