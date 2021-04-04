@@ -7,8 +7,7 @@
     <h2>Crear Articulo</h2>
     <?php else : ?>
     <h2>Editar Articulo</h2>
-    <?php $current_article = getArticle (getQueryParam('aid')); 
-          //var_dump($current_article);?>
+    <?php $current_article = getArticle (getQueryParam('aid')); ?>
     <?php endif ?>
     <input type="hidden" name="action" value="<?php bind('ACTION_HANDLE_ARTICLE') ?>">
     <div class="form-group">
@@ -64,15 +63,18 @@
     </div>
     <div class="form-checkbox-group">
       <label for="article_new">
-        <input type="checkbox" name="article_new" id="article_new">
+        <input type="checkbox" name="article_new" id="article_new"
+          value="<?php getGlobal('section') === 'editar' ? :  bind(oneOf(getPreformData('article_new', ''), $current_article->new)) ?>">
         <span>Nuevo</span>
       </label>
       <label for="article_spent">
-        <input type="checkbox" name="article_spent" id="article_spent">
+        <input type="checkbox" name="article_spent" id="article_spent"
+          value="<?php getGlobal('section') === 'editar' ? :  bind(oneOf(getPreformData('article_spent', ''), $current_article->spent)) ?>">
         <span>Agotado</span>
       </label>
       <label for="article_offer">
-        <input type="checkbox" name="article_offer" id="article_offer">
+        <input type="checkbox" name="article_offer" id="article_offer"
+          value="<?php getGlobal('section') === 'editar' ? :  bind(oneOf(getPreformData('article_offer', ''), $current_article->offer)) ?>">
         <span>En oferta</span>
       </label>
     </div>
