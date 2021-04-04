@@ -40,6 +40,17 @@
         class="<?php fieldHasError('article_price', 'error') ?>"
         value="<?php getGlobal('section') === 'editar' ? :  bind(oneOf(getPreformData('article_price', ''), $current_article->price)) ?>">
     </div>
+
+    <div class="form-group">
+      <?php if ($current_article->offer !== '0') : ?>
+      <label for="article_offer">Precio de Oferta:</label>
+      <input name="article_offer" id="article_offer" type="number"
+        class="<?php fieldHasError('article_offer', 'error') ?>"
+        value="<?php getGlobal('section') === 'editar' ? :  bind(oneOf(getPreformData('article_offer', ''), $current_article->offer)) ?>">
+      <?php endif ?>
+    </div>
+
+
     <div class="form-group">
       <label for="article_img_url">Imagenes (URL):</label>
       <input name="article_img_url" id="article_img_url" type="text"
