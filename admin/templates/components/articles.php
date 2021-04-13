@@ -75,17 +75,17 @@
     <div class="form-checkbox-group">
       <label for="article_new">
         <input type="checkbox" name="article_new" id="article_new"
-          value="<?php getGlobal('section') === 'editar' ? :  bind(oneOf(getPreformData('article_new', ''), $current_article->new)) ?>">
+          <?php if (1 == $current_article->new) echo 'checked="checked"'?>>
         <span>Nuevo</span>
       </label>
       <label for="article_spent">
         <input type="checkbox" name="article_spent" id="article_spent"
-          value="<?php getGlobal('section') === 'editar' ? :  bind(oneOf(getPreformData('article_spent', ''), $current_article->spent)) ?>">
+          <?php if (0 == $current_article->spent) echo 'checked="checked"'?>>
         <span>Agotado</span>
       </label>
       <label for="article_offer">
         <input type="checkbox" name="article_offer" id="article_offer"
-          value="<?php getGlobal('section') === 'editar' ? :  bind(oneOf(getPreformData('article_offer', ''), $current_article->offer)) ?>">
+          <?php if (1 == $current_article->offer) echo 'checked="checked"'?>>
         <span>En oferta</span>
       </label>
     </div>
