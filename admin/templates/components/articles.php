@@ -60,15 +60,18 @@
     </div>
     <div class="form-checkbox-group">
       <label for="article_new">
-        <input type="checkbox" name="article_new" id="article_new">
+        <input type="checkbox" name="article_new" id="article_new"
+        <?php bind($current_article->new == 1 ? 'checked' : '') ?>>
         <span>Nuevo</span>
       </label>
       <label for="article_spent">
         <input type="checkbox" name="article_spent" id="article_spent">
+        <?php bind($current_article->spent == 1 ? 'checked' : '') ?>
         <span>Agotado</span>
       </label>
       <label for="article_offer">
         <input type="checkbox" name="article_offer" id="article_offer">
+        <?php bind($current_article->offer == 1 ? 'checked' : '') ?>
         <span>En oferta</span>
       </label>
     </div>
