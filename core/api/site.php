@@ -274,10 +274,11 @@ function getSiteNetworks()
     FROM `site_networks`
     WHERE `site_id` = $site_id"
   );  
-
-  return getDB()->getObjects($sql);
+  if ($result = getDB()->getObjects($sql)) {
+    return $result;
+  }
+  return Array();
 }
-
 function allSiteNetworksDisplayed()
 {
   $networks = getSiteNetworks();
