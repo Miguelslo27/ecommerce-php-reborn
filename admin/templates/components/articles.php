@@ -145,13 +145,13 @@
       <div class="actions list-admin-buttons">
         <a href="/admin/articulos/?section=editar&aid=<?php bind($articles[$a]->id) ?>"><i class="fas fa-edit"></i>
           Editar</a>
-        <a class="remove-button " data-action="<?php bind(ACTION_REMOVE_ARTICLE) ?>" data-type="remove-article"
-          data-id="<?php bind($articles[$a]->code)?>"><i class="fas fa-trash-alt"></i>
+        <a class="remove-button remove-article-button" data-action="<?php bind(ACTION_REMOVE_ARTICLE) ?>" 
+          data-type="remove-article" data-id="<?php bind($articles[$a]->code)?>"><i class="fas fa-trash-alt"></i>
           Eliminar</a>
       </div>
       <?php else : ?>
       <div class="actions list-admin-buttons">
-        <a class="restore-button" data-action="<?php bind(ACTION_RESTORE_ARTICLE) ?>" data-type="restore-article"
+        <a class="restore-button restore-article-button" data-action="<?php bind(ACTION_RESTORE_ARTICLE) ?>" data-type="restore-article"
           data-id="<?php bind($articles[$a]->code)?>"><i class="fas fa-trash-restore"></i>
           Restaurar</a>
       </div>

@@ -250,6 +250,7 @@ const articePriceOfferInput   = document.getElementById('article_price_offer');
 const articlePriceOfferLabel  = document.getElementById('article_price_offer_label');
 const collapsableBox          = document.querySelector('.collapsable-box');
 const restoreArticleButtons   = document.querySelectorAll('.restore-article-button');
+const removeArticleButtons   = document.querySelectorAll('.remove-article-button');
 
 if(collapsableBox) {
   collapsableBox.dataset.height = collapsableBox.scrollHeight;
@@ -342,6 +343,7 @@ if (offerArticleCheckBox) {
 restoreArticleButtons.forEach(button => {
   button.addEventListener("click", handleRestorArticle);
 });
+
 
 //USERS
 const suspendUserButtons      = document.querySelectorAll('.suspend-button');
