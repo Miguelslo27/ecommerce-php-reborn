@@ -54,6 +54,14 @@ if ($request->action == ACTION_RESTORE_CATEGORY) {
   $response = json_encode($status);
 }
 
+if ($request->action == ACTION_REMOVE_ARTICLE) {
+  setRequestData('id', $request->id);
+  $status = removeArticle();
+
+  $response = json_encode($status);
+}
+
+
 if ($request->action == ACTION_RESTORE_ARTICLE) {
   setRequestData('id', $request->id);
   $status = restoreArticle();

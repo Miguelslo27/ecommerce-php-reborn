@@ -184,6 +184,29 @@ function article_checkIncomingData()
   return $status;
 }
 
+function removeArticle()
+  {
+    $aid = getRequestData('id');
+  $status = newStatusObject();
+
+  $sql = (
+    "UPDATE
+        `articles` 
+      SET
+        `status` = 0
+      WHERE 
+        `id` = $aid"
+  );
+  if(!getDB()->query($sql)) {
+    $status->errors[] = 'El articulo no se puedo eliminar, intente de nuevo';
+    return $status;
+  }
+
+  $status->succeeded = true;
+  $status->success   = 'Articulo eliminado con éxito';
+  return $status;
+  }
+
 function restoreArticle()
 {
   $article_id = getRequestData('id');
