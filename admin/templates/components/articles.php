@@ -3,65 +3,51 @@
   <?php $categories = getCategories('`status` = 1') ?>
   <?php if (getQueryParam('section') === 'nuevo' || getQueryParam('section') === 'editar') : ?>
   <form class="form" action="" method="POST">
-    <?php if (getQueryParam('section') === 'nuevo') : ?>
+    <?php if (getGlobal('section') === 'nuevo') : ?>
     <h2>Crear Articulo</h2>
     <?php else : ?>
     <h2>Editar Articulo</h2>
-    <?php $current_article = getArticle (getQueryParam('aid')); ?>
     <?php endif ?>
     <input type="hidden" name="action" value="<?php bind('ACTION_HANDLE_ARTICLE') ?>">
     <div class="form-group">
       <label for="article_name">Nombre:</label>
       <input name="article_name" id="article_name" type="text" class="<?php fieldHasError('article_name', 'error') ?>"
-        value="<?php getGlobal('section') === 'editar' ? :  bind(oneOf(getPreformData('article_name', ''), $current_article->name)) ?>">
+        value="<?php getPreformData('article_name', '') ?>">
     </div>
     <div class="form-group">
       <label for="article_code">Código:</label>
       <input name="article_code" id="article_code" type="text" class="<?php fieldHasError('article_code', 'error') ?>"
-        value="<?php getGlobal('section') === 'editar' ? :  bind(oneOf(getPreformData('article_code', ''), $current_article->code)) ?>">
+        class="<?php fieldHasError('article_code', 'error') ?>" value="<?php getPreformData('article_code', '') ?>">
     </div>
     <div class="form-group">
       <label for="article_description">Descripción:</label>
       <textarea name="article_description" id="article_description" type="text"
-        class="<?php fieldHasError('article_description', 'error') ?>"
-        value="<?php getGlobal('section') === 'editar' ? :  bind(oneOf(getPreformData('article_description', ''), $current_article->description))?>">
+        class="<?php fieldHasError('article_description', 'error') ?>">
+          <?php getPreformData('article_description', '') ?>
         </textarea>
     </div>
     <div class="form-group">
       <label for="article_brief_description">Descripción Corta:</label>
       <textarea name="article_brief_description" id="article_brief_description" type="text"
-        class="<?php fieldHasError('article_brief_description', 'error') ?>"
-        value="<?php getGlobal('section') === 'editar' ? :  bind(oneOf(getPreformData('article_brief_description', ''), $current_article->brief_description)) ?>">
+        class="<?php fieldHasError('article_brief_description', 'error') ?>">
+          <?php getPreformData('article_brief_description', '') ?>
         </textarea>
     </div>
     <div class="form-group">
       <label for="article_price">Precio:</label>
       <input name="article_price" id="article_price" type="number"
-        class="<?php fieldHasError('article_price', 'error') ?>"
-        value="<?php getGlobal('section') === 'editar' ? :  bind(oneOf(getPreformData('article_price', ''), $current_article->price)) ?>">
+        class="<?php fieldHasError('article_price', 'error') ?>" value="<?php getPreformData('article_price', '') ?>">
     </div>
-
-    <div class="form-group">
-      <?php if ($current_article->offer !== '0') : ?>
-      <label for="article_offer">Precio de Oferta:</label>
-      <input name="article_offer" id="article_offer" type="number"
-        class="<?php fieldHasError('article_offer', 'error') ?>"
-        value="<?php getGlobal('section') === 'editar' ? :  bind(oneOf(getPreformData('article_offer', ''), $current_article->offer)) ?>">
-      <?php endif ?>
-    </div>
-
-
     <div class="form-group">
       <label for="article_img_url">Imagenes (URL):</label>
       <input name="article_img_url" id="article_img_url" type="text"
         class="<?php fieldHasError('article_img_url', 'error') ?>"
-        value="<?php getGlobal('section') === 'editar' ? :  bind(oneOf(getPreformData('article_img_url', ''), $current_article->images_url)) ?>">
+        value="<?php getPreformData('article_img_url', '') ?>">
     </div>
     <div class="form-group">
       <label for="article_category">Categoría Padre:</label>
       <select name="article_category" id="article_category" type="text"
-        value="<?php getGlobal('section') === 'editar' ? :  bind(oneOf(getPreformData('article_category', ''), $current_article->category_id)) ?>"
-        <?php empty($categories) ? bind('disabled') : '' ?>>
+        value="<?php getPreformData('article_category', '') ?>" <?php empty($categories) ? bind('disabled') : '' ?>>
         <?php if (!empty($categories)) : ?>
         <option value="no-category"> - </option>
         <?php foreach ($categories as $category) : ?>
@@ -75,17 +61,17 @@
     <div class="form-checkbox-group">
       <label for="article_new">
         <input type="checkbox" name="article_new" id="article_new"
-          <?php if (1 == $current_article->new) echo 'checked="checked"'?>>
+        <?php bind($current_article->new == 1 ? 'checked' : '') ?>>
         <span>Nuevo</span>
       </label>
       <label for="article_spent">
-        <input type="checkbox" name="article_spent" id="article_spent"
-          <?php if (0 == $current_article->spent) echo 'checked="checked"'?>>
+        <input type="checkbox" name="article_spent" id="article_spent">
+        <?php bind($current_article->spent == 1 ? 'checked' : '') ?>
         <span>Agotado</span>
       </label>
       <label for="article_offer">
-        <input type="checkbox" name="article_offer" id="article_offer"
-          <?php if (1 == $current_article->offer) echo 'checked="checked"'?>>
+        <input type="checkbox" name="article_offer" id="article_offer">
+        <?php bind($current_article->offer == 1 ? 'checked' : '') ?>
         <span>En oferta</span>
       </label>
     </div>
@@ -159,13 +145,13 @@
       <div class="actions list-admin-buttons">
         <a href="/admin/articulos/?section=editar&aid=<?php bind($articles[$a]->id) ?>"><i class="fas fa-edit"></i>
           Editar</a>
-        <a class="remove-button " data-action="<?php bind(ACTION_REMOVE_ARTICLE) ?>" data-type="remove-article"
-          data-id="<?php bind($articles[$a]->code)?>"><i class="fas fa-trash-alt"></i>
+        <a class="remove-button remove-article-button" data-action="<?php bind(ACTION_REMOVE_ARTICLE) ?>" 
+          data-type="remove-article" data-id="<?php bind($articles[$a]->id)?>"><i class="fas fa-trash-alt"></i>
           Eliminar</a>
       </div>
       <?php else : ?>
       <div class="actions list-admin-buttons">
-        <a class="restore-button" data-action="<?php bind(ACTION_RESTORE_ARTICLE) ?>" data-type="restore-article"
+        <a class="restore-button restore-article-button" data-action="<?php bind(ACTION_RESTORE_ARTICLE) ?>" data-type="restore-article"
           data-id="<?php bind($articles[$a]->code)?>"><i class="fas fa-trash-restore"></i>
           Restaurar</a>
       </div>

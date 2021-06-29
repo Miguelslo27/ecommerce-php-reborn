@@ -250,6 +250,39 @@ const articePriceOfferInput   = document.getElementById('article_price_offer');
 const articlePriceOfferLabel  = document.getElementById('article_price_offer_label');
 const collapsableBox          = document.querySelector('.collapsable-box');
 const restoreArticleButtons   = document.querySelectorAll('.restore-article-button');
+const removeArticleButtons   = document.querySelectorAll('.remove-article-button');
+
+function handleArticle(ev) {
+  ev.preventDefault();
+  form.classList.add('blur');
+
+  const options  = {
+    method: 'POST',
+    headers:{
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'action': this.dataset.action,
+      'type': this.dataset.type,
+      'id': this.dataset.id
+    })
+  };
+
+  fetch('/core/api.php', options)
+    .then(res => res.json())
+    .then(res => {
+      setTimeout(() => {
+        form.classList.remove('blur');
+      }, TIMETORELOAD);
+
+      handleUpdateResponse(res, this.dataset.type);
+    })
+    .catch(err => {
+      form.classList.remove('blur');
+      handleUpdateError('error');
+    });
+}
+removeArticleButtons.forEach(button => button.addEventListener("click", handleArticle));
 
 if(collapsableBox) {
   collapsableBox.dataset.height = collapsableBox.scrollHeight;
@@ -342,6 +375,7 @@ if (offerArticleCheckBox) {
 restoreArticleButtons.forEach(button => {
   button.addEventListener("click", handleRestorArticle);
 });
+
 
 //USERS
 const suspendUserButtons      = document.querySelectorAll('.suspend-button');
