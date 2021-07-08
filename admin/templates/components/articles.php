@@ -165,7 +165,7 @@
   <div class="form-container form-xl">
     <div class="form-container">
       <!-- DELETED ARTICLES -->
-      <?php if (getGlobal('section') === 'eliminados' && getGlobal('action') === null) : ?>
+      <?php if (getQueryParam('section') === 'eliminados' && getGlobal('action') === null) : ?>
       <div class="form big-form" data-success="" id="list-articles">
         <?php $articles = getArticles('`status` = 0'); ?>
         <h2>Articulos Eliminados</h2>
