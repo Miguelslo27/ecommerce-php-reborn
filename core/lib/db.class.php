@@ -127,7 +127,7 @@ class DB {
 
         return $array;
       } else {
-        return NULL;
+        return Array();
       }
     }
   }

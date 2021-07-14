@@ -23,7 +23,7 @@
   $orders         = new stdClass();
   $orders->title  = 'Pedidos totales';
   $orders->number = '706';
-  $orders->links  = [['Todos los pedidos', '/admin/pedidos?pid=todos'],['Pedidos pendientes', '/admin/pedidos?pid=pendientes'],['Pedidos abiertos', '/admin/pedidos?pid=abiertos'],['Pedidos cerrados', '/admin/pedidos?pid=cerrados'],['Pedidos cancelados', '/admin/pedidos?pid=cancelados']];
+  $orders->links  = [['Todos los pedidos', '/admin/ordenes/index.php'],['Pedidos pendientes', '/admin/pedidos?pid=pendientes'],['Pedidos abiertos', '/admin/pedidos?pid=abiertos'],['Pedidos cerrados', '/admin/pedidos?pid=cerrados'],['Pedidos cancelados', '/admin/pedidos?pid=cancelados']];
   $orders->icon   = 'fas fa-shopping-cart';
   $orders->name   = 'orders';
 

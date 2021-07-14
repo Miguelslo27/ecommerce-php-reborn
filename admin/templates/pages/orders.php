@@ -1,0 +1,31 @@
+<?php
+
+newDocument([
+  'title' => 'eCommerce - Mi Cuenta',
+  'page' => 'account',
+  'sub_page' => 'my_data',
+  'components' => [
+    'components/header/header',
+    'components/orders/orders',
+    'components/footer/footer'
+  ],
+  'styles' => [
+    'css/fontawesome/css/all.min.css',
+    'css/layout.css',
+    'css/account.css',
+    'css/forms.css'
+  ],
+  'beforeRender' => function () {
+    $categories = getCategories('`category_id` = 0 AND `status` = 1');
+    $email = getCurrentUser()->email; $userData = loadUser($email);
+
+    setGlobal('categories', oneOf($categories, []));
+    setGlobal('user', $userData);
+
+    if (!isLoggedIn()) {
+      header('Location: /login');
+      exit;
+    }
+  }
+
+]);
