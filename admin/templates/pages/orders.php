@@ -1,31 +1,32 @@
 <?php
 
 newDocument([
-  'title' => 'eCommerce - Mi Cuenta',
-  'page' => 'account',
-  'sub_page' => 'my_data',
+  'title' => 'eCommerce - Total Pedidos',
+  'page' => 'admin',
+  'sub_page' => 'total_orders',
   'components' => [
-    'components/header/header',
-    'components/orders/orders',
-    'components/footer/footer'
+    'components/navbar',
+    'components/searcher',
+    'components/orders'
   ],
   'styles' => [
-    'css/fontawesome/css/all.min.css',
-    'css/layout.css',
-    'css/account.css',
-    'css/forms.css'
+    'components/css/fontawesome/css/all.min.css',
+    'components/css/admin.css',
+    'components/css/forms.css'
   ],
-  'beforeRender' => function () {
-    $categories = getCategories('`category_id` = 0 AND `status` = 1');
-    $email = getCurrentUser()->email; $userData = loadUser($email);
+  'scripts' => [
+    'components/admin.js'
+  ],
+  'beforeRender' => function ()
+  {
+    if (!isAdmin()) {
+      header('Location: /');
+      exit;
+    }
 
-    setGlobal('categories', oneOf($categories, []));
-    setGlobal('user', $userData);
-
-    if (!isLoggedIn()) {
-      header('Location: /login');
+    if (!isSuperAdmin()) {
+      header('Location: /admin');
       exit;
     }
   }
-
 ]);
